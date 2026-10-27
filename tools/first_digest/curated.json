@@ -1,122 +1,290 @@
 [
-{"pmid":"42907731","published":"2026-10-21","source":"Journal of Imaging Informatics in Medicine","topics":["prostate_us"],"score":5,
- "why":"Prototype-guided learning on transrectal ultrasound for clinically significant prostate cancer, using B-mode plus strain elastography. Close to the ProtoProstate setting, and it tackles scarce annotations.",
- "problem":"Finding clinically significant prostate cancer on transrectal ultrasound is hard because contrast is low and lesions look subtle, and pixel-level segmentation labels are scarce.",
- "method":"A dual-stream encoder takes B-mode and strain elastography, with cross-modal attention gates passing context between the streams. A multi-scale prototype-guided strategy spreads supervision from a few labeled segmentations to unlabeled cases, and a multi-task classifier combines segmentation and classification features.",
- "result":"On an in-house set of 612 biopsy subjects it reaches AUC 0.86 for csPCa detection, and the ablations support the cross-modal, prototype and multi-task parts. Code is public."},
-{"pmid":"42926578","published":"2026-10-05","source":"medRxiv preprint","topics":["prostate_us"],"score":5,
- "why":"A micro-ultrasound-specific foundation model trained with self-supervision (DINOv2 style). It speaks directly to label-efficient prostate micro-US work and to how far SSL pretraining goes.",
- "problem":"Automated analysis of prostate micro-ultrasound is held back by the cost of expert annotation.",
- "method":"µFM is pretrained with DINOv2-style self-supervised learning on 1,736,391 unlabeled micro-US images from 780 patients. It is then fine-tuned for prostate capsule segmentation, urethra segmentation and cancer lesion localization, and compared with randomly initialised models and foundation models pretrained on natural, medical and ultrasound images.",
- "result":"It was better on all three tasks, most of all with little labeled data: with 10% of training scans, Dice was 93.8% for capsule and 58.4% for urethra (versus 87.9% and 47.0% for the best comparators), and lesion localization reached about 0.75 sensitivity at two false positives per volume. The authors note pretraining came from one institution and the model is not 3D."},
-{"pmid":"42901865","published":"2026-10-20","source":"BJU International","topics":["prostate_us"],"score":4,
- "why":"Shows how much MRI plus ultrasound together add over ultrasound alone for localizing cancer on TRUS. A useful reference point for ultrasound-only models.",
- "problem":"MRI-targeted biopsy depends on mapping MRI lesions onto TRUS, and misalignment between the two causes sampling errors and missed significant cancers.",
- "method":"MRUSuNet takes both MRI and TRUS as input and detects and localizes the 3D volume of clinically significant cancer on the TRUS images. It was developed on two fusion-biopsy cohorts (3000 patients) and validated on a radical prostatectomy cohort (110 patients).",
- "result":"Across test cohorts sensitivity was 0.80 and lesion Dice 0.42, versus 0.73 / 0.30 for an MRI-only model and 0.49 / 0.27 for a TRUS-only model. Against radiologists on prostatectomy cases it had higher specificity (0.88 vs 0.78) and Dice (0.32 vs 0.27) with no sensitivity difference."},
-{"pmid":"42861175","published":"2026-10-01","source":"Quantitative Imaging in Medicine and Surgery","topics":["prostate_us"],"score":3,
- "why":"A large TRUS-with-histopathology dataset and an anatomy-aware transformer for detection and risk grading. Worth skimming for the data design and the external test.",
- "problem":"There is no accurate non-invasive AI tool for prostate cancer diagnosis and risk stratification from ultrasound alone.",
- "method":"An Anatomy-Aware Transformer (AAT) jointly handles prostate region segmentation and cancer diagnosis, trained on paired sagittal TRUS images and biopsy histopathology (18,424 images for training and internal validation, 683 for external validation).",
- "result":"It beat 18 standard models and four ultrasonographers on cancer detection, clinically significant cancer detection and risk categories. For overall cancer detection, accuracy was 0.977 internally and 0.810 externally, so the external drop is noticeable."},
-{"pmid":"42853344","published":"2026-10-09","source":"Current Urology Reports (review)","topics":["prostate_us"],"score":3,
- "why":"A narrative review of 29 MHz micro-ultrasound against mpMRI. Good clinical background and framing for the limits your models must address.",
- "problem":"Where micro-ultrasound fits in the prostate cancer detection pathway relative to multiparametric MRI.",
- "method":"A narrative review of prospective, comparative and randomized studies, with clinically significant cancer detection as the main endpoint.",
- "result":"Micro-US (about 70 micrometre axial resolution) performs comparably to mpMRI in head-to-head studies, and combining the two gives the highest yield. Limits listed: operator dependence, inter-observer variability, no validated biopsy-avoidance thresholds, and lower sensitivity for anterior lesions."},
-
-{"arxiv":"2610.16084","source":"arXiv cs.AI, accepted at NeurIPS 2026 (per authors)","topics":["steering","interpretability"],"score":5,
- "why":"A curvature view of steering vectors: why contrastive activation addition is fragile and a one-line fix. Directly in your activation-steering geometry line of work.",
- "problem":"Contrastive activation addition (CAA) often pushes behavior the wrong way on individual inputs, and it was not clear why.",
- "method":"They define a steering Hessian, the second derivative of the behavioral loss with respect to the steering vector. Its top eigenvectors are sharp directions where small changes cause erratic, input-dependent swings. Sharp removal projects those components out of the vector. Tested on Qwen2.5-7B, Llama-3.1-8B and Mistral-7B.",
- "result":"Sharp directions are only 1 to 5% of the CAA vector's squared norm, yet steering along them reverses the intended behavior (anti-steer rates 53 to 100%). Removing them keeps cosine similarity above 0.974, cuts directional curvature up to 12x, and beats standard CAA in all 25 open-ended generation conditions."},
-{"arxiv":"2610.04967","source":"arXiv cs.LG","topics":["steering"],"score":4,
- "why":"Questions the habit of steering every generated token: a short intervention at the start can keep most of the control with less damage to capabilities.",
- "problem":"Prompting acts through the initial context while steering usually intervenes at every step. Can a brief steering intervention behave like a prompt?",
- "method":"They give attention-level conditions under which single- and multi-token steering matches the effect of a prompt. Then Prefix Steering applies an existing steering direction only over a short span starting at the last prompt token, and the effect of duration and strength is studied on four models and five tasks.",
- "result":"Steering a short span, even one token, often keeps much of full steering's behavioral control while better preserving general capabilities, and is competitive with or better than prompting in some settings. It also helps with answer formatting after reasoning."},
-{"arxiv":"2610.07722","source":"arXiv cs.CL","topics":["steering"],"score":4,
- "why":"A broad benchmark showing steering methods still do not beat prompting once side effects are counted. A good checklist for evaluating your own steering results.",
- "problem":"Steering is usually judged by whether it induces the target behavior, with side effects and robustness checked only in fragments.",
- "method":"SteerScope is an evaluation suite with 15 metrics covering target efficacy, side effects (language quality, task capability, safety) and sample efficiency and sensitivity. It benchmarks 23 methods in 4 families, including prompting, LoRA and SFT baselines.",
- "result":"No activation steering method achieved higher efficacy than the prompt baseline without larger composite side effects. Efficacy and side effects are coupled, and on out-of-distribution prompts efficacy often holds while fluency and instruction relevance decline."},
-{"arxiv":"2610.33217","source":"arXiv cs.LG","topics":["steering"],"score":3,
- "why":"Treats the steering direction as a statistical estimand with a debiased, double-robust estimator. A principled angle on how directions are estimated.",
- "problem":"The literature mixes up the steering direction a method targets with the estimator used to find it.",
- "method":"They frame most existing methods as plug-in estimators of the average gradient of an outcome regression with the contrastive label as outcome. That allows continuous outcomes (e.g. log-probabilities), and a second estimator based on the Stein score is combined with it into an orthogonalized, doubly robust estimator.",
- "result":"The framework is illustrated on several benchmark datasets. The abstract does not give headline numbers, so this is mainly a conceptual and methodological contribution."},
-
-{"arxiv":"2610.30474","source":"arXiv cs.LG, NeurIPS 2026 Evaluations and Datasets Track (per authors)","topics":["sae"],"score":4,
- "why":"Argues SAE evaluation should ask for a coordinate system of meaningful units, not just monosemantic features, and finds SAEs that look fine on current metrics but are not.",
- "problem":"SAE metrics (sparsity, dead features, reconstruction, disentanglement) have drifted beyond monosemanticity without a clear objective behind them.",
- "method":"They define the objective as an atomic interpretable unit basis and organize old and new measurements, such as DAME (Dominance-Aware Monosemanticity Evaluation), into a benchmarking framework. Hundreds of SAEs across architectures and model families are evaluated.",
- "result":"They find failure modes where SAEs look monosemantic under existing metrics but still show hidden polysemanticity and redundancy."},
-{"arxiv":"2610.15850","source":"arXiv cs.LG","topics":["sae","steering"],"score":4,
- "why":"Explains why features chosen by correlation or probes are poor choices for steering or ablation, and offers a gradient-based selection rule. Links SAEs to steering.",
- "problem":"SAE features are discovered from how activations co-vary with behavior, but then used through interventions such as steering and ablation.",
- "method":"They take intervention attribution (first-order effect of an intervention on the output) as the target, show observational discovery scores generally do not identify it, and derive a gradient-based decomposition of the gap. Four model and SAE pairs are tested.",
- "result":"Median probe-to-attribution magnitude ratios are tens to hundreds. For single-latent ablations with nonzero effects, gradient predictions match the sign in 91 to 97% of cases versus 17 to 35% for probe-implied changes, and attribution-selected sets give larger ablation effects than correlation-selected ones."},
-{"arxiv":"2610.21261","source":"arXiv cs.LG","topics":["sae","steering"],"score":4,
- "why":"Tests whether SAE features add up when combined in steering, which matters for any multi-feature intervention.",
- "problem":"SAEs decode activations linearly from sparse features, but the downstream behavioral effects of features need not add up.",
- "method":"They introduce SAE Additivity Residuals (SAR), measuring the behavioral variation unexplained above a chosen interaction order, and compare learned SAE coordinates with sum-preserving random rotations of the same subspace across 18 model and behavior settings.",
- "result":"Learned coordinates have lower first-order residuals than rotated ones in all 18 settings, but are not fully additive. Adding pairwise terms improves ordering in every setting, and in a combined steering experiment rank fidelity rises from 0.5874 to 0.7790."},
-{"arxiv":"2610.24521","source":"arXiv cs.AI, NeurIPS InterpScience workshop (per authors)","topics":["sae","interpretability"],"score":3,
- "why":"A sceptical check on transcoders: many of their features are just individual MLP neurons. Useful context before adopting replacement models.",
- "problem":"MLP neurons are polysemantic, which motivated transcoders as sparse, learned stand-ins, but recent work recovers sparse circuits straight from neurons.",
- "method":"They define neuron features as transcoder features whose weights align strongly with single MLP neurons and analyse 13 open-source transcoders, comparing stability across training runs and match to the MLP Jacobian.",
- "result":"Neuron features make up a substantial share of active features in late layers, and only they correspond stably to something in the MLP. Other features vary more between runs and change less from random initialization."},
-
-{"arxiv":"2610.20748","source":"arXiv cs.LG (Goodfire, interactive online version)","topics":["interpretability"],"score":5,
- "why":"A major mechanistic interpretability paper that decomposes the parameters themselves rather than activations. Big if it holds up, and it is long (124 pages).",
- "problem":"We understand a lot about intermediate representations but little about how parameters and nonlinearities compute on them.",
- "method":"adVersarial Parameter Decomposition (VPD) splits a language model's parameters into subcomponents so that only a few are needed on any input, and behavior is preserved even when many subcomponents are ablated, including adversarially chosen ablations.",
- "result":"The subcomponents give short, mechanistically faithful descriptions, and chains of interactions between them support a new kind of circuit analysis on specific inputs. The authors say much work remains."},
-{"arxiv":"2610.12842","source":"arXiv cs.AI","topics":["interpretability"],"score":4,
- "why":"Shows networks that look non-modular at the neuron level can still be modular in subspaces, which matters for steering directions and probes.",
- "problem":"Because single neurons serve several functions, networks are often said to lack modular structure.",
- "method":"A nested hierarchy of modularity (unit-level, orthogonal, linear) with learned decompositions evaluated through selective ablation, applied to vision models, language models and multi-task RNNs.",
- "result":"Models lacking unit-level modularity often show clear subspace-level modularity: content versus style in vision models and syntax versus semantics in language models dissociate under ablation. The subspaces also predict brain data differently, and multi-task RNNs show sharp double dissociations."},
-{"arxiv":"2610.21638","source":"arXiv cs.CV","topics":["interpretability"],"score":4,
- "why":"Mechanistic interpretability applied to medical imaging: a single attention head that reads corner annotations instead of the lungs. Relevant to shortcut checks in clinical models.",
- "problem":"Vision Transformers in medical imaging exploit spurious cues, but the internal mechanisms are unknown.",
- "method":"They locate an attention head (L8H10) in ViT-Base 16 that attends to corner text on chest X-rays, and confirm it causally by inpainting the annotation. Checked across NIH ChestX-ray14, DeiT-Base and ViT-Large 16.",
- "result":"The head attends to corner text in 62% of 200 COVID-19 images, and removing the text raises lung attention 1.52x. Fine-tuning does not remove it, and ablating the head or all three carrier heads shows no significant output change, so output-level tests miss it. This is a small study by two authors."},
-{"arxiv":"2610.20851","source":"arXiv stat.ML, accepted at NeurIPS 2026 (per authors)","topics":["interpretability","sae"],"score":3,
- "why":"A theory paper on when supervised networks recover true latent variables, linking interpretability, nonlinear ICA and compressed sensing.",
- "problem":"When can supervised learning recover the true latent variables behind the data?",
- "method":"Two data-generating processes (labels cause latents, or latents cause labels). They prove encoders are linear in the latents when the representation is at least as wide as the latent space, and add non-negativity and energy efficiency, or sparsity with a spark condition, for recovering individual latents.",
- "result":"Under sparse latents and the spark condition, sparse dictionary learning can recover individual latents exactly, which the authors say is the first identifiability result for undercomplete nonlinear ICA. It is theoretical, with no benchmark numbers in the abstract."},
-
-{"arxiv":"2610.13253","source":"arXiv cs.LG","topics":["tabular_fm"],"score":4,
- "why":"Finds that tabular foundation models are heavily over-deep, which is also an interpretability-style finding about where computation lives.",
- "problem":"In-context tabular foundation models stack many transformer blocks and are costly, yet tabular tasks may not need depth.",
- "method":"A closed-form, label-free affine translator replaces a contiguous window of up to 96% of the blocks. Eight frontier TFMs are evaluated on 171 classification datasets.",
- "result":"Replacing half of a model's blocks costs at most 0.002 median AUROC, and half-depth TabFM still beats every other full-depth TFM and tuned GBDTs. Different model families concentrate computation differently."},
-{"arxiv":"2610.19814","source":"arXiv cs.LG","topics":["tabular_fm","interpretability"],"score":4,
- "why":"A representation-geometry analysis of TabPFN-3 layer by layer, close to your geometry interests.",
- "problem":"Early layers of tabular foundation models already predict well, but does that make later layers dispensable for every input?",
- "method":"They study all 24 in-context layers of TabPFN-3 on 272 classification datasets with representation geometry, prediction trajectories, truncation and structural interventions, and look at four other TFMs.",
- "result":"They see an expansion then compression trajectory, with stronger late contraction linked to larger gains in class-prototype separation. Ambiguous queries gain more from late layers than well-separated ones, and repeating one block or shuffling layer order hurts accuracy on average."},
-{"arxiv":"2610.26794","source":"arXiv cs.LG (Yandex Research)","topics":["tabular_fm"],"score":4,
- "why":"A careful look at scaling training data to millions of rows, comparing GBDTs, MLPs and tabular foundation models under distribution shift.",
- "problem":"Large-scale (1M+ rows) tabular learning under realistic distribution shift is under-explored.",
- "method":"Eight real tabular datasets with up to about ten million training examples that keep natural shifts, with random-split evaluation as a control. GBDTs, MLPs and tabular foundation models are compared, including how validation data is used.",
- "result":"GBDTs and MLPs scale similarly, and recent tabular foundation models benefit more consistently from larger contexts even under shift. In-distribution and out-of-distribution performance can diverge at larger scale, so how validation data is used matters."},
-{"arxiv":"2610.12005","source":"arXiv cs.LG","topics":["tabular_fm"],"score":3,
- "why":"Sorts out which test-time tricks actually help pretrained tabular foundation models, with a very cheap adaptation method.",
- "problem":"Which forms of test-time compute improve strong pretrained TFMs?",
- "method":"A study of adaptation, aggregation and context construction on TabArena plus wide and large OpenML tables. They introduce DiagScale, a diagonal query-key similarity update that trains only 0.003 to 0.03% of parameters.",
- "result":"DiagScale matches full fine-tuning gains across three backbones, and greedy selection over 96 configurations cuts error by 2.4% relative to the default predictor (uniform averaging increases error). Context expansion gave no consistent improvement."},
-
-{"arxiv":"2609.25541","source":"arXiv cs.LG (submitted Sep 22, slightly older than the window)","topics":["tabular_ssl","tabular_fm"],"score":3,
- "why":"An honest negative-leaning result on adding JEPA-style latent prediction to a tabular foundation model. Few papers cover tabular self-supervision this month.",
- "problem":"Tabular foundation models predict cell values; would also predicting in representation space (JEPA) help? In earlier runs the latent term collapsed.",
- "method":"A recipe where the value head reads the encoder field instead of the predictor and the target is an exponential-moving-average difference, so the latent term survives next to the value objective. Both arms train to a plateau instead of a fixed budget.",
- "result":"At convergence, in one run per arm, the JEPA arm trails the value-only arm across 147 real datasets (32 wins to 70 losses on classification, 8 to 24 on regression) and needs about 1.42x the steps. Single-run evidence only."},
-{"arxiv":"2610.24920","source":"arXiv cs.LG, accepted at ICAIF 2026 (per authors)","topics":["tabular_ssl"],"score":3,
- "why":"A concrete self-supervised recipe for mixed-type tabular rows with contrastive learning, showing label efficiency. Applied to fraud, but the method transfers.",
- "problem":"Fraud labels on payment transactions are expensive, and high-cardinality identifiers such as merchant names break one-hot pipelines.",
- "method":"CARTA is a self-supervised encoder producing a 16-dimensional embedding per transaction, with type-specific projections and learned embedding tables for high-cardinality fields, trained with token excision and an InfoNCE contrastive loss.",
- "result":"On IEEE-CIS, a linear probe at 1% of labels exceeds a raw-feature probe at 100%. On IBM TabFormer (2M rows) the frozen embedding reaches GBDT AUPRC 0.508 versus 0.411 for frequency encoding, though fully supervised CatBoost is stronger."}
+ {
+  "pmid": "42907731",
+  "published": "2026-10-21",
+  "source": "Journal of Imaging Informatics in Medicine",
+  "topics": [
+   "prostate_us"
+  ],
+  "score": 5,
+  "why": "Prototype-guided learning on transrectal ultrasound for clinically significant prostate cancer, using B-mode plus strain elastography. Close to the ProtoProstate setting, and it tackles scarce annotations.",
+  "problem": "Telling clinically significant prostate cancer apart on transrectal ultrasound is hard: lesions have weak contrast and look subtle on B-mode. Pixel-level segmentation labels, which could teach a classifier where to look, are expensive and scarce. The gap is a model that adds information from the scan itself and still works with very few segmentation masks.",
+  "method": "Two image streams, B-mode and strain elastography, go through a dual-stream encoder. Gated cross-modal attention modules at each level decide how much context one stream passes to the other. A multi-scale prototype-guided scheme learns prototypes from the few labeled segmentations and uses them to supervise unlabeled scans at several feature scales. Segmentation and classification are trained together, with a classifier that pools decoder features from several scales.",
+  "result": "On an in-house cohort of 612 biopsied patients the model reaches an AUC of 0.86 for csPCa classification, and the ablations show that the cross-modal, prototype and multi-task parts each help. The abstract does not give baseline numbers or say whether there is external validation, so the size of the gain and how well it generalizes are unclear. Takeaway: prototypes can act as a semi-supervised signal that stretches scarce masks, and strain elastography is a cheap second input for extra contrast. Code is public (ProstateMMTNet), so it is a ready comparison point for your prototype-network work."
+ },
+ {
+  "pmid": "42926578",
+  "published": "2026-10-05",
+  "source": "medRxiv preprint",
+  "topics": [
+   "prostate_us"
+  ],
+  "score": 5,
+  "why": "A micro-ultrasound-specific foundation model trained with self-supervision (DINOv2 style). It speaks directly to label-efficient prostate micro-US work and to how far SSL pretraining goes.",
+  "problem": "Micro-ultrasound is a newer, high-resolution way to image the prostate and guide biopsies, but building automated tools for it needs expert annotations that are slow to produce. Existing pretrained models come from natural, medical or general ultrasound images rather than this modality.",
+  "method": "µFM is a micro-ultrasound foundation model pretrained with DINOv2-style self-supervised learning on about 1.74 million unlabeled images from 780 patients. It was fine-tuned on three tasks: prostate capsule segmentation (public data, 75 patients), urethra segmentation (105 patients) and cancer lesion localization (190 patients). It was compared under limited annotation with random initialization and with models pretrained on natural, medical and ultrasound images.",
+  "result": "µFM improved all three tasks, most when labels were scarce. With 10% of the training scans, Dice was 93.8% for the capsule and 58.4% for the urethra, versus 87.9% and 47.0% for the strongest comparators (HD95 2.0 mm and 4.3 mm), and lesion localization reached about 0.75 sensitivity at two false positives per 3D volume. The authors note that pretraining was retrospective and from one institution, and that the model has no explicit 3D modeling. Takeaway: in-modality self-supervised pretraining clearly beats generic backbones when labels are few, so a micro-US backbone is worth trying under your prototype network. It still needs independent validation (medRxiv preprint)."
+ },
+ {
+  "pmid": "42901865",
+  "published": "2026-10-20",
+  "source": "BJU International",
+  "topics": [
+   "prostate_us"
+  ],
+  "score": 4,
+  "why": "Shows how much MRI plus ultrasound together add over ultrasound alone for localizing cancer on TRUS. A useful reference point for ultrasound-only models.",
+  "problem": "MRI-targeted biopsy relies on mapping lesions found on MRI onto live transrectal ultrasound. Misalignment between the two can cause sampling errors and missed significant cancers. The gap is a model that uses both modalities to localize cancer directly in ultrasound space.",
+  "method": "MRUSuNet takes MRI and TRUS together as input and outputs the 3D volume of clinically significant cancer on the TRUS images. It was developed on two MRI-TRUS fusion biopsy cohorts (3,000 patients). It was tested on 1,700 held-out cases against MRI-only and TRUS-only versions, and on a 110-patient radical prostatectomy cohort for independent validation and a comparison with radiologists.",
+  "result": "Across the test cohorts the fused model got sensitivity 0.80 and lesion Dice 0.42, versus 0.73 and 0.30 for MRI-only and 0.49 and 0.27 for TRUS-only. On prostatectomy cases it had higher specificity than radiologists (0.88 vs 0.78) and slightly higher Dice (0.32 vs 0.27), with no significant difference in sensitivity (0.79). Takeaway: the TRUS-only result (sensitivity 0.49) shows how much ultrasound alone misses, a useful reference for ultrasound-only models, and it needs MRI at inference, which many ultrasound-only settings lack. The authors only claim support for further study as an adjunct to fusion workflows."
+ },
+ {
+  "pmid": "42861175",
+  "published": "2026-10-01",
+  "source": "Quantitative Imaging in Medicine and Surgery",
+  "topics": [
+   "prostate_us"
+  ],
+  "score": 3,
+  "why": "A large TRUS-with-histopathology dataset and an anatomy-aware transformer for detection and risk grading. Worth skimming for the data design and the external test.",
+  "problem": "Prostate cancer is screened and diagnosed with PSA, digital rectal exam, mpMRI and TRUS, yet non-invasive and accurate AI diagnosis and risk stratification is still an open challenge. The gap is a large TRUS dataset paired with histopathology to train and test such tools.",
+  "method": "Sagittal TRUS images were prospectively acquired before and during biopsy, with the prostate contour and biopsy core locations annotated by hand. The Anatomy-Aware Transformer (AAT) uses a feature screening module and a feature integration module to combine prostate region segmentation with cancer diagnosis. It was trained on 18,424 images (May 2022 to Dec 2023), validated externally on 683 images (Jun to Jul 2024), and compared with 18 classic models and four ultrasonographers.",
+  "result": "AAT beat every comparison model. For cancer detection, internal accuracy was 0.977 versus 0.655 to 0.972, and external accuracy 0.810 versus 0.616 to 0.737. For csPCa, external accuracy was 0.843 versus 0.304 to 0.762, and for 3-class and 5-class risk stratification it was 0.836 and 0.722 externally. Its accuracy (0.943) exceeded the four ultrasonographers (0.567 to 0.757), and using it as an aid improved their accuracy by 0.036 to 0.304. Takeaway: the drop from internal to external (for example 0.977 to 0.810 for detection) and the small external set (683 images) mean the internal numbers are optimistic. The data design, pairing biopsy core locations with images and adding anatomy-aware segmentation, is reusable."
+ },
+ {
+  "pmid": "42853344",
+  "published": "2026-10-09",
+  "source": "Current Urology Reports (review)",
+  "topics": [
+   "prostate_us"
+  ],
+  "score": 3,
+  "why": "A narrative review of 29 MHz micro-ultrasound against mpMRI. Good clinical background and framing for the limits your models must address.",
+  "problem": "Prostate cancer detection pathways lean on multiparametric MRI, and this review asks where 29-MHz micro-ultrasound fits relative to it across the diagnostic pathway. Micro-ultrasound offers about 70 µm axial resolution and a real-time risk scoring system (PRI-MUS).",
+  "method": "It is a narrative review of prospective, comparative and randomized studies, with clinically significant cancer detection as the primary endpoint. It is not a systematic review or meta-analysis.",
+  "result": "Across head-to-head studies, micro-ultrasound performs comparably to mpMRI. The evidence supports use in biopsy-naive men, selected MRI-negative men with persistent suspicion, repeat biopsy, active surveillance and local staging, and combining mpMRI with micro-ultrasound gives the highest yield. Limitations: operator dependence, interobserver variability, no validated thresholds for avoiding biopsy, and lower sensitivity for anterior lesions. Takeaway: those limits are the places where decision-support models could be evaluated. There are no pooled numbers, so evidence quality varies by study."
+ },
+ {
+  "arxiv": "2610.16084",
+  "source": "arXiv cs.AI, accepted at NeurIPS 2026 (per authors)",
+  "topics": [
+   "steering",
+   "interpretability"
+  ],
+  "score": 5,
+  "why": "A curvature view of steering vectors: why contrastive activation addition is fragile and a one-line fix. Directly in your activation-steering geometry line of work.",
+  "problem": "Contrastive activation addition (CAA) is the standard way to build a steering vector, but it is fragile: on many individual inputs it pushes behavior the opposite way from the one intended. It was unclear why, which makes steering hard to trust. The gap is a geometric explanation of which parts of a steering vector are reliable.",
+  "method": "The authors define the steering Hessian, the second derivative of the behavioral loss with respect to the steering vector. Its top eigenvectors are sharp directions, where tiny changes cause large, input-dependent swings. Its bottom eigenvectors are flat directions, where behavior is robust. Their fix, sharp removal, projects the sharp component out of the CAA vector. They test it on Qwen2.5-7B, Llama-3.1-8B and Mistral-7B, with four behavioral tasks and 36 token-level conditions.",
+  "result": "Sharp directions make up only 1 to 5% of the vector's squared norm, yet steering along them reverses the intended behavior in every tested condition (anti-steer rates 53 to 100%). Removing them leaves the vector almost unchanged (cosine above 0.974, norm drop under 3%), cuts directional curvature by up to 12x (median 4x), and beats plain CAA in open-ended generation in all 25 conditions tested. In a jailbreak test the sharp directions behave like noise, not signal. Takeaway: a cheap geometric post-processing step you can try on any CAA vector. Caveats: only CAA on 7 to 8B models, and the abstract does not discuss the cost of computing the Hessian directions. Accepted at NeurIPS 2026 per the arXiv comment."
+ },
+ {
+  "arxiv": "2610.04967",
+  "source": "arXiv cs.LG",
+  "topics": [
+   "steering"
+  ],
+  "score": 4,
+  "why": "Questions the habit of steering every generated token: a short intervention at the start can keep most of the control with less damage to capabilities.",
+  "problem": "Prompting shapes behavior through the initial context, while activation steering usually intervenes at every generated token, which can hurt general capabilities. It is unclear whether a short steering intervention can have a prompt-like effect on later computation, and whether steering every token is necessary.",
+  "method": "Under fixed-state attention assumptions, the authors give sufficient conditions for single- or multi-token steering to reproduce a prompt's attention-head outputs, with an error analysis. They then propose Prefix Steering: apply existing steering directions or operators only over a short span starting at the last prompt token, with no later intervention, and vary duration and strength. It is tested on four models and five tasks.",
+  "result": "Even a single-token intervention often keeps much of full steering's behavioral control while preserving general capabilities better. The trade-off is competitive with, and sometimes better than, prompting and other strength policies. It also works on final-answer formatting after reasoning, so a brief early intervention can affect behavior long after it ends. Takeaway: you can try limiting a steering vector to the first few tokens to cut side effects. The abstract gives no numbers, and the theory rests on fixed-state attention assumptions."
+ },
+ {
+  "arxiv": "2610.07722",
+  "source": "arXiv cs.CL",
+  "topics": [
+   "steering"
+  ],
+  "score": 4,
+  "why": "A broad benchmark showing steering methods still do not beat prompting once side effects are counted. A good checklist for evaluating your own steering results.",
+  "problem": "Activation steering is a lightweight way to control LLM behavior, but good steering must also avoid unintended changes and hold up across inputs and training data. Existing evaluations cover these only in pieces, so the trade-off between efficacy and side effects has not been compared systematically.",
+  "method": "The authors introduce SteerScope, an evaluation suite with 15 metrics on two axes: target efficacy and side effects (language quality, task capability, safety and reliability), plus generalization and data dependence (sample efficiency and sample sensitivity). They benchmark 23 methods from four families, with prompting, LoRA and SFT as baselines, under matched models, tasks and protocols, and release the code.",
+  "result": "Current activation steering methods do not beat the Prompt Steering baseline in overall balance: across both model scales, none gets higher efficacy without higher composite side effects. Efficacy and side effects are coupled. Under out-of-distribution prompts, efficacy often holds while side effects grow, mainly through lost instruction relevance and fluency. Methods also differ sharply in sample efficiency. Takeaway: when proposing a steering method, report side effects and compare against a prompting baseline. SteerScope is an extensible codebase for doing that."
+ },
+ {
+  "arxiv": "2610.33217",
+  "source": "arXiv cs.LG",
+  "topics": [
+   "steering"
+  ],
+  "score": 3,
+  "why": "Treats the steering direction as a statistical estimand with a debiased, double-robust estimator. A principled angle on how directions are estimated.",
+  "problem": "Steering directions are normally estimated by contrasting activations on prompts with and without a concept. The literature mixes up the target direction (the estimand) with the estimator used to recover it, and says little about how reliable the estimate is when flexible models are used.",
+  "method": "The authors frame nearly all existing methods as plug-in estimates of the average gradient of an outcome regression, with the binary contrastive label as the outcome. This lets them use continuous outcomes such as log-probabilities or ratings. Because a model that fits the outcome well may estimate the gradient poorly, they add an estimator built on the Stein score (the Riesz representer of the gradient functional) and combine both into an orthogonalized, doubly robust estimator from the debiased machine learning literature.",
+  "result": "The abstract says only that the framework is illustrated on a number of benchmark datasets, with no numbers or comparisons, so the practical gain is not visible from the source. The takeaways are conceptual: a steering direction is the gradient of an outcome model, contrastive-mean methods are one special case, and double-robust estimators can be plugged in when you have a continuous outcome. Worth reading for the statistical framing of steering geometry, but wait for the empirical details before relying on it."
+ },
+ {
+  "arxiv": "2610.30474",
+  "source": "arXiv cs.LG, NeurIPS 2026 Evaluations and Datasets Track (per authors)",
+  "topics": [
+   "sae"
+  ],
+  "score": 4,
+  "why": "Argues SAE evaluation should ask for a coordinate system of meaningful units, not just monosemantic features, and finds SAEs that look fine on current metrics but are not.",
+  "problem": "SAEs were motivated by finding monosemantic features, but they are now judged with many set-level metrics (sparsity, dead features, reconstruction, disentanglement) because they are used for attribution, circuits and interventions. Those metrics were added ad hoc, with no stated objective explaining why each is needed.",
+  "method": "The authors propose that an SAE, or any dictionary decomposition, should form an atomic interpretable unit basis: a coordinate system of semantically meaningful units. They organize old and new measurements under that goal, including DAME (Dominance-Aware Monosemanticity Evaluation), and build a benchmarking framework. They evaluate hundreds of SAEs across several architectures and model families.",
+  "result": "They find SAEs that look monosemantic under existing metrics but are functionally polysemantic: the dominant features, the ones contributing most to the model's computation, are systematically less interpretable and more redundant. Takeaway: average monosemanticity can hide the features that matter most, so check dominance-weighted interpretability before using SAE features for attribution, circuit tracing or steering. The abstract gives no specific numbers. It is a 92-page paper at the NeurIPS 2026 Evaluations and Datasets track, with code released (per the arXiv comment)."
+ },
+ {
+  "arxiv": "2610.15850",
+  "source": "arXiv cs.LG",
+  "topics": [
+   "sae",
+   "steering"
+  ],
+  "score": 4,
+  "why": "Explains why features chosen by correlation or probes are poor choices for steering or ablation, and offers a gradient-based selection rule. Links SAEs to steering.",
+  "problem": "SAE features are usually found from how their activations co-vary with a behavior (correlation, probes), but they are then used in interventions such as steering or ablation. It is not clear that a feature that predicts a behavior is a feature that changes it.",
+  "method": "The authors take intervention attribution, the first-order effect of a chosen intervention on the model output, as the target quantity. They show that observational discovery evidence generally does not identify it, and derive an exact gradient-based decomposition of the gap between linear-probe predictions and attribution. They test on four model-SAE pairs, with single-latent ablations and held-out prompts.",
+  "result": "Median ratios between probe-implied and attributed effect magnitudes range from tens to hundreds, while attributions track small-step steering closely. For single-latent ablations with a nonzero effect, gradient predictions get the sign right 91 to 97% of the time, versus 17 to 35% for probe-implied changes. Feature sets selected by attribution give larger mean ablation effects on held-out prompts than sets chosen by correlation, rank tests or probe coefficients. Takeaway: select SAE features for steering or ablation with gradient attribution, not probes. It needs gradient access, and the tests cover four model-SAE pairs."
+ },
+ {
+  "arxiv": "2610.21261",
+  "source": "arXiv cs.LG",
+  "topics": [
+   "sae",
+   "steering"
+  ],
+  "score": 4,
+  "why": "Tests whether SAE features add up when combined in steering, which matters for any multi-feature intervention.",
+  "problem": "SAEs decode activations linearly from sparse features, but the effects of switching on several features need not add up. If effects interact, multi-feature steering or additive explanations of behavior can be unfaithful. There was no clean measure of how much behavior an additive description leaves unexplained.",
+  "method": "The authors introduce SAE Additivity Residuals (SAR), which measure the behavioral variation left unexplained above a chosen interaction order. They compare the SAE's learned coordinates with sum-preserving random rotations of the same subspace across 18 model and behavior settings. They then test whether pairwise terms, or parameter-matched random third-order terms, improve held-out ordering of feature coalitions.",
+  "result": "Learned SAE coordinates have lower first-order residuals than the rotated ones in all 18 settings, so the SAE basis is more compositional than an arbitrary one. It is not fully additive: pairwise terms improve held-out ordering in every setting and beat the random third-order terms. In a combined steering experiment, pairwise modeling raised rank fidelity from 0.5874 to 0.7790 and cut ordering error from 0.1444 to 0.0606. Takeaway: single-feature effects are a good first approximation, but faithful multi-feature interventions need pairwise interaction terms. Code is released."
+ },
+ {
+  "arxiv": "2610.24521",
+  "source": "arXiv cs.AI, NeurIPS InterpScience workshop (per authors)",
+  "topics": [
+   "sae",
+   "interpretability"
+  ],
+  "score": 3,
+  "why": "A sceptical check on transcoders: many of their features are just individual MLP neurons. Useful context before adopting replacement models.",
+  "problem": "MLP neurons in transformer language models are polysemantic, which motivated transcoders as sparse, interpretable replacements for MLP layers. But recent work recovered sparse, interpretable circuits directly from MLP neurons, which raises the question of whether transcoders are needed.",
+  "method": "The authors define neuron features as transcoder features whose weights align strongly with a single MLP neuron, and measure how common they are across 13 open-source transcoders. They compare neuron features with other features on stability across training runs, match to the MLP's Jacobian, and distance from random initialization.",
+  "result": "Neuron features make up a substantial fraction of active features in late layers. Only they have a stable correspondence to something in the underlying MLP: other features vary more between training runs, do not match the MLP's Jacobian, and change less from their random initialization. The authors conclude that MLP neurons are a stronger interpretability basis than commonly assumed and that the non-neuron structure needs better attribution methods. Takeaway: check how many of your transcoder features are really neurons before treating them as new units. The abstract gives no exact fractions, and this is a 60-page workshop paper."
+ },
+ {
+  "arxiv": "2610.20748",
+  "source": "arXiv cs.LG (Goodfire, interactive online version)",
+  "topics": [
+   "interpretability"
+  ],
+  "score": 5,
+  "why": "A major mechanistic interpretability paper that decomposes the parameters themselves rather than activations. Big if it holds up, and it is long (124 pages).",
+  "problem": "Mechanistic interpretability has found a lot of structure in activations, but much less about how a model's weights and nonlinearities compute on those representations. Without that, circuit explanations say what is represented but not how it is computed. The gap is a way to break the parameters themselves into pieces small enough to read.",
+  "method": "adVersarial Parameter Decomposition (VPD) splits a language model's parameters into subcomponents. It is trained so that only a small fraction of the subcomponents is needed on any input, and so that the model's input-output behavior survives when many subcomponents are removed, including removals chosen adversarially to hurt behavior the most. The authors then trace how subcomponents interact in sequence to produce an output on a given input, as a new kind of circuit analysis.",
+  "result": "The abstract reports no headline numbers. The paper is 124 pages with interactive figures (Goodfire), so the evidence is mostly case analyses that I could not check here. The claim is that the decomposition gives short, behavior-faithful descriptions that further analysis can build on, and the authors say more work is needed. Takeaway: a weight-space alternative to SAEs and transcoders, and the adversarial-ablation test is a useful faithfulness check you can borrow. Treat it as early until others reproduce it."
+ },
+ {
+  "arxiv": "2610.12842",
+  "source": "arXiv cs.AI",
+  "topics": [
+   "interpretability"
+  ],
+  "score": 4,
+  "why": "Shows networks that look non-modular at the neuron level can still be modular in subspaces, which matters for steering directions and probes.",
+  "problem": "Because single neurons often take part in several functions, it is widely believed that neural networks are not modular. That conclusion may come from looking only at individual neurons and not at directions or subspaces.",
+  "method": "The authors define a nested hierarchy of modularity: unit-level (disjoint neurons), orthogonal (a rotation reveals independent subspaces) and linear (a bounded linear map separates them). They learn a decomposition at each level and test it causally with selective ablation, in vision models, language models and multi-task RNNs.",
+  "result": "Networks without unit-level modularity often show clear modularity at the subspace level. Content versus style in vision models, and syntax versus semantics in language models, separate under subspace ablation even though they share neurons. The subspaces also align differently with brain data, and RNNs that were thought non-modular show sharp double dissociations between tasks. Takeaway: if neuron-level analysis finds nothing, look for subspace structure, since learned subspaces allow targeted intervention. This is relevant to steering directions and probes. The abstract gives no numeric effect sizes."
+ },
+ {
+  "arxiv": "2610.21638",
+  "source": "arXiv cs.CV",
+  "topics": [
+   "interpretability"
+  ],
+  "score": 4,
+  "why": "Mechanistic interpretability applied to medical imaging: a single attention head that reads corner annotations instead of the lungs. Relevant to shortcut checks in clinical models.",
+  "problem": "Vision Transformers used on medical images are known to pick up spurious cues, but the internal mechanism has not been located, so it is hard to fix. Output-level tests may not reveal the problem at all.",
+  "method": "The authors apply mechanistic interpretability to ViT-Base-16 on chest X-rays and find a single attention head (L8H10) that attends to corner text. They test it causally by inpainting the annotation away. They check whether it replicates on NIH ChestX-ray14, DeiT-Base and ViT-Large-16, whether full fine-tuning removes it, and whether ablating the head, or all three carrier heads, changes outputs.",
+  "result": "The head attends to corner text rather than lungs in 62% of 200 COVID-19 images, and removing the text raises lung attention 1.52x. The pattern appears in other data and models (79% on ChestX-ray14, 88% in DeiT-Base, 80% in ViT-Large). Full fine-tuning does not suppress it (98.4% of spurious images stay spurious), and ablating one head (p = 0.340) or all three (p = 0.532) shows no significant output change, so output-level evaluation would miss it. Takeaway: attention-level audits can expose shortcuts that accuracy tests miss, a template for checking ViT-based clinical models. Caveat: a short preprint (8 pages) that shows the shortcut but not a fix."
+ },
+ {
+  "arxiv": "2610.20851",
+  "source": "arXiv stat.ML, accepted at NeurIPS 2026 (per authors)",
+  "topics": [
+   "interpretability",
+   "sae"
+  ],
+  "score": 3,
+  "why": "A theory paper on when supervised networks recover true latent variables, linking interpretability, nonlinear ICA and compressed sensing.",
+  "problem": "Mechanistic interpretability needs to know when networks learn representations that correspond to the true latent variables of the data. It is unclear when supervised learning recovers them and when it only produces distorted versions of them.",
+  "method": "The authors study identifiability under two data-generating processes: labels cause latents (generative) or latents cause labels (discriminative). They prove what the optimal encoders look like in each case, then add constraints: non-negative activations and energy efficiency in the generative case, sparse latents and a spark condition on the measurement matrix in the discriminative case. They validate on synthetic benchmarks and on activations from vision models, LLMs and macaque inferotemporal cortex.",
+  "result": "When the representation has at least as many dimensions as the latent space, optimal encoders are linear in the latents. When dimensions are too few, identifiability generically fails and encoders become nonlinear. Non-negativity plus energy efficiency force each neuron to encode one latent, and with sparse latents and the spark condition, sparse dictionary learning can recover the individual latents, which the authors call the first identifiability result for undercomplete nonlinear ICA. Takeaway: theory for when linear-representation assumptions (behind steering vectors and SAEs) hold and when sparse dictionary learning is justified. Real models may not satisfy conditions such as the spark condition. Accepted at NeurIPS 2026 per the arXiv comment."
+ },
+ {
+  "arxiv": "2610.13253",
+  "source": "arXiv cs.LG",
+  "topics": [
+   "tabular_fm"
+  ],
+  "score": 4,
+  "why": "Finds that tabular foundation models are heavily over-deep, which is also an interpretability-style finding about where computation lives.",
+  "problem": "In-context tabular foundation models need no per-task training, which suits low-resource or private settings, but they stack many transformer blocks and are costly in compute and memory. GBDTs remain competitive and cheap on CPU, so it is unclear whether tabular tasks need that much depth.",
+  "method": "The authors introduce a closed-form, label-free affine translator that replaces a contiguous window of blocks, up to 96% of them, and leaves the rest untouched. They evaluate eight frontier tabular foundation models on 171 classification datasets.",
+  "result": "Replacing half of a model's blocks costs at most 0.002 median AUROC, and a half-depth TabFM still beats every other full-depth model and tuned GBDTs. Families are redundant in different ways: TabPFN-3 keeps its performance whichever single block is retained, other single-axis models need only their first block, and dual-axis models concentrate computation in one critical block. Removing depth saves up to 1.5B parameters and speeds up GPU inference by up to 6x at a median cost of 0.03 AUROC, and a single-block TabPFN-3 serves cached queries 2.4x faster with 6x less memory. Takeaway: large, cheap savings on aggregate classification AUROC. See the layerwise paper in this digest for why per-input behavior may differ."
+ },
+ {
+  "arxiv": "2610.19814",
+  "source": "arXiv cs.LG",
+  "topics": [
+   "tabular_fm",
+   "interpretability"
+  ],
+  "score": 4,
+  "why": "A representation-geometry analysis of TabPFN-3 layer by layer, close to your geometry interests.",
+  "problem": "Tabular foundation models such as TabPFN run a stack of transformer layers. Earlier work found that early layers already predict well and that layers overlap heavily, but early accuracy does not show that later layers are useless for every input, and averages can hide which queries need them.",
+  "method": "The authors analyze all 24 in-context layers of TabPFN-3 on 272 classification datasets, using representation geometry, prediction trajectories, truncation and structural interventions (repeating a block, shuffling layer order). They also examine related representation dynamics in four other tabular foundation models.",
+  "result": "Representations expand and then compress across depth, and stronger late compression goes with bigger gains in class-prototype separation. Substantial representation changes continue after the predicted class has stabilized. Ambiguous queries gain more from late layers than well-separated ones, and repeating one pretrained block or perturbing layer order lowers accuracy on average. The abstract gives no accuracy numbers. Takeaway: depth redundancy is input-dependent, so judge layer pruning per input and not only on average accuracy. The geometry tools, such as class-prototype separation across layers, are reusable for your own representation analyses. Compare with \"Tabular Foundation Models Are Effectively Shallow\" in this digest, which finds large aggregate savings."
+ },
+ {
+  "arxiv": "2610.26794",
+  "source": "arXiv cs.LG (Yandex Research)",
+  "topics": [
+   "tabular_fm"
+  ],
+  "score": 4,
+  "why": "A careful look at scaling training data to millions of rows, comparing GBDTs, MLPs and tabular foundation models under distribution shift.",
+  "problem": "Tabular benchmarks stress diverse and realistic evaluation, but very large datasets (1M+ rows) are rarely studied. It is unclear how GBDTs, MLPs and tabular foundation models behave as training data grows, especially when train and test distributions differ.",
+  "method": "The authors assemble eight real-world tabular datasets with up to about ten million training rows, keeping their natural distribution shifts and using random splits as a control. They compare GBDTs, MLP models and tabular foundation models, run MLP capacity sweeps, and compare how validation data is used: for model selection and early stopping in MLP and GBDT pipelines, and as in-context data for foundation models.",
+  "result": "GBDTs and MLPs scale in broadly similar ways, gaining from both more data and better algorithms. Recent tabular foundation models benefit more consistently from larger contexts, even under shift. But in-distribution and out-of-distribution performance mostly rise together at small scale and can diverge at larger scale. Under stronger shift, MLPs tuned on validation data that resembles the evaluation conditions hold or improve as data grows, whereas putting such examples in a foundation model's context helps but does not stop performance from deteriorating as training size grows. Takeaway: choose validation data that represents deployment, because more data is not automatically better under shift. Code is released (Yandex Research)."
+ },
+ {
+  "arxiv": "2610.12005",
+  "source": "arXiv cs.LG",
+  "topics": [
+   "tabular_fm"
+  ],
+  "score": 3,
+  "why": "Sorts out which test-time tricks actually help pretrained tabular foundation models, with a very cheap adaptation method.",
+  "problem": "Strong pretrained tabular foundation models are normally used in a single forward pass. It is unclear which forms of extra test-time compute actually improve their predictions.",
+  "method": "The authors study three axes, adaptation, aggregation and context construction, on modern models over TabArena plus wide and large OpenML tables. For adaptation they introduce DiagScale, a diagonal query-key similarity update that trains only 0.003 to 0.03% of the parameters. For aggregation they vary pool composition and selection strategy. For context construction they test attention-guided retrieval and several context-expansion methods.",
+  "result": "DiagScale matches the gains of full fine-tuning across three independently pretrained backbones. With a pool of 96 configurations, greedy selection lowers error by 2.4% relative to the default predictor, while uniform averaging raises error. Adding more preprocessing variants to TabPFN-3's built-in averaging has diminishing returns. Attention-guided retrieval helps on some large tables, but the context-expansion methods show no consistent gain. Adaptation and aggregation stack, at much higher compute than default inference. Takeaway: with budget to spare, cheap adaptation and selective ensembling are the reliable wins. Code is released."
+ },
+ {
+  "arxiv": "2609.25541",
+  "source": "arXiv cs.LG (submitted Sep 22, slightly older than the window)",
+  "topics": [
+   "tabular_ssl",
+   "tabular_fm"
+  ],
+  "score": 3,
+  "why": "An honest negative-leaning result on adding JEPA-style latent prediction to a tabular foundation model. Few papers cover tabular self-supervision this month.",
+  "problem": "Tabular foundation models are trained to predict cell values in context. World-model-style self-supervision (JEPA) predicts in representation space instead. On a tabular foundation-model prior, the authors' earlier JEPA runs collapsed: the latent term dragged the encoder to a constant map.",
+  "method": "They report a recipe that keeps the latent term alive to convergence beside the value objective: the value head reads the encoder field rather than the predictor, and the target is an exponential-moving-average difference. To compare costs fairly, both the JEPA arm and the value-only arm train until a plateau rule stops them instead of at a fixed step budget, because a fixed budget had confounded a slowdown with a ceiling while the value-only arm was still improving.",
+  "result": "At convergence, in one run per arm, the JEPA arm trails the value-only arm across 147 real datasets: 32 wins to 70 losses on classification and 8 to 24 on regression, with a small margin on classification and a wider one on regression. JEPA needs 1.42x as many steps and 1.66x the wall-clock time to plateau. Takeaway: a recipe that avoids collapse exists, but latent prediction did not help tabular foundation model pretraining here. Caveat: one run per arm, so run-to-run variance is not quantified. Submitted on Sep 22, slightly older than the window."
+ },
+ {
+  "arxiv": "2610.24920",
+  "source": "arXiv cs.LG, accepted at ICAIF 2026 (per authors)",
+  "topics": [
+   "tabular_ssl"
+  ],
+  "score": 3,
+  "why": "A concrete self-supervised recipe for mixed-type tabular rows with contrastive learning, showing label efficiency. Applied to fraud, but the method transfers.",
+  "problem": "Fraud labels for payment transactions are expensive and inconsistent between tasks, and high-cardinality identifiers such as merchant names make one-hot feature pipelines impractical at scale.",
+  "method": "CARTA is a self-supervised encoder that learns a compact 16-dimensional embedding of raw transactions without labels. It uses type-specific projections, learned embedding tables for high-cardinality identifiers, token excision, and an InfoNCE contrastive loss. The frozen embedding is then reused for fraud probing without retraining the encoder.",
+  "result": "On IEEE-CIS, a linear probe on the embedding with 1% of the labels beats a raw-feature probe that uses 100%. On IBM TabFormer (2M rows), the frozen embedding in a GBDT reaches AUPRC 0.508, above frequency encoding (0.411) and a baseline that drops the merchant field (0.022), though fully supervised CatBoost is stronger. Takeaway: a transferable recipe for tabular self-supervision on mixed-type rows, with per-type tokenizers, field dropping and a contrastive loss. It complements supervised models and does not replace them, and the evidence is in the finance domain (accepted at ICAIF 2026)."
+ }
 ]

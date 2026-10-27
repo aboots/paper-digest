@@ -1,5 +1,8 @@
 """One-off builder for the first digest (2026-10-27). Pulls titles/authors/dates from arXiv & PubMed so nothing is typed by hand;
-summaries below are hand-written from the abstracts."""
+summaries below are hand-written from the abstracts.
+NOTE: curated.json now holds the v2 summaries (problem and motivation / method / results and takeaways), copied from summaries_v2.json.
+This script is a one-off for 2026-10-27; do NOT re-run it for later days (it would overwrite data/ with the first day).
+The daily job does not use it."""
 import json,sys,urllib.request,xml.etree.ElementTree as ET,datetime,os
 NS={'a':'http://www.w3.org/2005/Atom'}
 def arx(ids):

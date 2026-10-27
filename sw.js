@@ -1,7 +1,7 @@
 /* Paper Digest service worker.
    Shell: cache-first. data/*.json: network-first, falling back to the last cached copy.
    Bump SHELL_VERSION whenever any shell file (html/js/css/icons/manifest) changes. */
-const SHELL_VERSION = 'v1';
+const SHELL_VERSION = 'v2';
 const SHELL_CACHE = 'pd-shell-' + SHELL_VERSION;
 const DATA_CACHE = 'pd-data-v1';
 const SHELL = [

@@ -37,7 +37,7 @@ All paths are relative, so the app works under any subpath.
       "published": "2026-10-12",
       "topics": ["steering", "interpretability"],
       "why_it_matters": "One or two sentences on why Mahdi should care.",
-      "summary": ["Problem: ...", "Method: ...", "Result: ..."],
+      "summary": ["Problem and motivation text", "Method text", "Results and takeaways text"],
       "score": 5
     }
   ]
@@ -52,7 +52,12 @@ Field rules:
 - `source`: where it appeared (journal, `arXiv <category>`, `medRxiv preprint`, workshop name, and so on). Only state acceptance if the paper itself says so.
 - `published`: `YYYY-MM-DD`.
 - `topics`: one or more of `prostate_us`, `steering`, `sae`, `interpretability`, `tabular_fm`, `tabular_ssl`.
-- `summary`: exactly three strings in the order problem, method, result. The app adds the "Problem:", "Method:", "Result:" labels, so do not repeat them in the text.
+- `summary`: exactly three plain-text strings, in this order:
+  1. **Problem and motivation** (2 to 3 sentences): why the problem matters and what gap exists.
+  2. **Method** (2 to 4 sentences): what they actually did, specific (model, data, key idea, setup).
+  3. **Results and takeaways** (3 to 5 sentences): the main numbers and findings from the source, then an explicit takeaway for a reader in Mahdi's field, and any caveat or limitation. If the source gives few details, say so instead of guessing.
+
+  The app adds the bold headings "Problem and motivation", "Method" and "Results and takeaways", so do not write prefixes such as "Problem:" in the strings. Older archives that use shorter strings still render and validate.
 - `score`: integer 1 to 5 for relevance and quality (see `DAILY_JOB.md`). Papers are shown highest score first.
 - `generated_at`: ISO 8601 with offset.
 

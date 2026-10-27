@@ -12,7 +12,7 @@
   ];
   var TOPIC_LABEL = {};
   TOPICS.forEach(function (t) { TOPIC_LABEL[t.key] = t.label; });
-  var SUMMARY_LABELS = ['Problem', 'Method', 'Result'];
+  var SUMMARY_LABELS = ['Problem and motivation', 'Method', 'Results and takeaways'];
 
   var LS_READ = 'pd.read.v1';
   var LS_SAVED = 'pd.saved.v1';       // { id: { savedAt, paper } }
@@ -221,14 +221,14 @@
       c.appendChild(why);
     }
 
-    var ul = h('ul', 'sum');
+    var sum = h('div', 'sum');
     arr(p.summary).slice(0, 3).forEach(function (s, i) {
-      var li = h('li');
-      li.appendChild(h('strong', null, SUMMARY_LABELS[i] + ': '));
-      li.appendChild(document.createTextNode(str(s)));
-      ul.appendChild(li);
+      var sec = h('section', 'sec');
+      sec.appendChild(h('h3', 'sechead', SUMMARY_LABELS[i]));
+      sec.appendChild(h('p', 'sectext', str(s)));
+      sum.appendChild(sec);
     });
-    c.appendChild(ul);
+    c.appendChild(sum);
 
     var actions = h('div', 'actions');
     var saveBtn = btn(isSaved ? '★ Saved' : '☆ Save', 'act' + (isSaved ? ' on' : ''), function () { toggleSaved(p); }, isSaved);
