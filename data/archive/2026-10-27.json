@@ -1,0 +1,579 @@
+{
+ "date": "2026-10-27",
+ "generated_at": "2026-10-27T03:30:00-07:00",
+ "papers": [
+  {
+   "id": "pmid:42907731",
+   "title": "Computer-Aided Diagnosis of Clinically Significant Prostate Cancer in Transrectal Ultrasound.",
+   "authors": [
+    "Zetian Feng",
+    "Juan Fu",
+    "Xuebin Zou",
+    "Hongsheng Ye",
+    "Haoyu Pan",
+    "Yong-Hong Li",
+    "Jianhua Zhou",
+    "Yi Wang"
+   ],
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42907731/",
+   "source": "Journal of Imaging Informatics in Medicine",
+   "published": "2026-10-21",
+   "topics": [
+    "prostate_us"
+   ],
+   "why_it_matters": "Prototype-guided learning on transrectal ultrasound for clinically significant prostate cancer, using B-mode plus strain elastography. Close to the ProtoProstate setting, and it tackles scarce annotations.",
+   "summary": [
+    "Finding clinically significant prostate cancer on transrectal ultrasound is hard because contrast is low and lesions look subtle, and pixel-level segmentation labels are scarce.",
+    "A dual-stream encoder takes B-mode and strain elastography, with cross-modal attention gates passing context between the streams. A multi-scale prototype-guided strategy spreads supervision from a few labeled segmentations to unlabeled cases, and a multi-task classifier combines segmentation and classification features.",
+    "On an in-house set of 612 biopsy subjects it reaches AUC 0.86 for csPCa detection, and the ablations support the cross-modal, prototype and multi-task parts. Code is public."
+   ],
+   "score": 5
+  },
+  {
+   "id": "arxiv:2610.20748",
+   "title": "Interpreting Language Model Parameters",
+   "authors": [
+    "Lucius Bushnaq",
+    "Dan Braun",
+    "Oliver Clive-Griffin",
+    "Bart Bussmann",
+    "Nathan Hu",
+    "Michael Ivanitskiy",
+    "Linda Linsefors",
+    "Lee Sharkey"
+   ],
+   "url": "https://arxiv.org/abs/2610.20748",
+   "source": "arXiv cs.LG (Goodfire, interactive online version)",
+   "published": "2026-10-14",
+   "topics": [
+    "interpretability"
+   ],
+   "why_it_matters": "A major mechanistic interpretability paper that decomposes the parameters themselves rather than activations. Big if it holds up, and it is long (124 pages).",
+   "summary": [
+    "We understand a lot about intermediate representations but little about how parameters and nonlinearities compute on them.",
+    "adVersarial Parameter Decomposition (VPD) splits a language model's parameters into subcomponents so that only a few are needed on any input, and behavior is preserved even when many subcomponents are ablated, including adversarially chosen ablations.",
+    "The subcomponents give short, mechanistically faithful descriptions, and chains of interactions between them support a new kind of circuit analysis on specific inputs. The authors say much work remains."
+   ],
+   "score": 5,
+   "pdf_url": "https://arxiv.org/pdf/2610.20748"
+  },
+  {
+   "id": "arxiv:2610.16084",
+   "title": "The Sharp Directions Are Against You: Curvature Analysis of Activation Steering",
+   "authors": [
+    "Seyedarmin Azizi",
+    "Arya Fayyazi",
+    "Parsa Razmara",
+    "Erfan Baghaei Potraghloo",
+    "Souvik Kundu",
+    "Massoud Pedram"
+   ],
+   "url": "https://arxiv.org/abs/2610.16084",
+   "source": "arXiv cs.AI, accepted at NeurIPS 2026 (per authors)",
+   "published": "2026-10-12",
+   "topics": [
+    "steering",
+    "interpretability"
+   ],
+   "why_it_matters": "A curvature view of steering vectors: why contrastive activation addition is fragile and a one-line fix. Directly in your activation-steering geometry line of work.",
+   "summary": [
+    "Contrastive activation addition (CAA) often pushes behavior the wrong way on individual inputs, and it was not clear why.",
+    "They define a steering Hessian, the second derivative of the behavioral loss with respect to the steering vector. Its top eigenvectors are sharp directions where small changes cause erratic, input-dependent swings. Sharp removal projects those components out of the vector. Tested on Qwen2.5-7B, Llama-3.1-8B and Mistral-7B.",
+    "Sharp directions are only 1 to 5% of the CAA vector's squared norm, yet steering along them reverses the intended behavior (anti-steer rates 53 to 100%). Removing them keeps cosine similarity above 0.974, cuts directional curvature up to 12x, and beats standard CAA in all 25 open-ended generation conditions."
+   ],
+   "score": 5,
+   "pdf_url": "https://arxiv.org/pdf/2610.16084"
+  },
+  {
+   "id": "pmid:42926578",
+   "title": "Data-Efficient Prostate Micro-Ultrasound Image Analysis using a Modality-specific Foundation Model ⋆.",
+   "authors": [
+    "Kaifeng Pang",
+    "Junxin Fan",
+    "Alex Ling Yu Hung",
+    "Qi Miao",
+    "Changsuk Oh",
+    "Qiudi He",
+    "Brian Wodlinger",
+    "Adam Kinnaird",
+    "Wayne Brisbane",
+    "Kyunghyun Sung"
+   ],
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42926578/",
+   "source": "medRxiv preprint",
+   "published": "2026-10-05",
+   "topics": [
+    "prostate_us"
+   ],
+   "why_it_matters": "A micro-ultrasound-specific foundation model trained with self-supervision (DINOv2 style). It speaks directly to label-efficient prostate micro-US work and to how far SSL pretraining goes.",
+   "summary": [
+    "Automated analysis of prostate micro-ultrasound is held back by the cost of expert annotation.",
+    "µFM is pretrained with DINOv2-style self-supervised learning on 1,736,391 unlabeled micro-US images from 780 patients. It is then fine-tuned for prostate capsule segmentation, urethra segmentation and cancer lesion localization, and compared with randomly initialised models and foundation models pretrained on natural, medical and ultrasound images.",
+    "It was better on all three tasks, most of all with little labeled data: with 10% of training scans, Dice was 93.8% for capsule and 58.4% for urethra (versus 87.9% and 47.0% for the best comparators), and lesion localization reached about 0.75 sensitivity at two false positives per volume. The authors note pretraining came from one institution and the model is not 3D."
+   ],
+   "score": 5
+  },
+  {
+   "id": "arxiv:2610.30474",
+   "title": "Rethinking SAE Evaluation: An Atomic Interpretable Unit Framework Reveals Hidden Polysemanticity and Redundancy",
+   "authors": [
+    "Riteng Zhang",
+    "Xiaoqian Wang"
+   ],
+   "url": "https://arxiv.org/abs/2610.30474",
+   "source": "arXiv cs.LG, NeurIPS 2026 Evaluations and Datasets Track (per authors)",
+   "published": "2026-10-21",
+   "topics": [
+    "sae"
+   ],
+   "why_it_matters": "Argues SAE evaluation should ask for a coordinate system of meaningful units, not just monosemantic features, and finds SAEs that look fine on current metrics but are not.",
+   "summary": [
+    "SAE metrics (sparsity, dead features, reconstruction, disentanglement) have drifted beyond monosemanticity without a clear objective behind them.",
+    "They define the objective as an atomic interpretable unit basis and organize old and new measurements, such as DAME (Dominance-Aware Monosemanticity Evaluation), into a benchmarking framework. Hundreds of SAEs across architectures and model families are evaluated.",
+    "They find failure modes where SAEs look monosemantic under existing metrics but still show hidden polysemanticity and redundancy."
+   ],
+   "score": 4,
+   "pdf_url": "https://arxiv.org/pdf/2610.30474"
+  },
+  {
+   "id": "pmid:42901865",
+   "title": "An artificial intelligence model combining MRI and ultrasound images (MRUSuNet) for prostate cancer detection outperforms radiologist MRI interpretation.",
+   "authors": [
+    "Hassan Jahanandish",
+    "Shengtian Sang",
+    "Cynthia Xinran Li",
+    "Sulaiman Vesal",
+    "Indrani Bhattacharya",
+    "Jeong Hoon Lee",
+    "Rajesh Venkataraman",
+    "Richard E Fan",
+    "Geoffrey A Sonn",
+    "Mirabela Rusu"
+   ],
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42901865/",
+   "source": "BJU International",
+   "published": "2026-10-20",
+   "topics": [
+    "prostate_us"
+   ],
+   "why_it_matters": "Shows how much MRI plus ultrasound together add over ultrasound alone for localizing cancer on TRUS. A useful reference point for ultrasound-only models.",
+   "summary": [
+    "MRI-targeted biopsy depends on mapping MRI lesions onto TRUS, and misalignment between the two causes sampling errors and missed significant cancers.",
+    "MRUSuNet takes both MRI and TRUS as input and detects and localizes the 3D volume of clinically significant cancer on the TRUS images. It was developed on two fusion-biopsy cohorts (3000 patients) and validated on a radical prostatectomy cohort (110 patients).",
+    "Across test cohorts sensitivity was 0.80 and lesion Dice 0.42, versus 0.73 / 0.30 for an MRI-only model and 0.49 / 0.27 for a TRUS-only model. Against radiologists on prostatectomy cases it had higher specificity (0.88 vs 0.78) and Dice (0.32 vs 0.27) with no sensitivity difference."
+   ],
+   "score": 4
+  },
+  {
+   "id": "arxiv:2610.26794",
+   "title": "On Data Scaling in Tabular ML: More Data, Better Generalization?",
+   "authors": [
+    "Ivan Rubachev",
+    "Nikita Lazarev",
+    "Artem Babenko"
+   ],
+   "url": "https://arxiv.org/abs/2610.26794",
+   "source": "arXiv cs.LG (Yandex Research)",
+   "published": "2026-10-19",
+   "topics": [
+    "tabular_fm"
+   ],
+   "why_it_matters": "A careful look at scaling training data to millions of rows, comparing GBDTs, MLPs and tabular foundation models under distribution shift.",
+   "summary": [
+    "Large-scale (1M+ rows) tabular learning under realistic distribution shift is under-explored.",
+    "Eight real tabular datasets with up to about ten million training examples that keep natural shifts, with random-split evaluation as a control. GBDTs, MLPs and tabular foundation models are compared, including how validation data is used.",
+    "GBDTs and MLPs scale similarly, and recent tabular foundation models benefit more consistently from larger contexts even under shift. In-distribution and out-of-distribution performance can diverge at larger scale, so how validation data is used matters."
+   ],
+   "score": 4,
+   "pdf_url": "https://arxiv.org/pdf/2610.26794"
+  },
+  {
+   "id": "arxiv:2610.21261",
+   "title": "Behavioral Compositionality of Sparse Autoencoder Representations",
+   "authors": [
+    "Haotian Ma",
+    "Ziye Mei",
+    "Frederic Sala"
+   ],
+   "url": "https://arxiv.org/abs/2610.21261",
+   "source": "arXiv cs.LG",
+   "published": "2026-10-15",
+   "topics": [
+    "sae",
+    "steering"
+   ],
+   "why_it_matters": "Tests whether SAE features add up when combined in steering, which matters for any multi-feature intervention.",
+   "summary": [
+    "SAEs decode activations linearly from sparse features, but the downstream behavioral effects of features need not add up.",
+    "They introduce SAE Additivity Residuals (SAR), measuring the behavioral variation unexplained above a chosen interaction order, and compare learned SAE coordinates with sum-preserving random rotations of the same subspace across 18 model and behavior settings.",
+    "Learned coordinates have lower first-order residuals than rotated ones in all 18 settings, but are not fully additive. Adding pairwise terms improves ordering in every setting, and in a combined steering experiment rank fidelity rises from 0.5874 to 0.7790."
+   ],
+   "score": 4,
+   "pdf_url": "https://arxiv.org/pdf/2610.21261"
+  },
+  {
+   "id": "arxiv:2610.21638",
+   "title": "Spurious Attention Heads in Vision Transformers: Mechanistic Identification of Annotation-Driven Bias in Medical Chest X-Ray Analysis",
+   "authors": [
+    "Joshua Muhumuza",
+    "Cornelius Kalenzi"
+   ],
+   "url": "https://arxiv.org/abs/2610.21638",
+   "source": "arXiv cs.CV",
+   "published": "2026-10-15",
+   "topics": [
+    "interpretability"
+   ],
+   "why_it_matters": "Mechanistic interpretability applied to medical imaging: a single attention head that reads corner annotations instead of the lungs. Relevant to shortcut checks in clinical models.",
+   "summary": [
+    "Vision Transformers in medical imaging exploit spurious cues, but the internal mechanisms are unknown.",
+    "They locate an attention head (L8H10) in ViT-Base 16 that attends to corner text on chest X-rays, and confirm it causally by inpainting the annotation. Checked across NIH ChestX-ray14, DeiT-Base and ViT-Large 16.",
+    "The head attends to corner text in 62% of 200 COVID-19 images, and removing the text raises lung attention 1.52x. Fine-tuning does not remove it, and ablating the head or all three carrier heads shows no significant output change, so output-level tests miss it. This is a small study by two authors."
+   ],
+   "score": 4,
+   "pdf_url": "https://arxiv.org/pdf/2610.21638"
+  },
+  {
+   "id": "arxiv:2610.19814",
+   "title": "When Does Depth Help? Understanding Layerwise Inference in Tabular Foundation Models",
+   "authors": [
+    "Wenwen Gong",
+    "Haotian Gu",
+    "Zhen Yang",
+    "Jiaying Ma",
+    "Hanqing Zhang",
+    "Zhongshen Wang",
+    "Jingjun Wang",
+    "Shouyi Xu",
+    "Wei Wang"
+   ],
+   "url": "https://arxiv.org/abs/2610.19814",
+   "source": "arXiv cs.LG",
+   "published": "2026-10-14",
+   "topics": [
+    "tabular_fm",
+    "interpretability"
+   ],
+   "why_it_matters": "A representation-geometry analysis of TabPFN-3 layer by layer, close to your geometry interests.",
+   "summary": [
+    "Early layers of tabular foundation models already predict well, but does that make later layers dispensable for every input?",
+    "They study all 24 in-context layers of TabPFN-3 on 272 classification datasets with representation geometry, prediction trajectories, truncation and structural interventions, and look at four other TFMs.",
+    "They see an expansion then compression trajectory, with stronger late contraction linked to larger gains in class-prototype separation. Ambiguous queries gain more from late layers than well-separated ones, and repeating one block or shuffling layer order hurts accuracy on average."
+   ],
+   "score": 4,
+   "pdf_url": "https://arxiv.org/pdf/2610.19814"
+  },
+  {
+   "id": "arxiv:2610.15850",
+   "title": "What Do Sparse Autoencoder Feature Discovery Scores Identify? From Activations to Interventions",
+   "authors": [
+    "Yifeng Guo",
+    "Yanran Li",
+    "Xiang Chen"
+   ],
+   "url": "https://arxiv.org/abs/2610.15850",
+   "source": "arXiv cs.LG",
+   "published": "2026-10-11",
+   "topics": [
+    "sae",
+    "steering"
+   ],
+   "why_it_matters": "Explains why features chosen by correlation or probes are poor choices for steering or ablation, and offers a gradient-based selection rule. Links SAEs to steering.",
+   "summary": [
+    "SAE features are discovered from how activations co-vary with behavior, but then used through interventions such as steering and ablation.",
+    "They take intervention attribution (first-order effect of an intervention on the output) as the target, show observational discovery scores generally do not identify it, and derive a gradient-based decomposition of the gap. Four model and SAE pairs are tested.",
+    "Median probe-to-attribution magnitude ratios are tens to hundreds. For single-latent ablations with nonzero effects, gradient predictions match the sign in 91 to 97% of cases versus 17 to 35% for probe-implied changes, and attribution-selected sets give larger ablation effects than correlation-selected ones."
+   ],
+   "score": 4,
+   "pdf_url": "https://arxiv.org/pdf/2610.15850"
+  },
+  {
+   "id": "arxiv:2610.12842",
+   "title": "Neural networks are more modular than single neurons suggest",
+   "authors": [
+    "Shreya Saha",
+    "Benjamin Bergen",
+    "Meenakshi Khosla"
+   ],
+   "url": "https://arxiv.org/abs/2610.12842",
+   "source": "arXiv cs.AI",
+   "published": "2026-10-09",
+   "topics": [
+    "interpretability"
+   ],
+   "why_it_matters": "Shows networks that look non-modular at the neuron level can still be modular in subspaces, which matters for steering directions and probes.",
+   "summary": [
+    "Because single neurons serve several functions, networks are often said to lack modular structure.",
+    "A nested hierarchy of modularity (unit-level, orthogonal, linear) with learned decompositions evaluated through selective ablation, applied to vision models, language models and multi-task RNNs.",
+    "Models lacking unit-level modularity often show clear subspace-level modularity: content versus style in vision models and syntax versus semantics in language models dissociate under ablation. The subspaces also predict brain data differently, and multi-task RNNs show sharp double dissociations."
+   ],
+   "score": 4,
+   "pdf_url": "https://arxiv.org/pdf/2610.12842"
+  },
+  {
+   "id": "arxiv:2610.13253",
+   "title": "Tabular Foundation Models Are Effectively Shallow",
+   "authors": [
+    "Irene Cannistraci",
+    "Julia E. Vogt"
+   ],
+   "url": "https://arxiv.org/abs/2610.13253",
+   "source": "arXiv cs.LG",
+   "published": "2026-10-09",
+   "topics": [
+    "tabular_fm"
+   ],
+   "why_it_matters": "Finds that tabular foundation models are heavily over-deep, which is also an interpretability-style finding about where computation lives.",
+   "summary": [
+    "In-context tabular foundation models stack many transformer blocks and are costly, yet tabular tasks may not need depth.",
+    "A closed-form, label-free affine translator replaces a contiguous window of up to 96% of the blocks. Eight frontier TFMs are evaluated on 171 classification datasets.",
+    "Replacing half of a model's blocks costs at most 0.002 median AUROC, and half-depth TabFM still beats every other full-depth TFM and tuned GBDTs. Different model families concentrate computation differently."
+   ],
+   "score": 4,
+   "pdf_url": "https://arxiv.org/pdf/2610.13253"
+  },
+  {
+   "id": "arxiv:2610.07722",
+   "title": "Does Steering Break Your Model? A Multi-Dimensional Evaluation Suite for LLM Steering Methods",
+   "authors": [
+    "Haotian Yang",
+    "Huikang Jiang",
+    "Yucheng Wu",
+    "Wen-Jie Jiang",
+    "Chenpeng Wang",
+    "Yibin Lou",
+    "Liangming Pan"
+   ],
+   "url": "https://arxiv.org/abs/2610.07722",
+   "source": "arXiv cs.CL",
+   "published": "2026-10-06",
+   "topics": [
+    "steering"
+   ],
+   "why_it_matters": "A broad benchmark showing steering methods still do not beat prompting once side effects are counted. A good checklist for evaluating your own steering results.",
+   "summary": [
+    "Steering is usually judged by whether it induces the target behavior, with side effects and robustness checked only in fragments.",
+    "SteerScope is an evaluation suite with 15 metrics covering target efficacy, side effects (language quality, task capability, safety) and sample efficiency and sensitivity. It benchmarks 23 methods in 4 families, including prompting, LoRA and SFT baselines.",
+    "No activation steering method achieved higher efficacy than the prompt baseline without larger composite side effects. Efficacy and side effects are coupled, and on out-of-distribution prompts efficacy often holds while fluency and instruction relevance decline."
+   ],
+   "score": 4,
+   "pdf_url": "https://arxiv.org/pdf/2610.07722"
+  },
+  {
+   "id": "arxiv:2610.04967",
+   "title": "One Token Can Be Enough: Bridging Prompting and Activation Steering with Prefix Steering",
+   "authors": [
+    "Xudong Zhu",
+    "Zhihui Zhu"
+   ],
+   "url": "https://arxiv.org/abs/2610.04967",
+   "source": "arXiv cs.LG",
+   "published": "2026-10-04",
+   "topics": [
+    "steering"
+   ],
+   "why_it_matters": "Questions the habit of steering every generated token: a short intervention at the start can keep most of the control with less damage to capabilities.",
+   "summary": [
+    "Prompting acts through the initial context while steering usually intervenes at every step. Can a brief steering intervention behave like a prompt?",
+    "They give attention-level conditions under which single- and multi-token steering matches the effect of a prompt. Then Prefix Steering applies an existing steering direction only over a short span starting at the last prompt token, and the effect of duration and strength is studied on four models and five tasks.",
+    "Steering a short span, even one token, often keeps much of full steering's behavioral control while better preserving general capabilities, and is competitive with or better than prompting in some settings. It also helps with answer formatting after reasoning."
+   ],
+   "score": 4,
+   "pdf_url": "https://arxiv.org/pdf/2610.04967"
+  },
+  {
+   "id": "arxiv:2610.33217",
+   "title": "Neyman Orthogonal Activation Steering",
+   "authors": [
+    "David Arbour",
+    "Erfan Jahanparast",
+    "Serina Chang",
+    "Avi Feller"
+   ],
+   "url": "https://arxiv.org/abs/2610.33217",
+   "source": "arXiv cs.LG",
+   "published": "2026-10-23",
+   "topics": [
+    "steering"
+   ],
+   "why_it_matters": "Treats the steering direction as a statistical estimand with a debiased, double-robust estimator. A principled angle on how directions are estimated.",
+   "summary": [
+    "The literature mixes up the steering direction a method targets with the estimator used to find it.",
+    "They frame most existing methods as plug-in estimators of the average gradient of an outcome regression with the contrastive label as outcome. That allows continuous outcomes (e.g. log-probabilities), and a second estimator based on the Stein score is combined with it into an orthogonalized, doubly robust estimator.",
+    "The framework is illustrated on several benchmark datasets. The abstract does not give headline numbers, so this is mainly a conceptual and methodological contribution."
+   ],
+   "score": 3,
+   "pdf_url": "https://arxiv.org/pdf/2610.33217"
+  },
+  {
+   "id": "arxiv:2610.24521",
+   "title": "Comparing Sparsified MLPs and Transcoders: Many Transcoder Features Are Neurons in Disguise",
+   "authors": [
+    "Stepan Shabalin",
+    "Mateusz Piotrowski"
+   ],
+   "url": "https://arxiv.org/abs/2610.24521",
+   "source": "arXiv cs.AI, NeurIPS InterpScience workshop (per authors)",
+   "published": "2026-10-17",
+   "topics": [
+    "sae",
+    "interpretability"
+   ],
+   "why_it_matters": "A sceptical check on transcoders: many of their features are just individual MLP neurons. Useful context before adopting replacement models.",
+   "summary": [
+    "MLP neurons are polysemantic, which motivated transcoders as sparse, learned stand-ins, but recent work recovers sparse circuits straight from neurons.",
+    "They define neuron features as transcoder features whose weights align strongly with single MLP neurons and analyse 13 open-source transcoders, comparing stability across training runs and match to the MLP Jacobian.",
+    "Neuron features make up a substantial share of active features in late layers, and only they correspond stably to something in the MLP. Other features vary more between runs and change less from random initialization."
+   ],
+   "score": 3,
+   "pdf_url": "https://arxiv.org/pdf/2610.24521"
+  },
+  {
+   "id": "arxiv:2610.24920",
+   "title": "CARTA: Self-Supervised Reusable Transaction Embeddings via Heterogeneous Tokenization and Cross-Attention",
+   "authors": [
+    "Shreyas K. Chandrahas",
+    "Jose Munoz",
+    "Satish Babu Bellapu"
+   ],
+   "url": "https://arxiv.org/abs/2610.24920",
+   "source": "arXiv cs.LG, accepted at ICAIF 2026 (per authors)",
+   "published": "2026-10-17",
+   "topics": [
+    "tabular_ssl"
+   ],
+   "why_it_matters": "A concrete self-supervised recipe for mixed-type tabular rows with contrastive learning, showing label efficiency. Applied to fraud, but the method transfers.",
+   "summary": [
+    "Fraud labels on payment transactions are expensive, and high-cardinality identifiers such as merchant names break one-hot pipelines.",
+    "CARTA is a self-supervised encoder producing a 16-dimensional embedding per transaction, with type-specific projections and learned embedding tables for high-cardinality fields, trained with token excision and an InfoNCE contrastive loss.",
+    "On IEEE-CIS, a linear probe at 1% of labels exceeds a raw-feature probe at 100%. On IBM TabFormer (2M rows) the frozen embedding reaches GBDT AUPRC 0.508 versus 0.411 for frequency encoding, though fully supervised CatBoost is stronger."
+   ],
+   "score": 3,
+   "pdf_url": "https://arxiv.org/pdf/2610.24920"
+  },
+  {
+   "id": "arxiv:2610.20851",
+   "title": "Complete or Sparse: A Tale of Two Identifiabilities",
+   "authors": [
+    "Junze Zhou",
+    "David Klindt"
+   ],
+   "url": "https://arxiv.org/abs/2610.20851",
+   "source": "arXiv stat.ML, accepted at NeurIPS 2026 (per authors)",
+   "published": "2026-10-14",
+   "topics": [
+    "interpretability",
+    "sae"
+   ],
+   "why_it_matters": "A theory paper on when supervised networks recover true latent variables, linking interpretability, nonlinear ICA and compressed sensing.",
+   "summary": [
+    "When can supervised learning recover the true latent variables behind the data?",
+    "Two data-generating processes (labels cause latents, or latents cause labels). They prove encoders are linear in the latents when the representation is at least as wide as the latent space, and add non-negativity and energy efficiency, or sparsity with a spark condition, for recovering individual latents.",
+    "Under sparse latents and the spark condition, sparse dictionary learning can recover individual latents exactly, which the authors say is the first identifiability result for undercomplete nonlinear ICA. It is theoretical, with no benchmark numbers in the abstract."
+   ],
+   "score": 3,
+   "pdf_url": "https://arxiv.org/pdf/2610.20851"
+  },
+  {
+   "id": "pmid:42853344",
+   "title": "The Role of Micro-Ultrasound in Prostate Cancer Detection.",
+   "authors": [
+    "Navid Jabalameli",
+    "Feres Camargo Maluf",
+    "Fatema Bhinderwala",
+    "Thomas J Polascik",
+    "Soroush Rais-Bahrami"
+   ],
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42853344/",
+   "source": "Current Urology Reports (review)",
+   "published": "2026-10-09",
+   "topics": [
+    "prostate_us"
+   ],
+   "why_it_matters": "A narrative review of 29 MHz micro-ultrasound against mpMRI. Good clinical background and framing for the limits your models must address.",
+   "summary": [
+    "Where micro-ultrasound fits in the prostate cancer detection pathway relative to multiparametric MRI.",
+    "A narrative review of prospective, comparative and randomized studies, with clinically significant cancer detection as the main endpoint.",
+    "Micro-US (about 70 micrometre axial resolution) performs comparably to mpMRI in head-to-head studies, and combining the two gives the highest yield. Limits listed: operator dependence, inter-observer variability, no validated biopsy-avoidance thresholds, and lower sensitivity for anterior lesions."
+   ],
+   "score": 3
+  },
+  {
+   "id": "arxiv:2610.12005",
+   "title": "Test-Time Compute for Tabular Foundation Models: Mechanisms, Gains, and Limits",
+   "authors": [
+    "Kanghui Ning",
+    "Marin Biloš",
+    "James T. Wilson",
+    "Yilang Zhang",
+    "Kashif Rasul",
+    "Dongjin Song",
+    "Anderson Schneider",
+    "Yuriy Nevmyvaka"
+   ],
+   "url": "https://arxiv.org/abs/2610.12005",
+   "source": "arXiv cs.LG",
+   "published": "2026-10-08",
+   "topics": [
+    "tabular_fm"
+   ],
+   "why_it_matters": "Sorts out which test-time tricks actually help pretrained tabular foundation models, with a very cheap adaptation method.",
+   "summary": [
+    "Which forms of test-time compute improve strong pretrained TFMs?",
+    "A study of adaptation, aggregation and context construction on TabArena plus wide and large OpenML tables. They introduce DiagScale, a diagonal query-key similarity update that trains only 0.003 to 0.03% of parameters.",
+    "DiagScale matches full fine-tuning gains across three backbones, and greedy selection over 96 configurations cuts error by 2.4% relative to the default predictor (uniform averaging increases error). Context expansion gave no consistent improvement."
+   ],
+   "score": 3,
+   "pdf_url": "https://arxiv.org/pdf/2610.12005"
+  },
+  {
+   "id": "pmid:42861175",
+   "title": "Artificial intelligence-based prostate cancer risk stratification via large-scale ultrasound images paired with histopathology.",
+   "authors": [
+    "Qiong Zhang",
+    "Qiang Lu",
+    "Yu Liang",
+    "Jidong Chen",
+    "Yang Chen",
+    "Yan Luo"
+   ],
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42861175/",
+   "source": "Quantitative Imaging in Medicine and Surgery",
+   "published": "2026-10-01",
+   "topics": [
+    "prostate_us"
+   ],
+   "why_it_matters": "A large TRUS-with-histopathology dataset and an anatomy-aware transformer for detection and risk grading. Worth skimming for the data design and the external test.",
+   "summary": [
+    "There is no accurate non-invasive AI tool for prostate cancer diagnosis and risk stratification from ultrasound alone.",
+    "An Anatomy-Aware Transformer (AAT) jointly handles prostate region segmentation and cancer diagnosis, trained on paired sagittal TRUS images and biopsy histopathology (18,424 images for training and internal validation, 683 for external validation).",
+    "It beat 18 standard models and four ultrasonographers on cancer detection, clinically significant cancer detection and risk categories. For overall cancer detection, accuracy was 0.977 internally and 0.810 externally, so the external drop is noticeable."
+   ],
+   "score": 3
+  },
+  {
+   "id": "arxiv:2609.25541",
+   "title": "A JEPA Recipe for Tabular Foundation Models",
+   "authors": [
+    "Mingyu Jeon",
+    "Suwan Cho",
+    "Jae Young Suh"
+   ],
+   "url": "https://arxiv.org/abs/2609.25541",
+   "source": "arXiv cs.LG (submitted Sep 22, slightly older than the window)",
+   "published": "2026-09-22",
+   "topics": [
+    "tabular_ssl",
+    "tabular_fm"
+   ],
+   "why_it_matters": "An honest negative-leaning result on adding JEPA-style latent prediction to a tabular foundation model. Few papers cover tabular self-supervision this month.",
+   "summary": [
+    "Tabular foundation models predict cell values; would also predicting in representation space (JEPA) help? In earlier runs the latent term collapsed.",
+    "A recipe where the value head reads the encoder field instead of the predictor and the target is an exponential-moving-average difference, so the latent term survives next to the value objective. Both arms train to a plateau instead of a fixed budget.",
+    "At convergence, in one run per arm, the JEPA arm trails the value-only arm across 147 real datasets (32 wins to 70 losses on classification, 8 to 24 on regression) and needs about 1.42x the steps. Single-run evidence only."
+   ],
+   "score": 3,
+   "pdf_url": "https://arxiv.org/pdf/2609.25541"
+  }
+ ]
+}

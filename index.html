@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paper Digest</title>
+<meta name="description" content="A daily digest of research papers: prostate ultrasound, steering, SAEs, interpretability, tabular models.">
+<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Digest">
+<meta name="color-scheme" content="light dark">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="titlebar">
+    <h1>Paper Digest</h1>
+    <span id="count" class="muted" aria-live="polite"></span>
+  </div>
+  <div class="datebar">
+    <button id="prev" class="btn icon" aria-label="Older day" title="Older day">&#8249;</button>
+    <label class="datepick">
+      <span class="sr">Choose date</span>
+      <input id="date" type="date" aria-label="Choose date">
+      <span id="dateText" class="datetext"></span>
+    </label>
+    <button id="next" class="btn icon" aria-label="Newer day" title="Newer day">&#8250;</button>
+  </div>
+</header>
+<div class="stick">
+  <nav id="chips" class="chips" aria-label="Topics"></nav>
+  <div class="tools">
+    <input id="search" type="search" placeholder="Search titles and summaries" aria-label="Search titles and summaries" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <button id="unread" class="btn toggle" aria-pressed="false">Unread</button>
+  </div>
+</div>
+
+<div id="hint" class="hint" hidden>
+  <p>Install this app: tap <strong>Share</strong> <span aria-hidden="true">&#x2B06;&#xFE0E;</span> in Safari, then <strong>Add to Home Screen</strong>.</p>
+  <button id="hintClose" class="btn small">Got it</button>
+</div>
+
+<main id="list" class="list" aria-live="polite"></main>
+<div id="status" class="status" role="status"></div>
+
+<footer class="foot muted">
+  <span id="gen"></span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
