@@ -1,7 +1,7 @@
 /* Paper Digest service worker.
-   Shell: cache-first. data/*.json: network-first, falling back to the last cached copy.
+   Shell: network-first (fresh copy whenever online, cached copy offline). data/*.json: network-first, falling back to the last cached copy.
    Bump SHELL_VERSION whenever any shell file (html/js/css/icons/manifest) changes. */
-const SHELL_VERSION = 'v2';
+const SHELL_VERSION = 'v3';
 const SHELL_CACHE = 'pd-shell-' + SHELL_VERSION;
 const DATA_CACHE = 'pd-data-v1';
 const SHELL = [
@@ -16,7 +16,7 @@ const SHELL = [
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(SHELL_CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  event.waitUntil(caches.open(SHELL_CACHE).then((c) => c.addAll(SHELL.map((u) => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (event) => {
@@ -39,7 +39,7 @@ self.addEventListener('fetch', (event) => {
 
   if (isData(url)) {
     event.respondWith(
-      fetch(req)
+      fetch(req, { cache: 'no-store' })
         .then((res) => {
           if (res && res.ok) {
             const copy = res.clone();
@@ -53,17 +53,14 @@ self.addEventListener('fetch', (event) => {
   }
 
   event.respondWith(
-    caches.match(req, { ignoreSearch: true }).then((hit) => {
-      if (hit) return hit;
-      return fetch(req)
-        .then((res) => {
-          if (res && res.ok) {
-            const copy = res.clone();
-            caches.open(SHELL_CACHE).then((c) => c.put(req, copy));
-          }
-          return res;
-        })
-        .catch(() => (req.mode === 'navigate' ? caches.match('./index.html') : Response.error()));
-    })
+    fetch(req, { cache: 'reload' })
+      .then((res) => {
+        if (res && res.ok) {
+          const copy = res.clone();
+          caches.open(SHELL_CACHE).then((c) => c.put(req, copy));
+        }
+        return res;
+      })
+      .catch(() => caches.match(req, { ignoreSearch: true }).then((hit) => hit || (req.mode === 'navigate' ? caches.match('./index.html') : Response.error())))
   );
 });

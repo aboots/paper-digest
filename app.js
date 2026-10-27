@@ -361,7 +361,9 @@
     });
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js').catch(function () { /* ignore */ });
+        var hadSW = !!navigator.serviceWorker.controller;
+        navigator.serviceWorker.addEventListener('controllerchange', function () { if (hadSW) location.reload(); });
+        navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(function () { /* ignore */ });
       });
     }
   }
