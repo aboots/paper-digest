@@ -31,6 +31,7 @@ All paths are relative, so the app works under any subpath.
       "id": "arxiv:2610.16084",
       "title": "Paper title",
       "authors": ["First Author", "Second Author"],
+      "affiliations": ["Meta FAIR", "NYU"],
       "url": "https://arxiv.org/abs/2610.16084",
       "pdf_url": "https://arxiv.org/pdf/2610.16084",
       "source": "arXiv cs.AI, accepted at NeurIPS 2026",
@@ -49,6 +50,7 @@ Field rules:
 - `id`: stable and unique across all days. Use `arxiv:<id without version>`, `pmid:<PubMed id>`, `doi:<doi>` or `openreview:<forum id>`. The id is what the app uses for Save and Mark read, so never change it for a paper.
 - `url`: a page that loads (abstract page, PubMed page or DOI). Must start with `http://` or `https://`. `pdf_url` is optional.
 - `authors`: the full list in order. The app shows the first three plus "et al.".
+- `affiliations` (optional): 1 to 3 short institution or company names, main one first (e.g. "Meta FAIR", "NYU"). Shown as "🏛 A · B" under the authors. Omit when unknown; older papers do not have it.
 - `source`: where it appeared (journal, `arXiv <category>`, `medRxiv preprint`, workshop name, and so on). Only state acceptance if the paper itself says so.
 - `published`: `YYYY-MM-DD`.
 - `topics`: one or more of `prostate_us`, `steering`, `sae`, `interpretability`, `tabular_fm`, `tabular_ssl`.

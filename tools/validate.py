@@ -19,6 +19,8 @@ def check(path):
         if not re.match(r"https?://", p.get("url","")): err(f"{w}: url not http(s)")
         if p.get("pdf_url") and not re.match(r"https?://", p["pdf_url"]): err(f"{w}: pdf_url not http(s)")
         if not isinstance(p.get("authors"), list) or not p["authors"]: err(f"{w}: authors")
+        af = p.get("affiliations")
+        if af is not None and (not isinstance(af, list) or not 1 <= len(af) <= 3 or not all(isinstance(x, str) and x.strip() for x in af)): err(f"{w}: affiliations must be 1-3 non-empty strings or omitted")
         t = p.get("topics")
         if not isinstance(t, list) or not t or not set(t) <= TOPICS: err(f"{w}: topics {t}")
         s = p.get("summary")

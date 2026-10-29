@@ -95,6 +95,7 @@ h1 { font-size: 1.55rem; line-height: 1.2; margin: 0; letter-spacing: -.01em; }
 .title a { color: var(--text); text-decoration: none; }
 .title a:active, .title a:hover { text-decoration: underline; }
 .authors { margin: 0; font-size: .95rem; }
+.affiliations { margin: 2px 0 0; font-size: .88rem; opacity: .8; }
 .meta { margin: 2px 0 8px; font-size: .85rem; }
 .why { margin: 8px 0; font-size: .97rem; padding: 8px 10px; border-left: 3px solid var(--accent); background: var(--surface2); border-radius: 0 8px 8px 0; }
 .sum { margin: 10px 0 12px; font-size: .96rem; }

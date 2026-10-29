@@ -126,7 +126,7 @@
     var q = state.query.trim().toLowerCase();
     if (q) {
       base = base.filter(function (p) {
-        var hay = [str(p.title), str(p.why_it_matters)].concat(arr(p.summary).map(str)).concat(arr(p.authors).map(str)).join(' ').toLowerCase();
+        var hay = [str(p.title), str(p.why_it_matters)].concat(arr(p.summary).map(str)).concat(arr(p.authors).map(str)).concat(arr(p.affiliations).map(str)).join(' ').toLowerCase();
         return q.split(/\s+/).every(function (w) { return hay.indexOf(w) !== -1; });
       });
     }
@@ -211,6 +211,8 @@
     c.appendChild(title);
 
     c.appendChild(h('p', 'authors', fmtAuthors(p.authors)));
+    var aff = arr(p.affiliations).map(str).filter(function (x) { return x.trim(); }).slice(0, 3);
+    if (aff.length) c.appendChild(h('p', 'affiliations', '\u{1F3DB} ' + aff.join(' \u00B7 ')));
     var metaParts = [str(p.source), p.published ? fmtDay(p.published, false) : ''].filter(Boolean);
     c.appendChild(h('p', 'meta muted', metaParts.join(' · ')));
 
