@@ -1,271 +1,225 @@
 {
- "date": "2026-10-28",
- "generated_at": "2026-10-28T06:06:03-07:00",
+ "date": "2026-10-29",
+ "generated_at": "2026-10-29T06:06:10-07:00",
  "papers": [
   {
-   "id": "arxiv:2610.36269",
-   "title": "Cross-modal Steering Vectors Exist Across Both Image and Text Generation",
+   "id": "arxiv:2610.35857",
+   "title": "Do vision models know that three is three?",
    "authors": [
-    "Donghao Zeng",
-    "Nishant Subramani",
-    "Tamar Rott Shaham",
-    "Benno Krojer"
+    "Ankit Sonthalia",
+    "Arnas Uselis",
+    "Seong Joon Oh"
    ],
-   "url": "https://arxiv.org/abs/2610.36269",
-   "pdf_url": "https://arxiv.org/pdf/2610.36269",
-   "source": "arXiv cs.CV, preprint",
-   "published": "2026-10-26",
-   "topics": [
-    "steering",
-    "interpretability"
-   ],
-   "why_it_matters": "A causal, geometry-flavored test of whether one concept direction works across modalities, which is close to your steering-geometry questions and could carry over to vision-language medical models.",
-   "summary": [
-    "It is unclear whether multimodal models represent a concept once and share it between text and images, or keep separate machinery per modality. Similarity measures between representations only show correlation, so they cannot settle whether a shared direction actually drives behavior.",
-    "The authors work with unified multimodal models that generate both text and images with shared parameters. They extract steering vectors for concepts such as emotion, object size and formal versus colloquial style from one modality, then add them, unchanged, to tokens of the other modality and check whether generation shifts accordingly in both directions. They also compare the directions of the vectors across modalities.",
-    "The abstract reports that steering vectors transfer zero-shot from text to image and from image to text, and that even text-specific concepts like formality produce a consistent visual effect (for example formal clothing). Vectors that transfer well tend to point in similar directions for the same concept despite a clear gap between text and image representations. Takeaway: cross-modal transfer is a cheap causal check of whether a direction is a real concept, and the alignment-versus-transfer link is a geometric signal worth measuring in your own steering analyses. The abstract gives no quantitative transfer rates or model list, so check the paper for how strong and consistent the effect is; code, data and a demo are released."
-   ],
-   "score": 4
-  },
-  {
-   "id": "arxiv:2610.37517",
-   "title": "Orthogonal and Parametrized Multi-Attribute Steering of LLMs",
-   "authors": [
-    "Remy Ogasawara",
-    "Cullen Anderson",
-    "Narmeen Fatimah Oozeer",
-    "Foad Namjoo",
-    "Amir Abdullah",
-    "Jens Kristian Refsgaard Schou",
-    "Jeff M. Phillips"
-   ],
-   "url": "https://arxiv.org/abs/2610.37517",
-   "pdf_url": "https://arxiv.org/pdf/2610.37517",
-   "source": "arXiv cs.LG, preprint",
-   "published": "2026-10-27",
-   "topics": [
-    "steering"
-   ],
-   "why_it_matters": "Directly about steering geometry: how to calibrate steering strength and how to keep several steering vectors from interfering, both practical problems in your activation-steering work.",
-   "summary": [
-    "Activation steering is cheap, but the effect of a given steering coefficient is inconsistent across vectors, so strength has no shared meaning. When several traits are steered at once, the vectors can interfere and one trait leaks into another.",
-    "The authors first find, for each steering vector, the interval of coefficients where it is most effective and rescale the range to that interval. They then propose parameterized steering, which sets the activation's projection to a target trait level instead of adding a fixed push along the direction. For multiple traits, they orthogonalize the steering vectors so each one changes its own trait without inducing the others.",
-    "The abstract reports qualitatively that naive combination of vectors causes interference and that orthogonalization decouples the traits so several can be steered together, but it gives no numbers, models or benchmarks. Takeaway: setting the projection to a target value rather than adding alpha times a vector is a simple change you can try to make steering strength comparable across concepts, and orthogonalizing directions is a natural baseline for multi-attribute steering. Caveat: orthogonalizing may remove genuinely shared components between related traits, and the evaluation details need checking in the paper."
-   ],
-   "score": 4
-  },
-  {
-   "id": "arxiv:2610.35530",
-   "title": "CANS: Capability-Preserving Neuron Steering for Large Language Models",
-   "authors": [
-    "Yucheng Wu",
-    "Chengyi Xie",
-    "Chenpeng Wang",
-    "Liangming Pan"
-   ],
-   "url": "https://arxiv.org/abs/2610.35530",
-   "pdf_url": "https://arxiv.org/pdf/2610.35530",
-   "source": "arXiv cs.AI, preprint",
-   "published": "2026-10-26",
-   "topics": [
-    "steering"
-   ],
-   "why_it_matters": "A closed-form steering method that explicitly trades target-behavior gain against capability loss, a useful baseline when you evaluate the side effects of steering.",
-   "summary": [
-    "Activation steering can control behaviors like refusal or toxicity without training, but it often damages general capabilities, and many methods need intervention designs tailored to each domain. A method that controls the behavior while bounding collateral damage, and works the same way across domains, is missing.",
-    "CANS uses two proxies: the log-probability of target tokens in model-generated responses (behavior) and the KL divergence of the output distribution on general inputs (capability). Taking local approximations of both gives a closed-form solution for per-neuron scaling coefficients, so there is no iterative training and no extra inference cost. A shared data-construction procedure with filtered sampled responses and annotated target spans lets it be applied across domains.",
-    "Across safety, toxicity and hallucination control on Qwen and Llama models, the authors report comparable or better steering than SFT, contrastive activation addition (CAA) and neuron-level baselines, with better preservation of MMLU, BBH and IFEval. On Qwen3-4B, HarmBench attack success drops from 15.50% to 1.75% with a 1.11-point drop in average capability. Takeaway: adding a KL-on-general-inputs constraint to a steering objective is a cheap way to report and control capability cost, and CANS is a stronger baseline than plain CAA. Caveat: the abstract does not list model sizes beyond Qwen3-4B or say whether code is released."
-   ],
-   "score": 4
-  },
-  {
-   "id": "arxiv:2610.35586",
-   "title": "Linear Probes Transfer from Base to Distilled Language Models despite Rotation",
-   "authors": [
-    "Marios Tsatsos"
-   ],
-   "url": "https://arxiv.org/abs/2610.35586",
-   "pdf_url": "https://arxiv.org/pdf/2610.35586",
-   "source": "arXiv cs.AI, preprint",
+   "url": "https://arxiv.org/abs/2610.35857",
+   "pdf_url": "https://arxiv.org/pdf/2610.35857",
+   "source": "arXiv cs.CV (preprint)",
    "published": "2026-10-26",
    "topics": [
     "interpretability",
     "steering"
    ],
-   "why_it_matters": "Measures how much a concept direction rotates between a base model and its fine-tuned successors, and shows probes still work, which bears on whether steering or probe directions can be reused across checkpoints.",
+   "why_it_matters": "Tests whether concept directions in vision encoders are global or split across visual contexts, which directly bears on whether a single steering or probe direction will transfer across domains such as scanners or sites.",
    "summary": [
-    "Linear probes on activations are a cheap way to flag harmful requests, but retraining them for every new model release is costly. It is unknown whether a probe trained on a base model still works on models derived from it.",
-    "For four base models (Qwen2.5-Math-7B, Llama-3.1-8B, Qwen2.5-14B, Qwen2.5-32B), the author trains a safe-versus-unsafe probe on XSTest and applies it unchanged to the DeepSeek-R1 distilled model and the instruction-tuned chat model of each base. Evaluation uses XSTest and an independent OR-Bench set, with a text-only classifier as a baseline.",
-    "Successor models rotate the separating direction by 17 to 35 degrees, yet transferred-probe AUC changes by only -0.011 to +0.027 on XSTest and -0.015 to +0.053 on OR-Bench. Probes beat the text-only classifier by 0.15 to 0.20 AUC on XSTest, but only 0.03 to 0.20 on OR-Bench, and they flag 29% to 42% of benign but harmful-sounding prompts. Takeaway: a sizable rotation of a direction does not mean it stops working, so measure function, not only angle, when you compare steering or probe directions across checkpoints. Caveat: a single-author study on one safety concept and two model families, and the probes partly read surface cues of harm."
+    "The linear representation hypothesis says concept changes map to directions in embedding space, and this is well studied for language models. In vision the same concept (a count going from two to three, an object getting dirty) can appear in visually unrelated settings that almost never co-occur, so it is unclear whether a vision model uses one shared direction for the concept or several.",
+    "The authors probe 46 vision encoders that differ in architecture, training objective and scale, across 10 concept families including numerosity, age, object identity and MIT-States attributes. For each concept they estimate directions inside each visual regime and then compare directions across regimes, and test whether probes trained in one regime transfer to another.",
+    "Concept directions are statistically significant within a regime in almost every model, but two regimes often do not share the same direction; the authors call this fragmented linearity, with several separate linear structures for one concept. Models with stronger local linearity tend to have more global linearity, with a correlation between the two of tau between 0.38 and 0.89 across concepts, and where global linearity exists the directions transfer as linear probes across regimes. Takeaway: a steering vector or concept probe fit on one data regime (for example one ultrasound device or hospital) should be checked on other regimes before assuming it is the same direction; measuring within-regime versus cross-regime alignment is a cheap diagnostic. The abstract does not report downstream steering experiments, only probing, and the work is a preprint."
    ],
    "score": 4
   },
   {
-   "id": "arxiv:2610.34756",
-   "title": "Mechanistic Insights into LoRA: Layer Sparsity for Adaptive Fine-Tuning via Path Patching",
+   "id": "arxiv:2610.36524",
+   "title": "Causal Localization of Evidence Effects in Transformers",
    "authors": [
-    "Fei Zuo",
-    "Yizhou Huang",
-    "Kezhi Wang"
+    "Jipeng Li",
+    "Pramod Khargonekar",
+    "Yanning Shen"
    ],
-   "url": "https://arxiv.org/abs/2610.34756",
-   "pdf_url": "https://arxiv.org/pdf/2610.34756",
-   "source": "arXiv cs.LG, accepted at NeurIPS 2026 (Main Track)",
-   "published": "2026-10-26",
-   "topics": [
-    "interpretability"
-   ],
-   "why_it_matters": "A NeurIPS 2026 paper that turns a mechanistic analysis (ablation and path patching) into a practical tool, here picking which layers to adapt.",
-   "summary": [
-    "LoRA is usually applied to every layer of a transformer, even though layers and components likely contribute unequally to adaptation. How LoRA actually changes model internals, and whether that can guide where to put adapters, has not been studied systematically.",
-    "The authors run a mechanistic interpretability analysis of LoRA, using path patching and ablations to measure each component's and layer's contribution. Based on this, they propose Adaptive-LoRA, which identifies task-specific layers through zero-ablation on the frozen base model with a small calibration set, then adapts only those layers.",
-    "They find LoRA's effect is highly sparse across components and layers, and that the important layers differ a lot between tasks. On Qwen2.5-1.5B across 11 reasoning tasks, Adaptive-LoRA beats full-layer LoRA while using only 30% of layers, a 3.5x reduction in adapter parameters. Takeaway: cheap frozen-model ablations can predict where fine-tuning (or steering) matters, so a calibration pass to pick layers is worth trying before choosing steering layers by hand. Caveat: results are on a single 1.5B model. Accepted at NeurIPS 2026 per the arXiv comment."
-   ],
-   "score": 4
-  },
-  {
-   "id": "arxiv:2610.37178",
-   "title": "INTR++: INterpretable TRansformer with better Accuracy, Interpretability, and Adaptability",
-   "authors": [
-    "Dipanjyoti Paul",
-    "Arpita Chowdhury",
-    "Maneet Chatterjee",
-    "Daichi Kitaguchi",
-    "Tanya Berger-Wolf",
-    "Tetsuya Sakurai",
-    "Wei-Lun Chao"
-   ],
-   "url": "https://arxiv.org/abs/2610.37178",
-   "pdf_url": "https://arxiv.org/pdf/2610.37178",
-   "source": "arXiv cs.CV, accepted at WACV 2027",
+   "url": "https://arxiv.org/abs/2610.36524",
+   "pdf_url": "https://arxiv.org/pdf/2610.36524",
+   "source": "arXiv cs.CL (preprint)",
    "published": "2026-10-27",
    "topics": [
     "interpretability"
    ],
-   "why_it_matters": "An inherently interpretable vision transformer (class-specific queries and attention maps, related in spirit to prototype networks) that is tested on medical and microscopy images, a natural comparison for interpretable ultrasound models.",
+   "why_it_matters": "Gives a controlled-probe recipe plus a head-selection criterion that balances ablation and patching, with finite-sample bounds, for finding small causal head sets; useful as a template for rigorous circuit localization.",
    "summary": [
-    "Interpretable transformers such as INTR and Prompt-CAM explain predictions with class-specific attention, but they lose effectiveness outside the domains they were designed for. Prompt-CAM's learnable prompts are fixed, so they adapt poorly to domains whose image characteristics differ a lot, such as medical or remote sensing images.",
-    "INTR++ extends Prompt-CAM with a lightweight Prompt Adapter Module that enriches the prompts with domain-specific knowledge, making them adaptive. It keeps the standard interpretable-transformer architecture and end-to-end training and adds only a small number of parameters over Prompt-CAM.",
-    "The authors report consistent improvements in accuracy, interpretability and adaptability across animals, plants, medical imaging, microscopy, remote sensing and object-centric data, but the abstract gives no numbers or dataset names. Takeaway: for interpretable models on a hard domain like ultrasound, adapting the class queries or prototypes to the domain may matter as much as the backbone, and INTR++ is a reasonable non-prototype baseline. Caveat: check which medical datasets were used and how interpretability was measured. Accepted at WACV 2027 per the arXiv comment."
+    "Finding which attention heads drive a model's decision from evidence in natural text is hard because natural prompts mix many factors. The authors ask whether tightly controlled symbolic inputs can reveal heads whose causal role carries over to natural language decisions.",
+    "Controlled evidence aggregation (CEA) varies how many of two symbols appear and in what order in otherwise fixed prompts, and measures the change in a frozen model's logit difference between two answer tokens. Balanced utility causal selection (BUC) picks compact head sets by jointly scoring how much ablating them removes the count effect and how well mean-patching between count conditions restores it in both directions. They derive conditional bounds linking head attribution to intervention effects and to finite-sample recovery of the shortlist, and test on Pythia-410M.",
+    "Ablating sets of 1 to 12 heads, selected separately for four ordering regimes, removes 65.5 to 91.6 percent of the count effect, and the sets keep their influence on count comparisons not used for selection. On a natural language task about which state is supported by more reports, ablating eight heads chosen only from symbolic prompts lowers mean accuracy by 8.2 percentage points versus 0.8 for size- and layer-matched random heads. Takeaway: requiring a head set to pass both an ablation test and a two-way patching test, and comparing against matched random sets, is a reusable standard for circuit claims. Limitation: the results are on a single small model (Pythia-410M) and a simple counting-style task."
    ],
    "score": 4
   },
   {
-   "id": "arxiv:2610.37001",
-   "title": "Meta Models: Models that Model Learning",
+   "id": "arxiv:2610.36797",
+   "title": "Language Models Keep Abandoned Analyses: Residue and Adaptation after Garden-Path Sentences",
    "authors": [
-    "Peihang Li",
-    "Ziming Liu"
+    "Xiang Ding"
    ],
-   "url": "https://arxiv.org/abs/2610.37001",
-   "pdf_url": "https://arxiv.org/pdf/2610.37001",
-   "source": "arXiv cs.LG, preprint",
+   "url": "https://arxiv.org/abs/2610.36797",
+   "pdf_url": "https://arxiv.org/pdf/2610.36797",
+   "source": "arXiv cs.CL (preprint)",
    "published": "2026-10-27",
    "topics": [
-    "tabular_fm"
+    "interpretability"
    ],
-   "why_it_matters": "A neat new use of TabPFN: predicting training outcomes from logged runs, which shows how far off-the-shelf tabular foundation models reach and could even help forecast your own experiment sweeps.",
+   "why_it_matters": "A careful activation-patching study across 24 models up to 70B that localizes where a discarded interpretation is stored and read, a good example of scaling mechanistic claims beyond toy models.",
    "summary": [
-    "Every training run produces evidence about how models learn, and it would be valuable to predict final performance, learning curves or good hyperparameters before running new experiments. Recent work fine-tunes LLMs on text-serialized configurations for this, which costs tens to hundreds of GPU-hours.",
-    "The authors frame final-performance prediction, learning-curve prediction and hyperparameter selection as queries to one training response function, and treat real language-model training records as numeric tabular data. They apply off-the-shelf TabPFN in context, compare it to a fine-tuned LLM meta-model, try augmenting TabPFN with Kolmogorov-Arnold Networks, and pre-register a forecast of the 535B-parameter Marin Hero Run.",
-    "TabPFN matches or beats the fine-tuned LLM meta-model in several evaluated settings while needing seconds to fit and predict and no weight updates; adding KANs further helps on selected tasks. The abstract gives no specific error numbers, and the pre-registered forecast is still being checked as that run progresses. Takeaway: numeric problems serialized as text for LLMs may be better served by a tabular foundation model, and TabPFN is a fast baseline for predicting outcomes from your own experiment logs. Caveat: the authors call it a first, humble empirical step, so coverage of settings is limited."
+    "Humans who read a garden-path sentence (for example one where a noun first looks like an object and then is not) still show traces of the abandoned parse in later language. Whether language models also keep using an analysis they have already revised, and which internal states carry it, had not been measured systematically.",
+    "The study runs 24 open models from 124M to 70B parameters on garden-path sentences and controls, measuring later object attachment in probabilities and in sampled text, on held-out and human-normed items and on a second garden-path type. Activation patching is used to separate two effects: a residue of the abandoned analysis and an adaptation toward the resolved structure. A related test looks at statements that are later overridden.",
+    "The residue raises later object attachment by about three quarters of the effect of a sentence where the noun really is an object, while the adaptation scales with the sentence's disambiguation error. Replacing the noun phrase's states, which were computed under the object reading, removes almost all of the residue in the 32B and 70B models; the adaptation is read from the states that processed the disambiguation. Corrected values keep pulling later predictions in 8 of 9 models. Takeaway: information written into early token states is not erased by later revision, so probes or steering that target only late positions can miss stale content, and human psycholinguistic paradigms need controls (here, for punctuation) before transfer to models. Single-author preprint focused on one linguistic phenomenon."
    ],
    "score": 4
   },
   {
-   "id": "pmid:42928638",
-   "title": "Uncertainty-aware hybrid model for reliable navigation guidance in prostate biopsy.",
+   "id": "arxiv:2610.35043",
+   "title": "Steering for Safety, Hijacking for Profit: Trojan Threats in the LLM Activation Steering Supply Chain",
    "authors": [
-    "Chloé Soormally",
-    "Clément Beitone",
-    "Jocelyne Troccaz",
-    "Sandrine Voros"
+    "Yu Yan",
+    "Jiahao Chen",
+    "Siqi Lu",
+    "Yongjuan Wang",
+    "Ziming Zhao",
+    "Zhaoxuan Li",
+    "Qingjun Yuan"
    ],
-   "url": "https://pubmed.ncbi.nlm.nih.gov/42928638/",
-   "source": "Medical Physics",
+   "url": "https://arxiv.org/abs/2610.35043",
+   "pdf_url": "https://arxiv.org/pdf/2610.35043",
+   "source": "arXiv cs.CR (preprint)",
    "published": "2026-10-26",
    "topics": [
-    "prostate_us"
+    "steering"
    ],
-   "why_it_matters": "Deep learning on real 3D transrectal ultrasound from biopsy procedures, with a built-in error detector that gives an uncertainty estimate, relevant to TRUS-based guidance and to reliability in your ultrasound models.",
+   "why_it_matters": "Shows that shared steering-vector plugins can carry hidden malicious behavior while doing their advertised job, a practical security caveat for anyone releasing or reusing steering vectors.",
    "summary": [
-    "Prostate biopsy under ultrasound guidance is the only way to confirm prostate cancer, but patient and tissue motion and deformation during the procedure make it hard to hit planned targets. Existing guidance systems often handle motion poorly or are not fast enough for real-time navigation.",
-    "The authors track where the current 2D ultrasound frame sits inside a 3D ultrasound volume acquired during the same intervention. Three ResNet-18 sub-networks are combined with a Kalman filter: two predict relative rigid transforms between frame pairs or frame-slice pairs, and a third predicts the registration error to act as a large-error detector inside the iterative registration and give an uncertainty estimate. Data are 847 3D volumes from real transrectal biopsies of 97 patients, split 78/10/9 patients, with simulated complex biopsy trajectories.",
-    "Against an image-correlation baseline, mean surface registration error over 25-second trajectories drops from 3.1 mm to 2.2 mm (median, p = 0.016, rank-biserial correlation 0.96), and the error detector reaches 0.81 balanced accuracy for flagging errors above 5 mm. Takeaway: a learned error predictor used inside the loop is a simple, reusable way to make ultrasound models report when they are unreliable. Caveat: the test set has only 9 patients, the trajectories are generated rather than live, and this is navigation, not cancer detection."
+    "Steering vectors are increasingly distributed as third-party plugins that change model behavior by editing internal representations. This open ecosystem creates a supply-chain risk, since a plugin could perform its stated function while secretly manipulating outputs, and this risk had not been studied systematically.",
+    "The authors audit eight open-source steering plugin libraries and identify three weaknesses: weak integrity checks on distribution, excessive plugin privileges, and no runtime monitoring. They build a malicious plugin, IDH, that uses a norm-gated mutually exclusive routing mechanism and an information-decay inflection-point method to pick the injection layer, so it delivers both a benign and a hidden function. They also propose a runtime defense that suppresses anomalous activation interventions and orthogonalizes inter-layer trajectories, and evaluate on five LLMs with safety-refusal steering as the cover function and commercial recommendation manipulation as the hidden goal.",
+    "Across six brands in three commercial domains, IDH reaches an attack success rate of up to 97.8 percent while keeping high refusal rates on harmful requests. Takeaway: a steering vector that passes a benign behavioral check can still encode a conditional second behavior, so anyone sharing or loading steering vectors should verify provenance and monitor intervention norms and per-layer effects at runtime. The abstract does not give numbers for how well the proposed defense works, and the model list is not named in the abstract."
    ],
    "score": 4
   },
   {
-   "id": "arxiv:2610.37126",
-   "title": "Mechanistic Failure Modes of Weight Pruning in Transformer Language Models",
+   "id": "arxiv:2610.37157",
+   "title": "What Survives Distillation? A Mechanistic Interpretability Study of GPT-2 and DistilGPT-2",
    "authors": [
     "Nabeelah Faumi",
     "Deshan Sumanathilaka"
    ],
-   "url": "https://arxiv.org/abs/2610.37126",
-   "pdf_url": "https://arxiv.org/pdf/2610.37126",
-   "source": "arXiv cs.LG, preprint",
+   "url": "https://arxiv.org/abs/2610.37157",
+   "pdf_url": "https://arxiv.org/pdf/2610.37157",
+   "source": "arXiv cs.CL (preprint)",
+   "published": "2026-10-27",
+   "topics": [
+    "interpretability",
+    "sae"
+   ],
+   "why_it_matters": "Compares known circuits in a teacher and its distilled student with several mech-interp tools at once, showing that aggregate metrics can hide circuit collapse after compression.",
+   "summary": [
+    "Distillation produces smaller students that match aggregate metrics, but it is unclear whether the internal mechanisms of the teacher survive when depth is cut. Without that, a compressed model can look fine on benchmarks while specific capabilities have broken.",
+    "The authors compare GPT-2 with its six-layer student DistilGPT-2 on two well-studied circuits, Indirect Object Identification (IOI) and Greater-Than (GT). They use linear CKA, logit lens, attention-pattern decomposition, sparse autoencoder feature statistics and activation patching.",
+    "The IOI circuit collapses in the student (35.2 percent accuracy versus 94.8 percent, with no name-mover heads preserved), while the GT circuit keeps 87.7 percent of task performance by remapping the teacher's layer-9 comparison head into student layer 4 (mean Pearson r of 0.945). Takeaway: whether a circuit survives distillation depends on how compressible it is, so per-circuit checks, not aggregate metrics, are needed after compressing a model. Limitation: one small model pair and two classic toy circuits."
+   ],
+   "score": 3
+  },
+  {
+   "id": "arxiv:2610.35593",
+   "title": "SAP-ViT: A Self-Attributing Patch Vision Transformer for Medical Image Classification",
+   "authors": [
+    "Wei Zhang",
+    "Wolfgang Nejdl",
+    "Ming Tang"
+   ],
+   "url": "https://arxiv.org/abs/2610.35593",
+   "pdf_url": "https://arxiv.org/pdf/2610.35593",
+   "source": "arXiv cs.AI (preprint)",
+   "published": "2026-10-26",
+   "topics": [
+    "interpretability"
+   ],
+   "why_it_matters": "An inherently interpretable ViT for medical images whose prediction decomposes into patch contributions in the forward pass, a design alternative to prototype heads for ultrasound classifiers.",
+   "summary": [
+    "ViT classifiers usually predict from a global CLS token, which gives no built-in local evidence, while medical imaging often needs to show which regions drove a decision. Post-hoc attention or saliency maps are only loosely tied to the actual prediction.",
+    "SAP-ViT drops the CLS token and classifies by directly aggregating last-layer patch embeddings, so the class score is a sum of patch-level contributions. A sparsity penalty on patch weights keeps the evidence concise, and an input-space back-mapping step estimates which input patches feed the influential output patch embeddings, since self-attention mixes tokens. It is evaluated on several medical image classification datasets across imaging modalities, with ablations.",
+    "The authors report that classification stays strong while patch-level explanations are consistent across datasets, and ablations show both the sparsity term and the back-mapping alignment improve explanation quality. Takeaway: replacing the CLS head with sparse, additive patch scoring is a cheap way to make a ViT self-explaining and could be compared against prototype layers on ultrasound patches. Caveat: the abstract gives no accuracy numbers, dataset names or comparison baselines, so the size of any accuracy trade-off is unknown."
+   ],
+   "score": 3
+  },
+  {
+   "id": "arxiv:2610.36585",
+   "title": "Recall or Relearn? A Mixture of In-Context Experts for Recurring Concept Drift",
+   "authors": [
+    "Zhangkai Wu",
+    "Xu Zhang",
+    "Zhihong Cui",
+    "Yiqi Wang",
+    "Yi Zhang"
+   ],
+   "url": "https://arxiv.org/abs/2610.36585",
+   "pdf_url": "https://arxiv.org/pdf/2610.36585",
+   "source": "arXiv cs.LG (preprint)",
+   "published": "2026-10-27",
+   "topics": [
+    "tabular_fm"
+   ],
+   "why_it_matters": "A training-free way to manage the context of a tabular foundation model on drifting streams, with theory on when restoring stored context beats relearning.",
+   "summary": [
+    "Tabular foundation models adapt to data streams by swapping the labelled rows in their context, with no retraining. When a past concept comes back after its rows have left the context, the model must either restore stored rows or relearn from new labels, and there was no principled way to make that choice.",
+    "MICE splits the stream into segments at detected changes and merges a finished segment into a stored context when the model's estimated extra error stays within a tolerance, under a cap on stored contexts. A fast level weights stored contexts and first-in-first-out windows by log-loss on the latest labelled batch, and a slow level mixes this with the most recent window. The authors prove a gain over relearning under a margin condition and a bound on discounted half-Brier regret against the recent window, and test on synthetic grid streams and real streams.",
+    "MICE beats resetting the context at detected drifts on grid streams, keeps fewer experts than pools that store every segment, and has the highest mean accuracy among the compared policies on real streams; with fixed segmentation a time-matched snapshot pool matches it on the shifted grid. Takeaway: for TabPFN-style models, context management is itself a lever, and learning curves measured in advance can predict when recall will pay off. The abstract gives no accuracy numbers or names of the real datasets or the foundation model used."
+   ],
+   "score": 3
+  },
+  {
+   "id": "arxiv:2610.36763",
+   "title": "The Vocabulary Is Already Here: Adapting Pretrained Interpretable Features for Generative Recommendation",
+   "authors": [
+    "Ziluowen Luo",
+    "Ruochen Liu",
+    "Jun Yin",
+    "Hao Yan",
+    "Zhengxuan Hu",
+    "Xinze Shi",
+    "Chaozhuo Li",
+    "Chengqi Zhang",
+    "Senzhang Wang"
+   ],
+   "url": "https://arxiv.org/abs/2610.36763",
+   "pdf_url": "https://arxiv.org/pdf/2610.36763",
+   "source": "arXiv cs.IR (preprint)",
+   "published": "2026-10-27",
+   "topics": [
+    "sae"
+   ],
+   "why_it_matters": "Uses the indices of pretrained SAE features directly as discrete item tokens, a concrete downstream use of off-the-shelf SAEs that also yields explanations.",
+   "summary": [
+    "Generative recommenders predict the next item through a semantic ID, and current methods learn these ID vocabularies by fitting language model embeddings of item descriptions, which adds training cost and ties coverage to the training domain. Pretrained sparse autoencoders already expose language model features with human-readable annotations, which could serve as a ready-made vocabulary.",
+    "The API framework builds Pretrained Interpretable IDs that keep selected SAE feature indices and their relative activation strengths to tell items apart under a small token budget. A Semantic Prediction Adapter learns user preferences from interaction histories by predicting both feature indices and strengths, combines them to score candidates, and uses item-level supervision so the true next item outranks alternatives. Score differences between candidates are explained through feature contributions with their SAE annotations.",
+    "The authors report competitive performance across backbones and decoding schemes, preserved item distinctions under compact token budgets, and explainable retrieval. Takeaway: SAE feature indices plus activation strengths can act as a no-training discrete code for downstream tasks, which is worth trying wherever a learned tokenizer or codebook is used. Caveat: the abstract gives no metrics, datasets or baselines, so how competitive it is cannot be judged from the abstract."
+   ],
+   "score": 3
+  },
+  {
+   "id": "arxiv:2610.36449",
+   "title": "A Heart Means Recursion: Exploring Visual Meaning and Communication in VLMs",
+   "authors": [
+    "Alexa R. Tartaglini",
+    "Zhengxuan Wu",
+    "Thaddäus Wiedemer",
+    "Martin Wattenberg",
+    "Been Kim",
+    "Yuxuan Li"
+   ],
+   "url": "https://arxiv.org/abs/2610.36449",
+   "pdf_url": "https://arxiv.org/pdf/2610.36449",
+   "source": "arXiv cs.AI (preprint)",
    "published": "2026-10-27",
    "topics": [
     "interpretability"
    ],
-   "why_it_matters": "A clear example that output metrics can hide internal damage, with circuit-level checks catching it, which is relevant to how you evaluate interventions such as steering.",
+   "why_it_matters": "From a well-known interpretability group (Wattenberg, Been Kim): simple visual symbols implicitly steer VLM behavior in ways the model's own explanations do not reveal, a caution about trusting self-reports.",
    "summary": [
-    "Pruned language models are judged mostly by accuracy and perplexity, which assumes that if outputs look fine, the internal computation is intact. That assumption has not been tested against a known circuit.",
-    "The authors run a factorial pruning study on GPT-2, crossing magnitude versus random importance, attention heads versus MLP neurons, and three sparsity levels. Using the well-characterized indirect object identification (IOI) circuit as ground truth, they measure circuit integrity with activation patching, path patching and direct logit attribution, and replicate on the Greater-Than circuit.",
-    "Magnitude head pruning wipes out the circuit by removing output-facing heads, and the model falls to near chance. Magnitude neuron pruning keeps all 26 circuit heads but flips the sign of Name Mover contributions, so the model prefers the wrong name (17.7% accuracy), while perplexity ranks it as less damaged than random head pruning (74.6 vs 140.1). Takeaway: perplexity and structural checks can both miss a sign-flipped mechanism, so add a causal, circuit-level check when you claim an intervention preserves the model. Caveat: GPT-2 small and two toy circuits only."
-   ],
-   "score": 3
-  },
-  {
-   "id": "arxiv:2610.36226",
-   "title": "Structure, Not Sequence: Tracking and Validating Folding Mechanisms in ESMFold's Trunk with Sparse Autoencoders",
-   "authors": [
-    "Bohan Liu",
-    "Xiaohan Fan",
-    "Wenqian Ye",
-    "Aidong Zhang"
-   ],
-   "url": "https://arxiv.org/abs/2610.36226",
-   "pdf_url": "https://arxiv.org/pdf/2610.36226",
-   "source": "arXiv q-bio.QM, preprint",
-   "published": "2026-10-26",
-   "topics": [
-    "sae",
-    "interpretability"
-   ],
-   "why_it_matters": "SAEs applied beyond language, with attribution across blocks and a check that features predict the model's own quality, a template for SAE work on non-text models such as ultrasound encoders.",
-   "summary": [
-    "SAEs have produced interpretable features for protein sequence models, but folding models that map sequence to 3D structure, such as ESMFold, have no such account. How the folding trunk turns amino-acid semantics into geometry remains opaque.",
-    "The authors first analyze how representations are distributed across trunk modules and recycling steps to locate where spatial computation happens. They train SAE dictionaries on the trunk's single and pair representations, label the features at scale with a reasoning language model, trace how concepts compose across blocks with gradient-based attribution, and compare the resulting mechanisms with known biochemistry.",
-    "They report a division of labor: the single representation carries semantics inherited from the sequence model, while the pair representation computes pairwise geometry. The SAE features capture relational geometry beyond the sequence model, and their activations forecast the model's own fold quality. Takeaway: checking whether SAE features predict the model's confidence or error is a useful validation you could reuse for SAEs on medical image encoders. Caveat: the abstract gives no quantitative results, and automated feature labeling by an LLM needs careful checking."
-   ],
-   "score": 3
-  },
-  {
-   "id": "pmid:42947740",
-   "title": "Preliminary Study on Stromal Nodule Detection Using B-Mode Ultrasound Images and Deep Learning.",
-   "authors": [
-    "Izabella Chaverra",
-    "Nati Nawawithan",
-    "Teja R Pathour",
-    "Ling Ma",
-    "Douglas W Strand",
-    "Xiaosong Meng",
-    "Brett A Johnson",
-    "Baowei Fei"
-   ],
-   "url": "https://pubmed.ncbi.nlm.nih.gov/42947740/",
-   "source": "Proceedings of SPIE (preliminary study)",
-   "published": "2026-10-28",
-   "topics": [
-    "prostate_us"
-   ],
-   "why_it_matters": "A small SAM2-on-B-mode prostate study with histology-correlated labels; mainly useful as a data point on fine-tuning SAM2 for prostate ultrasound tissue characterization.",
-   "summary": [
-    "Benign prostatic hyperplasia is very common in older men, and transrectal ultrasound is used to assess it but is often inaccurate. Detecting stromal nodules directly on B-mode images could make ultrasound more useful for this.",
-    "The authors imaged ex-vivo prostate specimens with B-mode ultrasound and correlated expert annotations of stromal versus non-stromal regions with the images. They trained Segment Anything Model 2 (SAM2) to segment stromal tissue, using an 80/20 patient-level train/test split.",
-    "SAM2 reached a Dice score of 0.76 for stromal versus non-stromal tissue, which the authors present as feasibility. Takeaway: SAM2 can be adapted to B-mode prostate tissue segmentation with histology-matched labels, a quick baseline if you need tissue masks. Caveat: this is a preliminary ex-vivo study of benign disease, not cancer, the abstract gives no dataset size or baselines, and the authors say more data is needed."
+    "Whether vision-language models can communicate meaning through images, as humans do with symbols, is largely untested. The starting observation is that a simple visual symbol can change model behavior on unrelated tasks.",
+    "The authors document that symbols such as a red heart can push models toward recursive solutions on simple coding problems, and compare this behavior with the models' own direct interpretations and thinking traces about the symbol. They then run communication games in which models send images to other models, first with shape primitives and then with abstract concepts and stories.",
+    "The steering effect is mostly implicit: what models say a symbol means and what they reason about it diverges strongly from how it changes their behavior. Models tend to send intuitive shape primitives, but these often fail to steer other models, a gap the authors call the generation-interpretation gap; in richer games models do convey meaning to each other, sometimes in ways humans find non-intuitive. Takeaway: model self-explanations can miss what actually drives behavior, so behavioral or internal measurements are needed rather than asking the model. The authors present these as preliminary findings, and the abstract gives no quantitative results."
    ],
    "score": 3
   }
