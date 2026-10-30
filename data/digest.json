@@ -1,227 +1,267 @@
 {
- "date": "2026-10-29",
- "generated_at": "2026-10-29T06:06:10-07:00",
- "papers": [
-  {
-   "id": "arxiv:2610.35857",
-   "title": "Do vision models know that three is three?",
-   "authors": [
-    "Ankit Sonthalia",
-    "Arnas Uselis",
-    "Seong Joon Oh"
-   ],
-   "url": "https://arxiv.org/abs/2610.35857",
-   "pdf_url": "https://arxiv.org/pdf/2610.35857",
-   "source": "arXiv cs.CV (preprint)",
-   "published": "2026-10-26",
-   "topics": [
-    "interpretability",
-    "steering"
-   ],
-   "why_it_matters": "Tests whether concept directions in vision encoders are global or split across visual contexts, which directly bears on whether a single steering or probe direction will transfer across domains such as scanners or sites.",
-   "summary": [
-    "The linear representation hypothesis says concept changes map to directions in embedding space, and this is well studied for language models. In vision the same concept (a count going from two to three, an object getting dirty) can appear in visually unrelated settings that almost never co-occur, so it is unclear whether a vision model uses one shared direction for the concept or several.",
-    "The authors probe 46 vision encoders that differ in architecture, training objective and scale, across 10 concept families including numerosity, age, object identity and MIT-States attributes. For each concept they estimate directions inside each visual regime and then compare directions across regimes, and test whether probes trained in one regime transfer to another.",
-    "Concept directions are statistically significant within a regime in almost every model, but two regimes often do not share the same direction; the authors call this fragmented linearity, with several separate linear structures for one concept. Models with stronger local linearity tend to have more global linearity, with a correlation between the two of tau between 0.38 and 0.89 across concepts, and where global linearity exists the directions transfer as linear probes across regimes. Takeaway: a steering vector or concept probe fit on one data regime (for example one ultrasound device or hospital) should be checked on other regimes before assuming it is the same direction; measuring within-regime versus cross-regime alignment is a cheap diagnostic. The abstract does not report downstream steering experiments, only probing, and the work is a preprint."
-   ],
-   "score": 4
-  },
-  {
-   "id": "arxiv:2610.36524",
-   "title": "Causal Localization of Evidence Effects in Transformers",
-   "authors": [
-    "Jipeng Li",
-    "Pramod Khargonekar",
-    "Yanning Shen"
-   ],
-   "url": "https://arxiv.org/abs/2610.36524",
-   "pdf_url": "https://arxiv.org/pdf/2610.36524",
-   "source": "arXiv cs.CL (preprint)",
-   "published": "2026-10-27",
-   "topics": [
-    "interpretability"
-   ],
-   "why_it_matters": "Gives a controlled-probe recipe plus a head-selection criterion that balances ablation and patching, with finite-sample bounds, for finding small causal head sets; useful as a template for rigorous circuit localization.",
-   "summary": [
-    "Finding which attention heads drive a model's decision from evidence in natural text is hard because natural prompts mix many factors. The authors ask whether tightly controlled symbolic inputs can reveal heads whose causal role carries over to natural language decisions.",
-    "Controlled evidence aggregation (CEA) varies how many of two symbols appear and in what order in otherwise fixed prompts, and measures the change in a frozen model's logit difference between two answer tokens. Balanced utility causal selection (BUC) picks compact head sets by jointly scoring how much ablating them removes the count effect and how well mean-patching between count conditions restores it in both directions. They derive conditional bounds linking head attribution to intervention effects and to finite-sample recovery of the shortlist, and test on Pythia-410M.",
-    "Ablating sets of 1 to 12 heads, selected separately for four ordering regimes, removes 65.5 to 91.6 percent of the count effect, and the sets keep their influence on count comparisons not used for selection. On a natural language task about which state is supported by more reports, ablating eight heads chosen only from symbolic prompts lowers mean accuracy by 8.2 percentage points versus 0.8 for size- and layer-matched random heads. Takeaway: requiring a head set to pass both an ablation test and a two-way patching test, and comparing against matched random sets, is a reusable standard for circuit claims. Limitation: the results are on a single small model (Pythia-410M) and a simple counting-style task."
-   ],
-   "score": 4
-  },
-  {
-   "id": "arxiv:2610.36797",
-   "title": "Language Models Keep Abandoned Analyses: Residue and Adaptation after Garden-Path Sentences",
-   "authors": [
-    "Xiang Ding"
-   ],
-   "url": "https://arxiv.org/abs/2610.36797",
-   "pdf_url": "https://arxiv.org/pdf/2610.36797",
-   "source": "arXiv cs.CL (preprint)",
-   "published": "2026-10-27",
-   "topics": [
-    "interpretability"
-   ],
-   "why_it_matters": "A careful activation-patching study across 24 models up to 70B that localizes where a discarded interpretation is stored and read, a good example of scaling mechanistic claims beyond toy models.",
-   "summary": [
-    "Humans who read a garden-path sentence (for example one where a noun first looks like an object and then is not) still show traces of the abandoned parse in later language. Whether language models also keep using an analysis they have already revised, and which internal states carry it, had not been measured systematically.",
-    "The study runs 24 open models from 124M to 70B parameters on garden-path sentences and controls, measuring later object attachment in probabilities and in sampled text, on held-out and human-normed items and on a second garden-path type. Activation patching is used to separate two effects: a residue of the abandoned analysis and an adaptation toward the resolved structure. A related test looks at statements that are later overridden.",
-    "The residue raises later object attachment by about three quarters of the effect of a sentence where the noun really is an object, while the adaptation scales with the sentence's disambiguation error. Replacing the noun phrase's states, which were computed under the object reading, removes almost all of the residue in the 32B and 70B models; the adaptation is read from the states that processed the disambiguation. Corrected values keep pulling later predictions in 8 of 9 models. Takeaway: information written into early token states is not erased by later revision, so probes or steering that target only late positions can miss stale content, and human psycholinguistic paradigms need controls (here, for punctuation) before transfer to models. Single-author preprint focused on one linguistic phenomenon."
-   ],
-   "score": 4
-  },
-  {
-   "id": "arxiv:2610.35043",
-   "title": "Steering for Safety, Hijacking for Profit: Trojan Threats in the LLM Activation Steering Supply Chain",
-   "authors": [
-    "Yu Yan",
-    "Jiahao Chen",
-    "Siqi Lu",
-    "Yongjuan Wang",
-    "Ziming Zhao",
-    "Zhaoxuan Li",
-    "Qingjun Yuan"
-   ],
-   "url": "https://arxiv.org/abs/2610.35043",
-   "pdf_url": "https://arxiv.org/pdf/2610.35043",
-   "source": "arXiv cs.CR (preprint)",
-   "published": "2026-10-26",
-   "topics": [
-    "steering"
-   ],
-   "why_it_matters": "Shows that shared steering-vector plugins can carry hidden malicious behavior while doing their advertised job, a practical security caveat for anyone releasing or reusing steering vectors.",
-   "summary": [
-    "Steering vectors are increasingly distributed as third-party plugins that change model behavior by editing internal representations. This open ecosystem creates a supply-chain risk, since a plugin could perform its stated function while secretly manipulating outputs, and this risk had not been studied systematically.",
-    "The authors audit eight open-source steering plugin libraries and identify three weaknesses: weak integrity checks on distribution, excessive plugin privileges, and no runtime monitoring. They build a malicious plugin, IDH, that uses a norm-gated mutually exclusive routing mechanism and an information-decay inflection-point method to pick the injection layer, so it delivers both a benign and a hidden function. They also propose a runtime defense that suppresses anomalous activation interventions and orthogonalizes inter-layer trajectories, and evaluate on five LLMs with safety-refusal steering as the cover function and commercial recommendation manipulation as the hidden goal.",
-    "Across six brands in three commercial domains, IDH reaches an attack success rate of up to 97.8 percent while keeping high refusal rates on harmful requests. Takeaway: a steering vector that passes a benign behavioral check can still encode a conditional second behavior, so anyone sharing or loading steering vectors should verify provenance and monitor intervention norms and per-layer effects at runtime. The abstract does not give numbers for how well the proposed defense works, and the model list is not named in the abstract."
-   ],
-   "score": 4
-  },
-  {
-   "id": "arxiv:2610.37157",
-   "title": "What Survives Distillation? A Mechanistic Interpretability Study of GPT-2 and DistilGPT-2",
-   "authors": [
-    "Nabeelah Faumi",
-    "Deshan Sumanathilaka"
-   ],
-   "url": "https://arxiv.org/abs/2610.37157",
-   "pdf_url": "https://arxiv.org/pdf/2610.37157",
-   "source": "arXiv cs.CL (preprint)",
-   "published": "2026-10-27",
-   "topics": [
-    "interpretability",
-    "sae"
-   ],
-   "why_it_matters": "Compares known circuits in a teacher and its distilled student with several mech-interp tools at once, showing that aggregate metrics can hide circuit collapse after compression.",
-   "summary": [
-    "Distillation produces smaller students that match aggregate metrics, but it is unclear whether the internal mechanisms of the teacher survive when depth is cut. Without that, a compressed model can look fine on benchmarks while specific capabilities have broken.",
-    "The authors compare GPT-2 with its six-layer student DistilGPT-2 on two well-studied circuits, Indirect Object Identification (IOI) and Greater-Than (GT). They use linear CKA, logit lens, attention-pattern decomposition, sparse autoencoder feature statistics and activation patching.",
-    "The IOI circuit collapses in the student (35.2 percent accuracy versus 94.8 percent, with no name-mover heads preserved), while the GT circuit keeps 87.7 percent of task performance by remapping the teacher's layer-9 comparison head into student layer 4 (mean Pearson r of 0.945). Takeaway: whether a circuit survives distillation depends on how compressible it is, so per-circuit checks, not aggregate metrics, are needed after compressing a model. Limitation: one small model pair and two classic toy circuits."
-   ],
-   "score": 3
-  },
-  {
-   "id": "arxiv:2610.35593",
-   "title": "SAP-ViT: A Self-Attributing Patch Vision Transformer for Medical Image Classification",
-   "authors": [
-    "Wei Zhang",
-    "Wolfgang Nejdl",
-    "Ming Tang"
-   ],
-   "url": "https://arxiv.org/abs/2610.35593",
-   "pdf_url": "https://arxiv.org/pdf/2610.35593",
-   "source": "arXiv cs.AI (preprint)",
-   "published": "2026-10-26",
-   "topics": [
-    "interpretability"
-   ],
-   "why_it_matters": "An inherently interpretable ViT for medical images whose prediction decomposes into patch contributions in the forward pass, a design alternative to prototype heads for ultrasound classifiers.",
-   "summary": [
-    "ViT classifiers usually predict from a global CLS token, which gives no built-in local evidence, while medical imaging often needs to show which regions drove a decision. Post-hoc attention or saliency maps are only loosely tied to the actual prediction.",
-    "SAP-ViT drops the CLS token and classifies by directly aggregating last-layer patch embeddings, so the class score is a sum of patch-level contributions. A sparsity penalty on patch weights keeps the evidence concise, and an input-space back-mapping step estimates which input patches feed the influential output patch embeddings, since self-attention mixes tokens. It is evaluated on several medical image classification datasets across imaging modalities, with ablations.",
-    "The authors report that classification stays strong while patch-level explanations are consistent across datasets, and ablations show both the sparsity term and the back-mapping alignment improve explanation quality. Takeaway: replacing the CLS head with sparse, additive patch scoring is a cheap way to make a ViT self-explaining and could be compared against prototype layers on ultrasound patches. Caveat: the abstract gives no accuracy numbers, dataset names or comparison baselines, so the size of any accuracy trade-off is unknown."
-   ],
-   "score": 3
-  },
-  {
-   "id": "arxiv:2610.36585",
-   "title": "Recall or Relearn? A Mixture of In-Context Experts for Recurring Concept Drift",
-   "authors": [
-    "Zhangkai Wu",
-    "Xu Zhang",
-    "Zhihong Cui",
-    "Yiqi Wang",
-    "Yi Zhang"
-   ],
-   "url": "https://arxiv.org/abs/2610.36585",
-   "pdf_url": "https://arxiv.org/pdf/2610.36585",
-   "source": "arXiv cs.LG (preprint)",
-   "published": "2026-10-27",
-   "topics": [
-    "tabular_fm"
-   ],
-   "why_it_matters": "A training-free way to manage the context of a tabular foundation model on drifting streams, with theory on when restoring stored context beats relearning.",
-   "summary": [
-    "Tabular foundation models adapt to data streams by swapping the labelled rows in their context, with no retraining. When a past concept comes back after its rows have left the context, the model must either restore stored rows or relearn from new labels, and there was no principled way to make that choice.",
-    "MICE splits the stream into segments at detected changes and merges a finished segment into a stored context when the model's estimated extra error stays within a tolerance, under a cap on stored contexts. A fast level weights stored contexts and first-in-first-out windows by log-loss on the latest labelled batch, and a slow level mixes this with the most recent window. The authors prove a gain over relearning under a margin condition and a bound on discounted half-Brier regret against the recent window, and test on synthetic grid streams and real streams.",
-    "MICE beats resetting the context at detected drifts on grid streams, keeps fewer experts than pools that store every segment, and has the highest mean accuracy among the compared policies on real streams; with fixed segmentation a time-matched snapshot pool matches it on the shifted grid. Takeaway: for TabPFN-style models, context management is itself a lever, and learning curves measured in advance can predict when recall will pay off. The abstract gives no accuracy numbers or names of the real datasets or the foundation model used."
-   ],
-   "score": 3
-  },
-  {
-   "id": "arxiv:2610.36763",
-   "title": "The Vocabulary Is Already Here: Adapting Pretrained Interpretable Features for Generative Recommendation",
-   "authors": [
-    "Ziluowen Luo",
-    "Ruochen Liu",
-    "Jun Yin",
-    "Hao Yan",
-    "Zhengxuan Hu",
-    "Xinze Shi",
-    "Chaozhuo Li",
-    "Chengqi Zhang",
-    "Senzhang Wang"
-   ],
-   "url": "https://arxiv.org/abs/2610.36763",
-   "pdf_url": "https://arxiv.org/pdf/2610.36763",
-   "source": "arXiv cs.IR (preprint)",
-   "published": "2026-10-27",
-   "topics": [
-    "sae"
-   ],
-   "why_it_matters": "Uses the indices of pretrained SAE features directly as discrete item tokens, a concrete downstream use of off-the-shelf SAEs that also yields explanations.",
-   "summary": [
-    "Generative recommenders predict the next item through a semantic ID, and current methods learn these ID vocabularies by fitting language model embeddings of item descriptions, which adds training cost and ties coverage to the training domain. Pretrained sparse autoencoders already expose language model features with human-readable annotations, which could serve as a ready-made vocabulary.",
-    "The API framework builds Pretrained Interpretable IDs that keep selected SAE feature indices and their relative activation strengths to tell items apart under a small token budget. A Semantic Prediction Adapter learns user preferences from interaction histories by predicting both feature indices and strengths, combines them to score candidates, and uses item-level supervision so the true next item outranks alternatives. Score differences between candidates are explained through feature contributions with their SAE annotations.",
-    "The authors report competitive performance across backbones and decoding schemes, preserved item distinctions under compact token budgets, and explainable retrieval. Takeaway: SAE feature indices plus activation strengths can act as a no-training discrete code for downstream tasks, which is worth trying wherever a learned tokenizer or codebook is used. Caveat: the abstract gives no metrics, datasets or baselines, so how competitive it is cannot be judged from the abstract."
-   ],
-   "score": 3
-  },
-  {
-   "id": "arxiv:2610.36449",
-   "title": "A Heart Means Recursion: Exploring Visual Meaning and Communication in VLMs",
-   "authors": [
-    "Alexa R. Tartaglini",
-    "Zhengxuan Wu",
-    "Thaddäus Wiedemer",
-    "Martin Wattenberg",
-    "Been Kim",
-    "Yuxuan Li"
-   ],
-   "url": "https://arxiv.org/abs/2610.36449",
-   "pdf_url": "https://arxiv.org/pdf/2610.36449",
-   "source": "arXiv cs.AI (preprint)",
-   "published": "2026-10-27",
-   "topics": [
-    "interpretability"
-   ],
-   "why_it_matters": "From a well-known interpretability group (Wattenberg, Been Kim): simple visual symbols implicitly steer VLM behavior in ways the model's own explanations do not reveal, a caution about trusting self-reports.",
-   "summary": [
-    "Whether vision-language models can communicate meaning through images, as humans do with symbols, is largely untested. The starting observation is that a simple visual symbol can change model behavior on unrelated tasks.",
-    "The authors document that symbols such as a red heart can push models toward recursive solutions on simple coding problems, and compare this behavior with the models' own direct interpretations and thinking traces about the symbol. They then run communication games in which models send images to other models, first with shape primitives and then with abstract concepts and stories.",
-    "The steering effect is mostly implicit: what models say a symbol means and what they reason about it diverges strongly from how it changes their behavior. Models tend to send intuitive shape primitives, but these often fail to steer other models, a gap the authors call the generation-interpretation gap; in richer games models do convey meaning to each other, sometimes in ways humans find non-intuitive. Takeaway: model self-explanations can miss what actually drives behavior, so behavioral or internal measurements are needed rather than asking the model. The authors present these as preliminary findings, and the abstract gives no quantitative results."
-   ],
-   "score": 3
-  }
- ]
+  "date": "2026-10-30",
+  "generated_at": "2026-10-30T06:10:34-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2610.38526",
+      "title": "Value Probes: Learned Value Functions for Beam-Search Red Teaming",
+      "authors": [
+        "Jonathan F. Jao",
+        "Andrew Kyle Lampinen"
+      ],
+      "affiliations": [
+        "Anthropic"
+      ],
+      "url": "https://arxiv.org/abs/2610.38526",
+      "pdf_url": "https://arxiv.org/pdf/2610.38526",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-10-28",
+      "topics": [
+        "interpretability"
+      ],
+      "why_it_matters": "A clean example of linear probes on activations doing real downstream work (estimating future outcomes), which is a useful pattern if you want probes or concept directions to drive decisions rather than just diagnose.",
+      "summary": [
+        "Automated red-team audits of language models search over many possible conversation branches, but the auditor model alone decides which branch to pursue, which wastes budget. Finding conversation states that are likely to end in problematic behavior is hard to do efficiently.",
+        "The authors frame auditing as a Markov decision process (conversation history as state, candidate replies as actions, judge scores as rewards) and run beam search over conversations. They estimate the value of each state with a linear probe trained on the target model's activations to predict discounted future judge reward, called a Value Probe, and use it as the beam-search heuristic. They also fit probes from off-policy data produced with smaller models and ablate the components.",
+        "Across 18 target behaviors and 3 model scales, Value Probes raised peak audit scores by roughly 50% over token-matched standard auditing. Probes fit on off-policy data from smaller models still worked, and the method matched more expensive language-model follow-ups at lower cost. Takeaway: a linear readout of activations can carry forward-looking information about where a model is heading, which supports using probe directions as cheap value or risk signals, not only as post-hoc diagnostics. Caveat: the abstract gives no per-behavior breakdown or model names, and this is a preprint focused on safety auditing rather than mechanism."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.40055",
+      "title": "One Vector or Many? Clustered Optimal-Transport Steering under Quantization",
+      "authors": [
+        "Illia Makarov"
+      ],
+      "affiliations": [
+        "NaUKMA (Kyiv-Mohyla Academy)"
+      ],
+      "url": "https://arxiv.org/abs/2610.40055",
+      "pdf_url": "https://arxiv.org/pdf/2610.40055",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "steering"
+      ],
+      "why_it_matters": "Directly about steering geometry: it proves when a clustered optimal-transport steering map collapses to plain difference-of-means, which is a useful sanity check for any multi-vector steering method you design.",
+      "summary": [
+        "The default form of activation steering adds a single difference-of-means (DiM) vector to every hidden state, which ignores that a concept's activations may form several clusters. Clustered optimal-transport methods such as CHaRS try to fix this, but it was unclear what they actually add over DiM and whether any gain survives model quantization.",
+        "The paper studies clustered optimal-transport steering maps for toxicity mitigation in Gemma-2-2B and Granite-3.1-2B. It proves that, for any transport plan, the cluster-size-weighted average of the displacements equals DiM, so a clustered map can differ from DiM only for tokens whose routing weights deviate from cluster sizes. It then runs pre-specified equivalence tests against Mean-AcT, a token-level fitted variant, a near-constant control map, and INT8 and NF4 quantized models.",
+        "In the original CHaRS protocol the routing weights stay near the cluster sizes, and CHaRS was statistically equivalent to Mean-AcT in all eight equivalence tests. The token-level variant left 37-39% less toxicity than DiM on Gemma and 51-61% less on Granite at strength 3 (toxic-bert), where DiM already removed 76-85%, but only one of two extra classifiers confirmed the gain on Gemma, and a nearly constant map from the same clusters also left about 30% less toxicity. Takeaway: before crediting per-token or multi-vector steering, check whether its routing actually departs from cluster proportions and include a constant-map control, since much of the gain may not come from treating tokens differently. Limitations: single-author preprint, two 2B models, one behavior (toxicity)."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.40505",
+      "title": "Discovering Interpretable Acoustic Features in Autoregressive Voice-Cloning TTS Models",
+      "authors": [
+        "Anuj Diwan",
+        "David Harwath",
+        "Eunsol Choi"
+      ],
+      "affiliations": [
+        "UT Austin",
+        "NYU"
+      ],
+      "url": "https://arxiv.org/abs/2610.40505",
+      "pdf_url": "https://arxiv.org/pdf/2610.40505",
+      "source": "arXiv eess.AS, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "sae",
+        "steering",
+        "interpretability"
+      ],
+      "why_it_matters": "Compares SAE features, PCA and random directions head-to-head for probing and steering in a new modality, and finds probing success does not imply steering success, a point that matters for your steering-geometry work.",
+      "summary": [
+        "Voice-cloning text-to-speech models copy an unseen speaker's voice from a short prompt, yet little is known about which acoustic properties they represent internally or actually use. Feature-level interpretability tools developed for text models have rarely been tested on speech generators.",
+        "The authors build an interpretability framework for autoregressive voice-cloning TTS that compares features from sparse autoencoders, PCA and random directions using sparse probing, activation steering and quantitative auto-interpretability. The main study is on Qwen3-TTS, and probing and steering are extended to 5 additional models to test whether findings hold across architectures.",
+        "The models encode concepts such as pitch, energy, noise and accent, but sparse prediction and steering work only for some of them, and strong probing does not reliably predict steerability or the reverse. SAEs helped most for sparse probing of labelled concepts and for discovering new ones, while PCA was competitive for dense probing and steering; auto-interpretability validated 684 SAE features in Qwen3-TTS covering speaker clusters, speaking style and recording conditions. Takeaway: always include PCA and random-direction baselines when claiming SAE features are good steering handles, and test probing and steering separately. Caveat: the abstract reports no effect sizes for steering, and the paper is under review."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.39506",
+      "title": "Interpretable by Design Tabular Prediction via In-Context Local Linear Learning",
+      "authors": [
+        "Ran Eisenberg",
+        "Steven Berger",
+        "Ofir Lindenbaum"
+      ],
+      "affiliations": [
+        "Bar-Ilan University"
+      ],
+      "url": "https://arxiv.org/abs/2610.39506",
+      "pdf_url": "https://arxiv.org/pdf/2610.39506",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "tabular_fm",
+        "interpretability"
+      ],
+      "why_it_matters": "Shows a practical way to get faithful, per-sample feature contributions out of a tabular foundation model by using it only for neighbor retrieval, close to the case-based and prototype ideas you work with.",
+      "summary": [
+        "Tabular foundation models predict well through in-context learning, but it is hard to know how each feature contributes to a given prediction. Post-hoc importance scores may not reflect what the model actually used, which is a problem in settings such as biomarker discovery.",
+        "TICL3 (Tabular In-Context Local Linear Learning) is an interpretable-by-design predictor. It first fits a shared linear model for dataset-level feature effects, then for each query retrieves similar training samples using the foundation model's representations and fits a local linear model on the residuals in that neighborhood. The sum of the global and local coefficients gives a query-specific linear score, so the same model both predicts and explains.",
+        "Across 386 classification benchmark-dataset evaluations, TICL3 trailed TabICLv2 by 1.1 percentage points on average and beat CatBoost in 266 of them. It improved average support F1 over MAPLE by 4.7 points and was best on both real-data selected-feature utility metrics. Takeaway: foundation-model embeddings can serve as a retrieval space for a transparent local model, giving faithful explanations at a small accuracy cost, a recipe that maps onto retrieval or prototype-based explanations. Caveat: classification only in the reported numbers, and linear local rules may miss strong interactions."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.39065",
+      "title": "Tabular foundation models are not a shortcut to calibrated clinical risk prediction: a pre-registered simulation against the true risk",
+      "authors": [
+        "Ebrahim Khaled Ebrahim"
+      ],
+      "affiliations": [
+        "Alexandria University"
+      ],
+      "url": "https://arxiv.org/abs/2610.39065",
+      "pdf_url": "https://arxiv.org/pdf/2610.39065",
+      "source": "arXiv stat.ME, preprint",
+      "published": "2026-10-28",
+      "topics": [
+        "tabular_fm"
+      ],
+      "why_it_matters": "A pre-registered, ground-truth check that TabPFN-style models do not automatically give calibrated clinical risks, which is directly relevant if you use tabular foundation models on clinical variables such as PSA or age.",
+      "summary": [
+        "Tabular foundation models are often assumed to give good clinical risk estimates without model fitting, but their calibration has only been judged on real data where the true risk is unknown. Calibration matters for clinical decisions more than discrimination alone.",
+        "In a pre-registered simulation with known true risks, the author compared TabPFN-3.5, TabICLv2 and Mitra-v2 against Firth logistic regression with intercept correction (FLIC) across 58 scenarios and 1,000 random designs, then on four clinical datasets. Calibration was assessed by average, intercept and slope against the true risk. Code and benchmark data are released on Zenodo.",
+        "Calibration slope of the foundation models matched FLIC within the pre-registered margin in 36 or 37 of 48 core scenarios and was better only at n = 200 with a 3% event rate. Even with 3,000 patients, FLIC, TabPFN-3.5 or Mitra-v2 gave near-true risks in only 63%-83% of samples at 10% and 30% event rates and 35%-50% at 3%, while TabICLv2 did worse (8%-39% and 1%-3%). Across random designs the foundation models beat FLIC beyond the margin in 25%-38% and were worse in none, but no model handled a shift in event rate between populations, and recalibration on 500 local patients largely fixed this. Takeaway: treat TFM risk outputs as needing local recalibration, especially across sites; single-author preprint."
+      ],
+      "score": 4
+    },
+    {
+      "id": "pmid:42957822",
+      "title": "Micro-ultrasound experience and clinically significant prostate cancer detection: a center-level analysis of the optimum randomized trial",
+      "authors": [
+        "Melis Guer",
+        "Alon Lazarovich",
+        "Ferdinand Luger",
+        "Hannes Cash",
+        "Sangeet Ghai",
+        "L Felipe Urdaneta-Salegui",
+        "Christian P Pavlovich",
+        "Joseph Brito",
+        "Neal D Shore",
+        "Julian P Struck",
+        "Martin Schostak",
+        "Niklas Harland",
+        "Moisés Rodriguez-Socarrás",
+        "Wayne G Brisbane",
+        "Giovanni Lughezzani",
+        "Harry Toledano",
+        "Mohammed Salah Ouertani",
+        "Petr Macek",
+        "Christopher Fung",
+        "Wendy Tu",
+        "Andreas Gusenleitner",
+        "Karsten Günzel",
+        "Peter F Incze",
+        "Arvin K George",
+        "José G Pereira",
+        "Robert Jansen",
+        "Joseph Renzulli",
+        "Laurence Klotz",
+        "Adam Kinnaird"
+      ],
+      "affiliations": [
+        "University of Alberta",
+        "Sunnybrook Health Sciences Centre"
+      ],
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42957822/",
+      "source": "Prostate Cancer and Prostatic Diseases",
+      "published": "2026-10-28",
+      "topics": [
+        "prostate_us"
+      ],
+      "why_it_matters": "Evidence from the multicenter OPTIMUM trial that center experience does not change micro-ultrasound csPCa detection once operators meet a proficiency standard, which matters when you argue about reader variability and the value of AI support for micro-US.",
+      "summary": [
+        "Micro-ultrasound is increasingly used to guide prostate biopsy, and a learning curve is expected, but how much operator experience affects detection of clinically significant prostate cancer (csPCa) was not well defined. This bears on how micro-US results transfer between centers.",
+        "Using data from the multicenter randomized OPTIMUM trial, the authors built two logistic regression models to predict csPCa. Center experience was captured by two standardized scores derived from operator data, a Center Case Load Score and a Center Mastery Score; Model 1 included experience measures and case volume and Model 2 left them out. Performance was compared with confusion matrices and AUC, with clinical factors and PRI-MUS score as covariates.",
+        "Experience measures did not improve discrimination: sensitivity, specificity and AUC were 0.851/0.523/0.803 with them versus 0.851/0.544/0.803 without, and they were not significant predictors. csPCa was associated with older age, higher PSA, smaller prostate volume and suspicious DRE (all p at or below 0.001), and a low PRI-MUS score (1-2) with lower risk (p = 0.001). Takeaway: once operators reach the trial's Level 3 proficiency, center experience adds little, so for AI work, clinical variables plus PRI-MUS are the baseline to beat and center effects may be smaller than feared. Caveats stated by the authors: operator heterogeneity and possible bias in the experience proxies; this is not an AI study."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.39182",
+      "title": "Reasoning or Pattern Exploitation? Mechanistic Insights from RL-Trained Language Models",
+      "authors": [
+        "Aishik Nagar",
+        "Cheston Tan"
+      ],
+      "affiliations": [
+        "Carnegie Mellon University",
+        "A*STAR"
+      ],
+      "url": "https://arxiv.org/abs/2610.39182",
+      "pdf_url": "https://arxiv.org/pdf/2610.39182",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "sae",
+        "interpretability"
+      ],
+      "why_it_matters": "Uses SAE features plus causal interventions to track what RL post-training changes inside a model, a reusable pipeline for checking whether a fine-tuning gain is real concept learning.",
+      "summary": [
+        "Language models trained with reinforcement learning on verifiable rewards are often said to gain reasoning skills, but it is unclear whether the gains reflect reasoning or shallower adaptations. Benchmarks alone cannot separate the two.",
+        "The authors train small language models with GRPO on Tic-Tac-Toe, a finite domain that can be analyzed exhaustively, and track internal representations across training. They extract features with sparse autoencoders, test hypotheses about which game concepts are represented, and use causal interventions to locate where the decision is made.",
+        "Behaviorally, RL gave high accuracy and robustness to prompt variations, but SAE features showed the models mainly relied more on information already explicit in the prompt (whose turn it is, game progress, board occupancy), while concepts like board symmetries and forks stayed weakly represented. RL did not add or remove concept information but reorganized which features dominate, and interventions placed the decision in the late-layer state. Takeaway: high accuracy after fine-tuning can hide shortcut reliance, and SAE-based before/after comparisons are a concrete way to check it. Caveat: small models on a toy game; the abstract gives no quantitative feature statistics."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2610.39558",
+      "title": "TabCUQ: Context-Uncertainty Quantification for Tabular Foundation Models",
+      "authors": [
+        "Yuebei Shi",
+        "Molei Liu",
+        "Zijian Guo"
+      ],
+      "affiliations": [
+        "Zhejiang University",
+        "Peking University"
+      ],
+      "url": "https://arxiv.org/abs/2610.39558",
+      "pdf_url": "https://arxiv.org/pdf/2610.39558",
+      "source": "arXiv stat.ML, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "tabular_fm"
+      ],
+      "why_it_matters": "Gives a principled way to put confidence intervals on tabular foundation model estimates when the labeled context is small, useful for small clinical cohorts.",
+      "summary": [
+        "Tabular foundation models estimate conditional outcomes and treatment effects from a small labeled context at inference, and decisions based on them need reliable uncertainty. Two sources must be captured together: bias from limited context and variation from which samples are in the context, and the spread of predictions does not capture both.",
+        "TabCUQ perturbs observed outcomes with noise and reruns the foundation model on the perturbed contexts. It estimates context variation with wild-bootstrap dispersion and accounts for limited-context bias using the maximum deviation between perturbed and original estimates. For a kernel-regression analogue the authors prove asymptotically valid pointwise coverage.",
+        "The authors observe that the ordinary bootstrap can greatly overestimate context variation and subsampling can underestimate it. In simulations TabCUQ substantially improved coverage, with interval widths typically about twice those of an oracle bias-aware benchmark, and across seven real-world tasks it improved coverage of reference functions learned from much larger samples. Takeaway: do not bootstrap a TFM's context naively for uncertainty; perturbation-based intervals are a drop-in alternative. Caveat: the theory covers only a kernel-regression analogue, and intervals are fairly wide."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2610.39332",
+      "title": "Tabular Foundation Models Dramatically Outperform Bespoke Photometric Redshift Estimators",
+      "authors": [
+        "Biprateep Dey",
+        "Joshua S. Speagle"
+      ],
+      "affiliations": [
+        "University of Toronto",
+        "Vector Institute"
+      ],
+      "url": "https://arxiv.org/abs/2610.39332",
+      "pdf_url": "https://arxiv.org/pdf/2610.39332",
+      "source": "arXiv astro-ph.IM, accepted at ML4PS 2026 workshop",
+      "published": "2026-10-29",
+      "topics": [
+        "tabular_fm"
+      ],
+      "why_it_matters": "An outside-domain example where in-context tabular foundation models beat bespoke models with far less labeled data and under biased training sets, relevant evidence for small, biased medical cohorts.",
+      "summary": [
+        "Estimating galaxy redshifts from imaging alone is central to cosmology, but data-driven estimators depend on scarce spectroscopic training sets that are biased toward bright galaxies. Better sample efficiency and robustness to selection bias are needed for upcoming imaging-only surveys.",
+        "The authors apply tabular foundation models, whose synthetic pretraining acts as a learned prior over regression problems, using only in-context learning to predict full redshift distributions in one forward pass. They evaluate on a widely used benchmark under representative and biased training regimes and compare with bespoke estimators, including ones supplemented with representative calibration spectra.",
+        "The foundation models systematically beat bespoke estimators in both regimes, matching or exceeding baselines trained on over 40,000 galaxies with only 1,000 context examples. The advantage was largest with little or no calibration data and persisted even when baselines got up to 10,000 representative calibration spectra. Takeaway: adding a small representative sample to the context can be a cheap fix for selection bias, an idea worth trying for biased clinical training sets. Caveat: workshop paper (accepted at ML4PS 2026) on one benchmark."
+      ],
+      "score": 3
+    }
+  ]
 }

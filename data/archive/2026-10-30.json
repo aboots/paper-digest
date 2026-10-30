@@ -1,0 +1,267 @@
+{
+  "date": "2026-10-30",
+  "generated_at": "2026-10-30T06:10:34-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2610.38526",
+      "title": "Value Probes: Learned Value Functions for Beam-Search Red Teaming",
+      "authors": [
+        "Jonathan F. Jao",
+        "Andrew Kyle Lampinen"
+      ],
+      "affiliations": [
+        "Anthropic"
+      ],
+      "url": "https://arxiv.org/abs/2610.38526",
+      "pdf_url": "https://arxiv.org/pdf/2610.38526",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-10-28",
+      "topics": [
+        "interpretability"
+      ],
+      "why_it_matters": "A clean example of linear probes on activations doing real downstream work (estimating future outcomes), which is a useful pattern if you want probes or concept directions to drive decisions rather than just diagnose.",
+      "summary": [
+        "Automated red-team audits of language models search over many possible conversation branches, but the auditor model alone decides which branch to pursue, which wastes budget. Finding conversation states that are likely to end in problematic behavior is hard to do efficiently.",
+        "The authors frame auditing as a Markov decision process (conversation history as state, candidate replies as actions, judge scores as rewards) and run beam search over conversations. They estimate the value of each state with a linear probe trained on the target model's activations to predict discounted future judge reward, called a Value Probe, and use it as the beam-search heuristic. They also fit probes from off-policy data produced with smaller models and ablate the components.",
+        "Across 18 target behaviors and 3 model scales, Value Probes raised peak audit scores by roughly 50% over token-matched standard auditing. Probes fit on off-policy data from smaller models still worked, and the method matched more expensive language-model follow-ups at lower cost. Takeaway: a linear readout of activations can carry forward-looking information about where a model is heading, which supports using probe directions as cheap value or risk signals, not only as post-hoc diagnostics. Caveat: the abstract gives no per-behavior breakdown or model names, and this is a preprint focused on safety auditing rather than mechanism."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.40055",
+      "title": "One Vector or Many? Clustered Optimal-Transport Steering under Quantization",
+      "authors": [
+        "Illia Makarov"
+      ],
+      "affiliations": [
+        "NaUKMA (Kyiv-Mohyla Academy)"
+      ],
+      "url": "https://arxiv.org/abs/2610.40055",
+      "pdf_url": "https://arxiv.org/pdf/2610.40055",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "steering"
+      ],
+      "why_it_matters": "Directly about steering geometry: it proves when a clustered optimal-transport steering map collapses to plain difference-of-means, which is a useful sanity check for any multi-vector steering method you design.",
+      "summary": [
+        "The default form of activation steering adds a single difference-of-means (DiM) vector to every hidden state, which ignores that a concept's activations may form several clusters. Clustered optimal-transport methods such as CHaRS try to fix this, but it was unclear what they actually add over DiM and whether any gain survives model quantization.",
+        "The paper studies clustered optimal-transport steering maps for toxicity mitigation in Gemma-2-2B and Granite-3.1-2B. It proves that, for any transport plan, the cluster-size-weighted average of the displacements equals DiM, so a clustered map can differ from DiM only for tokens whose routing weights deviate from cluster sizes. It then runs pre-specified equivalence tests against Mean-AcT, a token-level fitted variant, a near-constant control map, and INT8 and NF4 quantized models.",
+        "In the original CHaRS protocol the routing weights stay near the cluster sizes, and CHaRS was statistically equivalent to Mean-AcT in all eight equivalence tests. The token-level variant left 37-39% less toxicity than DiM on Gemma and 51-61% less on Granite at strength 3 (toxic-bert), where DiM already removed 76-85%, but only one of two extra classifiers confirmed the gain on Gemma, and a nearly constant map from the same clusters also left about 30% less toxicity. Takeaway: before crediting per-token or multi-vector steering, check whether its routing actually departs from cluster proportions and include a constant-map control, since much of the gain may not come from treating tokens differently. Limitations: single-author preprint, two 2B models, one behavior (toxicity)."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.40505",
+      "title": "Discovering Interpretable Acoustic Features in Autoregressive Voice-Cloning TTS Models",
+      "authors": [
+        "Anuj Diwan",
+        "David Harwath",
+        "Eunsol Choi"
+      ],
+      "affiliations": [
+        "UT Austin",
+        "NYU"
+      ],
+      "url": "https://arxiv.org/abs/2610.40505",
+      "pdf_url": "https://arxiv.org/pdf/2610.40505",
+      "source": "arXiv eess.AS, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "sae",
+        "steering",
+        "interpretability"
+      ],
+      "why_it_matters": "Compares SAE features, PCA and random directions head-to-head for probing and steering in a new modality, and finds probing success does not imply steering success, a point that matters for your steering-geometry work.",
+      "summary": [
+        "Voice-cloning text-to-speech models copy an unseen speaker's voice from a short prompt, yet little is known about which acoustic properties they represent internally or actually use. Feature-level interpretability tools developed for text models have rarely been tested on speech generators.",
+        "The authors build an interpretability framework for autoregressive voice-cloning TTS that compares features from sparse autoencoders, PCA and random directions using sparse probing, activation steering and quantitative auto-interpretability. The main study is on Qwen3-TTS, and probing and steering are extended to 5 additional models to test whether findings hold across architectures.",
+        "The models encode concepts such as pitch, energy, noise and accent, but sparse prediction and steering work only for some of them, and strong probing does not reliably predict steerability or the reverse. SAEs helped most for sparse probing of labelled concepts and for discovering new ones, while PCA was competitive for dense probing and steering; auto-interpretability validated 684 SAE features in Qwen3-TTS covering speaker clusters, speaking style and recording conditions. Takeaway: always include PCA and random-direction baselines when claiming SAE features are good steering handles, and test probing and steering separately. Caveat: the abstract reports no effect sizes for steering, and the paper is under review."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.39506",
+      "title": "Interpretable by Design Tabular Prediction via In-Context Local Linear Learning",
+      "authors": [
+        "Ran Eisenberg",
+        "Steven Berger",
+        "Ofir Lindenbaum"
+      ],
+      "affiliations": [
+        "Bar-Ilan University"
+      ],
+      "url": "https://arxiv.org/abs/2610.39506",
+      "pdf_url": "https://arxiv.org/pdf/2610.39506",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "tabular_fm",
+        "interpretability"
+      ],
+      "why_it_matters": "Shows a practical way to get faithful, per-sample feature contributions out of a tabular foundation model by using it only for neighbor retrieval, close to the case-based and prototype ideas you work with.",
+      "summary": [
+        "Tabular foundation models predict well through in-context learning, but it is hard to know how each feature contributes to a given prediction. Post-hoc importance scores may not reflect what the model actually used, which is a problem in settings such as biomarker discovery.",
+        "TICL3 (Tabular In-Context Local Linear Learning) is an interpretable-by-design predictor. It first fits a shared linear model for dataset-level feature effects, then for each query retrieves similar training samples using the foundation model's representations and fits a local linear model on the residuals in that neighborhood. The sum of the global and local coefficients gives a query-specific linear score, so the same model both predicts and explains.",
+        "Across 386 classification benchmark-dataset evaluations, TICL3 trailed TabICLv2 by 1.1 percentage points on average and beat CatBoost in 266 of them. It improved average support F1 over MAPLE by 4.7 points and was best on both real-data selected-feature utility metrics. Takeaway: foundation-model embeddings can serve as a retrieval space for a transparent local model, giving faithful explanations at a small accuracy cost, a recipe that maps onto retrieval or prototype-based explanations. Caveat: classification only in the reported numbers, and linear local rules may miss strong interactions."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.39065",
+      "title": "Tabular foundation models are not a shortcut to calibrated clinical risk prediction: a pre-registered simulation against the true risk",
+      "authors": [
+        "Ebrahim Khaled Ebrahim"
+      ],
+      "affiliations": [
+        "Alexandria University"
+      ],
+      "url": "https://arxiv.org/abs/2610.39065",
+      "pdf_url": "https://arxiv.org/pdf/2610.39065",
+      "source": "arXiv stat.ME, preprint",
+      "published": "2026-10-28",
+      "topics": [
+        "tabular_fm"
+      ],
+      "why_it_matters": "A pre-registered, ground-truth check that TabPFN-style models do not automatically give calibrated clinical risks, which is directly relevant if you use tabular foundation models on clinical variables such as PSA or age.",
+      "summary": [
+        "Tabular foundation models are often assumed to give good clinical risk estimates without model fitting, but their calibration has only been judged on real data where the true risk is unknown. Calibration matters for clinical decisions more than discrimination alone.",
+        "In a pre-registered simulation with known true risks, the author compared TabPFN-3.5, TabICLv2 and Mitra-v2 against Firth logistic regression with intercept correction (FLIC) across 58 scenarios and 1,000 random designs, then on four clinical datasets. Calibration was assessed by average, intercept and slope against the true risk. Code and benchmark data are released on Zenodo.",
+        "Calibration slope of the foundation models matched FLIC within the pre-registered margin in 36 or 37 of 48 core scenarios and was better only at n = 200 with a 3% event rate. Even with 3,000 patients, FLIC, TabPFN-3.5 or Mitra-v2 gave near-true risks in only 63%-83% of samples at 10% and 30% event rates and 35%-50% at 3%, while TabICLv2 did worse (8%-39% and 1%-3%). Across random designs the foundation models beat FLIC beyond the margin in 25%-38% and were worse in none, but no model handled a shift in event rate between populations, and recalibration on 500 local patients largely fixed this. Takeaway: treat TFM risk outputs as needing local recalibration, especially across sites; single-author preprint."
+      ],
+      "score": 4
+    },
+    {
+      "id": "pmid:42957822",
+      "title": "Micro-ultrasound experience and clinically significant prostate cancer detection: a center-level analysis of the optimum randomized trial",
+      "authors": [
+        "Melis Guer",
+        "Alon Lazarovich",
+        "Ferdinand Luger",
+        "Hannes Cash",
+        "Sangeet Ghai",
+        "L Felipe Urdaneta-Salegui",
+        "Christian P Pavlovich",
+        "Joseph Brito",
+        "Neal D Shore",
+        "Julian P Struck",
+        "Martin Schostak",
+        "Niklas Harland",
+        "Moisés Rodriguez-Socarrás",
+        "Wayne G Brisbane",
+        "Giovanni Lughezzani",
+        "Harry Toledano",
+        "Mohammed Salah Ouertani",
+        "Petr Macek",
+        "Christopher Fung",
+        "Wendy Tu",
+        "Andreas Gusenleitner",
+        "Karsten Günzel",
+        "Peter F Incze",
+        "Arvin K George",
+        "José G Pereira",
+        "Robert Jansen",
+        "Joseph Renzulli",
+        "Laurence Klotz",
+        "Adam Kinnaird"
+      ],
+      "affiliations": [
+        "University of Alberta",
+        "Sunnybrook Health Sciences Centre"
+      ],
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42957822/",
+      "source": "Prostate Cancer and Prostatic Diseases",
+      "published": "2026-10-28",
+      "topics": [
+        "prostate_us"
+      ],
+      "why_it_matters": "Evidence from the multicenter OPTIMUM trial that center experience does not change micro-ultrasound csPCa detection once operators meet a proficiency standard, which matters when you argue about reader variability and the value of AI support for micro-US.",
+      "summary": [
+        "Micro-ultrasound is increasingly used to guide prostate biopsy, and a learning curve is expected, but how much operator experience affects detection of clinically significant prostate cancer (csPCa) was not well defined. This bears on how micro-US results transfer between centers.",
+        "Using data from the multicenter randomized OPTIMUM trial, the authors built two logistic regression models to predict csPCa. Center experience was captured by two standardized scores derived from operator data, a Center Case Load Score and a Center Mastery Score; Model 1 included experience measures and case volume and Model 2 left them out. Performance was compared with confusion matrices and AUC, with clinical factors and PRI-MUS score as covariates.",
+        "Experience measures did not improve discrimination: sensitivity, specificity and AUC were 0.851/0.523/0.803 with them versus 0.851/0.544/0.803 without, and they were not significant predictors. csPCa was associated with older age, higher PSA, smaller prostate volume and suspicious DRE (all p at or below 0.001), and a low PRI-MUS score (1-2) with lower risk (p = 0.001). Takeaway: once operators reach the trial's Level 3 proficiency, center experience adds little, so for AI work, clinical variables plus PRI-MUS are the baseline to beat and center effects may be smaller than feared. Caveats stated by the authors: operator heterogeneity and possible bias in the experience proxies; this is not an AI study."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.39182",
+      "title": "Reasoning or Pattern Exploitation? Mechanistic Insights from RL-Trained Language Models",
+      "authors": [
+        "Aishik Nagar",
+        "Cheston Tan"
+      ],
+      "affiliations": [
+        "Carnegie Mellon University",
+        "A*STAR"
+      ],
+      "url": "https://arxiv.org/abs/2610.39182",
+      "pdf_url": "https://arxiv.org/pdf/2610.39182",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "sae",
+        "interpretability"
+      ],
+      "why_it_matters": "Uses SAE features plus causal interventions to track what RL post-training changes inside a model, a reusable pipeline for checking whether a fine-tuning gain is real concept learning.",
+      "summary": [
+        "Language models trained with reinforcement learning on verifiable rewards are often said to gain reasoning skills, but it is unclear whether the gains reflect reasoning or shallower adaptations. Benchmarks alone cannot separate the two.",
+        "The authors train small language models with GRPO on Tic-Tac-Toe, a finite domain that can be analyzed exhaustively, and track internal representations across training. They extract features with sparse autoencoders, test hypotheses about which game concepts are represented, and use causal interventions to locate where the decision is made.",
+        "Behaviorally, RL gave high accuracy and robustness to prompt variations, but SAE features showed the models mainly relied more on information already explicit in the prompt (whose turn it is, game progress, board occupancy), while concepts like board symmetries and forks stayed weakly represented. RL did not add or remove concept information but reorganized which features dominate, and interventions placed the decision in the late-layer state. Takeaway: high accuracy after fine-tuning can hide shortcut reliance, and SAE-based before/after comparisons are a concrete way to check it. Caveat: small models on a toy game; the abstract gives no quantitative feature statistics."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2610.39558",
+      "title": "TabCUQ: Context-Uncertainty Quantification for Tabular Foundation Models",
+      "authors": [
+        "Yuebei Shi",
+        "Molei Liu",
+        "Zijian Guo"
+      ],
+      "affiliations": [
+        "Zhejiang University",
+        "Peking University"
+      ],
+      "url": "https://arxiv.org/abs/2610.39558",
+      "pdf_url": "https://arxiv.org/pdf/2610.39558",
+      "source": "arXiv stat.ML, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "tabular_fm"
+      ],
+      "why_it_matters": "Gives a principled way to put confidence intervals on tabular foundation model estimates when the labeled context is small, useful for small clinical cohorts.",
+      "summary": [
+        "Tabular foundation models estimate conditional outcomes and treatment effects from a small labeled context at inference, and decisions based on them need reliable uncertainty. Two sources must be captured together: bias from limited context and variation from which samples are in the context, and the spread of predictions does not capture both.",
+        "TabCUQ perturbs observed outcomes with noise and reruns the foundation model on the perturbed contexts. It estimates context variation with wild-bootstrap dispersion and accounts for limited-context bias using the maximum deviation between perturbed and original estimates. For a kernel-regression analogue the authors prove asymptotically valid pointwise coverage.",
+        "The authors observe that the ordinary bootstrap can greatly overestimate context variation and subsampling can underestimate it. In simulations TabCUQ substantially improved coverage, with interval widths typically about twice those of an oracle bias-aware benchmark, and across seven real-world tasks it improved coverage of reference functions learned from much larger samples. Takeaway: do not bootstrap a TFM's context naively for uncertainty; perturbation-based intervals are a drop-in alternative. Caveat: the theory covers only a kernel-regression analogue, and intervals are fairly wide."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2610.39332",
+      "title": "Tabular Foundation Models Dramatically Outperform Bespoke Photometric Redshift Estimators",
+      "authors": [
+        "Biprateep Dey",
+        "Joshua S. Speagle"
+      ],
+      "affiliations": [
+        "University of Toronto",
+        "Vector Institute"
+      ],
+      "url": "https://arxiv.org/abs/2610.39332",
+      "pdf_url": "https://arxiv.org/pdf/2610.39332",
+      "source": "arXiv astro-ph.IM, accepted at ML4PS 2026 workshop",
+      "published": "2026-10-29",
+      "topics": [
+        "tabular_fm"
+      ],
+      "why_it_matters": "An outside-domain example where in-context tabular foundation models beat bespoke models with far less labeled data and under biased training sets, relevant evidence for small, biased medical cohorts.",
+      "summary": [
+        "Estimating galaxy redshifts from imaging alone is central to cosmology, but data-driven estimators depend on scarce spectroscopic training sets that are biased toward bright galaxies. Better sample efficiency and robustness to selection bias are needed for upcoming imaging-only surveys.",
+        "The authors apply tabular foundation models, whose synthetic pretraining acts as a learned prior over regression problems, using only in-context learning to predict full redshift distributions in one forward pass. They evaluate on a widely used benchmark under representative and biased training regimes and compare with bespoke estimators, including ones supplemented with representative calibration spectra.",
+        "The foundation models systematically beat bespoke estimators in both regimes, matching or exceeding baselines trained on over 40,000 galaxies with only 1,000 context examples. The advantage was largest with little or no calibration data and persisted even when baselines got up to 10,000 representative calibration spectra. Takeaway: adding a small representative sample to the context can be a cheap fix for selection bias, an idea worth trying for biased clinical training sets. Caveat: workshop paper (accepted at ML4PS 2026) on one benchmark."
+      ],
+      "score": 3
+    }
+  ]
+}
