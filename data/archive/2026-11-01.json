@@ -1,0 +1,141 @@
+{
+  "date": "2026-11-01",
+  "generated_at": "2026-11-01T07:07:44-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2610.38296",
+      "title": "Hidden Commitment: When Language Models Silently Pick a Side and How Steering Can Surface It",
+      "authors": [
+        "Samuel Dawit Assefa",
+        "Jae Won Cho"
+      ],
+      "affiliations": [
+        "KAIST",
+        "Konkuk University"
+      ],
+      "url": "https://arxiv.org/abs/2610.38296",
+      "pdf_url": "https://arxiv.org/pdf/2610.38296",
+      "source": "arXiv cs.CV, presented at the AI4Good workshop at ICML 2026",
+      "published": "2026-10-28",
+      "topics": [
+        "steering",
+        "interpretability"
+      ],
+      "why_it_matters": "A clean case study of a single residual direction that both reads out and causally controls a hidden decision, which is exactly the kind of steering-geometry evidence Mahdi works with.",
+      "summary": [
+        "When a retrieval model is handed two documents that disagree, it can quietly side with one and give a one-sided answer, even when asked to flag the conflict. That means the visible answer is not a faithful record of the internal choice, and there is no cheap way to tell when a silent choice was made.",
+        "The authors study conflicting-context question answering in Qwen 0.8B, look for a residual-stream direction whose sign tracks which document the answer relies on, and trace which middle-layer MLP units write into it. They steer along that direction to test causality, repeat the readout and write analysis on Gemma 3 1B with labels audited by an LLM, and separately examine how conflict disclosure is represented.",
+        "A residual source-choice direction tracks the chosen document, sparse middle-layer MLP writers feed it, and steering it flips the source the model uses; the readout and the sparse-write pattern carry over to Gemma 3 1B. Conflict disclosure behaves differently: it is weaker, sits in later layers and is only partly steerable. The abstract gives no accuracy or effect-size numbers. Takeaway: a decision variable can be linear and steerable while the related reporting behavior is not, so steering the decision and steering the disclosure need separate directions and separate checks. Caveat: only two small models (0.8B and 1B) and a workshop paper."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.38911",
+      "title": "Interventional Training Reduces Causal Bypass in In-Context Introspection",
+      "authors": [
+        "Zilu Tang",
+        "Jongin Kim",
+        "Kerem Sahin",
+        "David Atkinson",
+        "Aaron Mueller",
+        "Derry Wijaya"
+      ],
+      "affiliations": [
+        "Boston University",
+        "Northeastern University"
+      ],
+      "url": "https://arxiv.org/abs/2610.38911",
+      "pdf_url": "https://arxiv.org/pdf/2610.38911",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-10-28",
+      "topics": [
+        "interpretability"
+      ],
+      "why_it_matters": "Gives a concrete recipe for checking whether a model self-report is causally tied to an internal signal rather than a correlate, a test that applies to any probe- or steering-based claim about what a model \"knows\" internally.",
+      "summary": [
+        "Language models are sometimes said to introspect, that is, report on their own internal states, and fine-tuning has been claimed to improve this. But a self-report can be accurate for the wrong reason: it may rely on signals that merely correlate with the internal state it claims to describe, which the authors call causal bypass.",
+        "They focus on low-level signals that can be intervened on precisely, such as a single neuron activation, and train hundreds of introspectors across three signal types and eight language models. They compare plain supervised fine-tuning with interventional training, where the model is trained to report on counterfactually perturbed values of the signal, and test on both natural and injected signals, including out-of-distribution data.",
+        "Plain supervised fine-tuning produces causal bypass, while interventional training gives more accurate introspection of both natural and injected signals, especially out of distribution; the effect generalizes across token positions and improves with more data. The abstract does not report accuracy numbers. Takeaway: when training or evaluating a readout of internal state, intervene on the state and check the report follows, rather than trusting correlation on held-out data, which is a useful sanity test for probes and concept directions too. Caveat: only low-level signals are studied, so it is a prerequisite, not evidence about introspection of high-level concepts."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.39068",
+      "title": "Closed Gates Leak: Decomposing Adjacent-Layer Cancellation in Gated Language Models",
+      "authors": [
+        "Harvey Dam",
+        "Ganesh Gopalakrishnan"
+      ],
+      "affiliations": [
+        "University of Utah"
+      ],
+      "url": "https://arxiv.org/abs/2610.39068",
+      "pdf_url": "https://arxiv.org/pdf/2610.39068",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-10-28",
+      "topics": [
+        "interpretability"
+      ],
+      "why_it_matters": "Shows that an apparent residual-stream feature-rejection mechanism is really a generic contraction from the slightly negative tail of SiLU and GELU, a warning for anyone reading meaning into how layers write along directions.",
+      "summary": [
+        "In gated-MLP transformers, consecutive layers partly cancel each other in the residual stream, and earlier work read this as one layer proposing features and the next rejecting the bad ones. If that reading is wrong, cancellation patterns would be misleading evidence about what a model filters out.",
+        "The authors remove the previous layer write from the next MLP input and split the next layer output along that direction into what it writes anyway and how much it writes less because the earlier write is present, which they call damping. They trace damping to individual neurons, compare damping of the previous layer write with damping of writes at other tokens, follow it over training, and anneal away the negative side of the gate activation in continued pretraining.",
+        "Damping is carried by neurons whose gates are closed: because SiLU and GELU are slightly negative below zero, a closed gate still leaks a small negative copy of its input, and neurons with aligned input and output weights subtract part of what they read. This contracts whatever direction the MLP reads, the previous layer write is not singled out, damping grows over training until cancellation appears, and removing the negative tail removes both. The abstract gives no model sizes or numbers. Takeaway: before interpreting a residual-stream direction as actively suppressed, control for this generic contraction, for example by checking the same direction at other tokens, which matters when measuring steering vector decay across layers."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2610.40061",
+      "title": "Localizing Concepts in Visual Autoregressive Models",
+      "authors": [
+        "Nanxiang Jiang",
+        "Yang Liu",
+        "Yuanhao Wang",
+        "Min Xu"
+      ],
+      "affiliations": [
+        "CMU",
+        "UCLA"
+      ],
+      "url": "https://arxiv.org/abs/2610.40061",
+      "pdf_url": "https://arxiv.org/pdf/2610.40061",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "interpretability"
+      ],
+      "why_it_matters": "Extends concept localization and targeted intervention from diffusion models to next-scale autoregressive image generators, with a benchmark, which is relevant if Mahdi ever probes concepts in vision generators.",
+      "summary": [
+        "Concept localization, finding where in a network a concept is formed so it can be edited or erased, is well studied for diffusion models but not for the newer next-scale visual autoregressive models. Without it, safety edits such as concept erasure in these models are coarse and expensive.",
+        "The authors propose LoCo, a model-agnostic method that maps where concepts emerge along three axes, layer, generation scale and token position, exploiting the coarse-to-fine structure of next-scale generation. They build LoCoBench, a dataset covering 10 concept categories, and probe image and video autoregressive models including Infinity, HunyuanImage-3.0 and InfinityStar.",
+        "The localized positions are reported to be interpretable and causally linked to concept emergence, and targeted interventions at those positions reach state-of-the-art results on concept erasure, personalization and adversarial concept injection while cutting compute and preserving benign outputs. The abstract gives no metrics. Takeaway: localizing along scale as well as layer is a useful extra axis for any coarse-to-fine model, and the same localization that enables erasure also enables injection, so treat it as dual-use. Caveat: claims are from the abstract only, with no numbers or code link given."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2610.40511",
+      "title": "A Low-Rank Space Captures Linear Alignment Between LLM and Human Neural Activity During Naturalistic Language Listening",
+      "authors": [
+        "Zach Paris",
+        "Emily Finn"
+      ],
+      "affiliations": [
+        "Dartmouth"
+      ],
+      "url": "https://arxiv.org/abs/2610.40511",
+      "pdf_url": "https://arxiv.org/pdf/2610.40511",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "interpretability"
+      ],
+      "why_it_matters": "Shows the directions in LLM embeddings that predict brain activity are a tiny subspace distinct from the top principal components, a reminder that task-relevant directions and high-variance directions differ, which also holds for steering.",
+      "summary": [
+        "LLM representations predict human brain responses to language, but it is unclear which parts of the representation drive that alignment. Knowing this would explain why the models align and which features matter.",
+        "The authors use ridge reduced-rank regression to find the low-dimensional brain-predictive subspace of LLM embeddings. They test across three naturalistic listening datasets with intracranial recordings and fMRI and six model conditions, including autoregressive, bidirectional masked and randomly initialized models, and compare the learned subspace with principal components of the embeddings.",
+        "Full linear encoding performance is recovered with only 1 to 3 percent of the embedding dimensions, and these subspaces generalize across held-out participants and, less so, across datasets. PCA needs many more dimensions to match, so brain-predictive directions differ from the main axes of variance, and the subspace surfaces interpretable features. Code is released. Takeaway: reduced-rank regression is a simple tool for finding a compact, target-specific subspace instead of relying on PCA, which can transfer to finding low-rank concept or steering subspaces. Caveat: this is about brain alignment, so the link to Mahdi topics is methodological."
+      ],
+      "score": 3
+    }
+  ]
+}
