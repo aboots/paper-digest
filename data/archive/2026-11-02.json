@@ -1,0 +1,271 @@
+{
+  "date": "2026-11-02",
+  "generated_at": "2026-11-02T07:08:13-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2610.40998",
+      "title": "Steering Vectors as a Training Signal in LLM Post-Training",
+      "authors": [
+        "Tiejin Chen",
+        "Maunil Vyas",
+        "Huaiyuan Yao",
+        "Hua Wei"
+      ],
+      "affiliations": [
+        "Arizona State University"
+      ],
+      "url": "https://arxiv.org/abs/2610.40998",
+      "pdf_url": "https://arxiv.org/pdf/2610.40998",
+      "source": "arXiv cs.LG, accepted at NeurIPS 2026 (per arXiv comment)",
+      "published": "2026-10-29",
+      "topics": [
+        "steering"
+      ],
+      "why_it_matters": "Turns steering vectors from an inference-time knob into a training signal, and maps where direction, layer placement and regime choices break. Directly useful if you want your steering-geometry work to say something about training, not just intervention.",
+      "summary": [
+        "Steering vectors are usually applied only at inference as post-hoc behavior controls. Whether the same residual-stream directions can shape parameter updates during post-training (SFT, distillation, RL with verifiable rewards) has not been studied systematically.",
+        "The authors test two regimes: injecting a steering vector through a hidden-state hook during teacher-forced supervised training, and using a correctness-contrast direction to repair advantages on wrong rollouts in GRPO, including all-wrong groups that would otherwise give zero gradient. For each regime they vary the direction used, where it is placed, and how it is combined with training.",
+        "In supervised settings, injection beats plain SFT and distillation, with gains growing with the off-policy gap and reaching up to 12% when distilling from thinking-mode teachers; results hold over three seeds. In RL, advantage repair recovers a learning signal that transfers to held-out math benchmarks and stacks with existing zero-variance fixes such as entropy-aware advantage shaping. Takeaway: a steering direction can act as an auxiliary loss signal, but the authors report three failure points (code generation breaks the direction, cross-family layer transfer breaks placement, and applying the vector at inference on an SV-trained checkpoint breaks the regime), so test each axis separately before reusing it. Code is released."
+      ],
+      "score": 5
+    },
+    {
+      "id": "arxiv:2610.41661",
+      "title": "When Steering Shifts Discourse: Identifying and Intervening on Discourse-Level Changes due to Activation Steering in LLMs",
+      "authors": [
+        "Shivam Adarsh",
+        "Hetianyu Huang",
+        "Lau Safin",
+        "Maria Maistro",
+        "Christina Lioma"
+      ],
+      "affiliations": [
+        "University of Copenhagen"
+      ],
+      "url": "https://arxiv.org/abs/2610.41661",
+      "pdf_url": "https://arxiv.org/pdf/2610.41661",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-10-30",
+      "topics": [
+        "steering"
+      ],
+      "why_it_matters": "Shows activation steering has systematic side effects on discourse (formality, evidence use, ambiguity) and offers a second-vector fix. Gives you a richer side-effect metric than perplexity for any steering evaluation.",
+      "summary": [
+        "Adding a vector to residual-stream activations can change an LLM's behavior or tone without retraining, but it also changes the text in ways unrelated to the target behavior. So far these side effects have mostly been measured with coarse signals like perplexity.",
+        "The authors measure how steered generations shift along discourse dimensions such as formality, use of evidence and ambiguity. They then add a complementary second steering vector that targets the discourse dimension that was disturbed, while keeping the original steering vector.",
+        "Steering produces significant, systematic discourse-level shifts. The corrective vector recovers about 78% of the unintended discourse changes while preserving the intended behavior in about 93% of generations. Takeaway: when reporting steering results, add discourse-level side-effect checks, and consider composing correction vectors, which also raises questions about how such directions interact geometrically. The abstract does not name the models or the number of steering behaviors tested, so check the paper for scope."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.40905",
+      "title": "Sparse Autoencoders for Expert-Assisted Interpretation of Histopathology Foundation Model Embeddings",
+      "authors": [
+        "Šimon Šmída",
+        "Wanda Benesova"
+      ],
+      "affiliations": [
+        "Czech Technical University"
+      ],
+      "url": "https://arxiv.org/abs/2610.40905",
+      "pdf_url": "https://arxiv.org/pdf/2610.40905",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-10-29",
+      "topics": [
+        "sae",
+        "interpretability"
+      ],
+      "why_it_matters": "A clean recipe for applying SAEs to frozen medical foundation-model embeddings with expert-in-the-loop review, transferable to ultrasound foundation-model encoders.",
+      "summary": [
+        "Histopathology foundation models produce strong embeddings, but their internal structure is hard to inspect, while pathologists reason in terms of recurring tissue and cell patterns. It is unclear whether SAEs can turn these embeddings into concept-like features that experts can check.",
+        "They train vanilla and BatchTopK SAEs on NCT-CRC patch embeddings from CONCH, with UNI2-h as a second foundation model for robustness. Latents are evaluated on reconstruction fidelity, sparsity, coherence, label enrichment and how much downstream tissue-class signal is kept, and compared with raw embedding dimensions and PCA components. Discussions with pathologists led to a WSI-level view that places latent activations in larger tissue context.",
+        "The sparse codes keep most of the tissue-class information, and their latents retrieve more coherent, label-concentrated patch groups than raw dimensions or PCA; similar behavior on UNI2-h suggests it is not specific to CONCH. Takeaway: the evaluation set (coherence, label enrichment, class-signal preservation, baselines of raw dims and PCA) is a ready template for running SAEs on a micro-ultrasound encoder. Caveats: the authors stress latents are candidate concepts that still need pathological validation, the study uses a single dataset (NCT-CRC), and the abstract gives no numbers."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.41185",
+      "title": "Mechanistic Interpretability for End-to-End Self-Driving",
+      "authors": [
+        "Manav Gagvani",
+        "Benjamin Namikas",
+        "Sivamurugan Velmurugan",
+        "Nysa Kumar",
+        "Shrey Sharma",
+        "Thomas Peterson",
+        "Pratyush Mathur",
+        "Hyunseo Chang",
+        "Rohan Paleja"
+      ],
+      "affiliations": [
+        "Purdue University"
+      ],
+      "url": "https://arxiv.org/abs/2610.41185",
+      "pdf_url": "https://arxiv.org/pdf/2610.41185",
+      "source": "arXiv cs.RO, accepted at CoRL 2026 (per arXiv comment)",
+      "published": "2026-10-30",
+      "topics": [
+        "sae",
+        "interpretability"
+      ],
+      "why_it_matters": "An end-to-end SAE workflow on a non-language model: unsupervised discovery, counterfactual grounding, latent steering, and a downstream adapter. A good pattern for SAE work on imaging models.",
+      "summary": [
+        "End-to-end driving planners perform well but are opaque, which limits trust and observability. Mechanistic tools like SAEs have mainly been applied to language models, not to driving policies.",
+        "The authors train SAEs on internal activations of a simple single-camera end-to-end path-planning model. They cluster SAE latents without supervision, test visual grounding with paired counterfactual image edits (traffic light state, stop signs), steer single latents to see how planner outputs change, and train a lightweight adapter on SAE latents for trajectory selection.",
+        "Clustering the latents recovers route intent with 98.3% accuracy without supervision, specific features respond to the edited scene elements, and steering individual latents gives predictable, monotonic changes in lateral displacement, curvature and braking. The SAE-based adapter cuts trajectory selection error by 3.44% compared with an equivalent adapter without SAE latents. Takeaway: counterfactual edits plus latent steering are a convincing way to validate SAE features in a vision model; the caveat is that the planner is deliberately simple, so it is unclear how this scales to production-size driving stacks. Code and visualizations are released."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.41743",
+      "title": "Task Vectors Can Be Linearly Decomposed into Interpretable and Controllable Components",
+      "authors": [
+        "Yukiya Horiba",
+        "Hakaze Cho",
+        "Takahiro Yakoh"
+      ],
+      "affiliations": [
+        "Keio University",
+        "RIKEN",
+        "Tohoku University"
+      ],
+      "url": "https://arxiv.org/abs/2610.41743",
+      "pdf_url": "https://arxiv.org/pdf/2610.41743",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-10-30",
+      "topics": [
+        "steering",
+        "interpretability"
+      ],
+      "why_it_matters": "Breaks a single steering direction (a task vector) into functional parts, which speaks directly to steering geometry: what a direction is made of, and whether reweighting its parts steers better.",
+      "summary": [
+        "Task vectors are compact directions extracted from hidden states that steer an LLM toward a task, but they are usually treated as single atomic directions. Their internal functional structure is poorly understood.",
+        "Following work that splits in-context learning into Task Recognition (TR) and Task Learning (TL), they decompose each task vector into TR, TL and residual components using candidate-label unembeddings. They then tune the TR and TL coefficients with Bayesian optimization for intervention, testing across several model families, classification tasks, and both instruction- and demonstration-based task vectors.",
+        "Reweighted TR/TL directions beat the original task vectors. Optimizing over random directions also helps, but the TR/TL search gives more reliable gains, especially for instruction-based vectors, and intervening on each component alone gives distinct logit-level effects that match its intended role. Takeaway: decompose steering directions in unembedding space before using them, and always include a random-direction optimization baseline, since this paper shows tuning alone gives some of the gain. The abstract gives no effect sizes and the evaluation covers classification tasks only."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2610.41165",
+      "title": "LLM Detoxification via Transition-Aware Reward-Guided Representation Sampling",
+      "authors": [
+        "Aishan Liu",
+        "Yisong Xiao",
+        "Xianglong Liu",
+        "Yongxin Huang",
+        "Siyuan Liang",
+        "Zonghao Ying",
+        "Yang Qu",
+        "Jian Yang",
+        "Yaodong Yang",
+        "Dacheng Tao"
+      ],
+      "affiliations": [
+        "Beihang University",
+        "NTU Singapore",
+        "Peking University"
+      ],
+      "url": "https://arxiv.org/abs/2610.41165",
+      "pdf_url": "https://arxiv.org/pdf/2610.41165",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-10-30",
+      "topics": [
+        "steering"
+      ],
+      "why_it_matters": "Replaces a fixed steering vector with reward-guided search along a direction, which is relevant if you study how far along a direction to move and where steering starts to fail.",
+      "summary": [
+        "LLMs can generate toxic text, and test-time representation steering is a common fix. Existing methods use static or coarse interventions and do not model how generations move between toxic and non-toxic states.",
+        "TARGRS first steers progressively along a toxicity direction to build trajectories from non-toxic to toxic states, scoring toxicity along each one to turn sparse labels into dense listwise supervision for a token-level reward model. At inference, the reward model guides coarse-to-fine sampling in the opposite direction: coarse search finds how large an intervention is needed, and refinement picks the detoxified representation with the smallest perturbation.",
+        "Across 10 LLMs on RealToxicityPrompts, BOLD and AttaQ it beats prior baselines, cutting toxicity by up to 69.38% on RealToxicityPrompts, with speed close to the base model and little capability loss. It also carries over to 3 vision-language models, reducing toxicity by up to 64.23%. Takeaway: walking a steering direction to build a dense supervision signal is a reusable trick for picking the steering strength per input. Caveat: \"up to\" figures are best cases, and toxicity is a single, well-defined attribute, so it is unclear how this extends to subtler behaviors."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2610.41445",
+      "title": "From Representation to Readout: Mechanistic Analysis of Membership Signals in Language Models",
+      "authors": [
+        "Wenxi Dai",
+        "Jingyu Hu",
+        "Yanting Yang",
+        "Mengnan Du"
+      ],
+      "affiliations": [
+        "CUHK-Shenzhen",
+        "Rutgers"
+      ],
+      "url": "https://arxiv.org/abs/2610.41445",
+      "pdf_url": "https://arxiv.org/pdf/2610.41445",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-10-30",
+      "topics": [
+        "interpretability"
+      ],
+      "why_it_matters": "Separates information that is linearly decodable from a representation from information the model actually uses, a distinction that matters whenever probing results are used to justify steering.",
+      "summary": [
+        "Membership inference asks whether an example was in a model's training data, and the signal is usually just called memorization. But it can come from how information is stored internally or from how the model reads it out, and these have not been separated.",
+        "The authors propose DUG, three measures (Decodable Information Score, Used Information Score and Readout Accessibility Gap) that separately quantify membership information decodable from internal representations and how much of it reaches the readout. They apply them under SFT and RL-based membership inference methods, localize effects with activation patching, and also study RLVR contamination, where the reward does not depend on the reference solution.",
+        "Under SFT, membership effects show up in both decodable information and readout; under RL-based methods they appear mainly in readout, and activation patching puts the effect in intermediate layers. In RLVR contamination, behavior can change without any rise in likelihood-based membership signals. Takeaway: a high probe score does not mean the model uses that information, so pair probes with readout or patching measures. The abstract gives no numbers or model names."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2610.41763",
+      "title": "Measuring What Matters: A Causal Reliance Score for Histopathology Image Segmentation",
+      "authors": [
+        "Samuel Thomas",
+        "Daniel Tweneboah Anyimadu",
+        "Ahmed Karam Eldaly",
+        "Somaia Elsheikh",
+        "Mohammed M. Abdelsamea"
+      ],
+      "affiliations": [
+        "University of Exeter",
+        "Nottingham University Hospitals NHS Trust"
+      ],
+      "url": "https://arxiv.org/abs/2610.41763",
+      "pdf_url": "https://arxiv.org/pdf/2610.41763",
+      "source": "arXiv cs.CV, accepted at MIUA 2026 (per arXiv comment)",
+      "published": "2026-10-30",
+      "topics": [
+        "interpretability"
+      ],
+      "why_it_matters": "An intervention-based audit of whether a medical model relies on tissue or on background and domain cues, which carries over to checking shortcut use in ultrasound cancer models.",
+      "summary": [
+        "Histopathology segmentation models can score well while relying on spurious background or domain cues rather than pathology-relevant structure. Standard metrics like Dice and IoU cannot reveal this, and better architectures alone do not fix it.",
+        "The authors build a causality-inspired evaluation based on controlled interventions that perturb foreground tissue structure versus background and domain factors. From this they define the Causal Reliance Score (CRS), the relative sensitivity of predictions to foreground versus background or domain changes, and design augmentations that act as implicit counterfactual interventions during training. They demonstrate it with a self-supervised transformer (CAUSE-ViT), stressing that the method and metric, not the architecture, are the contribution.",
+        "The interventions reveal behavior differences between models that Dice and IoU miss. Takeaway: CRS-style foreground versus background perturbation tests are cheap to add to any medical imaging evaluation, for example to check whether a prostate ultrasound model looks at tissue or at acquisition artifacts. Caveat: the abstract reports no numbers, datasets or external validation, so how much CRS separates models is not clear from it."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2610.41819",
+      "title": "ElTab: Elastically Looped Tabular Transformers",
+      "authors": [
+        "Mieszko Komisarczyk",
+        "Saurabh Mathur",
+        "Maurice Kraus",
+        "Sriraam Natarajan",
+        "Kristian Kersting"
+      ],
+      "affiliations": [
+        "TU Darmstadt",
+        "UT Dallas",
+        "hessian.AI"
+      ],
+      "url": "https://arxiv.org/abs/2610.41819",
+      "pdf_url": "https://arxiv.org/pdf/2610.41819",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-10-30",
+      "topics": [
+        "tabular_fm"
+      ],
+      "why_it_matters": "A compute-elastic TabPFN-style model: one checkpoint that can exit early to fit the inference budget, a useful option when running tabular FMs on small hardware.",
+      "summary": [
+        "TabPFN-like tabular transformers predict well but are costly at inference. Looped transformers save parameters through weight sharing but lose much of their accuracy when stopped early.",
+        "ElTab is a single looped tabular transformer trained with supervision at randomly sampled early exits, so that one model works across different compute budgets. It is evaluated on 30 OpenML classification datasets against depth-specific looped models and a 12-layer TabPFN-style baseline.",
+        "One ElTab model matches six depth-specific looped models while cutting training cost by more than half, and matches the 12-layer baseline with 25% fewer inference FLOPs. Takeaway: random early-exit supervision is a simple way to get a budget-adjustable tabular FM, and it pairs well with recent findings that TFMs are effectively shallow. Caveats: classification only, 30 OpenML datasets, and comparison against a TabPFN-style baseline rather than released TabPFN or TabICL checkpoints."
+      ],
+      "score": 3
+    }
+  ]
+}
