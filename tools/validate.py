@@ -25,6 +25,7 @@ def check(path):
         af = p.get("affiliations")
         if af is not None and (not isinstance(af, list) or not 1 <= len(af) <= 3 or not all(isinstance(x, str) and x.strip() for x in af)): err(f"{w}: affiliations must be 1-3 non-empty strings or omitted")
         t = p.get("topics")
+        if isinstance(t, list) and len(t) != 1 and not ("archive" in str(path) and p.get("why_it_matters")): err(f"{w}: exactly one topic required, got {t}")
         if not isinstance(t, list) or not t or not set(t) <= TOPICS: err(f"{w}: topics {t}")
         s = p.get("summary")
         if not isinstance(s, list) or len(s) != 3 or not all(isinstance(x, str) and x.strip() for x in s): err(f"{w}: summary must be 3 strings [problem, method, result]")

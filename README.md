@@ -36,7 +36,7 @@ All paths are relative, so the app works under any subpath.
       "pdf_url": "https://arxiv.org/pdf/2610.16084",
       "source": "arXiv cs.AI, accepted at NeurIPS 2026",
       "published": "2026-10-12",
-      "topics": ["steering", "interpretability"],
+      "topics": ["steering"],
       "tldr": "One or two plain sentences: the paper's core takeaway (method in a phrase plus the key result or lesson).",
       "summary": ["Problem and motivation text", "Method text", "Results and takeaways text"],
       "score": 5
@@ -53,7 +53,7 @@ Field rules:
 - `affiliations` (optional): 1 to 3 short institution or company names, main one first (e.g. "Meta FAIR", "NYU"). Shown as "🏛 A · B" under the authors. Omit when unknown; older papers do not have it.
 - `source`: where it appeared (journal, `arXiv <category>`, `medRxiv preprint`, workshop name, and so on). Only state acceptance if the paper itself says so.
 - `published`: `YYYY-MM-DD`.
-- `topics`: one or more of `prostate_us`, `steering`, `sae`, `interpretability`, `tabular_fm`, `tabular_ssl`.
+- `topics`: a one-element list; exactly ONE topic per paper, no overlap; pick the most specific: `prostate_us` > `steering` > `sae` > `tabular_ssl` > `tabular_fm` > `interpretability` (general fallback).
 - `summary`: exactly three plain-text strings, in this order:
   1. **Problem and motivation** (2 to 3 sentences): why the problem matters and what gap exists.
   2. **Method** (2 to 4 sentences): what they actually did, specific (model, data, key idea, setup).

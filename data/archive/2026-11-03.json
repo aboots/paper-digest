@@ -22,8 +22,7 @@
       "source": "arXiv cs.AI, accepted at NeurIPS 2026 (per arXiv comment)",
       "published": "2026-11-02",
       "topics": [
-        "steering",
-        "interpretability"
+        "steering"
       ],
       "tldr": "Probing shows that values like honesty and harmlessness live in sparse, specialized sets of attention heads across several LLM families. Ablating those heads changes value-specific behavior causally, and steering only through them gives single- and multi-value control while mostly preserving other performance.",
       "summary": [
@@ -109,8 +108,7 @@
       "source": "arXiv cs.LG, accepted at NeurIPS 2026 (per arXiv comment)",
       "published": "2026-11-02",
       "topics": [
-        "sae",
-        "interpretability"
+        "sae"
       ],
       "tldr": "TI-SAE is a sparse autoencoder whose latents are tied to learned time windows and sparse variable groups, with a separate selector for per-patient attribution. On clinical time-series models it yields structured clinical concepts instead of transient heatmaps and scores well on faithfulness benchmarks.",
       "summary": [
@@ -131,9 +129,7 @@
       "source": "arXiv cs.LG, preprint",
       "published": "2026-10-31",
       "topics": [
-        "steering",
-        "sae",
-        "interpretability"
+        "steering"
       ],
       "tldr": "On the new ConfabQA benchmark, linear probes in small LLMs separate upcoming refusals from confabulations beyond prompt-feature baselines (by 7.4 and 16.3 points on Qwen and Gemma). Probe, SAE and optimized directions are 50 to 81 degrees apart yet each flips most confabulations into refusals, so very different directions can produce the same behavior.",
       "summary": [
@@ -162,7 +158,6 @@
       "source": "arXiv cs.CV, preprint",
       "published": "2026-11-01",
       "topics": [
-        "interpretability",
         "sae"
       ],
       "tldr": "A head-decomposed sparse dictionary with label-free scores locates the attention heads that carry typographic information in CLIP, and reweighting them at test time suppresses typographic attacks. Across five CLIP variants this improves accuracy under attack by up to 46.9% with about 1% loss in general perception.",
@@ -304,8 +299,7 @@
       "source": "arXiv cs.LG, preprint",
       "published": "2026-10-31",
       "topics": [
-        "sae",
-        "interpretability"
+        "sae"
       ],
       "tldr": "In TopK sparse autoencoders, attribution graphs are decided by features near the activation cutoff: ablating one feature pushes a next-layer feature across it in at least 0.74 of cases. A margin-aware graph at the same cost cuts median relative error from at least 0.247 to at most 0.033.",
       "summary": [
