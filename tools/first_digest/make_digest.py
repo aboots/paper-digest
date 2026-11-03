@@ -29,7 +29,7 @@ for p in P:
     else:
         m=M[p['pmid']]; url='https://pubmed.ncbi.nlm.nih.gov/%s/'%p['pmid']; pdf=None; pid='pmid:'+p['pmid']; pub=p['published']
         if p.get('doi_url'): pdf=None
-    e=dict(id=pid,title=m['title'],authors=m['authors'],url=url,source=p['source'],published=pub,topics=p['topics'],why_it_matters=p['why'],summary=[p['problem'],p['method'],p['result']],score=p['score'])
+    e=dict(id=pid,title=m['title'],authors=m['authors'],url=url,source=p['source'],published=pub,topics=p['topics'],tldr=p.get('tldr',p.get('why')),summary=[p['problem'],p['method'],p['result']],score=p['score'])
     if pdf: e['pdf_url']=pdf
     papers.append(e)
 papers.sort(key=lambda x:x['published'],reverse=True); papers.sort(key=lambda x:-x['score'])

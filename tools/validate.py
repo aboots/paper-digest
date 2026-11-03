@@ -12,8 +12,11 @@ def check(path):
     ids = set()
     for i, p in enumerate(d.get("papers", [])):
         w = f"{path}: paper[{i}] {p.get('id')}"
-        for k in ("id","title","url","source","published","why_it_matters"):
+        for k in ("id","title","url","source","published"):
             if not isinstance(p.get(k), str) or not p[k].strip(): err(f"{w}: missing {k}")
+        # tldr is required; why_it_matters is accepted only as a legacy field in archive files
+        ok = lambda k: isinstance(p.get(k), str) and p[k].strip()
+        if not (ok("tldr") or ("archive" in str(path) and ok("why_it_matters"))): err(f"{w}: missing tldr")
         if p.get("id") in ids: err(f"{w}: duplicate id")
         ids.add(p.get("id"))
         if not re.match(r"https?://", p.get("url","")): err(f"{w}: url not http(s)")

@@ -37,7 +37,7 @@ All paths are relative, so the app works under any subpath.
       "source": "arXiv cs.AI, accepted at NeurIPS 2026",
       "published": "2026-10-12",
       "topics": ["steering", "interpretability"],
-      "why_it_matters": "One or two sentences on why Mahdi should care.",
+      "tldr": "One or two plain sentences: the paper's core takeaway (method in a phrase plus the key result or lesson).",
       "summary": ["Problem and motivation text", "Method text", "Results and takeaways text"],
       "score": 5
     }

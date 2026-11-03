@@ -25,7 +25,7 @@
         "steering",
         "interpretability"
       ],
-      "why_it_matters": "Localizes values like honesty and harmlessness to a sparse set of attention heads, then steers through those heads. A clean example of going from probing to causal ablation to targeted steering, which is the pipeline your steering-geometry work needs.",
+      "tldr": "Probing shows that values like honesty and harmlessness live in sparse, specialized sets of attention heads across several LLM families. Ablating those heads changes value-specific behavior causally, and steering only through them gives single- and multi-value control while mostly preserving other performance.",
       "summary": [
         "Aligning a language model to several values at once, some of which conflict, usually means expensive multi-objective fine-tuning that says little about where those behaviors live inside the model. The authors ask whether value-related behavior can be pinned to specific internal components and controlled directly.",
         "They use probing to find attention heads that are sensitive to a given value, covering human values such as harmlessness and honesty and stylistic ones such as coherence and complexity, across several LLM families. They then ablate those heads to test causality, and build an inference-time activation steering method on top of the identified heads for single or combined values, with a theoretical analysis.",
@@ -56,7 +56,7 @@
       "topics": [
         "steering"
       ],
-      "why_it_matters": "Directly about steering geometry: it argues the right layer is set by the spread of per-example displacements, not by class separability, and proves the two criteria can disagree. Worth testing against whatever layer-choice heuristic you use now.",
+      "tldr": "TopoSteer picks the layer for activation steering by the length of the minimum spanning tree of per-example displacement vectors, with no validation set needed. It steers more effectively than probe-accuracy or separability-based layer choice across several models and tasks.",
       "summary": [
         "Most steering work focuses on how to build the vector and much less on which layer to add it to, even though a bad layer can be worse than no steering. Existing layer selectors pick a layer from separability or from how consistently individual examples point along the mean direction, without actually steering.",
         "TopoSteer scores each layer by the total H0 persistent homology of the cloud of per-example displacement vectors, computed as the length of the cloud's Euclidean minimum spanning tree. The authors show the score depends mainly on the relative geometry of that displacement cloud, with class separation entering only through standardization, and prove that as example-level variation grows, TopoSteer and discriminability move in opposite directions.",
@@ -83,7 +83,7 @@
       "topics": [
         "interpretability"
       ],
-      "why_it_matters": "Turns DINOv3 or SigLIP2 into inherently interpretable B-cos backbones with little data, keeping linear-probe and k-NN quality. A practical route to an interpretable-by-design encoder for ultrasound, as an alternative or complement to prototype networks.",
+      "tldr": "ALOE converts a pretrained ViT into an inherently interpretable B-cos model with one label-free feature alignment to the original, reusable across downstream tasks. It beats plain B-cosification by 10.5 points ImageNet top-1 on DINOv3 ViT-B/16 while keeping transfer performance close to the original backbone.",
       "summary": [
         "Foundation vision models are strong but hard to interpret, and earlier ways of making them inherently interpretable (B-cos networks) either require training from scratch or lose a lot of accuracy when converting existing models. Interpretability that has to be redone per task is also expensive.",
         "ALOE does a single label-free feature alignment that converts a pretrained vision transformer into a B-cos variant by aligning its features to the original teacher. The aligned backbone is then reused as a drop-in replacement across downstream tasks. They test it on supervised, self-supervised and vision-language backbones, including DINOv3 and SigLIP2.",
@@ -112,7 +112,7 @@
         "sae",
         "interpretability"
       ],
-      "why_it_matters": "A clinical SAE that learns a shared concept dictionary with explicit time windows and variable sets, then attributes each patient's prediction to dictionary entries. The split between concept learning and per-case attribution is close to how prototype networks explain medical predictions.",
+      "tldr": "TI-SAE is a sparse autoencoder whose latents are tied to learned time windows and sparse variable groups, with a separate selector for per-patient attribution. On clinical time-series models it yields structured clinical concepts instead of transient heatmaps and scores well on faithfulness benchmarks.",
       "summary": [
         "Deep models on electronic health records predict well but reveal little about the clinical concepts they use. Post-hoc attribution maps give per-cell scores that are not coherent over time, ignore structure across variables, and cannot be reused across patients.",
         "TI-SAE learns a backbone-specific dictionary shared across patients from a frozen predictive model's representations. Each latent is defined by learned temporal Gaussian islands (when it is active) and a sparse vector over variables (which variables it involves). A separate selector then picks which dictionary entries drive each patient's prediction, decoupling representation learning from attribution. Evaluation covers five backbone architectures on MIMIC-III and MIMIC-IV with three prediction tasks each.",
@@ -135,7 +135,7 @@
         "sae",
         "interpretability"
       ],
-      "why_it_matters": "Compares a probe direction, an SAE feature and an optimized direction for the same behavior: they sit 50 to 81 degrees apart yet all steer it. That is direct evidence on steering geometry you can cite or test.",
+      "tldr": "On the new ConfabQA benchmark, linear probes in small LLMs separate upcoming refusals from confabulations beyond prompt-feature baselines (by 7.4 and 16.3 points on Qwen and Gemma). Probe, SAE and optimized directions are 50 to 81 degrees apart yet each flips most confabulations into refusals, so very different directions can produce the same behavior.",
       "summary": [
         "When a small model faces a question it cannot answer, it either refuses or confabulates a confident wrong answer. The question is whether the hidden state before the first generated token already signals which will happen, and whether steering can turn confabulations into refusals.",
         "The author builds ConfabQA, a 784-item benchmark with an obscure-pre-cutoff category that separates correctness from knowledge cutoff. Using linear probes, a sparse autoencoder and directly optimized intervention directions on Qwen3-1.7B, Gemma 2 2B and Llama 3.2 3B, probe accuracy is scored as a margin over the strongest of four prompt-feature baselines.",
@@ -165,7 +165,7 @@
         "interpretability",
         "sae"
       ],
-      "why_it_matters": "Decomposes CLIP attention heads with a head-wise sparse dictionary, finds the heads that read text in images, and suppresses them at test time. A worked example of label-free circuit localization followed by a causal fix in a vision encoder.",
+      "tldr": "A head-decomposed sparse dictionary with label-free scores locates the attention heads that carry typographic information in CLIP, and reweighting them at test time suppresses typographic attacks. Across five CLIP variants this improves accuracy under attack by up to 46.9% with about 1% loss in general perception.",
       "summary": [
         "CLIP's vision encoder learns both to see objects and to read text, and the two get entangled, so rendered text in an image can override what the image actually shows (typographic attacks). Without a mechanistic account of this entanglement, defenses have been supervised or blunt.",
         "The authors build a head-decomposed sparse dictionary learning model that splits each attention head into head-specific interpretable latents. They use two label-free scores, a repurposed Clarity Score and a new normalized Text Attribution Score, to find heads that carry typographic information, then at test time reweight those heads' attention away from patch tokens. A test-time adaptive head routing scheme further trades off robustness and accuracy.",
@@ -193,7 +193,7 @@
       "topics": [
         "tabular_fm"
       ],
-      "why_it_matters": "A clear ablation on where tabular foundation model gains come from: the synthetic prior, not a deeper ICL transformer. Useful guidance if you build or fine-tune a TabICL-style model.",
+      "tldr": "TabAbax improves TabICLv2 with a richer synthetic prior and a two-pass column-row encoder, reaching 11th of 99 on TabArena (+115 Elo over TabICLv2) and 7th on regression (+336 Elo). Most of the regression gain comes from the prior alone (+228 Elo), more than from architecture changes.",
       "summary": [
         "Tabular foundation models predict on new tables in context without training, and earlier mechanistic work found that making the in-context transformer deeper helps little. That leaves the synthetic pretraining prior and the column-row encoder before the ICL backbone as the main places to improve.",
         "TabAbax builds on TabICLv2 and changes only those two upstream parts: a higher-quality, more complex synthetic prior, and a two-pass column-row encoder that strengthens cross-feature interactions before rows are compressed, using learned Fourier scalar encoding from TabFM and Causilo. It is evaluated on BeyondArena and TabArena.",
@@ -223,7 +223,7 @@
       "topics": [
         "tabular_fm"
       ],
-      "why_it_matters": "One TabPFN-style model that can stop at any depth, matching a 12-layer baseline with 25% fewer inference FLOPs. Relevant if you need cheaper tabular in-context inference.",
+      "tldr": "ElTab trains one looped tabular transformer with supervision at random early exits so the same weights work at many depths. It matches six depth-specific models at less than half the training cost and a 12-layer TabPFN-style baseline with 25% fewer inference FLOPs.",
       "summary": [
         "TabPFN-style tabular transformers predict well but are costly at inference. Looped transformers cut parameters by sharing weights across layers, but they lose much of their accuracy if stopped early, so one usually needs a separate model per compute budget.",
         "ElTab trains a single looped tabular transformer with supervision at randomly sampled early exits, so the same weights work at many depths. It is compared with depth-specific looped models and a 12-layer TabPFN-style baseline on 30 OpenML classification datasets.",
@@ -251,7 +251,7 @@
       "topics": [
         "tabular_fm"
       ],
-      "why_it_matters": "Explains why single-table foundation models work on relational databases they never saw, which is useful background if you think about how TabPFN-like models generalize or how to feed them multi-table data.",
+      "tldr": "Tabular foundation models do well on unseen relational data because parameter-free encoders turn relational structure into embeddings that resemble their pretraining distribution, so single-table properties carry over. The lesson is that a frozen tabular foundation model with a simple aggregation encoder is a strong relational baseline.",
       "summary": [
         "Enterprise relational databases have many possible prediction targets, so training a new model per task is impractical. Single-table tabular foundation models combined with parameter-free relational encoders have recently done surprisingly well on such data despite never being pretrained on relational data, and it is not clear why.",
         "The authors first confirm the effect with a broader set of experiments, then offer several complementary explanations. The central argument is that parameter-free encoders map relational structure into fixed-length embeddings whose distribution loosely resembles what the tabular models were pretrained on, so single-table properties such as convergent posterior predictive distributions carry over.",
@@ -282,7 +282,7 @@
       "topics": [
         "steering"
       ],
-      "why_it_matters": "Shows that naive contrastive steering vectors for different values collapse to one generic compliance direction, and gives a pair-filtering fix. A useful caution for any multi-direction steering work.",
+      "tldr": "VIAS builds steering vectors from leave-one-value-out prompt pairs to isolate each organisational value, which reduces overlap between value vectors. Combined with prompting it satisfies every tagged value on 69.6 to 75.2% of workplace-compliance scenarios across three 7B-scale models, beating prompting alone.",
       "summary": [
         "Organisations want LLM agents that follow their own values, and most scenarios involve several values at once. Building steering vectors by contrasting fully compliant and non-compliant responses gives nearly identical vectors for different values, because they capture a general compliance signal rather than individual values.",
         "VIAS contrasts responses to the same scenario under two prompts, one listing all relevant values and one leaving out a single target value. A pair is kept only if the target value flips from compliant to non-compliant while the other values stay above a minimum compliance level. It is evaluated on PROTECT, a workplace compliance dataset tagged with values from a 21-value taxonomy, on Qwen2.5-7B, Mistral-7B and Phi-3.5-mini.",
@@ -307,7 +307,7 @@
         "sae",
         "interpretability"
       ],
-      "why_it_matters": "Shows that SAE attribution graphs built on currently active TopK features badly mispredict ablations, and gives a same-cost fix. Relevant if you use SAE features for causal claims.",
+      "tldr": "In TopK sparse autoencoders, attribution graphs are decided by features near the activation cutoff: ablating one feature pushes a next-layer feature across it in at least 0.74 of cases. A margin-aware graph at the same cost cuts median relative error from at least 0.247 to at most 0.033.",
       "summary": [
         "Attribution graphs over SAE features are used to predict what an ablation will do and to compare circuits across training seeds. In TopK SAEs, features near the activation cutoff can switch on or off after an intervention, which a graph built only on active features ignores.",
         "The author defines a feature's margin as its preactivation's distance to the TopK cutoff and studies five public TopK SAE pairs on three Pythia models. A margin graph adds the first-order change to every preactivation and reranks, at the same cost as the standard graph, and is compared on predicting the effect of feature ablations and rescalings.",

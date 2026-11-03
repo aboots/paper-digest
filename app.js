@@ -126,7 +126,7 @@
     var q = state.query.trim().toLowerCase();
     if (q) {
       base = base.filter(function (p) {
-        var hay = [str(p.title), str(p.why_it_matters)].concat(arr(p.summary).map(str)).concat(arr(p.authors).map(str)).concat(arr(p.affiliations).map(str)).join(' ').toLowerCase();
+        var hay = [str(p.title), str(p.tldr), str(p.why_it_matters)].concat(arr(p.summary).map(str)).concat(arr(p.authors).map(str)).concat(arr(p.affiliations).map(str)).join(' ').toLowerCase();
         return q.split(/\s+/).every(function (w) { return hay.indexOf(w) !== -1; });
       });
     }
@@ -216,10 +216,11 @@
     var metaParts = [str(p.source), p.published ? fmtDay(p.published, false) : ''].filter(Boolean);
     c.appendChild(h('p', 'meta muted', metaParts.join(' · ')));
 
-    if (p.why_it_matters) {
+    var blurb = p.tldr || p.why_it_matters;
+    if (blurb) {
       var why = h('p', 'why');
-      why.appendChild(h('strong', null, 'Why it matters: '));
-      why.appendChild(document.createTextNode(str(p.why_it_matters)));
+      why.appendChild(h('strong', null, p.tldr ? 'TL;DR: ' : 'Why it matters: '));
+      why.appendChild(document.createTextNode(str(blurb)));
       c.appendChild(why);
     }
 
