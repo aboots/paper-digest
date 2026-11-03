@@ -1,241 +1,205 @@
 {
-  "date": "2026-11-02",
-  "generated_at": "2026-11-02T07:08:13-07:00",
+  "date": "2026-11-03",
+  "generated_at": "2026-11-03T07:04:38-07:00",
   "papers": [
     {
-      "id": "arxiv:2610.40998",
-      "title": "Steering Vectors as a Training Signal in LLM Post-Training",
+      "id": "arxiv:2611.02503",
+      "title": "Towards Multi-Value Alignment via Value Localization in LLMs",
       "authors": [
-        "Tiejin Chen",
-        "Maunil Vyas",
-        "Huaiyuan Yao",
-        "Hua Wei"
+        "Xueqi Ma",
+        "Yanbei Jiang",
+        "Xingjun Ma",
+        "James Bailey",
+        "Sarah M. Erfani"
       ],
       "affiliations": [
-        "Arizona State University"
+        "University of Melbourne",
+        "Fudan University",
+        "Monash University"
       ],
-      "url": "https://arxiv.org/abs/2610.40998",
-      "pdf_url": "https://arxiv.org/pdf/2610.40998",
-      "source": "arXiv cs.LG, accepted at NeurIPS 2026 (per arXiv comment)",
-      "published": "2026-10-29",
-      "topics": [
-        "steering"
-      ],
-      "why_it_matters": "Turns steering vectors from an inference-time knob into a training signal, and maps where direction, layer placement and regime choices break. Directly useful if you want your steering-geometry work to say something about training, not just intervention.",
-      "summary": [
-        "Steering vectors are usually applied only at inference as post-hoc behavior controls. Whether the same residual-stream directions can shape parameter updates during post-training (SFT, distillation, RL with verifiable rewards) has not been studied systematically.",
-        "The authors test two regimes: injecting a steering vector through a hidden-state hook during teacher-forced supervised training, and using a correctness-contrast direction to repair advantages on wrong rollouts in GRPO, including all-wrong groups that would otherwise give zero gradient. For each regime they vary the direction used, where it is placed, and how it is combined with training.",
-        "In supervised settings, injection beats plain SFT and distillation, with gains growing with the off-policy gap and reaching up to 12% when distilling from thinking-mode teachers; results hold over three seeds. In RL, advantage repair recovers a learning signal that transfers to held-out math benchmarks and stacks with existing zero-variance fixes such as entropy-aware advantage shaping. Takeaway: a steering direction can act as an auxiliary loss signal, but the authors report three failure points (code generation breaks the direction, cross-family layer transfer breaks placement, and applying the vector at inference on an SV-trained checkpoint breaks the regime), so test each axis separately before reusing it. Code is released."
-      ],
-      "score": 5
-    },
-    {
-      "id": "arxiv:2610.41661",
-      "title": "When Steering Shifts Discourse: Identifying and Intervening on Discourse-Level Changes due to Activation Steering in LLMs",
-      "authors": [
-        "Shivam Adarsh",
-        "Hetianyu Huang",
-        "Lau Safin",
-        "Maria Maistro",
-        "Christina Lioma"
-      ],
-      "affiliations": [
-        "University of Copenhagen"
-      ],
-      "url": "https://arxiv.org/abs/2610.41661",
-      "pdf_url": "https://arxiv.org/pdf/2610.41661",
-      "source": "arXiv cs.CL, preprint",
-      "published": "2026-10-30",
-      "topics": [
-        "steering"
-      ],
-      "why_it_matters": "Shows activation steering has systematic side effects on discourse (formality, evidence use, ambiguity) and offers a second-vector fix. Gives you a richer side-effect metric than perplexity for any steering evaluation.",
-      "summary": [
-        "Adding a vector to residual-stream activations can change an LLM's behavior or tone without retraining, but it also changes the text in ways unrelated to the target behavior. So far these side effects have mostly been measured with coarse signals like perplexity.",
-        "The authors measure how steered generations shift along discourse dimensions such as formality, use of evidence and ambiguity. They then add a complementary second steering vector that targets the discourse dimension that was disturbed, while keeping the original steering vector.",
-        "Steering produces significant, systematic discourse-level shifts. The corrective vector recovers about 78% of the unintended discourse changes while preserving the intended behavior in about 93% of generations. Takeaway: when reporting steering results, add discourse-level side-effect checks, and consider composing correction vectors, which also raises questions about how such directions interact geometrically. The abstract does not name the models or the number of steering behaviors tested, so check the paper for scope."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2610.40905",
-      "title": "Sparse Autoencoders for Expert-Assisted Interpretation of Histopathology Foundation Model Embeddings",
-      "authors": [
-        "Šimon Šmída",
-        "Wanda Benesova"
-      ],
-      "affiliations": [
-        "Czech Technical University"
-      ],
-      "url": "https://arxiv.org/abs/2610.40905",
-      "pdf_url": "https://arxiv.org/pdf/2610.40905",
-      "source": "arXiv cs.CV, preprint",
-      "published": "2026-10-29",
-      "topics": [
-        "sae",
-        "interpretability"
-      ],
-      "why_it_matters": "A clean recipe for applying SAEs to frozen medical foundation-model embeddings with expert-in-the-loop review, transferable to ultrasound foundation-model encoders.",
-      "summary": [
-        "Histopathology foundation models produce strong embeddings, but their internal structure is hard to inspect, while pathologists reason in terms of recurring tissue and cell patterns. It is unclear whether SAEs can turn these embeddings into concept-like features that experts can check.",
-        "They train vanilla and BatchTopK SAEs on NCT-CRC patch embeddings from CONCH, with UNI2-h as a second foundation model for robustness. Latents are evaluated on reconstruction fidelity, sparsity, coherence, label enrichment and how much downstream tissue-class signal is kept, and compared with raw embedding dimensions and PCA components. Discussions with pathologists led to a WSI-level view that places latent activations in larger tissue context.",
-        "The sparse codes keep most of the tissue-class information, and their latents retrieve more coherent, label-concentrated patch groups than raw dimensions or PCA; similar behavior on UNI2-h suggests it is not specific to CONCH. Takeaway: the evaluation set (coherence, label enrichment, class-signal preservation, baselines of raw dims and PCA) is a ready template for running SAEs on a micro-ultrasound encoder. Caveats: the authors stress latents are candidate concepts that still need pathological validation, the study uses a single dataset (NCT-CRC), and the abstract gives no numbers."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2610.41185",
-      "title": "Mechanistic Interpretability for End-to-End Self-Driving",
-      "authors": [
-        "Manav Gagvani",
-        "Benjamin Namikas",
-        "Sivamurugan Velmurugan",
-        "Nysa Kumar",
-        "Shrey Sharma",
-        "Thomas Peterson",
-        "Pratyush Mathur",
-        "Hyunseo Chang",
-        "Rohan Paleja"
-      ],
-      "affiliations": [
-        "Purdue University"
-      ],
-      "url": "https://arxiv.org/abs/2610.41185",
-      "pdf_url": "https://arxiv.org/pdf/2610.41185",
-      "source": "arXiv cs.RO, accepted at CoRL 2026 (per arXiv comment)",
-      "published": "2026-10-30",
-      "topics": [
-        "sae",
-        "interpretability"
-      ],
-      "why_it_matters": "An end-to-end SAE workflow on a non-language model: unsupervised discovery, counterfactual grounding, latent steering, and a downstream adapter. A good pattern for SAE work on imaging models.",
-      "summary": [
-        "End-to-end driving planners perform well but are opaque, which limits trust and observability. Mechanistic tools like SAEs have mainly been applied to language models, not to driving policies.",
-        "The authors train SAEs on internal activations of a simple single-camera end-to-end path-planning model. They cluster SAE latents without supervision, test visual grounding with paired counterfactual image edits (traffic light state, stop signs), steer single latents to see how planner outputs change, and train a lightweight adapter on SAE latents for trajectory selection.",
-        "Clustering the latents recovers route intent with 98.3% accuracy without supervision, specific features respond to the edited scene elements, and steering individual latents gives predictable, monotonic changes in lateral displacement, curvature and braking. The SAE-based adapter cuts trajectory selection error by 3.44% compared with an equivalent adapter without SAE latents. Takeaway: counterfactual edits plus latent steering are a convincing way to validate SAE features in a vision model; the caveat is that the planner is deliberately simple, so it is unclear how this scales to production-size driving stacks. Code and visualizations are released."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2610.41743",
-      "title": "Task Vectors Can Be Linearly Decomposed into Interpretable and Controllable Components",
-      "authors": [
-        "Yukiya Horiba",
-        "Hakaze Cho",
-        "Takahiro Yakoh"
-      ],
-      "affiliations": [
-        "Keio University",
-        "RIKEN",
-        "Tohoku University"
-      ],
-      "url": "https://arxiv.org/abs/2610.41743",
-      "pdf_url": "https://arxiv.org/pdf/2610.41743",
-      "source": "arXiv cs.LG, preprint",
-      "published": "2026-10-30",
+      "url": "https://arxiv.org/abs/2611.02503",
+      "pdf_url": "https://arxiv.org/pdf/2611.02503",
+      "source": "arXiv cs.AI, accepted at NeurIPS 2026 (per arXiv comment)",
+      "published": "2026-11-02",
       "topics": [
         "steering",
         "interpretability"
       ],
-      "why_it_matters": "Breaks a single steering direction (a task vector) into functional parts, which speaks directly to steering geometry: what a direction is made of, and whether reweighting its parts steers better.",
+      "why_it_matters": "Localizes values like honesty and harmlessness to a sparse set of attention heads, then steers through those heads. A clean example of going from probing to causal ablation to targeted steering, which is the pipeline your steering-geometry work needs.",
       "summary": [
-        "Task vectors are compact directions extracted from hidden states that steer an LLM toward a task, but they are usually treated as single atomic directions. Their internal functional structure is poorly understood.",
-        "Following work that splits in-context learning into Task Recognition (TR) and Task Learning (TL), they decompose each task vector into TR, TL and residual components using candidate-label unembeddings. They then tune the TR and TL coefficients with Bayesian optimization for intervention, testing across several model families, classification tasks, and both instruction- and demonstration-based task vectors.",
-        "Reweighted TR/TL directions beat the original task vectors. Optimizing over random directions also helps, but the TR/TL search gives more reliable gains, especially for instruction-based vectors, and intervening on each component alone gives distinct logit-level effects that match its intended role. Takeaway: decompose steering directions in unembedding space before using them, and always include a random-direction optimization baseline, since this paper shows tuning alone gives some of the gain. The abstract gives no effect sizes and the evaluation covers classification tasks only."
+        "Aligning a language model to several values at once, some of which conflict, usually means expensive multi-objective fine-tuning that says little about where those behaviors live inside the model. The authors ask whether value-related behavior can be pinned to specific internal components and controlled directly.",
+        "They use probing to find attention heads that are sensitive to a given value, covering human values such as harmlessness and honesty and stylistic ones such as coherence and complexity, across several LLM families. They then ablate those heads to test causality, and build an inference-time activation steering method on top of the identified heads for single or combined values, with a theoretical analysis.",
+        "Each value maps to a sparse set of heads, the heads show functional specialization, and some values interact or conflict. Ablating value heads causes large value-specific behavior changes, and steering gives single- and multi-value control on several alignment benchmarks while mostly preserving non-target performance; the abstract gives no specific numbers. Takeaway: restricting the steering intervention to probe-localized heads rather than a whole residual layer is a reusable recipe, and the reported value conflicts are a reminder to check interference when combining directions. Code is released."
+      ],
+      "score": 5
+    },
+    {
+      "id": "arxiv:2611.01493",
+      "title": "TopoSteer: Topological Layer Selection for Activation Steering in LLMs",
+      "authors": [
+        "Tuc Nguyen",
+        "Marcos Gutiérrez-del-Pozo",
+        "Eduardo Paluzo-Hidalgo",
+        "Yifan Hu",
+        "Adaku Uchendu",
+        "Thai Le"
+      ],
+      "affiliations": [
+        "Indiana University",
+        "University of Sevilla",
+        "MIT Lincoln Laboratory"
+      ],
+      "url": "https://arxiv.org/abs/2611.01493",
+      "pdf_url": "https://arxiv.org/pdf/2611.01493",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-01",
+      "topics": [
+        "steering"
+      ],
+      "why_it_matters": "Directly about steering geometry: it argues the right layer is set by the spread of per-example displacements, not by class separability, and proves the two criteria can disagree. Worth testing against whatever layer-choice heuristic you use now.",
+      "summary": [
+        "Most steering work focuses on how to build the vector and much less on which layer to add it to, even though a bad layer can be worse than no steering. Existing layer selectors pick a layer from separability or from how consistently individual examples point along the mean direction, without actually steering.",
+        "TopoSteer scores each layer by the total H0 persistent homology of the cloud of per-example displacement vectors, computed as the length of the cloud's Euclidean minimum spanning tree. The authors show the score depends mainly on the relative geometry of that displacement cloud, with class separation entering only through standardization, and prove that as example-level variation grows, TopoSteer and discriminability move in opposite directions.",
+        "Across several language models and steering tasks, TopoSteer gives more effective steering than discriminability- and separability-based layer selection and needs no held-out validation set. The abstract reports no specific numbers or model sizes, so the size of the gain has to be checked in the paper. Takeaway: if you pick steering layers by probe accuracy or cluster separation, this paper gives a theoretical reason that choice can be wrong, and a cheap geometric alternative (one minimum spanning tree per layer) that is easy to add to an existing pipeline."
       ],
       "score": 4
     },
     {
-      "id": "arxiv:2610.41165",
-      "title": "LLM Detoxification via Transition-Aware Reward-Guided Representation Sampling",
+      "id": "arxiv:2611.03438",
+      "title": "Align Once to Explain: Feature Alignment for Scalable B-cosification of Foundational Vision Transformers",
       "authors": [
-        "Aishan Liu",
-        "Yisong Xiao",
-        "Xianglong Liu",
-        "Yongxin Huang",
-        "Siyuan Liang",
-        "Zonghao Ying",
-        "Yang Qu",
-        "Jian Yang",
-        "Yaodong Yang",
-        "Dacheng Tao"
+        "Raphael Maser",
+        "Siddhartha Gairola",
+        "Sukrut Rao",
+        "Bernt Schiele"
       ],
       "affiliations": [
-        "Beihang University",
-        "NTU Singapore",
-        "Peking University"
+        "Max Planck Institute for Informatics"
       ],
-      "url": "https://arxiv.org/abs/2610.41165",
-      "pdf_url": "https://arxiv.org/pdf/2610.41165",
-      "source": "arXiv cs.AI, preprint",
-      "published": "2026-10-30",
+      "url": "https://arxiv.org/abs/2611.03438",
+      "pdf_url": "https://arxiv.org/pdf/2611.03438",
+      "source": "arXiv cs.CV, CVPR 2026 (per arXiv comment)",
+      "published": "2026-11-02",
       "topics": [
-        "steering"
+        "interpretability"
       ],
-      "why_it_matters": "Replaces a fixed steering vector with reward-guided search along a direction, which is relevant if you study how far along a direction to move and where steering starts to fail.",
+      "why_it_matters": "Turns DINOv3 or SigLIP2 into inherently interpretable B-cos backbones with little data, keeping linear-probe and k-NN quality. A practical route to an interpretable-by-design encoder for ultrasound, as an alternative or complement to prototype networks.",
       "summary": [
-        "LLMs can generate toxic text, and test-time representation steering is a common fix. Existing methods use static or coarse interventions and do not model how generations move between toxic and non-toxic states.",
-        "TARGRS first steers progressively along a toxicity direction to build trajectories from non-toxic to toxic states, scoring toxicity along each one to turn sparse labels into dense listwise supervision for a token-level reward model. At inference, the reward model guides coarse-to-fine sampling in the opposite direction: coarse search finds how large an intervention is needed, and refinement picks the detoxified representation with the smallest perturbation.",
-        "Across 10 LLMs on RealToxicityPrompts, BOLD and AttaQ it beats prior baselines, cutting toxicity by up to 69.38% on RealToxicityPrompts, with speed close to the base model and little capability loss. It also carries over to 3 vision-language models, reducing toxicity by up to 64.23%. Takeaway: walking a steering direction to build a dense supervision signal is a reusable trick for picking the steering strength per input. Caveat: \"up to\" figures are best cases, and toxicity is a single, well-defined attribute, so it is unclear how this extends to subtler behaviors."
+        "Foundation vision models are strong but hard to interpret, and earlier ways of making them inherently interpretable (B-cos networks) either require training from scratch or lose a lot of accuracy when converting existing models. Interpretability that has to be redone per task is also expensive.",
+        "ALOE does a single label-free feature alignment that converts a pretrained vision transformer into a B-cos variant by aligning its features to the original teacher. The aligned backbone is then reused as a drop-in replacement across downstream tasks. They test it on supervised, self-supervised and vision-language backbones, including DINOv3 and SigLIP2.",
+        "On ImageNet it beats plain B-cosification by 10.5 points top-1 for DINOv3 ViT-B/16, and it keeps linear probing, k-NN and zero-shot transfer close to the original foundation backbones while needing orders of magnitude less data than training from scratch. It also keeps spatially structured features for dense prediction and gives well-localized explanations by design. Takeaway: you could align a DINO-style ultrasound encoder once and get faithful pixel explanations for free in every downstream head, which pairs well with prototype-based reasoning. Caveat: the arXiv version's models are trained without a regularization term and differ slightly from the CVPR version; code and models are released."
       ],
-      "score": 3
+      "score": 4
     },
     {
-      "id": "arxiv:2610.41445",
-      "title": "From Representation to Readout: Mechanistic Analysis of Membership Signals in Language Models",
+      "id": "arxiv:2611.03420",
+      "title": "Temporal Island Sparse Autoencoders for Interpreting Clinical Time-Series Models",
       "authors": [
-        "Wenxi Dai",
-        "Jingyu Hu",
-        "Yanting Yang",
-        "Mengnan Du"
+        "Muhan Yeo",
+        "Bong Gyun Kang",
+        "HyunGi Kim",
+        "Sungroh Yoon"
       ],
       "affiliations": [
-        "CUHK-Shenzhen",
-        "Rutgers"
+        "Seoul National University",
+        "UTHealth Houston"
       ],
-      "url": "https://arxiv.org/abs/2610.41445",
-      "pdf_url": "https://arxiv.org/pdf/2610.41445",
+      "url": "https://arxiv.org/abs/2611.03420",
+      "pdf_url": "https://arxiv.org/pdf/2611.03420",
+      "source": "arXiv cs.LG, accepted at NeurIPS 2026 (per arXiv comment)",
+      "published": "2026-11-02",
+      "topics": [
+        "sae",
+        "interpretability"
+      ],
+      "why_it_matters": "A clinical SAE that learns a shared concept dictionary with explicit time windows and variable sets, then attributes each patient's prediction to dictionary entries. The split between concept learning and per-case attribution is close to how prototype networks explain medical predictions.",
+      "summary": [
+        "Deep models on electronic health records predict well but reveal little about the clinical concepts they use. Post-hoc attribution maps give per-cell scores that are not coherent over time, ignore structure across variables, and cannot be reused across patients.",
+        "TI-SAE learns a backbone-specific dictionary shared across patients from a frozen predictive model's representations. Each latent is defined by learned temporal Gaussian islands (when it is active) and a sparse vector over variables (which variables it involves). A separate selector then picks which dictionary entries drive each patient's prediction, decoupling representation learning from attribution. Evaluation covers five backbone architectures on MIMIC-III and MIMIC-IV with three prediction tasks each.",
+        "TI-SAE yields structured clinical concepts rather than transient heatmaps and does well on standard faithfulness benchmarks; the abstract gives no specific numbers. Takeaway: constraining SAE latents with domain structure (here time windows and variable groups) and separating dictionary learning from case-level attribution is a design you could borrow for ultrasound, for example latents tied to spatial regions or frames. Caveat: evaluation is on two related ICU datasets from the same source."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.01272",
+      "title": "Geometry of Confabulation and Refusal in Small Language Models",
+      "authors": [
+        "Vladimir Kazei"
+      ],
+      "url": "https://arxiv.org/abs/2611.01272",
+      "pdf_url": "https://arxiv.org/pdf/2611.01272",
       "source": "arXiv cs.LG, preprint",
-      "published": "2026-10-30",
+      "published": "2026-10-31",
       "topics": [
+        "steering",
+        "sae",
         "interpretability"
       ],
-      "why_it_matters": "Separates information that is linearly decodable from a representation from information the model actually uses, a distinction that matters whenever probing results are used to justify steering.",
+      "why_it_matters": "Compares a probe direction, an SAE feature and an optimized direction for the same behavior: they sit 50 to 81 degrees apart yet all steer it. That is direct evidence on steering geometry you can cite or test.",
       "summary": [
-        "Membership inference asks whether an example was in a model's training data, and the signal is usually just called memorization. But it can come from how information is stored internally or from how the model reads it out, and these have not been separated.",
-        "The authors propose DUG, three measures (Decodable Information Score, Used Information Score and Readout Accessibility Gap) that separately quantify membership information decodable from internal representations and how much of it reaches the readout. They apply them under SFT and RL-based membership inference methods, localize effects with activation patching, and also study RLVR contamination, where the reward does not depend on the reference solution.",
-        "Under SFT, membership effects show up in both decodable information and readout; under RL-based methods they appear mainly in readout, and activation patching puts the effect in intermediate layers. In RLVR contamination, behavior can change without any rise in likelihood-based membership signals. Takeaway: a high probe score does not mean the model uses that information, so pair probes with readout or patching measures. The abstract gives no numbers or model names."
+        "When a small model faces a question it cannot answer, it either refuses or confabulates a confident wrong answer. The question is whether the hidden state before the first generated token already signals which will happen, and whether steering can turn confabulations into refusals.",
+        "The author builds ConfabQA, a 784-item benchmark with an obscure-pre-cutoff category that separates correctness from knowledge cutoff. Using linear probes, a sparse autoencoder and directly optimized intervention directions on Qwen3-1.7B, Gemma 2 2B and Llama 3.2 3B, probe accuracy is scored as a margin over the strongest of four prompt-feature baselines.",
+        "Probes separate upcoming refusals from confabulations beyond prompt features by 7.4 and 16.3 points on Qwen and Gemma; on Llama the ConfabQA margin is within fold noise, though a refusal probe on PopQA and TriviaQA gains 18 to 25 points. On Qwen the probe, SAE and optimized directions are 50 to 81 degrees apart, yet a push at or below the state's own norm along any of them flips most confabulations into refusal openings, and simply forcing the opener without touching the hidden state gives the same one-in-three judged-refusal rate. Takeaway: very different directions can produce the same behavioral effect, so do not equate a successful steer with having found the concept direction, and always compare against a prompt or output-forcing baseline. Caveats: single author, models up to 3B; benchmark and code are released."
       ],
-      "score": 3
+      "score": 4
     },
     {
-      "id": "arxiv:2610.41763",
-      "title": "Measuring What Matters: A Causal Reliance Score for Histopathology Image Segmentation",
+      "id": "arxiv:2611.01513",
+      "title": "Label-Free Localization and Test-Time Suppression of CLIP's Typographic Circuits",
       "authors": [
-        "Samuel Thomas",
-        "Daniel Tweneboah Anyimadu",
-        "Ahmed Karam Eldaly",
-        "Somaia Elsheikh",
-        "Mohammed M. Abdelsamea"
+        "Bohan Liu",
+        "Wenqian Ye",
+        "Guangzhi Xiong",
+        "Zhenghao He",
+        "Sanchit Sinha",
+        "Aidong Zhang"
       ],
       "affiliations": [
-        "University of Exeter",
-        "Nottingham University Hospitals NHS Trust"
+        "University of Virginia"
       ],
-      "url": "https://arxiv.org/abs/2610.41763",
-      "pdf_url": "https://arxiv.org/pdf/2610.41763",
-      "source": "arXiv cs.CV, accepted at MIUA 2026 (per arXiv comment)",
-      "published": "2026-10-30",
+      "url": "https://arxiv.org/abs/2611.01513",
+      "pdf_url": "https://arxiv.org/pdf/2611.01513",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-01",
       "topics": [
-        "interpretability"
+        "interpretability",
+        "sae"
       ],
-      "why_it_matters": "An intervention-based audit of whether a medical model relies on tissue or on background and domain cues, which carries over to checking shortcut use in ultrasound cancer models.",
+      "why_it_matters": "Decomposes CLIP attention heads with a head-wise sparse dictionary, finds the heads that read text in images, and suppresses them at test time. A worked example of label-free circuit localization followed by a causal fix in a vision encoder.",
       "summary": [
-        "Histopathology segmentation models can score well while relying on spurious background or domain cues rather than pathology-relevant structure. Standard metrics like Dice and IoU cannot reveal this, and better architectures alone do not fix it.",
-        "The authors build a causality-inspired evaluation based on controlled interventions that perturb foreground tissue structure versus background and domain factors. From this they define the Causal Reliance Score (CRS), the relative sensitivity of predictions to foreground versus background or domain changes, and design augmentations that act as implicit counterfactual interventions during training. They demonstrate it with a self-supervised transformer (CAUSE-ViT), stressing that the method and metric, not the architecture, are the contribution.",
-        "The interventions reveal behavior differences between models that Dice and IoU miss. Takeaway: CRS-style foreground versus background perturbation tests are cheap to add to any medical imaging evaluation, for example to check whether a prostate ultrasound model looks at tissue or at acquisition artifacts. Caveat: the abstract reports no numbers, datasets or external validation, so how much CRS separates models is not clear from it."
+        "CLIP's vision encoder learns both to see objects and to read text, and the two get entangled, so rendered text in an image can override what the image actually shows (typographic attacks). Without a mechanistic account of this entanglement, defenses have been supervised or blunt.",
+        "The authors build a head-decomposed sparse dictionary learning model that splits each attention head into head-specific interpretable latents. They use two label-free scores, a repurposed Clarity Score and a new normalized Text Attribution Score, to find heads that carry typographic information, then at test time reweight those heads' attention away from patch tokens. A test-time adaptive head routing scheme further trades off robustness and accuracy.",
+        "Across five CLIP variants and four typographic benchmarks the intervention improves classification under attack by up to 46.9% with at most about 1% loss in general image perception, beating prior supervised and training-free defenses. Takeaway: a per-head dictionary plus a label-free attribution score is a cheap way to find and causally test a nuisance circuit in a ViT, which could transfer to finding heads that latch onto ultrasound artifacts or burned-in text. Caveat: these are best-case numbers and the abstract does not report variance."
       ],
-      "score": 3
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.00562",
+      "title": "TabAbax: A Tabular Foundation Model Technical Report",
+      "authors": [
+        "Zhixiong Cheng",
+        "Xiaoyun Gao",
+        "Shiyuan Han",
+        "Jingjing Suo",
+        "Zhengli Wang"
+      ],
+      "affiliations": [
+        "Bairong Inc."
+      ],
+      "url": "https://arxiv.org/abs/2611.00562",
+      "pdf_url": "https://arxiv.org/pdf/2611.00562",
+      "source": "arXiv cs.LG, technical report",
+      "published": "2026-10-31",
+      "topics": [
+        "tabular_fm"
+      ],
+      "why_it_matters": "A clear ablation on where tabular foundation model gains come from: the synthetic prior, not a deeper ICL transformer. Useful guidance if you build or fine-tune a TabICL-style model.",
+      "summary": [
+        "Tabular foundation models predict on new tables in context without training, and earlier mechanistic work found that making the in-context transformer deeper helps little. That leaves the synthetic pretraining prior and the column-row encoder before the ICL backbone as the main places to improve.",
+        "TabAbax builds on TabICLv2 and changes only those two upstream parts: a higher-quality, more complex synthetic prior, and a two-pass column-row encoder that strengthens cross-feature interactions before rows are compressed, using learned Fourier scalar encoding from TabFM and Causilo. It is evaluated on BeyondArena and TabArena.",
+        "TabAbax reaches 1,238 Elo on the 142-dataset BeyondArena suite (10th of 41), 1,676 Elo on TabArena overall (11th of 99, +115 over TabICLv2) and 2,024 Elo on TabArena regression (7th of 99, +336 over TabICLv2, +21 over TabFM). A prior-only ablation gives +228 Elo for regression on its own. Takeaway: for regression, investing in the synthetic prior pays off more than architecture depth; the gains are regression-centric and the model is not the overall leader. It is an industry technical report, not peer reviewed; code and weights are released."
+      ],
+      "score": 4
     },
     {
       "id": "arxiv:2610.41819",
@@ -249,8 +213,8 @@
       ],
       "affiliations": [
         "TU Darmstadt",
-        "UT Dallas",
-        "hessian.AI"
+        "hessian.AI",
+        "DFKI"
       ],
       "url": "https://arxiv.org/abs/2610.41819",
       "pdf_url": "https://arxiv.org/pdf/2610.41819",
@@ -259,11 +223,95 @@
       "topics": [
         "tabular_fm"
       ],
-      "why_it_matters": "A compute-elastic TabPFN-style model: one checkpoint that can exit early to fit the inference budget, a useful option when running tabular FMs on small hardware.",
+      "why_it_matters": "One TabPFN-style model that can stop at any depth, matching a 12-layer baseline with 25% fewer inference FLOPs. Relevant if you need cheaper tabular in-context inference.",
       "summary": [
-        "TabPFN-like tabular transformers predict well but are costly at inference. Looped transformers save parameters through weight sharing but lose much of their accuracy when stopped early.",
-        "ElTab is a single looped tabular transformer trained with supervision at randomly sampled early exits, so that one model works across different compute budgets. It is evaluated on 30 OpenML classification datasets against depth-specific looped models and a 12-layer TabPFN-style baseline.",
-        "One ElTab model matches six depth-specific looped models while cutting training cost by more than half, and matches the 12-layer baseline with 25% fewer inference FLOPs. Takeaway: random early-exit supervision is a simple way to get a budget-adjustable tabular FM, and it pairs well with recent findings that TFMs are effectively shallow. Caveats: classification only, 30 OpenML datasets, and comparison against a TabPFN-style baseline rather than released TabPFN or TabICL checkpoints."
+        "TabPFN-style tabular transformers predict well but are costly at inference. Looped transformers cut parameters by sharing weights across layers, but they lose much of their accuracy if stopped early, so one usually needs a separate model per compute budget.",
+        "ElTab trains a single looped tabular transformer with supervision at randomly sampled early exits, so the same weights work at many depths. It is compared with depth-specific looped models and a 12-layer TabPFN-style baseline on 30 OpenML classification datasets.",
+        "One ElTab model matches six depth-specific looped models while cutting training cost by more than half, and matches the 12-layer TabPFN-style baseline with 25% fewer inference FLOPs. Takeaway: random early-exit supervision is a simple trick to make an in-context tabular model budget-adaptive without retraining. Caveats: only classification and only 30 OpenML datasets, compared against a TabPFN-style baseline rather than the released TabPFN or TabICL models."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.02936",
+      "title": "Why Tabular Foundation Models Excel on Relational Data They Have Never Seen",
+      "authors": [
+        "Linjie Xu",
+        "Yiqun Hu",
+        "Jixiang He",
+        "David Wipf"
+      ],
+      "affiliations": [
+        "University of Hong Kong",
+        "Shanghai X-Lab"
+      ],
+      "url": "https://arxiv.org/abs/2611.02936",
+      "pdf_url": "https://arxiv.org/pdf/2611.02936",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-02",
+      "topics": [
+        "tabular_fm"
+      ],
+      "why_it_matters": "Explains why single-table foundation models work on relational databases they never saw, which is useful background if you think about how TabPFN-like models generalize or how to feed them multi-table data.",
+      "summary": [
+        "Enterprise relational databases have many possible prediction targets, so training a new model per task is impractical. Single-table tabular foundation models combined with parameter-free relational encoders have recently done surprisingly well on such data despite never being pretrained on relational data, and it is not clear why.",
+        "The authors first confirm the effect with a broader set of experiments, then offer several complementary explanations. The central argument is that parameter-free encoders map relational structure into fixed-length embeddings whose distribution loosely resembles what the tabular models were pretrained on, so single-table properties such as convergent posterior predictive distributions carry over.",
+        "The abstract confirms the empirical effect but gives no specific numbers, so its size has to be checked in the paper. Takeaway: before pretraining a relational foundation model, try a frozen tabular foundation model with a simple aggregation encoder as a strong baseline, and think of feature encoding as moving data toward the pretraining prior. This is mainly an analysis paper rather than a new method."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.03518",
+      "title": "VIAS: Value-Isolating Activation Steering for Multi-Value Alignment and Compliance for Organisations",
+      "authors": [
+        "Avni Mittal",
+        "Avinash Anand",
+        "Dikshant Kukreja",
+        "Erik Cambria",
+        "Rajiv Ratn Shah",
+        "Sandipan Dandapat"
+      ],
+      "affiliations": [
+        "Microsoft India",
+        "Nanyang Technological University",
+        "IIT Kanpur"
+      ],
+      "url": "https://arxiv.org/abs/2611.03518",
+      "pdf_url": "https://arxiv.org/pdf/2611.03518",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-02",
+      "topics": [
+        "steering"
+      ],
+      "why_it_matters": "Shows that naive contrastive steering vectors for different values collapse to one generic compliance direction, and gives a pair-filtering fix. A useful caution for any multi-direction steering work.",
+      "summary": [
+        "Organisations want LLM agents that follow their own values, and most scenarios involve several values at once. Building steering vectors by contrasting fully compliant and non-compliant responses gives nearly identical vectors for different values, because they capture a general compliance signal rather than individual values.",
+        "VIAS contrasts responses to the same scenario under two prompts, one listing all relevant values and one leaving out a single target value. A pair is kept only if the target value flips from compliant to non-compliant while the other values stay above a minimum compliance level. It is evaluated on PROTECT, a workplace compliance dataset tagged with values from a 21-value taxonomy, on Qwen2.5-7B, Mistral-7B and Phi-3.5-mini.",
+        "VIAS reduces overlap between value vectors, but the authors note this alone does not give independent control over each value. Combined with prompting, it satisfies every tagged value on 69.6% of scenarios for Qwen2.5-7B, 75.2% for Mistral-7B and 72.6% for Phi-3.5-mini, beating prompting alone for all three. Takeaway: check the cosine overlap of your concept vectors before combining them, and use leave-one-concept-out contrast pairs to isolate a concept. Caveat: only 7B-scale models and one dataset."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.00606",
+      "title": "Sparse Autoencoder Attribution Graphs Are Decided at the Margin",
+      "authors": [
+        "Karl Li"
+      ],
+      "affiliations": [
+        "Columbia University"
+      ],
+      "url": "https://arxiv.org/abs/2611.00606",
+      "pdf_url": "https://arxiv.org/pdf/2611.00606",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-10-31",
+      "topics": [
+        "sae",
+        "interpretability"
+      ],
+      "why_it_matters": "Shows that SAE attribution graphs built on currently active TopK features badly mispredict ablations, and gives a same-cost fix. Relevant if you use SAE features for causal claims.",
+      "summary": [
+        "Attribution graphs over SAE features are used to predict what an ablation will do and to compare circuits across training seeds. In TopK SAEs, features near the activation cutoff can switch on or off after an intervention, which a graph built only on active features ignores.",
+        "The author defines a feature's margin as its preactivation's distance to the TopK cutoff and studies five public TopK SAE pairs on three Pythia models. A margin graph adds the first-order change to every preactivation and reranks, at the same cost as the standard graph, and is compared on predicting the effect of feature ablations and rescalings.",
+        "Zeroing one feature pushes a next-layer feature across the cutoff in at least 0.74 of cases, and those crossings carry most of the response energy. The standard active-feature graph has a median relative error of at least 0.247, while the margin graph errs by at most 0.033; across seeds, sparse feature maps explain 0.85 of a graph's energy on active features but 0.47 once the other seed's graph is restricted to its own. Takeaway: when you explain or edit through TopK SAE features, account for near-threshold features, or your circuit will be wrong. Caveats: single author and the largest model is pythia-160m."
       ],
       "score": 3
     }
