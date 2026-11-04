@@ -1,0 +1,302 @@
+{
+  "date": "2026-11-04",
+  "generated_at": "2026-11-04T07:08:25-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.04757",
+      "title": "When Should an LLM Steering Edit Depend on the Input?",
+      "authors": [
+        "Rachael Harkness",
+        "Konrad Rawlik"
+      ],
+      "affiliations": [
+        "University of Edinburgh"
+      ],
+      "url": "https://arxiv.org/abs/2611.04757",
+      "pdf_url": "https://arxiv.org/pdf/2611.04757",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-03",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Replacing the fixed contrastive-activation-addition direction with a per-query destination (the mean of the k nearest stored states inside the requested class) beats fixed-direction steering whenever the target varies within a class. Word-level edits work best early in the network with few neighbours, clause-level edits from the class mean at any depth.",
+      "summary": [
+        "Contrastive Activation Addition pushes every input along one difference-of-means direction, which cannot account for cases where the right target state differs from query to query within the same class. The authors ask when a steering edit should depend on the input, and whether that can be predicted before fitting any rule.",
+        "They frame a spectrum of steering rules: the fixed difference of means, a class-conditional difference of means, and a retrieval rule that moves each query toward the mean of its k nearest stored states inside the requested class (equal to the class-conditional rule when k is the class size). They test these on six substitution corpora where the edit changes either a word or a clause, plus one external benchmark, across layers of two models.",
+        "Retrieval-based steering beats fixed-direction steering at every layer of every substitution corpus in both models when the destination varies within the class. Word-level edits are best done in roughly the first tenth of the network with a few neighbours, while clause-level edits work at any depth from the class mean; when the class alone fixes the answer, the class mean is enough but a single fixed direction still fails. Four statistics computed from hidden states alone identify which regime applies. Takeaway: before committing to one global steering vector, measure within-class spread of target states; it tells you whether a class-conditional or retrieval-based edit is needed. Caveat: only two models and mostly synthetic substitution tasks, and the abstract gives no effect sizes."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.04349",
+      "title": "Sparse Internal Control of Language Models",
+      "authors": [
+        "Xizhe Zhang"
+      ],
+      "url": "https://arxiv.org/abs/2611.04349",
+      "pdf_url": "https://arxiv.org/pdf/2611.04349",
+      "source": "arXiv cs.CL, accepted at NeurIPS 2026 (per arXiv comment)",
+      "published": "2026-11-03",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Frames steering as choosing a small set of internal site-direction pairs that move a target behavior while sparing everything else, with two selectors (Driver-OMP and Coverage-Driver) and a six-axis evaluation protocol. Exploratory experiments on IOI, MMLU, sentiment and refusal show sparse multi-site interventions are feasible and have task-dependent control properties.",
+      "summary": [
+        "Activation steering shows frozen models can be controlled internally, but there is no principled way to pick a compact set of intervention sites or to evaluate a steering intervention beyond whether the target moved. That leaves off-target damage, reversibility and reuse largely unmeasured.",
+        "The paper defines a local target-controllability formulation that scores candidate site-direction pairs by their behavioral effect, under constraints on target recovery, off-target preservation and intervention energy. Driver-OMP picks nodes by sparse reconstruction of the desired behavioral shift, and Coverage-Driver favors nodes that work consistently across prompts. Evaluation uses six axes: reachability, signed reversal, dose response, feedback controllability, off-target preservation and held-out reuse.",
+        "Exploratory experiments on indirect object identification, MMLU multiple choice, sentiment steering and refusal steering show task-defined behavior can be steered through sparse internal interventions, and the six axes separate interventions that look alike on target movement alone. The abstract reports no specific numbers. Takeaway: the six-axis protocol (especially signed reversal, dose response and off-target preservation) is a ready-made checklist for evaluating steering geometry work. Caveat: single-author work with experiments the author calls exploratory; code and records are released."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.03862",
+      "title": "Dr. No: Feature Steering for Abstention in Vision-Language Models",
+      "authors": [
+        "Farid Hasanov",
+        "Riccardo Renzulli",
+        "Bahram Zonooz",
+        "Mykola Pechenizkiy",
+        "Decebal Constantin Mocanu"
+      ],
+      "affiliations": [
+        "TU Eindhoven",
+        "University of Turin",
+        "University of Luxembourg"
+      ],
+      "url": "https://arxiv.org/abs/2611.03862",
+      "pdf_url": "https://arxiv.org/pdf/2611.03862",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-02",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Mining SAE features tied to abstention versus commitment and modulating a few of them during prefill makes LLaVA-1.6 abstain more appropriately than post-hoc uncertainty-based rejection, without retraining. Gains are strongest on UNK-VQA and incompatible image-question cases and weak on absent-answer detection and multi-hop QA.",
+      "summary": [
+        "Vision-language models often answer confidently when the evidence is insufficient, which is risky in high-stakes settings such as medicine. The authors ask whether the internal mechanism behind abstaining can be found and controlled at inference time.",
+        "Dr. No mines sparse autoencoder features associated with abstention and with committing to an answer, then adjusts a small set of them during the prefill pass while keeping the base model frozen. It is evaluated on LLaVA-1.6 Mistral 7B on multimodal abstention benchmarks (UNK-VQA, MM-UPD) and on Qwen3.5-2B on AbstentionBench subsets, against several uncertainty-based abstention baselines.",
+        "Feature steering gives a better balance between answering correctly and abstaining appropriately than post-hoc rejection, with the clearest gains on UNK-VQA, on MM-UPD image-question or question-answer incompatibility, and on the math reasoning subsets of AbstentionBench. It does less well on absent-answer detection and retrieval-heavy multi-hop QA such as MuSiQue. The abstract gives no numbers. Takeaway: abstention is not one universal internal signal, so steering for it should be validated per failure source; the SAE-feature approach is a cheap way to add a 'decline to answer' knob to a medical VLM. Caveat: small models only (7B and 2B)."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.04315",
+      "title": "Drift No More: Spectral Locking for Long-Horizon Open-Weight Multi-Agent AI",
+      "authors": [
+        "Vishal Pramanik",
+        "Maisha Maliha",
+        "Susmit Jha",
+        "Sumit Kumar Jha"
+      ],
+      "affiliations": [
+        "University of Florida",
+        "SRI International",
+        "University of Oklahoma"
+      ],
+      "url": "https://arxiv.org/abs/2611.04315",
+      "pdf_url": "https://arxiv.org/pdf/2611.04315",
+      "source": "arXiv cs.AI, accepted at EMNLP 2026 (per arXiv comment)",
+      "published": "2026-11-03",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "ATLAS steers agent hidden states toward the shared top eigendirections of a kernel built over task, role and shared-state subspaces, a training-free fix for drift in long multi-agent runs. It beats prompting, memory and activation-steering baselines, e.g. +5.7 points memory accuracy over A-MEM and 93.5% role consistency.",
+      "summary": [
+        "Long-running multi-agent LLM systems suffer task drift, role drift and stale shared state, and existing fixes treat these separately at the text level. The authors hypothesize all three come from hidden states moving away from directions that encode the task, the role and the current shared state.",
+        "A pilot study on 14,832 annotated turns tests that hypothesis. ATLAS then builds a positive-semidefinite anchor kernel over the task, role and state subspaces and, before each token, steers hidden states toward the shared high-coherence eigendirections, using a low-rank Gram decomposition for tractability. It is compared with prompting, retrieval, memory and activation-steering baselines on memory, state maintenance, tool use, least-privilege coordination and embodied stress tests.",
+        "Drifted turns collapse across all three anchor subspaces together (pairwise r = 0.72 to 0.78). ATLAS improves memory macro-accuracy by up to 5.7 points over A-MEM, cuts write/read failures by up to 31.7%/24.8%, gains up to 4.8 points over MemoryArena-Agent and 10.7 to 12.1 points under perturbation, reaches 93.5% role consistency, and transfers to a 72B backbone (61.0 vs 56.2). Ablating the joint span costs 7.2 points versus 0.8 for a random span of matched rank. Takeaway: steering toward a joint subspace of several concept directions, with a matched-rank random-span control, is a clean template for multi-concept steering geometry. Caveat: needs open weights."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.03439",
+      "title": "Playing Dumb: How a Chess Transformer Simulates Users Across Skill Levels",
+      "authors": [
+        "Difan Jiao",
+        "George Eilender",
+        "Zhenwei Tang",
+        "Ashton Anderson"
+      ],
+      "affiliations": [
+        "University of Toronto"
+      ],
+      "url": "https://arxiv.org/abs/2611.03439",
+      "pdf_url": "https://arxiv.org/pdf/2611.03439",
+      "source": "arXiv cs.AI, preprint (under review)",
+      "published": "2026-11-02",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "In Maia-2, low-skill conditioning keeps chess-concept knowledge intact (probes for 172 concepts barely change) but uses it differently; retraining only the output layer lifts low-skill best-move accuracy from 14.4% to 82.8%. Weak behavior can understate what a model actually knows.",
+      "summary": [
+        "Models that simulate users at different skill levels could produce weak behavior either because they encode less knowledge or because they use the same knowledge differently. This is hard to test in language, so the authors use chess, where skill and concepts are measurable.",
+        "They study Maia-2, a chess transformer conditioned on player rating, holding positions and weights fixed and focusing on positions where skill conditioning flips a blunder into the best move. They train probes for 172 labeled chess concepts across skill conditions, fine-tune only the final output layer, and steer concept-relevant features found by a sparse autoencoder.",
+        "Probe accuracy is nearly constant across skill levels and probes transfer between levels. Fine-tuning only the last layer raises lowest-skill best-move accuracy from 14.4% to 82.8%, and training it only on highest-skill representations keeps most of that gain. Steering SAE concept features also improves low-skill decisions without changing probe-measured encoding. Takeaway: a clean demonstration that encoded knowledge (probes) and used knowledge (behavior) can come apart, which matters when interpreting probe results or steering effects. Caveat: one domain-specific model."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.05141",
+      "title": "Beyond Foundation Models: PFN Priors Improve Tabular Hyperparameter Optimization",
+      "authors": [
+        "Artem Chistyakov",
+        "Renat Sergazinov",
+        "Artem Babenko"
+      ],
+      "affiliations": [
+        "Yandex",
+        "HSE University"
+      ],
+      "url": "https://arxiv.org/abs/2611.05141",
+      "pdf_url": "https://arxiv.org/pdf/2611.05141",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-03",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "PriorTune meta-tunes a small set of hyperparameter configurations for ordinary tabular models using only datasets sampled from a published PFN prior. LightGBM with TabPrep features and these configurations ranks above TabPFN-3 and RealMLP on BeyondArena at much lower inference cost.",
+      "summary": [
+        "Synthetic priors have only been used to pretrain tabular foundation models. The authors ask whether those same priors can help classic tabular models that are trained from scratch per dataset.",
+        "Offline, PriorTune fits a pool of hyperparameter configurations on datasets sampled from a published PFN prior and greedily keeps the subset with the highest win rate over a random baseline. Online, a new dataset only fits the selected configurations, so there is no extra cost. They study scaling in both the number of configurations and synthetic datasets, with a theoretical explanation.",
+        "Scaling configurations and scaling synthetic datasets have equal effects on the quality of the chosen subset. On the full BeyondArena benchmark, LightGBM with TabPrep features and PriorTune configurations ranks above TabPFN-3 and RealMLP while being much cheaper at inference. Takeaway: PFN priors are a reusable source of meta-training data beyond foundation models, and strong tuned GBDT baselines remain hard to beat, so compare against them when evaluating tabular FMs. Caveat: the abstract gives ranks rather than metric values; code and results are linked."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.02636",
+      "title": "SYNC: A Training-Free Inference Controller for Dynamic Layer Selection in Multi-Persona Alignment",
+      "authors": [
+        "Yosef Nuraga Wicaksana",
+        "Muhammad Reza Qorib",
+        "Fadhil Muhammad",
+        "Alfan Farizki Wicaksono"
+      ],
+      "affiliations": [
+        "University of Indonesia",
+        "Carnegie Mellon University"
+      ],
+      "url": "https://arxiv.org/abs/2611.02636",
+      "pdf_url": "https://arxiv.org/pdf/2611.02636",
+      "source": "arXiv cs.CL, preprint (under review)",
+      "published": "2026-11-02",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "SYNC picks, at every decoding step, which layer to inject each persona's steering vector into using cosine-similarity sensitivity trajectories, removing the offline layer search. It leads on 21 of 28 multi-persona configurations, significantly on 15.",
+      "summary": [
+        "Steering several personas at once is harder than steering one, because merged vectors interfere with each other. Prior multi-persona methods fix the combination and the injection layers in advance, which needs costly offline search even though the best strength varies by step and persona.",
+        "SYNC is a training-free controller that works with existing steering vectors. It estimates each layer's sensitivity to each persona from cosine-similarity trajectories during generation and assigns each persona to its best injection layer at every decoding step. It is tested on two models, two persona profiles, and vectors from both unsupervised and supervised extraction.",
+        "SYNC is best on 21 of 28 persona configurations, with significant wins on 15. Takeaway: for combining multiple steering directions, separating them by layer and choosing layers dynamically is a cheap way to reduce interference, and the cosine-trajectory signal may be reusable as a layer-selection heuristic. Caveat: only two models and two persona profiles; code is released."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.04878",
+      "title": "TraceRouter++: Causal Semantic Routing Realignment via Optimal Transport",
+      "authors": [
+        "Chuancheng Shi",
+        "Shangze Li",
+        "Wenhua Wu",
+        "Hengzhi Chen",
+        "Fei Shen",
+        "Li Zhuo",
+        "Zhiyong Wang",
+        "Tat-Seng Chua"
+      ],
+      "affiliations": [
+        "University of Sydney",
+        "National University of Singapore",
+        "Nanjing University of Science and Technology"
+      ],
+      "url": "https://arxiv.org/abs/2611.04878",
+      "pdf_url": "https://arxiv.org/pdf/2611.04878",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-03",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "A safety intervention that uses SAEs to find routing features at a sensitive layer, traces them to downstream causal circuits, and softly moves unsafe activation marginals toward safe ones with constrained optimal transport instead of ablating neurons. It reports better jailbreak robustness with a good safety-utility trade-off across LLMs, multimodal LLMs and diffusion models.",
+      "summary": [
+        "Safety interventions usually suppress individual neurons or features, assuming harmful behavior is localized. But harmful semantics are spread across cross-layer circuits, so localized ablation is brittle against complex jailbreaks and hurts general utility.",
+        "TraceRouter++ finds a sensitive onset layer from attention divergence, decomposes its activations into interpretable features with sparse autoencoders, and links those features to downstream circuits with feature influence scores. It then applies a constrained, coordinate-wise optimal-transport realignment that moves unsafe activation distributions toward safe reference distributions inside the identified subspace, leaving other coordinates untouched. It is evaluated on LLMs, multimodal LLMs and diffusion models.",
+        "The method outperforms the evaluated baselines on adversarial robustness while keeping a favorable safety-utility trade-off; the abstract gives no numbers or named benchmarks. Takeaway: matching activation distributions with optimal transport is a softer alternative to zeroing SAE features, worth trying when ablation damages utility. Caveat: verify the baselines and benchmarks in the paper, since the abstract is short on evaluation detail."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.04085",
+      "title": "Follow the Features: SAE Feature-Guided Data-Efficient Instruction-Tuning of Large Language Models",
+      "authors": [
+        "Ryan Swift",
+        "Konstantinos Psounis"
+      ],
+      "affiliations": [
+        "USC"
+      ],
+      "url": "https://arxiv.org/abs/2611.04085",
+      "pdf_url": "https://arxiv.org/pdf/2611.04085",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-02",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Uses SAE feature activation statistics from an independent LLM-SAE pair to pick a 100-sample instruction-tuning subset. It is competitive with GRAPE and S2L, and on Qwen 3 8B with Alpaca it beats full-dataset training by 1.59 points on a combined metric.",
+      "summary": [
+        "Instruction tuning on a small subset can match full data, but it is unclear which properties of the data a subset should preserve. The authors test whether SAE features are a good description of what to keep.",
+        "Follow the Features ranks SAE features by dataset-level activation statistics, scores each sample by how strongly it expresses top features, and resamples features to keep the subset diverse. The LLM and SAE used for selection are separate from the model being tuned, so one selection can serve many targets. Experiments use two model-dataset settings with a budget of 100 samples of 256 tokens.",
+        "FtF is competitive with GRAPE and S2L, with rankings that change between settings. On Qwen 3 8B trained on Alpaca it exceeds full-dataset training by 1.59 points in the harmonic mean of an AlpacaEval-based win rate and Open LLM Leaderboard score, though full data still has the higher Leaderboard score. Takeaway: SAE feature statistics are a usable, model-agnostic data descriptor for selection or coverage analysis. Caveat: only two settings and one tiny budget, and the method does not clearly beat existing selectors."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.02637",
+      "title": "Variable names provide priors: semantic grounding enables data-efficient numerical prediction by large language models",
+      "authors": [
+        "Xin-Rui Ma",
+        "Shi-Zhi Chen",
+        "Hai-Yan Jiang",
+        "De-Cheng Feng",
+        "Michael Beer"
+      ],
+      "affiliations": [
+        "Chang'an University",
+        "Southeast University",
+        "Leibniz University Hannover"
+      ],
+      "url": "https://arxiv.org/abs/2611.02637",
+      "pdf_url": "https://arxiv.org/pdf/2611.02637",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-02",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "When variable names match the values they describe, five untrained LLMs match or beat seven supervised ML models on 20 tabular regression datasets, especially with few examples. Controlled tasks suggest LLMs combine name-based domain knowledge (prior) with in-context examples (likelihood) in a roughly Bayesian way.",
+      "summary": [
+        "LLMs can do numerical prediction on tables via in-context learning, but it is unclear when and how they use column names versus the examples. This matters for data-scarce scientific settings.",
+        "The authors compare five LLMs without task-specific training against seven supervised ML models on 20 datasets from nine scientific domains, varying how well variable names match the data. They examine reasoning traces and build controlled tasks from physical formulas where the input-target relation can or cannot be inferred from examples alone.",
+        "With semantic grounding, the LLMs match or beat the supervised models, mostly when examples are scarce. When the relation cannot be learned from examples, LLMs lean on domain knowledge as a prior, and as contradicting examples accumulate their predictions shift toward the data, consistent with Bayesian updating. Takeaway: column semantics are a real source of signal that numeric-only tabular FMs like TabPFN ignore, and benchmarks with meaningful names can favor LLMs. Caveat: the abstract gives no metric values, and the datasets are mainly from engineering and science domains."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.04056",
+      "title": "Structured Priors: Towards an algebra of component priors for prior-data fitted networks",
+      "authors": [
+        "Thomas Bartz-Beielstein"
+      ],
+      "url": "https://arxiv.org/abs/2611.04056",
+      "pdf_url": "https://arxiv.org/pdf/2611.04056",
+      "source": "arXiv cs.LG, working paper (preprint)",
+      "published": "2026-11-02",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Proposes building PFN training priors from named component priors combined by operators (mixture, convolution, scaling, local transform, projection) with proven algebraic laws. A mix of small components matches or beats any single component on 7 of 8 regression benchmarks, but the pre-registered model-averaging test failed.",
+      "summary": [
+        "PFNs such as TabPFN, Mitra and TabICLv2 are trained on synthetic data from hand-built generators whose mixture weights are set by hand, and their effect only shows up after expensive pretraining.",
+        "The paper defines a measure-theoretic framework with five operators on component priors, proves their laws, and implements them in the macl2l package. It checks that generators reproduce the identities with permutation tests, tests whether trained networks follow the distributive law, and evaluates mixed priors on eight open regression benchmarks, plus a pre-registered test of averaging component networks.",
+        "Trained networks obey the distributive law; a mixture of small components does as well as or better than any single component on seven of eight benchmarks; and on two tables a structured prior reaches, with a ninth of the data budget, an error that a generic random-function prior does not reach with the full budget. The pre-registered averaged predictor failed because component networks rarely identify the generating component. Takeaway: a principled way to compose and ablate prior components for tabular FMs, with an honest negative result. Caveat: a 5-page single-author working paper on regression only."
+      ],
+      "score": 3
+    }
+  ]
+}
