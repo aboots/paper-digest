@@ -1,229 +1,200 @@
 {
-  "date": "2026-11-05",
-  "generated_at": "2026-11-05T07:18:01-07:00",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T07:14:52-07:00",
   "papers": [
     {
-      "id": "arxiv:2611.04166",
-      "title": "Say the Same, Act Differently: Diagnosing and Steering Text-Action Divergence in Reasoning VLAs",
+      "id": "arxiv:2611.08465",
+      "title": "Towards interpreting any residual stream direction by scaling activation inversion",
       "authors": [
-        "Zihao Feng",
-        "Qingzhao Zhang",
-        "Chunyu Xia",
-        "Bo Yu",
-        "Z. Morley Mao",
-        "Ramesh Govindan"
+        "Celeste De Schamphelaere",
+        "Juan J. Vazquez",
+        "Ari Spiesberger",
+        "Tomáš Gavenčiak",
+        "Gavin Leech",
+        "Euan Ong",
+        "Jiahai Feng"
       ],
       "affiliations": [
-        "USC",
-        "University of Arizona",
-        "General Motors"
+        "Arb Research",
+        "Anthropic",
+        "MATS"
       ],
-      "url": "https://arxiv.org/abs/2611.04166",
-      "pdf_url": "https://arxiv.org/pdf/2611.04166",
+      "url": "https://arxiv.org/abs/2611.08465",
+      "pdf_url": "https://arxiv.org/pdf/2611.08465",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-05",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "A language model (MAEM) trained with a label-free RL objective generates text that maximally activates a given residual stream direction, and the exemplars can be checked with a forward pass on the subject model. A Qwen3.6-27B MAEM activates 89% of held-out SAE features and beats corpus search at inverting held-out activations.",
+      "summary": [
+        "Interpreting a residual stream direction usually means scanning a corpus for text that activates it, which is limited to what the corpus contains. Natural-language explainers can also produce descriptions that are hard to verify against the subject model.",
+        "The authors train Maximally-Activating Example Metamodels (MAEMs): language models that take a residual stream direction of a subject model and generate text exemplars. The training objective maximises the cosine similarity between the supplied direction and the activations of the generated text, so it needs no labels and can scale over many sources of directions.",
+        "A Qwen3.6-27B MAEM inverts held-out activations better than corpus search or a natural-language autoencoder, beats corpus search at 10M tokens on a majority of held-out languages/domains, and activates 89% of held-out SAE features. It identifies the concepts behind steering vectors about as well as NLAs and recovers LoRA backdoor payloads more often than corpus search. Takeaway: for SAE feature or steering-vector analysis, generated exemplars give a verifiable (forward-pass checkable) complement to corpus search and text explanations. The authors note a few failures: roughly 11% of features are not elicited and the samples are less diverse than corpus text."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.08487",
+      "title": "User Embeddings are Superpositions of Interpretable Behavioral Modes",
+      "authors": [
+        "Jonathan Kozaczuk",
+        "Zheng Dong",
+        "Noyan Evirgen",
+        "Keivan Majidi",
+        "Eddie K. H. Ng",
+        "Chris Porter",
+        "Qi Zhao",
+        "Jia Geng",
+        "Changmao Li",
+        "Brandon R. Feng"
+      ],
+      "affiliations": [
+        "Amazon"
+      ],
+      "url": "https://arxiv.org/abs/2611.08487",
+      "pdf_url": "https://arxiv.org/pdf/2611.08487",
       "source": "arXiv cs.LG, accepted at NeurIPS 2026 (per arXiv comment)",
-      "published": "2026-11-03",
-      "topics": [
-        "steering"
-      ],
-      "tldr": "In reasoning VLAs, visual perturbations can change the physical action while keeping the generated rationale word-for-word identical, because the most action-sensitive direction is nearly orthogonal to text-loss gradients. TNAS-guided attacks induce new collisions under identical rationales in 52.6% of 154 Alpamayo scenes (35.1% with a localized patch).",
-      "summary": [
-        "Reasoning vision-language-action models expose a natural-language rationale alongside the control action so supervisors can monitor embodied safety. Prior attacks corrupt the rationale itself and leave visible textual evidence, so an unchanged rationale has been treated as a safety signal.",
-        "At the shared text/action interface of Alpamayo (driving) and InstructVLA (manipulation), the authors introduce a text-neutral action-subspace (TNAS) diagnostic: the locally most action-sensitive residual direction has only 1.87% and 5.28% norm overlap with active text-loss gradients. They then steer visual perturbations along that direction and compare against text-gradient and unguided action attacks across 154 obstacle-annotated Alpamayo scenes and InstructVLA examples.",
-        "At matched hidden-state norms, TNAS residual interventions shift actions 4.64x to 47.8x more than text-gradient perturbations, while text-gradient moves induce 21.2x to 277x more text drift. TNAS-guided attacks produce a new collision under a word-for-word identical rationale in 52.6% of scenes with full-image perturbations and 35.1% with a localized forward-camera patch, versus 4.55% for unguided action attacks; exact rationale preservation rises from 83.0% to 89.5% versus a text-preserving baseline. Takeaway: for any system that steers or monitors a shared text/action representation, checking only the text channel is insufficient—verify the action channel directly, and expect nearly orthogonal text-neutral action directions. Caveat: results are on two specific VLA stacks; the abstract does not report defensive mitigations."
-      ],
-      "score": 5
-    },
-    {
-      "id": "arxiv:2611.06001",
-      "title": "How Far Can You Steer? Behavior-Capability Frontiers in Contrastive Activation Addition",
-      "authors": [
-        "Deepanshu Raj"
-      ],
-      "affiliations": [
-        "University of Chicago"
-      ],
-      "url": "https://arxiv.org/abs/2611.06001",
-      "pdf_url": "https://arxiv.org/pdf/2611.06001",
-      "source": "arXiv cs.LG, preprint",
-      "published": "2026-11-04",
-      "topics": [
-        "steering"
-      ],
-      "tldr": "Frames CAA as a constrained intervention that must maximize behavioral gain under an explicit capability-loss budget (1%, 3%, 5%). Across four instruction-tuned models and seven behaviors, validation-selected effects generalize strongly to held-out data (ρ=0.945), and joint behavior-capability survival among nonzero points rises from 37.5% at 1% to 72.7% at 3%.",
-      "summary": [
-        "Activation steering can move a targeted behavior while quietly degrading unrelated capabilities, so efficacy alone does not say whether an intervention is usable. Contrastive Activation Addition in particular lacks a standard way to bound that collateral cost.",
-        "The paper studies CAA through a behavior-capability frontier: pick interventions that maximize behavioral gain subject to an explicit bound on capability degradation. It evaluates four instruction-tuned models, seven behaviors, and absolute capability-loss budgets of 1%, 3%, and 5%, with control experiments that check learned behavior directions against generic activation perturbations, plus secondary capability, out-of-distribution, and open-ended evaluations.",
-        "Validation-selected behavioral effects generalize to held-out data with ρ=0.945. Joint behavior-capability survival among nonzero operating points rises from 37.5% at the 1% budget to 72.7% at 3%, with limited further gain at 5%. Representational geometry is significantly but only modestly predictive of causal cross-behavior transfer, and interventions that pass protected benchmarks can still hurt untested capabilities or transfer unevenly to free-form generation. Takeaway: treat steering as a constrained edit—report a capability-loss budget and the joint survival rate, not just target-behavior lift. Caveat: single-author work; absolute percentage-point budgets may not transfer across eval suites."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.05655",
-      "title": "When Are Two SAE Latents the Same Feature?",
-      "authors": [
-        "Alexandra Suvorikova",
-        "Ilgam Latypov",
-        "Anton Trukhan",
-        "Yuriy Dorn"
-      ],
-      "affiliations": [
-        "MSU Institute for AI"
-      ],
-      "url": "https://arxiv.org/abs/2611.05655",
-      "pdf_url": "https://arxiv.org/pdf/2611.05655",
-      "source": "arXiv cs.LG, preprint",
-      "published": "2026-11-03",
+      "published": "2026-11-05",
       "topics": [
         "sae"
       ],
-      "tldr": "Unifies SAE feature matching, dictionary-level discrepancy, and finite-data uncertainty through an energy-weighted optimal-transport plan under a chosen similarity geometry, with joint asymptotic confidence bands from a document bootstrap. Experiments across four language models locate cross-seed discrepancy and separate context-dependent changes.",
+      "tldr": "User embeddings from recommenders can be modelled as sparse superpositions of behavioral modes, and SAEs recover those modes better than classical sparse baselines on synthetic data. The recovered modes get natural-language labels that enable zero-shot audience retrieval over embeddings never trained on text.",
       "summary": [
-        "Comparing sparse autoencoders usually treats feature correspondence, whole-dictionary distance, and sampling uncertainty as separate problems, which makes it hard to say when two latents are the same feature or how stable that claim is under finite evaluation data.",
-        "The authors build an energy-weighted optimal-transport plan under a specified similarity geometry that yields a dictionary-level discrepancy, a per-latent contribution, and a mass distribution over counterparts. They characterize relationships among decoder, activation, and first-order causal similarities, use idealized models to interpret splitting and absorption, and derive joint asymptotic inference for transport costs and fractions with a joint document bootstrap for simultaneous confidence bands.",
-        "Experiments across four language models locate cross-seed discrepancy and separate context-dependent changes; the abstract gives no numeric effect sizes. Takeaway: when matching SAE features across seeds or training runs, report the transport plan, per-latent mass spread, and bootstrap confidence bands rather than a single greedy matching score. Caveat: abstract does not name the four models or quantify how often transport reassigns mass."
+        "User embeddings drive recommendation and personalization but are dense and opaque, so it is hard to audit what they encode or query them in natural language. Interpretability tools from LLM research had not been tried on this kind of representation.",
+        "The paper argues that a generative model of user behavior predicts sparse superposition for linear embeddings, and that the superposition hypothesis extends this approximately to deep embeddings. They recover modes with sparse autoencoders, validate against known ground truth on synthetic data (including transformer-encoded embeddings), then apply the method to classical and transformer-based embeddings on two real-world datasets and name modes automatically.",
+        "On synthetic data, SAEs recover the true modes better than classical sparse baselines. On the real datasets the labeled modes support zero-shot audience retrieval and characterization; the abstract gives no numeric results. Takeaway: SAEs plus auto-interp transfer to non-text embeddings, and the ground-truth synthetic setup is a reusable way to test SAE recovery. Quantitative real-world gains should be checked in the paper before relying on them."
       ],
       "score": 4
     },
     {
-      "id": "arxiv:2611.05522",
-      "title": "From Activation to Intervention: Interpreting Sparse Visual Features through Reconstruction",
+      "id": "arxiv:2611.08089",
+      "title": "SAE Interprets MoE: Sparse AutoEncoders Reveal That MoE Experts Exhibit Human-Interpretable Fine-Grained Specialization",
       "authors": [
-        "Jianyang Gu",
-        "Jacob Beattie",
-        "Mridul Khurana",
-        "Julia Chae",
-        "Xi Xiao",
-        "Cheng Zhang",
-        "Anuj Karpatne",
-        "Wei-Lun Chao",
-        "Sara Beery",
-        "Tanya Berger-Wolf"
+        "Anyuan Zhuo",
+        "Shaohua Zhang",
+        "Yuan Lin",
+        "Pinyan Lu"
       ],
       "affiliations": [
-        "Ohio State",
-        "MIT",
-        "Virginia Tech"
+        "ByteDance Seed",
+        "Shanghai University of Finance and Economics"
       ],
-      "url": "https://arxiv.org/abs/2611.05522",
-      "pdf_url": "https://arxiv.org/pdf/2611.05522",
-      "source": "arXiv cs.CV, preprint",
-      "published": "2026-11-03",
+      "url": "https://arxiv.org/abs/2611.08089",
+      "pdf_url": "https://arxiv.org/pdf/2611.08089",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-05",
       "topics": [
         "sae"
       ],
-      "tldr": "RecSAEI explains vision SAE features by intervening along decoder directions and reconstructing the image, which disambiguates co-activating features such as texture versus color that top-activating patches leave ambiguous. It also grounds [CLS] SAE interventions in a sparse set of patch SAE decoder directions.",
+      "tldr": "Training an SAE on an MoE layer's output lets each latent's pre-activation be decomposed exactly over experts. On Qwen3-30B-A3B this shows expert contribution is far more concentrated than gating, with experts specializing below coarse domains (e.g. Java vs front-end web code).",
       "summary": [
-        "Sparse autoencoders decompose visual representations into features, but explaining a feature from its top-activating images or pixels is ambiguous when several features with different semantics fire in the same places, such as texture and color.",
-        "Reconstructive SAE Intervention (RecSAEI) shifts explanation from passive observation to active reconstruction: intervene on representations along SAE decoder directions and reconstruct the visual output as direct evidence of the feature's meaning. The framework is tested across multiple datasets and vision encoders, and it attributes [CLS] SAE interventions to a sparse set of patch SAE decoder directions.",
-        "The method successfully disambiguates feature meanings in the reported settings and exposes compositional links between elementary visual patterns and high-level semantics; the abstract gives no numeric metrics. Takeaway: for vision SAEs (and for medical imaging prototypes that rely on activation maps), pair top-activating evidence with intervention reconstruction so co-located features are not conflated. Caveat: abstract does not name datasets, encoders, or quantitative gains; demo and code are linked."
+        "What an individual expert in a Mixture-of-Experts model is responsible for is unsettled. Prior analyses count how often an expert is selected on domain-labeled corpora, which fixes the taxonomy in advance, stays coarse, and measures selection rather than contribution.",
+        "They train an SAE on the output of an MoE layer. Because that output is a router-weighted sum of expert outputs and the SAE encoder is affine, each latent's pre-activation decomposes exactly over experts, giving every expert a set of latents it mainly drives. They study layers 4, 30 and 46 of Qwen3-30B-A3B and auto-interpret the dominant latent sets.",
+        "Contribution is much more concentrated than gating, most latents have only one or two dominating experts, and dominant sets overlap on a few expert pairs. Auto-interpretation shows finer division of labor, such as separate experts for Java and front-end web code, or for geometry versus arithmetic and polynomials. Takeaway: the exact linear decomposition is a cheap trick for attributing SAE latents to components, and SAEs and code are released. The abstract reports a single model family, so generality is untested."
       ],
       "score": 4
     },
     {
-      "id": "arxiv:2611.04782",
-      "title": "Reducing Logprob Without Causal Verification: Diagnosing SAE-Based PII Suppression in LLMs",
+      "id": "arxiv:2611.07756",
+      "title": "Scaling Laws for SAE Training Data",
       "authors": [
-        "Chaerin Lee",
-        "Wonho Lee",
-        "Sohee Park",
-        "Daeseon Choi"
+        "Nikita Koriagin",
+        "Nikita Balagansky",
+        "Daniil Gavrilov"
       ],
       "affiliations": [
-        "Soongsil University"
+        "T-Tech",
+        "Yandex"
       ],
-      "url": "https://arxiv.org/abs/2611.04782",
-      "pdf_url": "https://arxiv.org/pdf/2611.04782",
-      "source": "arXiv cs.AI, accepted to Findings of AACL-IJCNLP 2026 (per arXiv comment)",
-      "published": "2026-11-03",
+      "url": "https://arxiv.org/abs/2611.07756",
+      "pdf_url": "https://arxiv.org/pdf/2611.07756",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-05",
       "topics": [
         "sae"
       ],
-      "tldr": "Log-probability drop alone cannot tell SAE feature suppression of PII from a magnitude artifact of large activation edits: of 36 (model, layer, PII type) cases, 47% look successful under logprob-only scoring but only 2.8% pass a multimetric check against coherence-matched random directions.",
+      "tldr": "For SAE training with a fixed token budget, quality plateaus once the unique-activation buffer is large enough and replaying it works nearly as well as fresh activations. This cuts activation storage by 8-64x with negligible quality loss.",
       "summary": [
-        "SAE feature interventions aimed at suppressing personally identifiable information in LLMs are usually judged by how much they reduce the log-probability of PII tokens. That criterion may credit any large activation perturbation, not a feature-specific causal edit.",
-        "Across 36 (model, layer, PII type) cases the authors compare selected SAE feature interventions with coherence-matched random-direction controls using logprob and rank-aware metrics, then run a 9,000-run causal mediation feasibility study as a verifier.",
-        "Seventeen cases (47%) look successful under logprob-only evaluation, but only one case (2.8%) passes the multimetric framework; the rest show random directions beating selected features or feature-selection collapse across PII types. The causal verifier separates candidates reliably, yet correlation-selected candidates rarely pass it. Takeaway: never accept an SAE steering or suppression claim on logprob drop alone—require matched random-direction controls and a causal mediation check. Caveat: focused on PII suppression; transfer to other SAE interventions is argued but not quantified in the abstract."
+        "Storing activations is often the bottleneck when training sparse autoencoders. It is unclear how many unique activations an SAE needs when its total training budget is fixed.",
+        "The authors vary the buffer of unique activations under a fixed training budget and fit a scaling law for the diversity-versus-repetition tradeoff. They validate across dictionary sizes, token budgets, early/middle/late layers of Llama-3.1, Qwen3 sizes, and BatchTopK, TopK and JumpReLU SAEs, with math and Python text sweeps. Evaluation covers explained variance, reconstruction MSE, feature absorption, automated interpretability and sparse probing.",
+        "Quality rises quickly with buffer size, then plateaus; beyond that point extra unique activations add little to reconstruction or interpretability. Larger dictionaries reach higher plateaus but need more diversity. Their practical rule is to choose the smallest buffer that reaches the plateau and replay it, reducing storage by 8-64x with negligible loss. Takeaway: a direct way to cut SAE training cost; the numbers come from the tested models and activation sources, so re-check on other layers or modalities."
       ],
       "score": 4
     },
     {
-      "id": "arxiv:2611.06848",
-      "title": "Persona Perspectives: Adopting Viewpoints Reorganizes Representations in LLMs",
+      "id": "arxiv:2611.07886",
+      "title": "When, Where, How: Active In-Context Learning for Tabular Foundation Models",
       "authors": [
-        "Austin C. Kozlowski",
-        "Avital Mintz",
-        "Madison Lee"
+        "Christian M. M. Frey"
       ],
       "affiliations": [
-        "UChicago Knowledge Lab",
-        "University of Chicago"
+        "University of Technology Nuremberg"
       ],
-      "url": "https://arxiv.org/abs/2611.06848",
-      "pdf_url": "https://arxiv.org/pdf/2611.06848",
-      "source": "arXiv cs.CL, preprint",
-      "published": "2026-11-04",
+      "url": "https://arxiv.org/abs/2611.07886",
+      "pdf_url": "https://arxiv.org/pdf/2611.07886",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-05",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Active selection of labeled context rows for frozen tabular foundation models works best with diversity early, target-aware nearest neighbours in the middle, and the proposed EPIC information-gain rule at the budget. EPIC retains 80-87% of chance-corrected full-data performance with only 5-10% of the pool labeled on the eight largest-pool benchmarks.",
+      "summary": [
+        "Tabular foundation models adapt to a new task only through the labeled rows in their context, and labels are expensive when domain expertise is needed. Classical active learning assumes a model that is trained, while here the guiding model changes with every label added to context.",
+        "The study compares acquisition rules as a frozen TFM gains context: diversity, predictive uncertainty and target-aware information gain. It introduces Target-Aware Nearest Neighbor (TANN) acquisition and Expected Predictive Information Gain in Context (EPIC), and evaluates them against classical rules on twenty benchmarks with two TFMs and GBDTs.",
+        "Diversity-based acquisition is best in the first iterations; target-aware nearest-neighbor selection matters substantially; EPIC gives the best models at the label budget and its selected labels also improve GBDTs. On the eight benchmarks with the largest pools it keeps 80-87% of chance-corrected full-data performance with 5-10% labeled. Takeaway: when choosing which rows go into a TFM context, switch strategy as context grows and use target-aware selection. Evidence is from twenty benchmarks and two TFMs."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.08438",
+      "title": "Understanding AI from the Inside: The State of Mechanistic Interpretability for AI Safety",
+      "authors": [
+        "Fazl Barez",
+        "Tung-Yu Wu",
+        "Hunar Batra",
+        "Gabriele Dominici",
+        "Florent Draye",
+        "Yanai Elazar",
+        "Damiano Fornasiere",
+        "Antía García",
+        "Abir Harrasse",
+        "Riley Harris",
+        "Sara Hooker",
+        "Michael Lan",
+        "Belinda Z. Li",
+        "Aaron Maiwald",
+        "Narmeen Fatimah Oozeer",
+        "Naomi Saphra",
+        "Or David Shafran",
+        "Adi Simhi",
+        "Robert Trager",
+        "Shriyash Kaustubh Upadhyay",
+        "Ziyu Yao",
+        "Yu Zhao",
+        "Shay B. Cohen",
+        "Mor Geva",
+        "Yoshua Bengio",
+        "Stella Biderman",
+        "Hassan Sajjad"
+      ],
+      "affiliations": [
+        "University of Oxford",
+        "Martian",
+        "Mila"
+      ],
+      "url": "https://arxiv.org/abs/2611.08438",
+      "pdf_url": "https://arxiv.org/pdf/2611.08438",
+      "source": "arXiv cs.CL, survey (preprint)",
+      "published": "2026-11-05",
       "topics": [
         "interpretability"
       ],
-      "tldr": "Prompting liberal versus conservative personas systematically shifts word projections on over 9,000 words and 33 semantic axes, and linear probes, SAE classifiers, and word-based classifiers trained without a persona then give politically slanted truthfulness and morality ratings under persona conditioning.",
+      "tldr": "A large multi-institution survey asks whether mechanistic interpretability actually makes models safer, covering features, circuits, SAEs, steering and attribution. It proposes a unified framework for evaluating interpretability claims and releases reproducing notebooks.",
       "summary": [
-        "Linear probes and sparse autoencoders usually assume that monitored features keep a stable geometry across contexts. LLMs can adopt personas that may rearrange conceptual relations, which would undermine those monitors.",
-        "The authors extract representations of over 9,000 common words and 33 semantic axes under liberal and conservative political personas and compare them to two neutral baselines, then apply persona-free linear probes, SAE-based classifiers, and manually selected word-representation classifiers to truthfulness and morality judgments on controversial statements.",
-        "Persona conditioning systematically alters word-to-axis projections and alignments among axes in directions consistent with the stated ideology, and the three monitoring methods produce divergent, politically slanted ratings of truth and morality once a persona is applied. The abstract reports no numeric deltas. Takeaway: before trusting SAE or probe monitors for safety-relevant features, test them under persona (and other context) shifts; a feature that is clean in a neutral run can reorganize under a role prompt. Caveat: only two political personas and unspecified base models in the abstract."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.05278",
-      "title": "Beyond Accuracy: What Language-Subspace Interventions Capture, Remove, and Improve",
-      "authors": [
-        "Shaanil Punglia",
-        "Dadhichi Telwadkar",
-        "Vaibhav Rathore",
-        "Siddharth Sureka",
-        "Neha Bhargava"
-      ],
-      "affiliations": [
-        "Motilal Oswal",
-        "IIT Bombay"
-      ],
-      "url": "https://arxiv.org/abs/2611.05278",
-      "pdf_url": "https://arxiv.org/pdf/2611.05278",
-      "source": "arXiv cs.CL, accepted at AACL-IJCNLP 2026 Workshop Multi-LLL (per arXiv comment)",
-      "published": "2026-11-03",
-      "topics": [
-        "steering"
-      ],
-      "tldr": "Mean-SVD and DiffPCA language subspaces capture translation-associated variation, but projecting them out leaves linear probes still nearly perfect at identifying language. On Qwen2.5-7B, the intervention that most improves MGSM accuracy hurts response-language fidelity; only one setup raises joint correct-and-in-target-language accuracy, by 1.60 points.",
-      "summary": [
-        "Language-subspace interventions try to improve multilingual reasoning by suppressing language-related components in mid-layer activations, but it is unclear what those subspaces actually capture, whether projecting them out removes language information, and whether accuracy gains preserve the response language.",
-        "Using MATH and MGSM across four open-weight LLMs, the authors build Mean-SVD and DiffPCA subspaces, train linear probes on projected activations, and evaluate several intervention operators on Qwen2.5-7B while tracking both answer accuracy and response-language fidelity.",
-        "Both constructions capture substantial translation-associated variation with similar depth patterns, yet probes still identify language almost perfectly after projection, so neither subspace exhausts language information. The accuracy-best intervention sacrifices response-language fidelity; only one configuration improves joint accuracy (correct and in the target language), by 1.60 points, and prompt changes alone can reproduce accuracy gains while damaging language fidelity. Takeaway: score steering interventions on joint task-and-constraint metrics, not accuracy alone, and treat residual probeability after projection as a required check. Caveat: workshop paper; detailed per-model numbers beyond the 1.60-point joint gain are not in the abstract."
-      ],
-      "score": 3
-    },
-    {
-      "id": "arxiv:2611.06025",
-      "title": "When Every Choice Is Correct: A Causal Study of Numerical Preference in Language Models",
-      "authors": [
-        "Hongnian Huang",
-        "Hongliang Liu"
-      ],
-      "affiliations": [
-        "University of New Mexico"
-      ],
-      "url": "https://arxiv.org/abs/2611.06025",
-      "pdf_url": "https://arxiv.org/pdf/2611.06025",
-      "source": "arXiv cs.CL, preprint",
-      "published": "2026-11-04",
-      "topics": [
-        "interpretability"
-      ],
-      "tldr": "Uses forced numerical choice (every integer 1–30 is valid) as a controlled setting for preference circuits: in a Qwen3-4B case a pre-answer edit flips 17 to 15, and holding later MLP outputs cuts the log-odds effect gap between two attention replacements from 0.119 to 0.0025 nat.",
-      "summary": [
-        "When a language model picks a number in a range where every integer is valid, any systematic preference is a pure internal bias rather than a correctness constraint. That makes numerical choice a clean testbed for how preference is processed across layers and tokens.",
-        "Perturbation probing and gradient attribution nominate neurons for activation interventions. In a selected Qwen3-4B case, a pre-answer edit changes 17 to 15 while both runs first emit 1; selective cache and attention-output replacements then trace lingering influence on the second digit. Replacing one attention head's output versus the other heads jointly restores 17 with different final log-odds on 7 versus 5; holding later MLP outputs at the edited-run values shrinks that effect gap from 0.119 to 0.0025 nat. Retrospective estimates across eighteen contexts and prompt tests further separate influence from answer switches.",
-        "Later computation reshapes how similar local contributions affect the continuation, and retrospective estimates capture much of the probability movement but miss the selected answer switch; only one of twelve fresh wordings qualifies for the reader/MLP test, where joint MLP clamping again reduces the gap while the answer stays 17. Takeaway: for circuit-style steering studies, measure both immediate readout and downstream MLP conditioning—matched local contributions can diverge after later layers. Caveat: focused case studies on Qwen3-4B and numerical preference; authors state they do not claim a complete circuit of natural numerical preference."
+        "As AI systems grow more capable, understanding how they work matters for safety, yet behavioral evaluation has limits. The survey asks whether mechanistic understanding of internals concretely improves safety.",
+        "The authors place mechanistic interpretability within broader interpretability research and compare mechanistic evidence with behavioral evaluation. They cover foundations (features, polysemanticity, transformer computation, circuits), feature extraction, circuit discovery and causal verification, natural-language explanations of representations, learning dynamics and training-data attribution.",
+        "Beyond the review they propose a unified framework for evaluating mechanistic interpretability claims and characterise six research orientations by goals, assumptions and trade-offs. They discuss uses for editing, steering and monitoring plus limitations and failure modes, and release code notebooks with worked examples. Takeaway: a good map of the field and an evaluation checklist for SAE and steering work. It is a survey, so it contains no new empirical results."
       ],
       "score": 3
     }

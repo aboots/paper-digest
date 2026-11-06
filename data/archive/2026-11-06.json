@@ -1,0 +1,202 @@
+{
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T07:14:52-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.08465",
+      "title": "Towards interpreting any residual stream direction by scaling activation inversion",
+      "authors": [
+        "Celeste De Schamphelaere",
+        "Juan J. Vazquez",
+        "Ari Spiesberger",
+        "Tomáš Gavenčiak",
+        "Gavin Leech",
+        "Euan Ong",
+        "Jiahai Feng"
+      ],
+      "affiliations": [
+        "Arb Research",
+        "Anthropic",
+        "MATS"
+      ],
+      "url": "https://arxiv.org/abs/2611.08465",
+      "pdf_url": "https://arxiv.org/pdf/2611.08465",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-05",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "A language model (MAEM) trained with a label-free RL objective generates text that maximally activates a given residual stream direction, and the exemplars can be checked with a forward pass on the subject model. A Qwen3.6-27B MAEM activates 89% of held-out SAE features and beats corpus search at inverting held-out activations.",
+      "summary": [
+        "Interpreting a residual stream direction usually means scanning a corpus for text that activates it, which is limited to what the corpus contains. Natural-language explainers can also produce descriptions that are hard to verify against the subject model.",
+        "The authors train Maximally-Activating Example Metamodels (MAEMs): language models that take a residual stream direction of a subject model and generate text exemplars. The training objective maximises the cosine similarity between the supplied direction and the activations of the generated text, so it needs no labels and can scale over many sources of directions.",
+        "A Qwen3.6-27B MAEM inverts held-out activations better than corpus search or a natural-language autoencoder, beats corpus search at 10M tokens on a majority of held-out languages/domains, and activates 89% of held-out SAE features. It identifies the concepts behind steering vectors about as well as NLAs and recovers LoRA backdoor payloads more often than corpus search. Takeaway: for SAE feature or steering-vector analysis, generated exemplars give a verifiable (forward-pass checkable) complement to corpus search and text explanations. The authors note a few failures: roughly 11% of features are not elicited and the samples are less diverse than corpus text."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.08487",
+      "title": "User Embeddings are Superpositions of Interpretable Behavioral Modes",
+      "authors": [
+        "Jonathan Kozaczuk",
+        "Zheng Dong",
+        "Noyan Evirgen",
+        "Keivan Majidi",
+        "Eddie K. H. Ng",
+        "Chris Porter",
+        "Qi Zhao",
+        "Jia Geng",
+        "Changmao Li",
+        "Brandon R. Feng"
+      ],
+      "affiliations": [
+        "Amazon"
+      ],
+      "url": "https://arxiv.org/abs/2611.08487",
+      "pdf_url": "https://arxiv.org/pdf/2611.08487",
+      "source": "arXiv cs.LG, accepted at NeurIPS 2026 (per arXiv comment)",
+      "published": "2026-11-05",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "User embeddings from recommenders can be modelled as sparse superpositions of behavioral modes, and SAEs recover those modes better than classical sparse baselines on synthetic data. The recovered modes get natural-language labels that enable zero-shot audience retrieval over embeddings never trained on text.",
+      "summary": [
+        "User embeddings drive recommendation and personalization but are dense and opaque, so it is hard to audit what they encode or query them in natural language. Interpretability tools from LLM research had not been tried on this kind of representation.",
+        "The paper argues that a generative model of user behavior predicts sparse superposition for linear embeddings, and that the superposition hypothesis extends this approximately to deep embeddings. They recover modes with sparse autoencoders, validate against known ground truth on synthetic data (including transformer-encoded embeddings), then apply the method to classical and transformer-based embeddings on two real-world datasets and name modes automatically.",
+        "On synthetic data, SAEs recover the true modes better than classical sparse baselines. On the real datasets the labeled modes support zero-shot audience retrieval and characterization; the abstract gives no numeric results. Takeaway: SAEs plus auto-interp transfer to non-text embeddings, and the ground-truth synthetic setup is a reusable way to test SAE recovery. Quantitative real-world gains should be checked in the paper before relying on them."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.08089",
+      "title": "SAE Interprets MoE: Sparse AutoEncoders Reveal That MoE Experts Exhibit Human-Interpretable Fine-Grained Specialization",
+      "authors": [
+        "Anyuan Zhuo",
+        "Shaohua Zhang",
+        "Yuan Lin",
+        "Pinyan Lu"
+      ],
+      "affiliations": [
+        "ByteDance Seed",
+        "Shanghai University of Finance and Economics"
+      ],
+      "url": "https://arxiv.org/abs/2611.08089",
+      "pdf_url": "https://arxiv.org/pdf/2611.08089",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-05",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Training an SAE on an MoE layer's output lets each latent's pre-activation be decomposed exactly over experts. On Qwen3-30B-A3B this shows expert contribution is far more concentrated than gating, with experts specializing below coarse domains (e.g. Java vs front-end web code).",
+      "summary": [
+        "What an individual expert in a Mixture-of-Experts model is responsible for is unsettled. Prior analyses count how often an expert is selected on domain-labeled corpora, which fixes the taxonomy in advance, stays coarse, and measures selection rather than contribution.",
+        "They train an SAE on the output of an MoE layer. Because that output is a router-weighted sum of expert outputs and the SAE encoder is affine, each latent's pre-activation decomposes exactly over experts, giving every expert a set of latents it mainly drives. They study layers 4, 30 and 46 of Qwen3-30B-A3B and auto-interpret the dominant latent sets.",
+        "Contribution is much more concentrated than gating, most latents have only one or two dominating experts, and dominant sets overlap on a few expert pairs. Auto-interpretation shows finer division of labor, such as separate experts for Java and front-end web code, or for geometry versus arithmetic and polynomials. Takeaway: the exact linear decomposition is a cheap trick for attributing SAE latents to components, and SAEs and code are released. The abstract reports a single model family, so generality is untested."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.07756",
+      "title": "Scaling Laws for SAE Training Data",
+      "authors": [
+        "Nikita Koriagin",
+        "Nikita Balagansky",
+        "Daniil Gavrilov"
+      ],
+      "affiliations": [
+        "T-Tech",
+        "Yandex"
+      ],
+      "url": "https://arxiv.org/abs/2611.07756",
+      "pdf_url": "https://arxiv.org/pdf/2611.07756",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-05",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "For SAE training with a fixed token budget, quality plateaus once the unique-activation buffer is large enough and replaying it works nearly as well as fresh activations. This cuts activation storage by 8-64x with negligible quality loss.",
+      "summary": [
+        "Storing activations is often the bottleneck when training sparse autoencoders. It is unclear how many unique activations an SAE needs when its total training budget is fixed.",
+        "The authors vary the buffer of unique activations under a fixed training budget and fit a scaling law for the diversity-versus-repetition tradeoff. They validate across dictionary sizes, token budgets, early/middle/late layers of Llama-3.1, Qwen3 sizes, and BatchTopK, TopK and JumpReLU SAEs, with math and Python text sweeps. Evaluation covers explained variance, reconstruction MSE, feature absorption, automated interpretability and sparse probing.",
+        "Quality rises quickly with buffer size, then plateaus; beyond that point extra unique activations add little to reconstruction or interpretability. Larger dictionaries reach higher plateaus but need more diversity. Their practical rule is to choose the smallest buffer that reaches the plateau and replay it, reducing storage by 8-64x with negligible loss. Takeaway: a direct way to cut SAE training cost; the numbers come from the tested models and activation sources, so re-check on other layers or modalities."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.07886",
+      "title": "When, Where, How: Active In-Context Learning for Tabular Foundation Models",
+      "authors": [
+        "Christian M. M. Frey"
+      ],
+      "affiliations": [
+        "University of Technology Nuremberg"
+      ],
+      "url": "https://arxiv.org/abs/2611.07886",
+      "pdf_url": "https://arxiv.org/pdf/2611.07886",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-05",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Active selection of labeled context rows for frozen tabular foundation models works best with diversity early, target-aware nearest neighbours in the middle, and the proposed EPIC information-gain rule at the budget. EPIC retains 80-87% of chance-corrected full-data performance with only 5-10% of the pool labeled on the eight largest-pool benchmarks.",
+      "summary": [
+        "Tabular foundation models adapt to a new task only through the labeled rows in their context, and labels are expensive when domain expertise is needed. Classical active learning assumes a model that is trained, while here the guiding model changes with every label added to context.",
+        "The study compares acquisition rules as a frozen TFM gains context: diversity, predictive uncertainty and target-aware information gain. It introduces Target-Aware Nearest Neighbor (TANN) acquisition and Expected Predictive Information Gain in Context (EPIC), and evaluates them against classical rules on twenty benchmarks with two TFMs and GBDTs.",
+        "Diversity-based acquisition is best in the first iterations; target-aware nearest-neighbor selection matters substantially; EPIC gives the best models at the label budget and its selected labels also improve GBDTs. On the eight benchmarks with the largest pools it keeps 80-87% of chance-corrected full-data performance with 5-10% labeled. Takeaway: when choosing which rows go into a TFM context, switch strategy as context grows and use target-aware selection. Evidence is from twenty benchmarks and two TFMs."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.08438",
+      "title": "Understanding AI from the Inside: The State of Mechanistic Interpretability for AI Safety",
+      "authors": [
+        "Fazl Barez",
+        "Tung-Yu Wu",
+        "Hunar Batra",
+        "Gabriele Dominici",
+        "Florent Draye",
+        "Yanai Elazar",
+        "Damiano Fornasiere",
+        "Antía García",
+        "Abir Harrasse",
+        "Riley Harris",
+        "Sara Hooker",
+        "Michael Lan",
+        "Belinda Z. Li",
+        "Aaron Maiwald",
+        "Narmeen Fatimah Oozeer",
+        "Naomi Saphra",
+        "Or David Shafran",
+        "Adi Simhi",
+        "Robert Trager",
+        "Shriyash Kaustubh Upadhyay",
+        "Ziyu Yao",
+        "Yu Zhao",
+        "Shay B. Cohen",
+        "Mor Geva",
+        "Yoshua Bengio",
+        "Stella Biderman",
+        "Hassan Sajjad"
+      ],
+      "affiliations": [
+        "University of Oxford",
+        "Martian",
+        "Mila"
+      ],
+      "url": "https://arxiv.org/abs/2611.08438",
+      "pdf_url": "https://arxiv.org/pdf/2611.08438",
+      "source": "arXiv cs.CL, survey (preprint)",
+      "published": "2026-11-05",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "A large multi-institution survey asks whether mechanistic interpretability actually makes models safer, covering features, circuits, SAEs, steering and attribution. It proposes a unified framework for evaluating interpretability claims and releases reproducing notebooks.",
+      "summary": [
+        "As AI systems grow more capable, understanding how they work matters for safety, yet behavioral evaluation has limits. The survey asks whether mechanistic understanding of internals concretely improves safety.",
+        "The authors place mechanistic interpretability within broader interpretability research and compare mechanistic evidence with behavioral evaluation. They cover foundations (features, polysemanticity, transformer computation, circuits), feature extraction, circuit discovery and causal verification, natural-language explanations of representations, learning dynamics and training-data attribution.",
+        "Beyond the review they propose a unified framework for evaluating mechanistic interpretability claims and characterise six research orientations by goals, assumptions and trade-offs. They discuss uses for editing, steering and monitoring plus limitations and failure modes, and release code notebooks with worked examples. Takeaway: a good map of the field and an evaluation checklist for SAE and steering work. It is a survey, so it contains no new empirical results."
+      ],
+      "score": 3
+    }
+  ]
+}
