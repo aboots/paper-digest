@@ -1,296 +1,120 @@
 {
-  "date": "2026-11-07",
-  "generated_at": "2026-11-07T07:11:54-07:00",
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T06:07:00-08:00",
   "papers": [
     {
-      "id": "arxiv:2611.07071",
-      "title": "Shaping & Monitoring Models through their Internal Representations",
+      "id": "arxiv:2611.05344",
+      "title": "A Circuit for In-Context Learning",
       "authors": [
-        "Thomas Fel",
-        "Matthew Kowal",
-        "Matt Feiszli",
-        "Satchel Grant",
-        "Andrew Lee",
-        "Chris Earls",
-        "Fatih Dinc",
-        "Vasudev Shyam",
-        "Usha Bhalla",
-        "Leon Bergen",
-        "Siddharth Boppana",
-        "Ching Fang",
-        "Michael Byun",
-        "Tristan Gallent",
-        "Nicholas Wang",
-        "Tal Haklay",
-        "Dron Hazra",
-        "Neehar Kondapaneni",
-        "Connor Watts",
-        "Ryan Panwar",
-        "Thomas Dooms",
-        "Jack Merullo",
-        "Atticus Geiger",
-        "Ekdeep Singh Lubana",
-        "Thomas McGrath",
-        "Owen Lewis"
+        "Andrew Gao",
+        "William Gao"
       ],
       "affiliations": [
-        "Goodfire"
+        "Stanford"
       ],
-      "url": "https://arxiv.org/abs/2611.07071",
-      "pdf_url": "https://arxiv.org/pdf/2611.07071",
-      "source": "arXiv cs.LG (preprint)",
-      "published": "2026-11-04",
+      "url": "https://arxiv.org/abs/2611.05344",
+      "pdf_url": "https://arxiv.org/pdf/2611.05344",
+      "source": "arXiv cs.CL (preprint), code released",
+      "published": "2026-11-03",
       "topics": [
         "interpretability"
       ],
-      "tldr": "Mechanistic Shaping trains models to obey specs on which concepts they express and which they rely on, across vision, medical imaging, and language up to 32B. Shaped concepts usually stay monitorable with the right probe class; the paper catalogs three geometric ways models can dodge a monitor.",
+      "tldr": "Traces a full causal circuit for few-shot classification with arbitrary labels in three 3-4B transformers: ICL works as a gated key-value lookup over label-token positions. The same parts appear from 0.6B to 8B in one family and survive instruction tuning.",
       "summary": [
-        "Training objectives underspecify how a model should solve a task, so systems can drive loss down while relying on undesirable concepts (for example gender when screening a résumé). Interpretability usually diagnoses this after the fact rather than controlling it during training.",
-        "The authors propose Mechanistic Shaping: during training, models are constrained so that specified concepts are (or are not) expressed in outputs/representations and are (or are not) used for decisions. They evaluate across vision, medical imaging (including CheXpert), and language, scales up to 32B parameters, and paradigms including classification, SFT, DPO, and GRPO. Because shaping can itself change representations, they introduce a hierarchy of monitor classes and analyze three geometric circumvention mechanisms (concept drift, erasure from a layer, and nonlinear re-encoding via a product-code construction).",
-        "Across settings, Mechanistic Shaping substantially reduces targeted behaviors while preserving task performance. In the runs evaluated, shaped concepts largely remain monitorable: refitted linear probes recover the concept in most settings, and the original probe stays reliable when gradients do not flow through its score. Takeaway: interpretability tools can be training-time control knobs, not only post-hoc audits—useful if you want prototypes or concept directions that stay readable after alignment. Caveat: the authors note other circumvention mechanisms may appear at larger scales; code is at github.com/goodfire-ai/reliance."
+        "In-context learning with arbitrary labels forces a model to learn a new mapping inside one forward pass, but earlier work only found candidate components (such as induction-style heads) without showing how they fit together end to end.",
+        "The authors study few-shot sentence classification with arbitrary labels in three 3-4B-parameter transformers. They establish each step causally with activation patching, head ablations compared against random-head baselines, and steering with the model's own internal signals, and they fit a simple softmax model of the readout with two constants per head. They also train a transformer from scratch and check whether the same components emerge.",
+        "The circuit is a key-value memory: middle-layer heads write the class of the preceding demonstration into each label token as a key, upper-layer heads match the query's class to those keys and copy the label out, an early-layer 'has a label repeated' signal gates the readout, and a separate set of heads suppresses the most recent label. The readout model fit on one prompt distribution predicts another, the named heads alone reproduce the behaviour, and the parts recur from 0.6B to 8B and after instruction tuning. Takeaway: the causal-validation recipe (patching plus random-head ablation baselines plus self-signal steering) is a solid template for any circuit claim, and the gating signal is a concrete reason why ICL can silently fail. Caveat: the setting is narrow (sentence classification with arbitrary labels, models up to 8B)."
       ],
-      "score": 5
+      "score": 4
     },
     {
-      "id": "arxiv:2611.05803",
-      "title": "Phonological Knowledge of Chinese Characters in Language Models",
+      "id": "arxiv:2611.05231",
+      "title": "Diagnosis by Composition: Detecting and Localizing Unseen Diseases by Composing Learned Radiological Findings",
       "authors": [
-        "Xiaozhe Ji",
-        "Renfen Hu",
-        "Hai Hu"
+        "Kaihua Hou",
+        "Wei Liu",
+        "Yi Huang",
+        "Hao Zhang",
+        "Haibo Jin",
+        "Yifei Sun",
+        "Yuan gao",
+        "Zuoou Li",
+        "Ling Zhang",
+        "Ahmed Alaa",
+        "Geoffrey H. Tison",
+        "Xu Han",
+        "Ke Yan"
       ],
       "affiliations": [
-        "Beijing Normal University",
-        "Hong Kong Polytechnic University"
+        "UC Berkeley",
+        "Alibaba Group",
+        "UCSF"
       ],
-      "url": "https://arxiv.org/abs/2611.05803",
-      "pdf_url": "https://arxiv.org/pdf/2611.05803",
-      "source": "arXiv cs.CL (preprint)",
-      "published": "2026-11-04",
+      "url": "https://arxiv.org/abs/2611.05231",
+      "pdf_url": "https://arxiv.org/pdf/2611.05231",
+      "source": "arXiv cs.CV (preprint)",
+      "published": "2026-11-03",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Diagnosis by Composition learns dense maps for radiological findings aligned to text, then defines each disease as a fixed, guideline-derived combination of findings. On multi-phase liver CT it detects and localizes unseen and rare diseases better than all comparators, including image-to-disease-name alignment models.",
+      "summary": [
+        "Radiology models usually map images straight to disease labels, so they cannot handle diseases absent from training and their decisions are hard to express in radiologists' terms. Clinical guidelines, by contrast, define diseases explicitly through combinations of visual findings.",
+        "The framework learns a vocabulary of findings by aligning image features with text embeddings of finding descriptions, each finding producing a dense map over the scan. A disease's diagnosis map is a parameter-free composition of the maps for the findings its guideline requires, so new diseases can be added by listing their findings, with no retraining. It is evaluated on multi-phase liver CT, including unseen diseases, rare diseases from another institution, and an external cohort.",
+        "The abstract reports that the method detects and localizes unseen diseases, cross-institution rare diseases and an external cohort significantly better than every comparator, and also helps in the fully supervised setting across training-set sizes; specific metric values are not given in the abstract. Takeaway: a findings-first, concept-bottleneck-style design gives auditability and zero-shot extension at the same time, an idea that maps naturally onto prostate imaging where guidelines (e.g. PRI-MUS or PI-RADS) define lesions by findings. Caveat: only liver CT is demonstrated, and it depends on guidelines that spell out findings per disease."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.07913",
+      "title": "Same Answer, Different Future: Matched Predictions Do Not Imply Matched Belief Updating in Language Models",
+      "authors": [
+        "Weihan Li",
+        "Junhao Wu",
+        "Xinlei Chen",
+        "Tianshi Zheng"
+      ],
+      "affiliations": [
+        "University of Tokyo",
+        "RWTH Aachen",
+        "HKUST"
+      ],
+      "url": "https://arxiv.org/abs/2611.07913",
+      "pdf_url": "https://arxiv.org/pdf/2611.07913",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-05",
       "topics": [
         "steering"
       ],
-      "tldr": "Across 17 LMs, PinyinBench plus probing and activation steering show initials/finals are usable for generation while tone is highly decodable but weakly steerable; DS-v4-flash falls from 90%+ to 72% when only tone differs.",
+      "tldr": "Prompting, summaries and activation interventions can make a model give the same prediction yet update very differently on new evidence. A one-shot steering intervention that matches a natural prediction loses most of its effect once more evidence arrives.",
       "summary": [
-        "It is unclear how much phonological knowledge text-only and multimodal LMs store about Chinese characters, and whether that knowledge is causally usable. Tone is especially hard to isolate from segmental features.",
-        "The authors introduce PinyinBench (homophones, initials/finals/tones, polyphones) and study 17 LMs with behavioral tests, layer-wise probing, and activation steering. They also compare models with and without audio-bearing training.",
-        "A frontier model (DS-v4-flash) scores 90%+ on homophone judgment when characters share no phonological features, but only 72% when they differ only in tone. Probing finds tone highly decodable early with modest depth gains, while segmental features start weaker and improve more with depth; steering moves generation via segmental directions far more than tone. Audio training improves tone decodability without matching steering gains. Takeaway: high probe accuracy does not imply steerable features—pair probing with activation steering when auditing concept directions. Chinese-specific benchmark."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.05919",
-      "title": "Routes of Reasoning: Reading and Reshaping Test-Time Compute in MoE Models",
-      "authors": [
-        "Shengjie Wang",
-        "Mohsen Fayyaz",
-        "Nanyun Peng"
-      ],
-      "affiliations": [
-        "UCLA"
-      ],
-      "url": "https://arxiv.org/abs/2611.05919",
-      "pdf_url": "https://arxiv.org/pdf/2611.05919",
-      "source": "arXiv cs.AI (preprint)",
-      "published": "2026-11-04",
-      "topics": [
-        "steering"
-      ],
-      "tldr": "MoE router logits probe reasoning behaviors nearly as well as the residual stream; editing expert router scores at inference cuts generated tokens by a median 30.4% (up to 63.3%) across four models with ≤0.5 pp accuracy drop.",
-      "summary": [
-        "Reasoning models overthink by verifying and re-deriving long after finding a correct answer, wasting test-time compute. Prior interventions mostly clip length rather than targeting specific reasoning behaviors.",
-        "The authors label sentence-level segments with six behaviors (planning, execution, restatement, fact, reflection, conclusion) and train linear probes on MoE router logits versus the residual stream. Experts tied to a behavior on one dataset predict the same behavior on others across six datasets and five domains. They then edit expert router scores at inference to curb overthinking.",
-        "Router probes match residual-stream probes with about half as many features. Across four models and four benchmarks, editing cuts generated tokens by a median 30.4% (up to 63.3%) while accuracy never drops more than 0.5 percentage points and often rises; the model tends to stop once solved rather than skipping needed steps. Takeaway: for steering-like control in MoEs, the router is a cheaper intervention surface than residual-stream vectors. Training-free and model-family-specific; not classical activation steering."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.05966",
-      "title": "Prior-data fitted networks for variable selection",
-      "authors": [
-        "Omar Melikechi"
-      ],
-      "affiliations": [
-        "Duke"
-      ],
-      "url": "https://arxiv.org/abs/2611.05966",
-      "pdf_url": "https://arxiv.org/pdf/2611.05966",
-      "source": "arXiv stat.ME (preprint)",
-      "published": "2026-11-04",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "Two PFNs for Bayesian variable selection—CD-PFN for conditional dependence and PC-PFN for causal parents/children—estimate posterior inclusion probabilities without MCMC and often beat existing methods on semi-synthetic and real data.",
-      "summary": [
-        "Prior-data fitted networks are strong at tabular prediction but little used for classical statistical tasks like variable selection. Bayesian variable selection usually needs posterior sampling or dataset-specific modeling.",
-        "The author builds CD-PFN to identify conditional dependencies and PC-PFN to identify parents and children in a causal graph. Both networks output posterior inclusion probabilities without drawing posterior samples or fitting a new model per dataset.",
-        "On semi-synthetic and real experiments, CD-PFN and PC-PFN often outperform existing methods. Takeaway: PFNs are not only TabPFN-style predictors—the same in-context amortisation idea can target PIPs and causal neighborhood recovery for tabular analysis. Open-source software is available; the abstract does not report specific AUC/F1 numbers."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.06992",
-      "title": "Task-Aware Bitrate Thresholds for Codec-Robust Ultrasound Segmentation",
-      "authors": [
-        "Alireza Siyavashi",
-        "Arman Shirzad",
-        "Christian Herglotz"
-      ],
-      "affiliations": [
-        "BTU Cottbus"
-      ],
-      "url": "https://arxiv.org/abs/2611.06992",
-      "pdf_url": "https://arxiv.org/pdf/2611.06992",
-      "source": "arXiv eess.IV, accepted at IEEE VCIP",
-      "published": "2026-11-04",
-      "topics": [
-        "prostate_us"
-      ],
-      "tldr": "On prostate ultrasound segmentation under H.264/HEVC/AV1 streaming, all three codecs keep mean Dice ≥ 0.84 down to about 0.07–0.20 bits per voxel; H.264 needs 82% more bitrate than AV1 for the same Dice and 104.7% more for the same HD95.",
-      "summary": [
-        "Remote robot surgery and tele-ultrasound stream ultrasound under tight bandwidth, so lossy compression is unavoidable. Downstream consumers are increasingly machines, so codec choice should be judged by task accuracy rather than human perceptual quality.",
-        "The authors evaluate H.264/AVC, HEVC, and AV1 on prostate ultrasound segmentation, reporting Dice and HD95, and match codecs at a common SSIM operating point. For each codec they find the lowest bitrate that still preserves acceptable segmentation, reporting 5th-percentile Dice as well as the mean to expose worst-case drops.",
-        "All three codecs keep mean Dice ≥ 0.84 down to roughly 0.07–0.20 bits per voxel; below that AV1 degrades gradually while H.264 drops sharply. H.264 needs 82% more bitrate than AV1 for the same Dice and 104.7% more for the same HD95. Takeaway: for prostate US AI pipelines that may see compressed tele-ultrasound, measure Dice/HD95 under codec settings rather than SSIM alone, and prefer AV1 when bandwidth is scarce. Accepted at IEEE VCIP; single-task (segmentation) study."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.07283",
-      "title": "Encoding and Propagation of Grammatical Number in Large Language Models",
-      "authors": [
-        "Jacob Solinsky",
-        "Serguei Pakhomov"
-      ],
-      "affiliations": [
-        "University of Minnesota"
-      ],
-      "url": "https://arxiv.org/abs/2611.07283",
-      "pdf_url": "https://arxiv.org/pdf/2611.07283",
-      "source": "arXiv cs.CL (preprint)",
-      "published": "2026-11-05",
-      "topics": [
-        "sae"
-      ],
-      "tldr": "SAEs trained on Pythia-70M isolate plural-noun and plural-verb features whose interventions flip number agreement; singular counterparts are weaker, suggesting a privative number code, with similar patterns in Gemma-2-2b and Llama-3.1-8b.",
-      "summary": [
-        "Sparse autoencoders map LLM hidden states into human-readable features, but using them to track a single grammatical phenomenon end-to-end remains methodologically hard. Small models still show strong grammatical competence, making them a useful testbed.",
-        "The authors train SAEs on Pythia-70M and locate features for plural nouns, plural matrix subjects, and generating plural verbs. They intervene by removing or adding these features on subject tokens and measure whether the model produces plural versus singular verbs (are/do/have vs is/does/has). They compare against corresponding singular features and replicate on Gemma-2-2b and Llama-3.1-8b.",
-        "Plural features causally flip agreement as expected; singular features are less effective for the same task, which the authors read as evidence for a privative English number representation. Results replicate on the larger models. Takeaway: for SAE circuit work, tracking how a feature propagates across tokens (not only local activation) is a reusable method; also expect asymmetries between positive and negative polarity features. Limitation: focuses on one grammatical phenomenon and reports no released SAE weights in the abstract."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.06688",
-      "title": "Don't Replace, Complement: A Detector-Agnostic Subspace Signal for Near-OOD Detection",
-      "authors": [
-        "Wonseok Shin",
-        "Songkuk Kim"
-      ],
-      "affiliations": [
-        "Yonsei University"
-      ],
-      "url": "https://arxiv.org/abs/2611.06688",
-      "pdf_url": "https://arxiv.org/pdf/2611.06688",
-      "source": "arXiv cs.LG (preprint)",
-      "published": "2026-11-04",
-      "topics": [
-        "sae"
-      ],
-      "tldr": "PLUS builds a per-class SAE subspace from the m most class-active neurons and adds a whitened Mahalanobis score that improves near-OOD AUROC in all 126 detector–backbone combinations at one fixed fusion weight.",
-      "summary": [
-        "Post-hoc OOD detection works well on far-OOD but struggles on near-OOD, because near-OOD inputs still activate class-characteristic feature directions. A score tuned for one regime often hurts the other.",
-        "PLUS (Per-class Low-dimensional sUbspace Signal) selects the m most class-active neurons from a sparse autoencoder, orthonormalizes the decoder directions into a per-class subspace, and scores inputs by whitened squared Mahalanobis distance in the predicted class’s subspace. The signal is fused additively with any calibrated base detector at one global fixed weight estimated from ID validation only.",
-        "Across 18 detectors and all 126 detector–backbone combinations, adding z improves near-OOD AUROC; far-OOD is broadly maintained or improved, with only marginal drops when the base score is already near-optimal. Takeaway: SAE decoder directions can be reused as a detector-agnostic near-OOD complement rather than only for feature interpretation. Not a standalone SAE interpretability study; abstract gives no per-dataset AUROC numbers."
+        "Several routes (seeing outcomes, reading summaries, instructions, or activation interventions) can push a language model to the same probabilistic prediction. It is unclear whether those routes produce equivalent internal belief states, which matters for judging whether a steering intervention really changes what a model 'believes'.",
+        "Using a Bernoulli inference task with an exact Bayesian reference, the authors prepare belief states in three open-weight models through four textual routes and two activation-level interventions. They then append identical new evidence and measure both next-outcome continuations and explicit probability estimates, summarizing persistence as an effective evidence weight (how many new observations the initial belief is worth).",
+        "Evidence format decides which readout moves: outcome sequences mainly shift continuations, while summaries and stated rates mainly shift explicit estimates. Effective weights differ a lot across routes, summaries' weights scale only weakly with the stated counts, and the elicitation question can change inferred weights by orders of magnitude. In the steering setting, an intervention matching a natural record's immediate prediction loses most of its effect under later evidence. Takeaway for steering work: evaluating a steering vector only on the immediate output overstates how durable the induced state is, so test behaviour after further context too. Caveats: a toy Bernoulli task and three models (sizes not given in the abstract)."
       ],
       "score": 3
     },
     {
-      "id": "arxiv:2611.07173",
-      "title": "ShapleyOG: Fast Adaptive Shapley Value Estimation with Odd Gaussian Processes",
+      "id": "arxiv:2611.08125",
+      "title": "ProtoGestalt: Interpretable Prototypes for Facial Phenotyping and Diagnosis of Rare Genetic Disorders",
       "authors": [
-        "David Rundel",
-        "R. Teal Witter",
-        "Santo M. A. R. Thies",
-        "Matthias Feurer",
-        "Fabian Fumagalli",
-        "Bernd Bischl"
+        "Ranga Baminiwatte",
+        "Alexander Hustinx",
+        "Fabio Hellmann",
+        "Aaron J Masino"
       ],
-      "affiliations": [
-        "LMU Munich",
-        "MCML",
-        "TU Dortmund"
-      ],
-      "url": "https://arxiv.org/abs/2611.07173",
-      "pdf_url": "https://arxiv.org/pdf/2611.07173",
-      "source": "arXiv cs.LG (preprint under review)",
-      "published": "2026-11-04",
-      "topics": [
-        "interpretability"
-      ],
-      "tldr": "ShapleyOG matches ShaplEIG’s adaptive Shapley accuracy while cutting surrogate overhead by up to three orders of magnitude by modeling only the odd component of the game under paired sampling.",
-      "summary": [
-        "Exact Shapley values need exponentially many coalition evaluations, so they are estimated from limited queries. Adaptive selection (ShaplEIG) improves sample efficiency but repeatedly refits a GP surrogate and becomes costly.",
-        "ShapleyOG notes that Shapley values depend only on the odd component of the game. Under paired sampling, a GP on that component alone yields the same Shapley posterior and selection criterion from half as many observations. The method refits the surrogate on a sparse schedule, updates the selection criterion cheaply in between, and extends quadrature schemes to the Shapley prior covariance.",
-        "On diverse games, ShapleyOG matches ShaplEIG accuracy while reducing overhead by up to three orders of magnitude, beating strong non-adaptive estimators at equal wall-clock once a single evaluation takes about a tenth of a second and a few thousand evaluations suffice. Takeaway: for attribution budgets in interpretability pipelines, odd-component + paired sampling makes adaptive Shapley practical. Preprint under review; abstract does not name specific ML tasks beyond cooperative games."
-      ],
-      "score": 3
-    },
-    {
-      "id": "arxiv:2611.07659",
-      "title": "Simple Meta-Learning for HPO and CASH Using Performance Representations",
-      "authors": [
-        "Emiel Witting",
-        "Cheng Yan",
-        "Tom Julian Viering"
-      ],
-      "affiliations": [
-        "TU Delft"
-      ],
-      "url": "https://arxiv.org/abs/2611.07659",
-      "pdf_url": "https://arxiv.org/pdf/2611.07659",
-      "source": "arXiv cs.LG (preprint)",
-      "published": "2026-11-05",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "Representing AutoML configs by their past performance across tasks, then using Bayesian ridge regression, reaches tuned TabArena multi-model performance in about half the trials of dedicated meta-learning baselines without pre-training.",
-      "summary": [
-        "Bayesian optimization for HPO/CASH often feeds surrogates explicit hyperparameter encodings that struggle in high-dimensional spaces. Meta-learning baselines add complexity and pre-training cost.",
-        "The authors represent each configuration by its historical performance across prior tasks and pair that vector with standard surrogates, focusing on iterative selection from a fixed candidate set. They also apply maximal marginal relevance as a posterior-free acquisition rule, and evaluate on TabArena.",
-        "On multi-model TabArena selection/optimisation, a performance representation with linear Bayesian ridge regression beats dedicated meta-learning baselines, matching tuned performance in roughly half the trials; for single-model HPO it is a competitive second. The method needs no pre-training or tuning and scales independently of search-space dimensionality. Takeaway: for tabular AutoML around TabArena/TabPFN-style stacks, a cheap performance-history embedding can replace heavier meta-learners. Scope is candidate selection, not a full AutoML system with ensembling/cost models."
-      ],
-      "score": 3
-    },
-    {
-      "id": "arxiv:2611.08425",
-      "title": "Failure Prediction and Classification in Vision-Language-Action Models Via Calibrated Latent Probing",
-      "authors": [
-        "Michal P. Podolinsky",
-        "Yunhao Yang",
-        "Daniel Little",
-        "Hong Lu",
-        "Rohan Siva",
-        "Olin Goudey",
-        "Neel P. Bhatt",
-        "Matthias Scheutz",
-        "Ufuk Topcu"
-      ],
-      "affiliations": [
-        "UT Austin",
-        "Tufts University"
-      ],
-      "url": "https://arxiv.org/abs/2611.08425",
-      "pdf_url": "https://arxiv.org/pdf/2611.08425",
-      "source": "arXiv cs.RO (preprint)",
+      "url": "https://arxiv.org/abs/2611.08125",
+      "pdf_url": "https://arxiv.org/pdf/2611.08125",
+      "source": "arXiv cs.CV (preprint)",
       "published": "2026-11-05",
       "topics": [
         "interpretability"
       ],
-      "tldr": "VLA-Tug probes VLA latents for early failure detection, gaining up to 30% early-detection AUROC over the best learned baseline and up to 44% top-3 failure-mode accuracy on unseen tasks, enabling lightweight steering.",
+      "tldr": "A prototype network whose learned parts are constrained to chosen facial regions, so rare-disease screening predictions are explained as additive, localized evidence. It separates syndromic from matched control faces and can tell syndromes apart, but the abstract gives no numbers.",
       "summary": [
-        "Vision-language-action models fail under distribution shift in ways that can damage hardware or people, so deployment needs a timely, calibrated, informative, and edge-efficient runtime monitor. Existing monitors miss these requirements.",
-        "VLA-Tug is a lightweight probe over VLA latent layers. Supervision focuses on the pre-failure segment of trajectories; thresholds are calibrated to bound missed detections and false alarms jointly. The probe also predicts failure mode. Training uses two VLA backbones, 228 simulation tasks plus 8 real-world tasks.",
-        "Pre-failure supervision improves early failure detection at matched false-positive rates by up to 30% over the strongest learned baseline. Under shift to unseen tasks, miss/false-alarm bounds remain valid in up to 86% of runs versus ≤21% for baselines; top-3 failure-mode accuracy rises by up to 44% over a majority baseline at under 1 ms/step. Takeaway: calibrated latent probes can gate lightweight steering when a policy is about to fail—analogous to monitoring concept directions before intervening. Robotics-focused; dataset of 3,180 episodes released."
+        "Rare genetic disorders are hard to diagnose because they are many and overlap clinically. Facial morphology carries diagnostic signal, but existing facial models are mostly black boxes and are not built for broad screening of undiagnosed patients.",
+        "ProtoGestalt extends prototype learning by restricting learned visual prototypes to selected facial regions, so each prediction decomposes into localized, additive evidence. It is tested on separating syndromic from unaffected faces across several control datasets and class-prevalence levels, and on identifying syndromes seen in training.",
+        "The abstract reports significant separation between syndromic and case-matched control images, performance that holds up as the share of controls grows, and an ability to differentiate syndromes, but it gives no metric values and concedes that specialized non-interpretable models are already reasonably accurate. Takeaway for prototype work in medical imaging: anchoring prototypes to anatomically defined regions is a simple way to make explanations clinically meaningful and to test robustness under realistic low prevalence, the same concern as in prostate biopsy screening. Caveats: no numbers, no external validation details, and affiliations could not be read from the paper page."
       ],
       "score": 3
     }

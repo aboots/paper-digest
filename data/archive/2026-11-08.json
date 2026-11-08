@@ -1,0 +1,122 @@
+{
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T06:07:00-08:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.05344",
+      "title": "A Circuit for In-Context Learning",
+      "authors": [
+        "Andrew Gao",
+        "William Gao"
+      ],
+      "affiliations": [
+        "Stanford"
+      ],
+      "url": "https://arxiv.org/abs/2611.05344",
+      "pdf_url": "https://arxiv.org/pdf/2611.05344",
+      "source": "arXiv cs.CL (preprint), code released",
+      "published": "2026-11-03",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Traces a full causal circuit for few-shot classification with arbitrary labels in three 3-4B transformers: ICL works as a gated key-value lookup over label-token positions. The same parts appear from 0.6B to 8B in one family and survive instruction tuning.",
+      "summary": [
+        "In-context learning with arbitrary labels forces a model to learn a new mapping inside one forward pass, but earlier work only found candidate components (such as induction-style heads) without showing how they fit together end to end.",
+        "The authors study few-shot sentence classification with arbitrary labels in three 3-4B-parameter transformers. They establish each step causally with activation patching, head ablations compared against random-head baselines, and steering with the model's own internal signals, and they fit a simple softmax model of the readout with two constants per head. They also train a transformer from scratch and check whether the same components emerge.",
+        "The circuit is a key-value memory: middle-layer heads write the class of the preceding demonstration into each label token as a key, upper-layer heads match the query's class to those keys and copy the label out, an early-layer 'has a label repeated' signal gates the readout, and a separate set of heads suppresses the most recent label. The readout model fit on one prompt distribution predicts another, the named heads alone reproduce the behaviour, and the parts recur from 0.6B to 8B and after instruction tuning. Takeaway: the causal-validation recipe (patching plus random-head ablation baselines plus self-signal steering) is a solid template for any circuit claim, and the gating signal is a concrete reason why ICL can silently fail. Caveat: the setting is narrow (sentence classification with arbitrary labels, models up to 8B)."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.05231",
+      "title": "Diagnosis by Composition: Detecting and Localizing Unseen Diseases by Composing Learned Radiological Findings",
+      "authors": [
+        "Kaihua Hou",
+        "Wei Liu",
+        "Yi Huang",
+        "Hao Zhang",
+        "Haibo Jin",
+        "Yifei Sun",
+        "Yuan gao",
+        "Zuoou Li",
+        "Ling Zhang",
+        "Ahmed Alaa",
+        "Geoffrey H. Tison",
+        "Xu Han",
+        "Ke Yan"
+      ],
+      "affiliations": [
+        "UC Berkeley",
+        "Alibaba Group",
+        "UCSF"
+      ],
+      "url": "https://arxiv.org/abs/2611.05231",
+      "pdf_url": "https://arxiv.org/pdf/2611.05231",
+      "source": "arXiv cs.CV (preprint)",
+      "published": "2026-11-03",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Diagnosis by Composition learns dense maps for radiological findings aligned to text, then defines each disease as a fixed, guideline-derived combination of findings. On multi-phase liver CT it detects and localizes unseen and rare diseases better than all comparators, including image-to-disease-name alignment models.",
+      "summary": [
+        "Radiology models usually map images straight to disease labels, so they cannot handle diseases absent from training and their decisions are hard to express in radiologists' terms. Clinical guidelines, by contrast, define diseases explicitly through combinations of visual findings.",
+        "The framework learns a vocabulary of findings by aligning image features with text embeddings of finding descriptions, each finding producing a dense map over the scan. A disease's diagnosis map is a parameter-free composition of the maps for the findings its guideline requires, so new diseases can be added by listing their findings, with no retraining. It is evaluated on multi-phase liver CT, including unseen diseases, rare diseases from another institution, and an external cohort.",
+        "The abstract reports that the method detects and localizes unseen diseases, cross-institution rare diseases and an external cohort significantly better than every comparator, and also helps in the fully supervised setting across training-set sizes; specific metric values are not given in the abstract. Takeaway: a findings-first, concept-bottleneck-style design gives auditability and zero-shot extension at the same time, an idea that maps naturally onto prostate imaging where guidelines (e.g. PRI-MUS or PI-RADS) define lesions by findings. Caveat: only liver CT is demonstrated, and it depends on guidelines that spell out findings per disease."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.07913",
+      "title": "Same Answer, Different Future: Matched Predictions Do Not Imply Matched Belief Updating in Language Models",
+      "authors": [
+        "Weihan Li",
+        "Junhao Wu",
+        "Xinlei Chen",
+        "Tianshi Zheng"
+      ],
+      "affiliations": [
+        "University of Tokyo",
+        "RWTH Aachen",
+        "HKUST"
+      ],
+      "url": "https://arxiv.org/abs/2611.07913",
+      "pdf_url": "https://arxiv.org/pdf/2611.07913",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-05",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Prompting, summaries and activation interventions can make a model give the same prediction yet update very differently on new evidence. A one-shot steering intervention that matches a natural prediction loses most of its effect once more evidence arrives.",
+      "summary": [
+        "Several routes (seeing outcomes, reading summaries, instructions, or activation interventions) can push a language model to the same probabilistic prediction. It is unclear whether those routes produce equivalent internal belief states, which matters for judging whether a steering intervention really changes what a model 'believes'.",
+        "Using a Bernoulli inference task with an exact Bayesian reference, the authors prepare belief states in three open-weight models through four textual routes and two activation-level interventions. They then append identical new evidence and measure both next-outcome continuations and explicit probability estimates, summarizing persistence as an effective evidence weight (how many new observations the initial belief is worth).",
+        "Evidence format decides which readout moves: outcome sequences mainly shift continuations, while summaries and stated rates mainly shift explicit estimates. Effective weights differ a lot across routes, summaries' weights scale only weakly with the stated counts, and the elicitation question can change inferred weights by orders of magnitude. In the steering setting, an intervention matching a natural record's immediate prediction loses most of its effect under later evidence. Takeaway for steering work: evaluating a steering vector only on the immediate output overstates how durable the induced state is, so test behaviour after further context too. Caveats: a toy Bernoulli task and three models (sizes not given in the abstract)."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.08125",
+      "title": "ProtoGestalt: Interpretable Prototypes for Facial Phenotyping and Diagnosis of Rare Genetic Disorders",
+      "authors": [
+        "Ranga Baminiwatte",
+        "Alexander Hustinx",
+        "Fabio Hellmann",
+        "Aaron J Masino"
+      ],
+      "url": "https://arxiv.org/abs/2611.08125",
+      "pdf_url": "https://arxiv.org/pdf/2611.08125",
+      "source": "arXiv cs.CV (preprint)",
+      "published": "2026-11-05",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "A prototype network whose learned parts are constrained to chosen facial regions, so rare-disease screening predictions are explained as additive, localized evidence. It separates syndromic from matched control faces and can tell syndromes apart, but the abstract gives no numbers.",
+      "summary": [
+        "Rare genetic disorders are hard to diagnose because they are many and overlap clinically. Facial morphology carries diagnostic signal, but existing facial models are mostly black boxes and are not built for broad screening of undiagnosed patients.",
+        "ProtoGestalt extends prototype learning by restricting learned visual prototypes to selected facial regions, so each prediction decomposes into localized, additive evidence. It is tested on separating syndromic from unaffected faces across several control datasets and class-prevalence levels, and on identifying syndromes seen in training.",
+        "The abstract reports significant separation between syndromic and case-matched control images, performance that holds up as the share of controls grows, and an ability to differentiate syndromes, but it gives no metric values and concedes that specialized non-interpretable models are already reasonably accurate. Takeaway for prototype work in medical imaging: anchoring prototypes to anatomically defined regions is a simple way to make explanations clinically meaningful and to test robustness under realistic low prevalence, the same concern as in prostate biopsy screening. Caveats: no numbers, no external validation details, and affiliations could not be read from the paper page."
+      ],
+      "score": 3
+    }
+  ]
+}
