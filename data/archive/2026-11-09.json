@@ -1,0 +1,267 @@
+{
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T06:10:24-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.09233",
+      "title": "Cross-Layer TopK: Dynamically Allocating Sparsity Across Layers in Transcoders",
+      "authors": [
+        "Anyuan Zhuo",
+        "Shaohua Zhang",
+        "Tianle Li",
+        "Yuan Lin",
+        "Diandian Gu",
+        "Jun Wang",
+        "Pinyan Lu"
+      ],
+      "affiliations": [
+        "ByteDance Seed",
+        "SUFE",
+        "HKU"
+      ],
+      "url": "https://arxiv.org/abs/2611.09233",
+      "pdf_url": "https://arxiv.org/pdf/2611.09233",
+      "source": "arXiv cs.LG (preprint), weights released",
+      "published": "2026-11-06",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Gives a cross-layer transcoder one shared L0 budget that it spreads across layers during training instead of a fixed TopK per layer. On Qwen3-8B-Base it reaches lower reconstruction error with 20% fewer active latents than JumpReLU and traces more complete circuits.",
+      "summary": [
+        "Cross-layer transcoders are the backbone of attribution-graph circuit tracing, but they are hard to train well because they must reconstruct every layer at once. JumpReLU controls sparsity only indirectly through a penalty, and plain TopK forces the same number of active latents in each layer even though middle layers are much harder to reconstruct.",
+        "The authors set a single sparsity budget for the whole model and let training decide how many latents each layer gets per token. They compare against JumpReLU and other TopK variants on Qwen3-8B-Base, test the transcoders in circuit tracing, pair the fixed per-token budget with sparse decoding for speed, and fit scaling laws over latent count and sparsity.",
+        "Cross-Layer TopK gives lower fraction of variance unexplained than JumpReLU while using 20% fewer active latents, and the resulting circuits have higher replacement and completeness scores. Sparse decoding gives a 2.9x speedup per training step, and the method follows scaling laws in both latent size and sparsity. Takeaway: if you train SAEs or transcoders across many layers, a global L0 budget is a simple swap for per-layer TopK that puts capacity where reconstruction is hard, and the released Qwen3-8B CLT weights can be used directly for circuit work. Caveat: the abstract reports one base model only."
+      ],
+      "score": 5
+    },
+    {
+      "id": "arxiv:2611.09014",
+      "title": "Did I See It or Think It? Probing Reality Monitoring in Vision-Language Models with Concept Injection",
+      "authors": [
+        "Tina Khezresmaeilzadeh",
+        "Seyedarmin Azizi",
+        "Mehdi Kamal",
+        "Massoud Pedram"
+      ],
+      "affiliations": [
+        "USC"
+      ],
+      "url": "https://arxiv.org/abs/2611.09014",
+      "pdf_url": "https://arxiv.org/pdf/2611.09014",
+      "source": "arXiv cs.CV (preprint)",
+      "published": "2026-11-06",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Injects concept directions into six vision-language models while varying the image separately, and asks whether the model notices the injected thought and can tell it from what it sees. Only Gemma-3-27B reliably reports injected concepts (35% vs. 3% for steering alone), and even it often claims the injected concept was seen.",
+      "summary": [
+        "Recent introspection studies add a concept direction to a language model's activations and ask whether the model notices it, but they are text-only. Vision-language models also need to keep internally generated content apart from what is actually in the image, which cognitive psychology calls reality monitoring.",
+        "The authors design trials where the image and the injected concept vary independently, and on each trial the model says what it sees, whether a thought was injected, and what the thought is. This scores both whether the concept is identified and which source (image or injection) the model attributes it to. They run this across six VLMs and also check plain captioning under injection.",
+        "Only Gemma-3-27B reliably identifies injected concepts, at 35% compared with 3% for steering alone, with almost no false alarms. Its source attribution is fragile: strong injections or injections into the visual pathway get reported as seen, and a visible object nearly wipes out correct thought reports. In ordinary captioning, injected objects show up in up to 87% of captions of real photos. Takeaway: steering a VLM can silently turn into a hallucinated visual claim, so any steering or introspection evaluation in multimodal models should check both what is reported and where the model says it came from. Caveat: introspection is weak in five of the six models tested."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.08922",
+      "title": "Glyph: An Interpretability Engine for AI-Driven Scientific Discovery in Clinical Data",
+      "authors": [
+        "Robbie Holland",
+        "Ashwin Kumar",
+        "Mateus A. Esmeraldo",
+        "David Le",
+        "Andrea Fisher",
+        "Jiazhen Pan",
+        "Louisa Fay",
+        "Magdalini Paschali",
+        "Vasiliki Sideri-Lampretsa",
+        "Ates Fettahoglu",
+        "Stefania Moroianu",
+        "Philipp Wesp",
+        "Ivan Lopez",
+        "Tom Nuno Wolf",
+        "McKenzie S. White",
+        "Eduardo Pontes Reis",
+        "Fatima Rodriguez",
+        "Curtis P. Langlotz",
+        "Vasilis Syrgkanis",
+        "Imon Banerjee",
+        "Akshay S. Chaudhari",
+        "Sergios Gatidis"
+      ],
+      "affiliations": [
+        "Stanford AIMI"
+      ],
+      "url": "https://arxiv.org/abs/2611.08922",
+      "pdf_url": "https://arxiv.org/pdf/2611.08922",
+      "source": "arXiv cs.AI (preprint), code released",
+      "published": "2026-11-06",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Runs sparse autoencoders on clinical foundation-model embeddings of CT volumes, reports and labs from 41,628 patients, names the features as coded clinical concepts, and tests them for outcome associations. It finds 397 predictive concepts backed by 4,463 Bonferroni-significant associations, most reproducible in held-out sites.",
+      "summary": [
+        "Discovery from population-scale clinical data is usually limited to predefined phenotypes that someone chose to extract, which caps what associations can be found. Clinical foundation models may encode unexplored features in their embeddings, but those features are hard to interpret.",
+        "Glyph is a multistage pipeline that embeds multimodal clinical data with foundation models, decomposes the embeddings with sparse autoencoders, maps the resulting features to coded clinical concepts, and evaluates their value for discovery. It is applied to abdominal CT volumes, CT radiology reports and laboratory measurements from 41,628 patients across several institutions.",
+        "The pipeline identifies 397 predictive concepts supported by 4,463 Bonferroni-significant associations, and most associations reproduce automatically in held-out cohorts from other sites. The concepts add associations complementary to literature-derived markers and improve predictive power. Takeaway: this is a worked template for using SAEs on a medical imaging foundation model and grounding features in clinical vocabulary with cross-site checks, which transfers to ultrasound foundation-model encoders. Caveat: the abstract gives no predictive-gain numbers, and association is not mechanism."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.08551",
+      "title": "How Small Can We Go? Calibrating Activation-Cache Compression for SAE Training",
+      "authors": [
+        "Abraham Yeung"
+      ],
+      "affiliations": [
+        "Stanford"
+      ],
+      "url": "https://arxiv.org/abs/2611.08551",
+      "pdf_url": "https://arxiv.org/pdf/2611.08551",
+      "source": "arXiv cs.LG, NeurIPS 2026 Workshop on Interpretability as a Science (non-archival)",
+      "published": "2026-11-05",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Shows that compressing the activation cache used to train SAEs must be judged against seed noise: retraining with a new seed keeps only 23.0% of features. Naive per-token int4 loses more features than a reseed, but standardizing each channel before quantizing brings int4 back above that floor at the same file size.",
+      "summary": [
+        "Training a sparse autoencoder needs a huge cache of model activations, so people compress it, but it is unclear how much compression changes the features you get. Simple frozen-SAE checks and distance metrics may not tell you whether a retrained SAE recovers the same features.",
+        "The author runs two tests: passing compressed activations through the original fp32-trained SAE, and retraining an SAE on the compressed cache to see which original features survive. They calibrate each site with a ceiling (retraining on identical bytes) and a floor (a reseed), then score codecs against that floor using TopK SAEs on GPT-2 small and Pythia-1.4B.",
+        "Feature retention after retraining has no clean scale: fp16 rounding keeps 60.6% of features, a one-in-a-million tiniest perturbation keeps 70.5%, and a reseed keeps 23.0%. Frozen-SAE correlation mostly tracks plain L2 distance. Naive per-token int4 loses more features than a reseed everywhere tested, as do PCA and random projection on GPT-2, while per-channel standardization before quantizing fixes int4; a bf16 forward pass loses slightly more features than rotated 8-bit storage. Takeaway: SAE features are very seed-sensitive, so compare any pipeline change against a reseed baseline, and standardize channels if you quantize caches. Caveat: single author, small models, and the calibration costs four training runs per site."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.09400",
+      "title": "Causal graph fusion across incomplete cohorts and causal steering of tabular foundation models",
+      "authors": [
+        "Yanke Li",
+        "Dhiyaa Al Jorf",
+        "Ayoube Ighissou",
+        "Anke Scheel-Sailer",
+        "Robert Riener",
+        "Diego Paez-Granados"
+      ],
+      "affiliations": [
+        "ETH Zürich",
+        "Swiss Paraplegic Research"
+      ],
+      "url": "https://arxiv.org/abs/2611.09400",
+      "pdf_url": "https://arxiv.org/pdf/2611.09400",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-06",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Learns a causal graph across incomplete clinical cohorts and then compiles that graph into the attention of a frozen tabular foundation model at inference. The graph-steered model discriminates better under distribution shift (p<10^-5), a gain a random graph does not give.",
+      "summary": [
+        "Clinical data are often split across cohorts that measure only partly overlapping variables, and causal discovery with missing data and multi-source fusion have been studied separately. Tabular foundation models also have no way to take in a causal graph without retraining.",
+        "First, the authors learn a partial ancestral graph on shared variables, fuse it into each cohort's graph using temporal background knowledge, and use Markov blankets to guide re-imputation so missingness is handled inside discovery. Second, they compile the learned graph into the attention of a frozen tabular foundation model at inference time. They test against known ground truth and on two spinal cord injury cohorts.",
+        "Fusion beats pooled and per-cohort baselines in every missingness and heterogeneity setting tested (p<0.001), and attention steering improves discrimination under shift (p<10^-5), while a random graph gives no such gain. On the spinal cord injury cohorts, fusion orients age, albumin and hemoglobin as ancestors of length of stay, and the resulting compact predictor sets match or beat automatic feature selection on four of five outcomes. Takeaway: structural priors can be injected into a frozen TabPFN-style model through its attention without retraining, which is a cheap knob for clinical tables with known ordering. Caveat: the abstract reports significance levels but not effect sizes, and the real-data test is one clinical domain."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.09052",
+      "title": "StreamTab: Training-Free Temporal Link Prediction with Tabular Foundation Models",
+      "authors": [
+        "Mingqi Yang",
+        "Renqi Wu"
+      ],
+      "affiliations": [
+        "SCUT"
+      ],
+      "url": "https://arxiv.org/abs/2611.09052",
+      "pdf_url": "https://arxiv.org/pdf/2611.09052",
+      "source": "arXiv cs.LG (preprint)",
+      "published": "2026-11-06",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Turns temporal link prediction into in-context classification for a frozen tabular foundation model pretrained only on synthetic tables, using pair-history statistics as features. It tops average precision on 12 of 13 datasets against 21 temporal graph baselines under historical sampling.",
+      "summary": [
+        "Temporal graph neural networks predict future interactions well but must be trained per graph. How history should be used also depends on the negatives: past interaction separates real links from random pairs, but not from negatives that also interacted before.",
+        "StreamTab describes each candidate pair with statistics of its past interactions and feeds recent observed interactions plus sampled negatives as labeled context to a frozen tabular foundation model. Its key idea, regime conditioning, samples the context negatives the same way the evaluation candidates are sampled. As new interactions arrive, it updates statistics and refreshes the context without changing model weights.",
+        "On thirteen datasets against 21 temporal graph baselines, StreamTab has the best average precision on twelve under historical sampling and eleven under inductive sampling, and is first or within one point of the best on seven under random sampling. With the same features and model, regime conditioning raises average precision by a median of 12.6 points over random negatives under historical sampling. Takeaway: for tabular in-context learners, how the context examples are chosen to match the test distribution can matter as much as the features. Caveat: results depend on hand-designed pair statistics."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.09818",
+      "title": "Generative Latent Priors for Interpreting and Steering Protein Language Models",
+      "authors": [
+        "Daniel Hinjos",
+        "Lucía Urcelay"
+      ],
+      "affiliations": [
+        "Barcelona Supercomputing Center",
+        "UPC",
+        "CRG"
+      ],
+      "url": "https://arxiv.org/abs/2611.09818",
+      "pdf_url": "https://arxiv.org/pdf/2611.09818",
+      "source": "arXiv cs.AI, NeurIPS 2026 Interp4Discovery Workshop",
+      "published": "2026-11-06",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Trains a diffusion prior on ESM-2 activations and uses it both as a probing lens and to keep DiffMean steering on-manifold. Its meta-neurons beat released SAE features as probes, and the prior makes steering work in latent space, but the decoded proteins still lose structural plausibility.",
+      "summary": [
+        "Most interpretability tools such as SAEs impose strong structural assumptions on activations. Generative Latent Priors instead model the distribution of a frozen model's activations with a diffusion model, and this has not been tested on protein language models.",
+        "The authors train GLPs on ESM-2 activations from UniRef50 at two scales (8M and 650M) and evaluate them as a lens for protein concepts and as a prior that corrects steered activations back onto the manifold. They run falsification tests on probing gains and compare with SAE-based clamping steering.",
+        "Generation quality scales smoothly with depth and compute. Single GLP meta-neurons are the strongest probes of discrete Swiss-Prot concepts at both scales, beating InterPLM's SAE features, though falsification shows this is mostly concentration rather than new information. The on-manifold correction makes DiffMean steering of three properties effective, but after re-embedding the decoded sequences structural plausibility breaks, and SAE clamping mostly fails too except for the helix motif. Takeaway: a learned activation prior is a useful way to keep steering vectors on-manifold, but success measured in activation space can vanish after decoding, so always evaluate steered outputs end to end. Caveat: workshop paper on one model family."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.09235",
+      "title": "Controllable Molecule Generation via Sparse Representation Editing: An Interpretability-Driven Perspective",
+      "authors": [
+        "Zhuoran Li",
+        "Xu Sun",
+        "Chang Wen Chen",
+        "Wanyu Lin"
+      ],
+      "affiliations": [
+        "PolyU"
+      ],
+      "url": "https://arxiv.org/abs/2611.09235",
+      "pdf_url": "https://arxiv.org/pdf/2611.09235",
+      "source": "arXiv cs.LG (preprint), code released",
+      "published": "2026-11-06",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Learns an overcomplete sparse feature space over an LLM's representations for molecule generation and edits concept-aligned features to place atoms and functional groups or set global properties. It moves SAE-style features from post-hoc analysis to direct generative control.",
+      "summary": [
+        "LLM-based molecule generators have dense, entangled representations, which makes it hard to request specific substructures at specific positions or properties within a range.",
+        "SpaRE learns an overcomplete sparse feature space that disentangles the LLM's representations into latent features tied to chemical concepts. Editing these features gives local control (target atoms and functional groups at chosen positions) and global control (structural and physicochemical properties within set ranges).",
+        "The authors report that SpaRE generates chemically desirable molecules under complex constraints and offers mechanistic insight for structure-property analysis, but the abstract gives no numbers or baselines. Takeaway: it is another data point that sparse dictionary features can serve as control handles, comparable to SAE-based steering in LLMs. Caveat: judge it from the paper's experiments, since the abstract alone does not show how well control works."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.09196",
+      "title": "Calibrated concept profiles: making the reading of a model's neurons a measurement",
+      "authors": [
+        "Piotr Wilam"
+      ],
+      "affiliations": [
+        "UCL"
+      ],
+      "url": "https://arxiv.org/abs/2611.09196",
+      "pdf_url": "https://arxiv.org/pdf/2611.09196",
+      "source": "arXiv cs.CL (preprint), code and data released",
+      "published": "2026-11-06",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Proposes reading neurons directly, with no probe or SAE in between, by computing a per-neuron score over a declared and logged prompt population, in units of the neuron's own spread and with a noise estimate from two independent draws. Demonstrated on Python concepts in OpenCoder-1.5B across checkpoints covering two trillion tokens.",
+      "summary": [
+        "Interpretability moved from reading neurons to training probes, SAEs and crosscoders to fix problems like polysemantic neurons and unitless thresholds, but that gave up readings that name the neurons themselves and can be repeated and compared across studies.",
+        "The method declares the prompt population around a target concept, drawing each surrounding factor at its rate in a reference corpus, generates a prompt battery twice, and computes one number per neuron in units of its spread on ordinary input. A fixed set of checks licenses the battery on the model first, and the smallest resolvable change across checkpoints is measured.",
+        "On OpenCoder-1.5B, tracked across checkpoints spanning two trillion training tokens, the profile attaches a unit, a noise level and a chance level to every reading and shows which neurons carry a construct at each checkpoint. The abstract gives no quantitative comparison with probes or SAEs. Takeaway: the protocol of declaring the stimulus distribution, drawing twice and reporting a noise unit is a cheap way to make any feature or neuron reading (including SAE latents) reproducible. Caveat: single author and one model and domain."
+      ],
+      "score": 3
+    }
+  ]
+}
