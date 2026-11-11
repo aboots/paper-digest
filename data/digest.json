@@ -1,31 +1,29 @@
 {
-  "date": "2026-11-10",
-  "generated_at": "2026-11-10T06:32:27-07:00",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T06:13:20-07:00",
   "papers": [
     {
-      "id": "arxiv:2611.10230",
-      "title": "RAD-TFM: Robust and Domain-Adapted Tabular Foundation Models",
+      "id": "arxiv:2611.13548",
+      "title": "Massive Activations Confound Sparse Autoencoders",
       "authors": [
-        "Matthew Peroni",
-        "Franck Le",
-        "Vadim Sheinin"
+        "Nathan Delisle",
+        "Chenhao Tan"
       ],
       "affiliations": [
-        "IBM",
-        "MIT"
+        "UChicago"
       ],
-      "url": "https://arxiv.org/abs/2611.10230",
-      "pdf_url": "https://arxiv.org/pdf/2611.10230",
-      "source": "arXiv cs.LG, accepted at NeurIPS 2026 (main track)",
-      "published": "2026-11-06",
+      "url": "https://arxiv.org/abs/2611.13548",
+      "pdf_url": "https://arxiv.org/pdf/2611.13548",
+      "source": "arXiv cs.LG, accepted at NeurIPS 2026 (poster)",
+      "published": "2026-11-10",
       "topics": [
-        "tabular_fm"
+        "sae"
       ],
-      "tldr": "Continues training TabPFN v2 on synthetic datasets chosen adversarially by a learnable generator that is kept close to a target real-world domain. This gives up to 10.8 points higher mean normalized AUC over the strongest baseline across 6 benchmarks while adding under 0.1% of the original pretraining data.",
+      "tldr": "Massive activations put up to 99.9% of activation variance on one principal component, which makes SAE features unstable across runs and inflates variance-explained scores. Training the SAE with that component removed and adding it back raises top-50 feature sharing between runs to 73-99.5% and cuts model degradation by up to 44%.",
       "summary": [
-        "Tabular foundation models are pretrained entirely on synthetic data, so the design of the data generator shapes what the model is good at. Prior work tuned the prior over generators for overall performance, but did not target the datasets a model finds hardest or a specific real-world domain.",
-        "The authors parameterize the synthetic generator and train it adversarially to produce datasets where the model's optimality gap is large, a distributional-robustness view of pretraining. A second component constrains the adversary to generate data that resembles real datasets from a chosen domain. The pipeline is model-agnostic and is applied as continued training to TabPFN v2 and TabICL v2.",
-        "On TabPFN v2, RAD-TFM improves results on 6 tabular benchmarks, with up to a 10.8 percentage-point gain in mean normalized AUC over the strongest baseline, using fewer than 100k extra synthetic datasets. Applying the same procedure to TabICL v2 also helps on three major benchmarks. Takeaway: if you work with a TFM on one domain (for example clinical tables), cheap adversarial continued training on domain-aligned synthetic data is a practical alternative to fine-tuning on scarce real data. Caveat: gains are stated as \"up to\", and the abstract does not say how much the average improvement is or whether code is released."
+        "SAEs are usually judged by variance explained and by how much splicing them in damages the model. In many LLMs a few huge activation values dominate the residual stream, and it was unclear how this distorts both metrics and the features people end up studying.",
+        "The authors show that massive activations concentrate almost all variance on the first principal component (PC1), which has no unique sparse decomposition, so each SAE run rebuilds it from different features. They measure feature agreement between independent runs and how much non-PC1 variance is left unexplained. Their fix trains the SAE on activations with PC1 projected out and then adds PC1 back to the reconstruction.",
+        "In affected models, 47 of the 50 most important features are on average unmatched in a second run (versus about 27 for a random 50), and one dictionary reports 99.96% variance explained while missing 33% of the variance outside PC1. With PC1 removed, top-50 feature sharing rises from 4-39.5% to 73-99.5%, model degradation drops by up to 44% at the same TopK sparsity, and content reconstruction error falls by up to 33.9%. Takeaway: before trusting SAE feature rankings or variance-explained numbers, check how much variance sits on PC1 and consider the projection fix; code and trained SAEs are released. Caveat: gains are given as ranges or \"up to\" figures and apply to models with massive activations."
       ],
       "score": 5
     },
@@ -44,163 +42,162 @@
       ],
       "url": "https://arxiv.org/abs/2611.12675",
       "pdf_url": "https://arxiv.org/pdf/2611.12675",
-      "source": "arXiv cs.AI (preprint)",
+      "source": "arXiv cs.AI, preprint",
       "published": "2026-11-09",
       "topics": [
         "steering"
       ],
-      "tldr": "Fits a linear map between two models' residual streams on unlabeled prompts and uses it to carry a refusal steering direction and read-out probes from one model to another. With prompts covering the tool's region, the transferred refusal direction recovers 102% of the target's own steering effect across 110 model pairs.",
+      "tldr": "A linear map between two models' residual streams, fit only on unlabeled prompts, carries refusal steering directions and probes across 110 model pairs. When the map's prompts cover the tool's operating region, it recovers 102% of the target's own refusal steering and 88-98% of its correctness gain.",
       "summary": [
-        "Steering vectors, refusal directions and probes are normally found with labeled data inside each model separately, which makes interpretability work expensive to repeat on every new model. It is unclear when such tools can be reused across models and why earlier cross-model maps sometimes failed.",
-        "The authors learn a linear map between residual streams using only unlabeled prompts, then transfer a refusal direction (tested causally by addition and ablation), a correctness direction and a sentiment probe. They test 110 model pairs from five families spanning 1B to 72B parameters, including base to instruction-tuned transfers, with specificity controls and five seeds. They also prove when a linear map should work and derive a label-free coverage score.",
-        "A map fit on ordinary questions recovers 54% of the target's refusal steering and 16% to 77% of its correctness gain; adding unlabeled prompts from the tool's operating region raises this to 102% and 88% to 98%, while control directions recover at most 1%. The coverage score tracks recovery across more than 16,000 runs and explains past failures across domains. Takeaway: for steering-geometry work, what you fit the cross-model map on matters more than the map itself, and a coverage score can tell you in advance whether a transferred direction will work. Caveat: only linear maps and three tool types are tested."
+        "Steering vectors and probes are normally found separately inside each model with labeled data, which is costly and makes results hard to reuse. It was unclear whether such tools could be transferred between models, and earlier reports suggested cross-model maps fail across domains.",
+        "The authors fit a linear map between residual streams of two models using unlabeled prompts only, then transfer a refusal direction (tested causally by addition and ablation), a correctness direction and a sentiment probe. They cover 110 model pairs from five families, 1B to 72B parameters, including base-to-instruct pairs, with specificity controls and five seeds. They also prove when a linear map should work and derive a label-free coverage score.",
+        "A map fit on ordinary questions recovers 54% of the target's own refusal steering and 16-77% of its correctness gain; adding unlabeled prompts from the region where the tool operates raises this to 102% and 88-98%, while control directions recover at most 1%. The coverage score tracks recovery across more than 16,000 runs. Takeaway: steering directions found in one model can be ported to another for the cost of a few unlabeled in-domain prompts, and the coverage score tells you in advance whether the transfer will work. Caveat: results are for linear maps and the tools tested (refusal, correctness, sentiment); code availability is not stated."
+      ],
+      "score": 5
+    },
+    {
+      "id": "arxiv:2611.11838",
+      "title": "Improving Confidence Estimation in Language Models with Linear Representations of Ambiguity",
+      "authors": [
+        "Themistoklis Nikas",
+        "Nishant Subramani",
+        "Aaron Mueller"
+      ],
+      "affiliations": [
+        "Boston University",
+        "CMU"
+      ],
+      "url": "https://arxiv.org/abs/2611.11838",
+      "pdf_url": "https://arxiv.org/pdf/2611.11838",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-09",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Difference-in-means directions for input ambiguity exist in LM activations and weakly steer ambiguity judgments. Restricting fine-tuning updates to that subspace (DART) greatly improves calibration without hurting accuracy.",
+      "summary": [
+        "LM confidence scores are poor predictors of whether an answer is right, partly because models do not flag inputs that are inherently ambiguous. If models internally represent ambiguity, those representations could be used to fix calibration.",
+        "Using minimal pairs of ambiguous and unambiguous sentences, the authors extract ambiguity directions with difference-in-means and test them by steering. They then propose DART, a fine-tuning method that pushes parameter updates to act within the span of these directions and penalizes activation changes outside that subspace. Evaluation covers multiple-choice and generative QA.",
+        "Steering with the ambiguity directions changes the model's ambiguity judgments selectively but only weakly, by the authors' own account. DART greatly improves calibration while keeping accuracy, though the abstract gives no specific numbers or model sizes. Takeaway: a concept direction that is a weak steering lever can still be a strong regularizer when used to constrain fine-tuning, which is a useful pattern for anyone working on steering geometry. Caveat: check the paper for which models and how large the calibration gains are."
       ],
       "score": 4
     },
     {
-      "id": "arxiv:2611.11398",
-      "title": "Decomposing Earth Embeddings with Sparse Autoencoders",
+      "id": "arxiv:2611.12998",
+      "title": "Linear Probes to Bayesian Manifolds: Geometry of Arithmetic in Large Language Models",
       "authors": [
-        "Vitus Benson",
-        "Fanny Yang",
-        "Markus Reichstein"
+        "Anshul Kumar",
+        "Neha Prasad",
+        "Manoj Kumar",
+        "Barnabás Póczos",
+        "Deeksha Varshney"
       ],
       "affiliations": [
-        "MPI Biogeochemistry",
-        "ETH Zürich"
+        "CMU",
+        "IIT Jodhpur"
       ],
-      "url": "https://arxiv.org/abs/2611.11398",
-      "pdf_url": "https://arxiv.org/pdf/2611.11398",
-      "source": "arXiv cs.LG, accepted at NeurIPS 2026, code released",
+      "url": "https://arxiv.org/abs/2611.12998",
+      "pdf_url": "https://arxiv.org/pdf/2611.12998",
+      "source": "arXiv cs.LG, under review at ICLR 2027 (preprint)",
       "published": "2026-11-08",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Splits a probe result into four separate claims (decodable, has a shape, the shape belongs to that concept, the model uses it) and tests each with a Bayesian pipeline on arithmetic in three 6-8B LLMs. Most concepts are decodable, but 81% of the shapes found are inherited from related concepts rather than owned.",
+      "summary": [
+        "Linear probes often reveal helices or circles in LLM activations, and these are taken as evidence the model computes with them. Probe accuracy alone mixes several claims, so such conclusions can overreach.",
+        "The authors separate decodability, shape, ownership and causal use, and test each with a four-stage Bayesian pipeline. Shapes are selected only when evidence passes a preset threshold, ownership is tested by removing related concepts fixed in advance, and causal use by intervening on the shape. They apply this to two-digit addition and multiplication in GPT-J 6B, Llama 3.1 8B and Pythia 6.9B.",
+        "Nearly every concept is decodable, but decoded directions overlap strongly across concepts, and every strongly supported shape is a ribbon (a helix with changing radius) or a torus. Of 1,330 cells with an ownership verdict, 19% of shapes are owned and 81% inherited, yet both move the output about equally often. Intervening on the shape keeps about 61% of the full probe's effect with at most five dimensions versus a median of nine. Takeaway: when you claim a geometric structure in activations, report all four verdicts and control for related concepts, not just probe accuracy. Caveat: limited to arithmetic and three models of similar size."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.11531",
+      "title": "Probing Transformer Representations Layer by Layer, Module by Module",
+      "authors": [
+        "Ambroise Odonnat",
+        "Theo Gnassounou",
+        "Laetitia Chapel",
+        "Romain Tavenard",
+        "Ievgen Redko"
+      ],
+      "affiliations": [
+        "Inria",
+        "Noah's Ark Lab"
+      ],
+      "url": "https://arxiv.org/abs/2611.11531",
+      "pdf_url": "https://arxiv.org/pdf/2611.11531",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-08",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Over 144,000 linear-probing runs on vision and language foundation models show that picking the layer and the module inside it (attention, MLP, norm) jointly beats choosing depth alone. Simple fixed rules recover 42% (vision) and 86% (language) of the best possible gain.",
+      "summary": [
+        "Probing the final layer of a foundation model is often suboptimal, and recent work moved to intermediate layers. But representations are still studied block by block, ignoring the different modules inside each transformer block.",
+        "The authors run more than 144,000 linear probing evaluations over vision foundation models and LLMs, probing each module output at each layer instead of only the residual stream. From this they derive fixed strategies: the final-layer feed-forward activation for vision and the second normalization layer at 60% depth for language.",
+        "The best layer-module pair gives much larger gains over the final-layer residual stream than the best layer with the residual stream fixed, and module quality varies across layers. The fixed rules beat the standard baseline in most evaluations and recover on average 42% (vision) and 86% (language) of the best-pair gain, with vision gains growing as transfer to downstream data gets harder. Takeaway: when probing or extracting features (for example from an ultrasound or vision backbone), sweep modules as well as layers, or start from the suggested defaults. Caveat: the abstract does not name the exact models or tasks."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.13001",
+      "title": "One Table, Many Queries: Benchmarking Generalist Tabular Models Across Generation, Imputation, and Prediction",
+      "authors": [
+        "Yuanrui Wang",
+        "Kaifang Li",
+        "Xuanyue Li",
+        "Ziyun Li",
+        "Yan Lu",
+        "Xingxuan Zhang",
+        "Peng Cui"
+      ],
+      "affiliations": [
+        "StableAI",
+        "Tsinghua"
+      ],
+      "url": "https://arxiv.org/abs/2611.13001",
+      "pdf_url": "https://arxiv.org/pdf/2611.13001",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-08",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "A benchmark of 56 datasets and 46 methods tests whether one tabular model can do generation, imputation and prediction together. Frozen tabular foundation models are strong at prediction and numeric imputation, but faithful joint sampling still favors specialist models.",
+      "summary": [
+        "Tabular generation, imputation and prediction all query the same data distribution but are benchmarked separately. So it is unclear what capabilities they share, how their training objectives interact, and whether one generalist model can handle all three.",
+        "The One Table Benchmark covers 56 datasets, 46 registered methods and 20 capability axes with aligned splits and explicit task definitions. Beyond rank comparisons, the authors train five backbones under all seven non-empty combinations of the three objectives on five datasets with three seeds, and compare fixed generalist models with portfolios of specialists.",
+        "Imputation and prediction are linked through numeric recovery and dependence preservation, and generation through predictive utility, while distributional fidelity ranks models differently. Adding a task's own objective gives the largest gains, generation gives the broadest auxiliary benefits, and objective benefits do not simply add. Some generalists beat specialist portfolios on utility but not on fidelity, and frozen foundation models are strong at prediction and numeric imputation. Takeaway: if you use a tabular FM for imputation or synthetic data, check fidelity separately from downstream utility, since the two disagree. Caveat: the abstract reports trends rather than headline numbers."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.14168",
+      "title": "Representational Atoms in Neural Networks",
+      "authors": [
+        "Chenhui Hu",
+        "Pengfei Cao",
+        "Kang Liu",
+        "Jun Zhao"
+      ],
+      "affiliations": [
+        "CAS Institute of Automation",
+        "UCAS"
+      ],
+      "url": "https://arxiv.org/abs/2611.14168",
+      "pdf_url": "https://arxiv.org/pdf/2611.14168",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-10",
       "topics": [
         "sae"
       ],
-      "tldr": "Trains sparse autoencoders on AlphaEarth and Tessera satellite embeddings and evaluates them with a protocol that includes a frozen random-decoder SAE baseline. It finds that monosemantic-looking features come from sparsity alone, while only a learned dictionary reconstructs well (eight times less unexplained variance on AlphaEarth).",
+      "tldr": "Defines fundamental representational units in networks by fidelity and stability, and proves threshold-activated SAEs can recover them under stated conditions. More stable units turn out to be more monosemantic and compose across layers into human-like concept structure.",
       "summary": [
-        "Earth observation foundation models produce dense embeddings whose dimensions mix unrelated physical concepts, which makes them hard to inspect. SAE evaluation tools built for LLMs, such as LLM judges of feature descriptions, do not work for satellite pixels.",
-        "The authors train SAEs (including BatchTopK and Matryoshka) on two Earth embedding products and score them on reconstruction at matched sparsity, alignment with reference concept groups, and spatial scale. Every score is compared against baselines, including an SAE whose decoder is a frozen random dictionary. They also try the sparse codes for finding land-cover sub-concepts and for out-of-distribution pixel detection.",
-        "Trained SAEs beat all baselines on reconstruction; on AlphaEarth, 88% of features align with at most one of 20 concept groups, versus a median of 12 groups per raw dimension, and SAE features carry 23 to 32% of variance within a 640 m patch versus 9%. The random-decoder SAE shares the alignment and fine-scale properties, so those come from sparsity, but trained SAEs leave eight times less variance unexplained. Takeaway: any SAE paper claiming interpretable features, including on medical image embeddings, should include a frozen random-decoder control, since sparsity alone can produce clean-looking features. Caveat: the authors say neither downstream application is yet reliable enough for practical use."
+        "Interpreting networks needs a clear notion of what the basic units of a representation are and how they relate to human concepts. SAE features are widely used for this, but there is no agreed definition of a 'true' unit or a criterion for when an SAE has found one.",
+        "The paper formally defines fundamental representational units (FRUs) and two criteria for judging them, fidelity and stability. It proves that threshold-activated sparse autoencoders (TSAEs) identify FRUs with high fidelity and stability under certain conditions and checks this with large-scale experiments, then studies how stability relates to monosemanticity and cross-layer composition.",
+        "The abstract reports that more stable FRUs are more monosemantic and can be composed across layers to recover semantic organization matching human conceptual structure, but it gives no numbers, models or datasets. Takeaway: run-to-run stability is a useful, cheap filter for picking SAE features worth interpreting, and the threshold-activation variant is the one with theoretical backing here. Caveat: the guarantees hold only 'under appropriate conditions', and without numbers in the abstract the strength of the empirical support is unclear."
       ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.10974",
-      "title": "SWEET: Mitigating Spurious Feature Reliance in LLM Reasoning via Weight Editing",
-      "authors": [
-        "Zhizhang Fu",
-        "Lucas Zhao",
-        "Michalis Korakakis",
-        "Mengru Ding",
-        "Lukasz Szpruch",
-        "Yue Zhang"
-      ],
-      "affiliations": [
-        "Westlake University",
-        "Alan Turing Institute",
-        "Cambridge"
-      ],
-      "url": "https://arxiv.org/abs/2611.10974",
-      "pdf_url": "https://arxiv.org/pdf/2611.10974",
-      "source": "arXiv cs.CL (preprint)",
-      "published": "2026-11-07",
-      "topics": [
-        "interpretability"
-      ],
-      "tldr": "Finds directions tied to spurious reasoning from 20 original versus distractor-perturbed problem pairs, localizes the neurons and heads that write them, and edits those weights. Without training it raises accuracy on perturbed inputs by 11.8 points on average across five reasoning models.",
-      "summary": [
-        "Reasoning LLMs can be thrown off by simple perturbations such as irrelevant distractors, which suggests they lean on spurious features. Finding and removing those features inside long chain-of-thought reasoning is hard.",
-        "SWEET contrasts activations on original problems and counterfactual variants to extract token-level and sequence-level behavioral directions. It then localizes the MLP neurons and attention heads that contribute along these directions and suppresses them through weight edits, using only 20 pairs. It is tested on five open-weight reasoning models and five reasoning benchmarks.",
-        "SWEET improves accuracy by 11.8 points on perturbed inputs and 2 points on original inputs on average, and shrinks the relative gap between original and perturbed accuracy from 17.6% to 2.5%. The analysis points to two forms of spurious reasoning, over-integrating irrelevant conditions and overthinking. Takeaway: contrastive directions plus component localization can be turned into a permanent weight edit rather than an inference-time steering hook, which is useful when you cannot modify the inference stack. Caveat: the abstract does not name the models' sizes or report variance across runs."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.10457",
-      "title": "Represented but Not Used: Value-Policy Dissociation in LLM Agents",
-      "authors": [
-        "Yuzhang Luo",
-        "Mohamed Aghzal",
-        "Liangming Pan",
-        "Ziyu Yao"
-      ],
-      "affiliations": [
-        "Peking University",
-        "George Mason University"
-      ],
-      "url": "https://arxiv.org/abs/2611.10457",
-      "pdf_url": "https://arxiv.org/pdf/2611.10457",
-      "source": "arXiv cs.AI (preprint)",
-      "published": "2026-11-07",
-      "topics": [
-        "interpretability"
-      ],
-      "tldr": "Shows that the values of candidate actions are linearly decodable from hidden states of LLM agents even when the policy picks a worse action. Pushing along the value read-out direction does little, but a transport learned from natural value differences shifts choices more reliably.",
-      "summary": [
-        "LLM agents need to weigh the future consequences of actions, but a bad choice does not reveal whether the model failed to represent the consequences or failed to use them. Interpretability work has looked at state and plan representations, not at action value.",
-        "The authors probe for relative action values in Qwen2.5-7B-Instruct, Qwen2.5-32B-Instruct and GPT-OSS-20B on a partially observed grid task and WebShop. They compare interventions along the probe direction with Natural Value Transport, a transformation learned from hidden-state changes that arise from actual value differences, and test a closed-loop controller using the probe as a sensor and the transport as an actuator.",
-        "Action values are linearly decodable from intermediate layers, including at states where the policy prefers the worse action, which the authors call value-policy dissociation. Probe-direction interventions have limited and inconsistent effects, while the learned transport moves action preferences more consistently, mainly at later layers, and the closed-loop controller improves task outcomes. Takeaway: a decodable direction is not necessarily the direction the model uses, so steering along a probe vector can fail even when the probe is accurate; learning the intervention from natural variation is a stronger baseline. Caveat: the abstract gives no effect sizes."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.12491",
-      "title": "Out-of-the-Box Tabular Foundation Models for Bayesian Optimization in Materials Discovery",
-      "authors": [
-        "Klemens Flöge",
-        "Simon Bing",
-        "Leo Grinsztajn",
-        "Eliott Kalfon",
-        "Lennart Purucker",
-        "Noah Hollmann",
-        "Frank Hutter"
-      ],
-      "affiliations": [
-        "Prior Labs",
-        "University of Freiburg"
-      ],
-      "url": "https://arxiv.org/abs/2611.12491",
-      "pdf_url": "https://arxiv.org/pdf/2611.12491",
-      "source": "arXiv cs.LG, accepted at the AI4Mat Workshop at NeurIPS 2026, code released",
-      "published": "2026-11-09",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "Uses TabPFN and TabICL unchanged as surrogate models for Bayesian optimization on two materials benchmarks. They are highly competitive with Gaussian processes, random forests and CatBoost without kernel choice or task-specific training.",
-      "summary": [
-        "Bayesian optimization loops in materials science mostly use Gaussian processes, which need task-specific kernels and can struggle with complex relationships. Tabular foundation models predict well without tuning, but it was unclear whether they work as BO surrogates.",
-        "The Prior Labs team plugs two TFMs, TabPFN and TabICL, into active-learning loops as out-of-the-box surrogates. They compare against a broad set of baselines (Gaussian processes, random forests, CatBoost) on two standard materials science benchmarks, and release the benchmark code.",
-        "The TFMs are highly competitive surrogates on both benchmarks without per-task training or kernel selection. Takeaway: TFMs are a reasonable default surrogate for small-data active learning or hyperparameter search loops, saving GP kernel engineering. Caveat: this is a workshop paper from the TabPFN company with only two benchmarks, and the abstract gives no numbers."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.11381",
-      "title": "Does Predictive Performance Translate to Causal Performance? Evaluating tabular foundation models as nuisance learners for causal effect estimation",
-      "authors": [
-        "Andrew R Weckstein",
-        "Issa J Dahabreh",
-        "Marinka Zitnik",
-        "Sonia Hernández-Díaz",
-        "Sebastian Schneeweiss"
-      ],
-      "affiliations": [
-        "Harvard"
-      ],
-      "url": "https://arxiv.org/abs/2611.11381",
-      "pdf_url": "https://arxiv.org/pdf/2611.11381",
-      "source": "arXiv stat.AP (preprint, work in progress)",
-      "published": "2026-11-08",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "Tests TabPFN and Mitra as nuisance models inside doubly robust causal effect estimators. In complex settings they beat all conventional learners, including Super Learner ensembles, and were the only ones to approach nominal confidence-interval coverage as sample size grew.",
-      "summary": [
-        "Prior-data fitted networks predict well on tables, but good prediction does not guarantee good causal estimates or valid confidence intervals. Their value as nuisance learners for causal inference had not been checked.",
-        "The authors use PFNs and conventional learners to model propensity scores and outcome regressions inside doubly robust estimators of average treatment effects, with and without cross-fitting. Synthetic and semi-synthetic settings vary confounding complexity and effect heterogeneity.",
-        "Under simple parametric setups PFNs match correctly specified regressions; in complex settings they outperform all conventional learners on accuracy and uncertainty quantification, and only TabPFN and Mitra consistently approach nominal coverage as sample size increases. At n=200 and in higher-dimensional semi-synthetic settings, PFNs lose coverage without cross-fitting, apparently from propensity-score overfitting by memorizing treatment labels in context. Takeaway: TFMs can be dropped into causal pipelines as nuisance learners, but keep cross-fitting on, especially with small samples. Caveat: work in progress, not peer reviewed, and no real-data evaluation."
-      ],
-      "score": 4
+      "score": 3
     },
     {
       "id": "arxiv:2611.11209",
@@ -218,117 +215,91 @@
       ],
       "url": "https://arxiv.org/abs/2611.11209",
       "pdf_url": "https://arxiv.org/pdf/2611.11209",
-      "source": "arXiv cs.CV (preprint), project page",
+      "source": "arXiv cs.CV, preprint",
       "published": "2026-11-08",
       "topics": [
         "steering"
       ],
-      "tldr": "Splits visual chain-of-thought into separate grounding and reasoning steering vectors taken from a source vision-language model, aligns them to a different target model, and applies each at its own stage. Training-free, it beats the strongest capability-transfer baseline by 1.86 points on average.",
+      "tldr": "Splits visual chain-of-thought into separate grounding and reasoning steering vectors, aligns them to another vision-language model's activation space and applies each at its own stage. This transfers 'thinking with images' training-free and beats the best transfer baseline by 1.86 points on average.",
       "summary": [
-        "Teaching vision-language models to reason with visual evidence (visual chain-of-thought) needs costly post-training tied to one backbone. Existing transfer methods treat the capability as one block, so their interventions also touch stages where they do not belong.",
-        "Viscot-steer extracts a grounding vector and a reasoning vector from the source-model layers linked to each capability. It aligns them to the target model's activation space and steers the grounding layers during bounding-box prediction and the reasoning layers during reasoning-trace generation. It is evaluated on high-resolution understanding, general perception and reasoning, and math visual reasoning benchmarks.",
-        "The method transfers capabilities from several visual-CoT models into architecturally different LVLMs and beats the strongest transfer baseline by an average of 1.86 percentage points on the main metrics. Takeaway: splitting a capability into stage-specific steering vectors and applying each only at its stage is a cleaner design than one global vector, and cross-model alignment of steering vectors is workable. Caveat: the average gain is modest and the abstract does not give per-benchmark numbers."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.10503",
-      "title": "Learning a Unified Cross-Model Semantic Dictionary via Gated Bottleneck Sparse Autoencoders",
-      "authors": [
-        "Jinchi Zhu",
-        "Tie Luo"
-      ],
-      "affiliations": [
-        "University of Kentucky"
-      ],
-      "url": "https://arxiv.org/abs/2611.10503",
-      "pdf_url": "https://arxiv.org/pdf/2611.10503",
-      "source": "arXiv cs.LG, accepted at NeurIPS 2026, code released",
-      "published": "2026-11-07",
-      "topics": [
-        "sae"
-      ],
-      "tldr": "Trains one sparse autoencoder with a shared concept dictionary plus private per-model dictionaries across ViT, SigLIP, DINOv2 and ConvNeXt, so common concepts are reusable across vision models.",
-      "summary": [
-        "Vision foundation models learn overlapping concepts but in different representation spaces, so concepts found in one model cannot be reused in another. Existing cross-model methods align coordinates while keeping the concepts themselves model-specific.",
-        "GB-SAE frames cross-model interpretability as factorization: a gated bottleneck SAE learns a shared dictionary of concepts common to all models and private dictionaries for each model's residual biases. It is evaluated on ViT, SigLIP, DINOv2 and ConvNeXt.",
-        "The authors report better reconstruction, faithful shared concepts, and reuse that generalizes to unseen models and downstream tasks. Takeaway: if you compare features across several image encoders (for example multiple backbones in one medical pipeline), a shared-plus-private SAE gives one concept vocabulary instead of per-model dictionaries. Caveat: the abstract gives no numbers, so the size of the gains needs checking in the paper."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.10297",
-      "title": "Uncertainty, Not Concealment: A Mechanistic Reappraisal of Sycophancy in Vision-Language Models",
-      "authors": [
-        "Mohamed I. Eldagla",
-        "Zeyad H. ElShafei",
-        "Ahmed M. Anter"
-      ],
-      "affiliations": [
-        "German International University Cairo",
-        "E-JUST"
-      ],
-      "url": "https://arxiv.org/abs/2611.10297",
-      "pdf_url": "https://arxiv.org/pdf/2611.10297",
-      "source": "arXiv cs.CV, accepted at the NeurIPS 2026 Med-Reasoner Workshop, code released",
-      "published": "2026-11-06",
-      "topics": [
-        "interpretability"
-      ],
-      "tldr": "Uses probing, activation steering and forced choice on four medical VLMs reading chest X-rays with mismatched reports. Models encode the conflict linearly but steering never makes them report it, pointing to gated uncertainty rather than hidden knowledge.",
-      "summary": [
-        "In medical retrieval-augmented generation, a VLM must flag when a retrieved report contradicts the X-ray. One view says these models detect conflicts internally but conceal them, which would call for different fixes than if they are simply unsure.",
-        "The authors build a three-part diagnostic: a linear probe for matched versus mismatched image-report pairs, steering along the learned conflict direction, and two-way forced choice. They apply it to four instruction-tuned VLMs on chest X-rays and also measure cross-modal attention.",
-        "The models suppress contradictions behaviorally, and a linear probe separates matched from mismatched inputs better than a simple CLIP model. Steering the conflict direction never produces a contradiction, forced choice does not recover one, and attention to the image drops on mismatched pairs. Takeaway: a probe-decodable signal in a medical model is not proof of concealed knowledge, and steering is a useful causal check before claiming it. Caveat: workshop paper, chest X-ray only, and the abstract gives no numbers."
+        "Visual chain-of-thought lets vision-language models find and use key image regions while reasoning, but it needs costly post-training tied to one backbone. Existing transfer methods treat it as one capability, which mixes grounding with reasoning and intervenes at the wrong stages.",
+        "Viscot-steer extracts separate grounding and reasoning vectors from the layers of a source model associated with each capability. It aligns these vectors with the target model's activation space and steers the grounding layers during bounding-box prediction and the reasoning layers during reasoning-trace generation, without any training.",
+        "Across high-resolution understanding, general perception and reasoning, and visual math benchmarks, the method transfers capabilities from several visual-CoT models to architecturally different targets and beats the strongest transfer baseline by 1.86 points on average. Takeaway: decomposing a capability into stage-specific vectors and applying each only where it acts is a reusable recipe for cross-model steering. Caveat: the average gain is modest and the abstract does not list the target models or variance across runs."
       ],
       "score": 3
     },
     {
-      "id": "arxiv:2611.08895",
-      "title": "Localizing and Editing the Goal Representation of a Vision-Language-Action Model",
+      "id": "arxiv:2611.12206",
+      "title": "A Geometric Invariant of Attention Predicts Head Specialization from Weights Alone",
       "authors": [
-        "Sudhanshu Srivastava",
-        "Faisal Aqlan"
+        "Miguel P. Bento"
       ],
       "affiliations": [
-        "University of Louisville"
+        "Feedzai"
       ],
-      "url": "https://arxiv.org/abs/2611.08895",
-      "pdf_url": "https://arxiv.org/pdf/2611.08895",
-      "source": "arXiv cs.RO (preprint)",
-      "published": "2026-11-06",
+      "url": "https://arxiv.org/abs/2611.12206",
+      "pdf_url": "https://arxiv.org/pdf/2611.12206",
+      "source": "arXiv cs.LG, extended abstract at NeurReps workshop, NeurIPS 2026",
+      "published": "2026-11-09",
       "topics": [
         "interpretability"
       ],
-      "tldr": "Combines activation patching, probes and steering on OpenVLA to show that negated instructions are ignored (the forbidden task ran in 79% of negated rollouts) and that goal edits only work before layer 12 or by patching every action token.",
+      "tldr": "Derives a scalar from attention weights alone that measures how strongly a head can couple to rotary position encodings. It predicts induction heads with Spearman correlation of -0.55 to -0.74 across four RoPE models from 135M to 7B, with no forward passes.",
       "summary": [
-        "Safety rules for robots are often written as prohibitions such as \"do not put the bowl on the stove\", but it is unclear whether vision-language-action models follow them or where they represent the goal they execute.",
-        "Using the 10 LIBERO-Goal tasks, which share one scene, the authors label which goal each OpenVLA rollout executes. They combine closed-loop rollouts with activation patching, linear probes, activation steering and runtime monitors.",
-        "Negation had no detectable effect: OpenVLA executed the forbidden task in 79% of negated rollouts and completed 78% of plain tasks. A steering vector at instruction tokens at layer 8 redirected 12 of 18 rollouts, while vectors and patches at layers 12 to 20 redirected none of 158; from layer 16, only patching every action token worked (15 of 18 at layer 24). Takeaway: where you steer matters sharply by layer and token position, and a goal probe can serve as a runtime compliance monitor. Caveat: one model, one benchmark, and small rollout counts."
+        "Finding specialized heads such as induction heads usually needs forward passes over data. A data-free way to characterize heads from weights would make analysis of large models cheaper.",
+        "The author derives rho, an invariant built from the symmetries of attention that measures a head's capacity to couple to rotary positional encodings (RoPE), computed from weights only. It is tested on four bias-free RoPE models spanning 135M to 7B parameters, and used as a proof of concept to apply YaRN context extension only to the top-50% positional heads.",
+        "Rho predicts induction heads with Spearman correlation between -0.55 and -0.74 across the four models, and applying YaRN only to high-rho heads hurts perplexity less than applying it uniformly. Takeaway: weight-only head statistics can pre-screen heads before running circuit analysis, which saves compute on big models. Caveat: this is a short workshop extended abstract, the YaRN result is described as preliminary, and it applies only to bias-free RoPE models; code is released."
       ],
       "score": 3
     },
     {
-      "id": "arxiv:2611.11035",
-      "title": "Room to Reconsider: Reply Length Decides Whether Pushback Makes Language Models Sycophantic or Self-Correcting",
+      "id": "arxiv:2611.11921",
+      "title": "An Evaluation of Tabular Foundation Models as Training-Free World Models",
       "authors": [
-        "Ook Lee"
+        "Xian Yeow Lee",
+        "Ryoichi Takase",
+        "Ahmed Farahat"
       ],
       "affiliations": [
-        "Hanyang University"
+        "Hitachi"
       ],
-      "url": "https://arxiv.org/abs/2611.11035",
-      "pdf_url": "https://arxiv.org/pdf/2611.11035",
-      "source": "arXiv cs.CL (preprint), code released",
-      "published": "2026-11-08",
+      "url": "https://arxiv.org/abs/2611.11921",
+      "pdf_url": "https://arxiv.org/pdf/2611.11921",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-09",
       "topics": [
-        "steering"
+        "tabular_fm"
       ],
-      "tldr": "Shows that whether pushback makes small open models cave or self-correct depends on reply length: with a 1,024-token budget Qwen3-4B fixes 43% of wrong answers, and activation steering never reduced caving without also killing self-correction.",
+      "tldr": "Uses a pretrained tabular foundation model as a training-free dynamics model by treating next-state prediction as in-context regression. It beats LSTMs and MLPs trained on the same scarce data, but rollouts degrade with short context and inference is about 1000 times slower than an LSTM.",
       "summary": [
-        "Models often drop a correct answer when a user pushes back without a reason, and this is usually treated as sycophancy to remove. But the same pushback can also make a model revisit and fix a wrong answer.",
-        "The study uses MMLU and ARC-Challenge multiple-choice questions with Qwen3 1.7B, 4B and 8B and OLMo-2 7B, reading the final answer from option logits after a free-form reply. It varies the reply budget, probes hidden states for caving, and tries activation steering against caving.",
-        "With a 96-token budget pushback leaves Qwen3-4B accuracy flat or lower; with 1,024 tokens it corrects 43% of wrong answers and raises accuracy by 5.7 points. Hidden states predict caving only slightly beyond confidence (about 0.04 to 0.06 AUROC in three of four probing runs), and steering against caving always suppressed self-correction too. Takeaway: anti-sycophancy steering vectors can remove useful behavior, so evaluate them with full-length replies and report self-correction alongside caving. Caveat: single author, small models only."
+        "World models for model-based RL and planning usually need task-specific training on lots of interaction data. A pretrained tabular model that predicts in context could avoid that training, but its limits were unknown.",
+        "The authors frame next-state prediction as in-context regression over transition pairs and test a pretrained tabular foundation model (TabFM) on synthetic dynamical systems and robot locomotion benchmarks. They compare against LSTM and MLP models trained from scratch, other regressors fitted on the same data, and models trained on the full dataset, for one-step and multi-step autoregressive prediction.",
+        "With limited transitions, TabFM beats LSTM and MLP models in almost all settings and is the most accurate regressor on locomotion, though a Gaussian process wins on smooth low-dimensional systems, and full-data models remain much better on most systems. Multi-step rollouts collapse to a trivial baseline with short context but improve a lot with long context, beating a trained LSTM on one task. Takeaway: tabular FMs are a good data-scarce predictor when you can give them long context, not yet a drop-in planner. Caveat: inference is about three orders of magnitude slower than an LSTM."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.13219",
+      "title": "MediPFN: Amortized In-Context Nuisance Learning and Inference for Causal Mediation Analysis",
+      "authors": [
+        "Shi Bo",
+        "Jiaming Hu"
+      ],
+      "affiliations": [
+        "Boston University"
+      ],
+      "url": "https://arxiv.org/abs/2611.13219",
+      "pdf_url": "https://arxiv.org/pdf/2611.13219",
+      "source": "arXiv stat.ML, preprint",
+      "published": "2026-11-09",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Adapts a pretrained tabular foundation model to estimate the nuisance functions in causal mediation analysis and adds a learned error head to build calibrated confidence intervals. Coverage is closer to nominal than comparators, and it runs 59.1 times faster than the bootstrap.",
+      "summary": [
+        "Causal mediation analysis splits a treatment effect into indirect and direct paths and depends on several fitted nuisance functions. Tabular foundation models can estimate these in context, but valid confidence intervals must account for the uncertainty from fitting and combining them.",
+        "MediPFN uses a pretrained tabular foundation model for nuisance prediction and combines outputs with a cross-fitted influence-function estimator. A separate head learns quantiles of the estimator's standardized error from simulated tables with known indirect effects, followed by supervised fine-tuning, symmetrization and independent calibration. The authors prove coverage bounds under standard assumptions.",
+        "Across experiments MediPFN reaches coverage closer to the nominal level than several comparators and runs 59.1 times faster than bootstrap in matched comparisons. Takeaway: tabular FMs can serve as plug-in nuisance estimators for causal inference if you add an explicit calibration step, rather than trusting their raw predictions for intervals. Caveat: the abstract does not name the datasets or how close coverage gets, and evidence leans on simulated tables."
       ],
       "score": 3
     }
