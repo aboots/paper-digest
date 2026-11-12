@@ -1,0 +1,197 @@
+{
+  "date": "2026-11-12",
+  "generated_at": "2026-11-12T06:18:17-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.14407",
+      "title": "Causal Concept Explanations for Deep Neural Models",
+      "authors": [
+        "Josh Rountree",
+        "Pulkit Verma",
+        "Oswin So",
+        "Chuchu Fan",
+        "Julie A. Shah"
+      ],
+      "affiliations": [
+        "MIT CSAIL",
+        "MIT LIDS",
+        "IIT Madras"
+      ],
+      "url": "https://arxiv.org/abs/2611.14407",
+      "pdf_url": "https://arxiv.org/pdf/2611.14407",
+      "source": "arXiv cs.LG, accepted at NeurIPS 2026",
+      "published": "2026-11-10",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "CCW-Net uses interventional mediation analysis as a training loss so that each concept explanation is necessary, sufficient and independent for the output it is credited with, and reuses the same analysis to measure how much of any model's output each concept causally explains.",
+      "summary": [
+        "Concept-based explanations are meant to support certification of autonomous and safety-critical models, but most are only correlational. A concept can look like the reason for a prediction while being neither necessary nor sufficient for it, which makes the explanation misleading.",
+        "The authors borrow interventional mediation analysis from economics and epidemiology and turn it into a training objective for a Causal Concept Wrapper Network. Counterfactual concept representations define three criteria: necessity pushes the effect of irrelevant concepts to zero, sufficiency requires relevant concepts to reconstruct the output, and independence makes the total effect split linearly across concepts. The same mediation analysis is also used as an evaluation tool for any model, per combination of concept labels.",
+        "They evaluate on aircraft control, driving and image classification; the abstract gives no numbers, so the size of the gains has to be checked in the paper. Takeaway: the necessity, sufficiency and independence criteria are a concrete template for testing whether prototype or concept explanations in a medical imaging model actually drive its predictions, and the evaluation side can be applied to an existing model without retraining. Code is released. Caveat: the method needs concept labels, and the domains tested are control and generic image classification rather than medical data."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.13885",
+      "title": "Are Causal Neuron Circuits Unique and Transferable?",
+      "authors": [
+        "Ömer Tekin Yavuz"
+      ],
+      "affiliations": [
+        "İletişim Yazılım"
+      ],
+      "url": "https://arxiv.org/abs/2611.13885",
+      "pdf_url": "https://arxiv.org/pdf/2611.13885",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-10",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "By testing all 4,096 subsets of 12 selected MLP neurons, the author shows that neuron groups which flip an LLM's answer are rarely fully necessary: a few neurons often suffice, disjoint subsets can each flip the answer, and effects transfer to rephrasings but weakly to other chains.",
+      "summary": [
+        "Interpretability demos often show that ablating a small neuron group changes a model's answer, as in a recent 18-neuron Lion King riddle example in Qwen3-32B. That shows the group matters, but not how much of it is needed, whether other groups would work too, or whether the effect generalizes.",
+        "For each selected group of 12 MLP neurons, the study measures all 4,096 subsets. It uses a two-alternative capital task on Qwen3-0.6B and two-hop relation chains on Qwen3-1.7B, Llama-3.2-1B and Gemma-3-1B, comparing zero-ablation, activation replacement from other questions, and patching with first-hop activations against random neurons.",
+        "On the capital task, zero-ablating the 12 neurons cuts the answer margin by 27% while random neurons barely matter, yet swapping in their values from other questions also barely matters, because their activations are almost constant and show no question-specific content. On two-hop chains, patching shifts the greedy answer to the bridge entity in 9/11 chains (Qwen3-1.7B), 9/11 (Llama-3.2-1B) and 8/10 (Gemma-3-1B), never with random neurons. Takeaway: a zero-ablation effect alone can reflect a constant offset rather than content, so compare against resample or mean ablation and check subsets before calling a group a circuit. Caveats: single author, small 1B-class models, few chains, and the subset finding is described as exploratory; code and data are released."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.14483",
+      "title": "Mechanistic Interpretability Needs a Logic of Inference",
+      "authors": [
+        "Zhimin Hu",
+        "Chen Jiang",
+        "Hanbo Xie",
+        "N. Apurva Ratan Murty",
+        "Sashank Varma"
+      ],
+      "affiliations": [
+        "Georgia Tech",
+        "McGill"
+      ],
+      "url": "https://arxiv.org/abs/2611.14483",
+      "pdf_url": "https://arxiv.org/pdf/2611.14483",
+      "source": "arXiv cs.CL, NeurIPS 2026 Interp4Discovery workshop (oral)",
+      "published": "2026-11-10",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "A position paper that compares how neuroscience and mechanistic interpretability infer mechanisms from neural systems, and proposes five principles arranged as a recursive procedure for turning local findings into testable mechanistic explanations.",
+      "summary": [
+        "Mechanistic interpretability can now find neurons, features, circuits and dynamics tied to model behaviour, so the open question is shifting from what can be observed to how those observations justify a mechanism. Neuroscience has faced the same inference problem for decades.",
+        "The authors review parallel efforts in neuroscience and mechanistic interpretability, identify recurring bottlenecks in inferring mechanisms from complex neural systems, and propose five principles organized into a recursive logic for mechanistic inference.",
+        "This is a conceptual paper with no experiments or numbers. Takeaway: it is a useful checklist for framing claims in an interpretability or steering paper, in particular separating what an intervention shows inside the model from what it says about the world, which the authors argue needs evidence beyond interpretability. Caveat: workshop position paper, so judge it by the arguments rather than results."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.14221",
+      "title": "Stagewise and interpretable emergence of inside-outside computation in Transformer-based language models",
+      "authors": [
+        "Jack T. Parley"
+      ],
+      "affiliations": [
+        "EPFL"
+      ],
+      "url": "https://arxiv.org/abs/2611.14221",
+      "pdf_url": "https://arxiv.org/pdf/2611.14221",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-10",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Training Transformers on synthetic context-free grammars with variable parse trees gives loss stages that can be computed analytically, and probing shows the network gradually forms an encoder-decoder layout with the most abstract latent tree information in the middle layers.",
+      "summary": [
+        "Earlier work showed that trained Transformers approximate parsing algorithms like inside-outside, but those studies are post hoc and say little about how the algorithm is learned during training.",
+        "The paper studies learning dynamics on synthetic context-free grammars whose parse tree topology varies, so the data statistics are fully controlled. Each loss plateau is derived analytically and linked to how much of a hidden latent tree variable the model represents, and probes track where that information sits across depth and training time.",
+        "Early in training only a few initial layers use local bigram and trigram statistics; later the model develops an encoder-decoder structure with abstract latent information in the middle and the second half refining the next-token prediction. The abstract reports no quantitative probe scores. Takeaway: it gives a controlled setting where probing results can be checked against analytic ground truth, and supports the common practice of looking at middle layers for abstract features when steering or training SAEs. Caveats: single author, synthetic grammars only."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.13577",
+      "title": "TERM: Target-Free Jailbreak Defense via Entropy-Guided Residual Modulation",
+      "authors": [
+        "Yunkai Dang",
+        "Wanyu Zhang",
+        "Meiyi Zhu",
+        "Qi Fan",
+        "Tianyu Ding",
+        "Wenbin Li"
+      ],
+      "affiliations": [
+        "Nanjing University",
+        "Microsoft"
+      ],
+      "url": "https://arxiv.org/abs/2611.13577",
+      "pdf_url": "https://arxiv.org/pdf/2611.13577",
+      "source": "arXiv cs.CR, preprint",
+      "published": "2026-11-10",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "TERM is an inference-time jailbreak defense that scales the model's own residual updates based on how much attention entropy deviates from the prompt's own prefill baseline, so it needs no predefined steering direction and aims to avoid over-refusal on benign prompts.",
+      "summary": [
+        "Representation-based jailbreak defenses usually steer activations along a fixed safety direction or toward a learned safe region. Those targets are fixed in advance and can cause over-refusal, and adapting the intervention per input without a target is still hard.",
+        "TERM calibrates attention entropy against each prompt's own prefill baseline, then uses adaptive scale normalization and temporal accumulation across decoding steps to set intervention strength. The resulting signal applies bounded scaling to the model's residual updates rather than adding a direction. It is compared with seven defenses on seven jailbreak attacks and two over-refusal benchmarks across Llama, Qwen and Gemma, including Qwen3 from 0.6B to 32B.",
+        "The abstract claims better jailbreak robustness with low over-refusal and modest overhead but gives no numbers. Takeaway: for steering work, it is a direction-free alternative baseline in which an internal signal decides when and how strongly to intervene, which is worth comparing against fixed steering vectors when over-refusal matters. Caveat: check the paper for effect sizes and adaptive-attack results before relying on it."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.13550",
+      "title": "Tabular Foundation Models in Financial Predictions",
+      "authors": [
+        "Ed deHaan",
+        "Allen H. Huang"
+      ],
+      "affiliations": [
+        "Stanford",
+        "HKUST"
+      ],
+      "url": "https://arxiv.org/abs/2611.13550",
+      "pdf_url": "https://arxiv.org/pdf/2611.13550",
+      "source": "arXiv cs.LG, preprint (technical note)",
+      "published": "2026-11-10",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "On predicting firms' next-year earnings changes, Google Research's TabFM, used in context with no tuning, is more accurate than a fine-tuned open-weight LLM from accounting research and several tree-based models, and cheaper than the LLM.",
+      "summary": [
+        "Accounting and finance forecasting often relies on tree models or fine-tuned LLMs, but LLMs may have memorized firms' outcomes, creating look-ahead bias. Tabular foundation models pretrained only on synthetic tables avoid that problem.",
+        "This technical note evaluates Google Research's TabFM on one standard benchmark task, predicting next-year earnings changes, and compares it with a fine-tuned open-weight LLM from prior accounting research and with several tree-based specifications.",
+        "TabFM is more accurate than all comparison models and faster and less compute-heavy than the LLM, though some tree models produce predictions more quickly, so there is an accuracy and speed trade-off. The abstract gives no metric values. Takeaway: synthetic-only pretraining is a practical argument for TFMs on data where leakage from pretraining is a concern. Caveat: the authors stress it is a single benchmark task and no model class is likely to dominate everywhere."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.14462",
+      "title": "Accurate predictions of properties of energetic materials with tabular foundation models",
+      "authors": [
+        "Vagn Krister Nes Glomsrud",
+        "Mathias Bynke",
+        "Lars Henry Berge Olsen",
+        "Dennis Christensen"
+      ],
+      "affiliations": [
+        "FFI (Norwegian Defence Research Establishment)",
+        "Norwegian Computing Center"
+      ],
+      "url": "https://arxiv.org/abs/2611.14462",
+      "pdf_url": "https://arxiv.org/pdf/2611.14462",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-10",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Untuned TabPFN beats the best published models and tuned XGBoost, random forests and Gaussian processes on impact sensitivity, decomposition temperature and crystal density of energetic materials, and TabPFN on Chemprop embeddings beats Chemprop itself.",
+      "summary": [
+        "Predicting properties of energetic materials matters for safety and design, and datasets are small, which is where tabular foundation models are expected to shine.",
+        "The authors apply TabPFN with no hyperparameter tuning to three properties, using either hand-crafted molecular descriptors or learned embeddings from the Chemprop message-passing network, and compare against tuned XGBoost, random forests, Gaussian processes and the best published models. They check its predictive distributions against compounds with repeated measurements and use Shapley values for feature importance.",
+        "TabPFN outperforms the best published models for all three properties and is more than an order of magnitude faster than XGBoost; the abstract gives no error values. Takeaway: putting TabPFN on top of a frozen domain encoder's embeddings can beat that encoder's own prediction head, a cheap recipe worth trying for small medical or scientific datasets. Caveat: a narrow chemistry application with small data, so it says little about scaling."
+      ],
+      "score": 3
+    }
+  ]
+}
