@@ -1,0 +1,88 @@
+{
+  "date": "2026-11-15",
+  "generated_at": "2026-11-15T06:06:56-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.15642",
+      "title": "Differential Backpack Language Models: Sense Inhibition via Signed Contextualization Weights",
+      "authors": [
+        "Konstantinos Skianis",
+        "Giannis Nikolentzos",
+        "Polykarpos Meladianos",
+        "Michalis Vazirgiannis"
+      ],
+      "affiliations": [
+        "MBZUAI",
+        "École Polytechnique",
+        "University of Ioannina"
+      ],
+      "url": "https://arxiv.org/abs/2611.15642",
+      "pdf_url": "https://arxiv.org/pdf/2611.15642",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-11",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Letting a Backpack language model subtract word senses (signed weights from differential attention) instead of only adding them closes 31% of its perplexity gap to a Transformer on WikiText-103 while keeping the exact per-sense linear decomposition.",
+      "summary": [
+        "Backpack language models are interpretable by design because each prediction is a linear mix of fixed per-word sense vectors, but they lag standard Transformers in perplexity. The authors argue the non-negative mixing weights are an unnecessary restriction: interpretability comes from the linear readout, not from forbidding negative contributions.",
+        "They replace the softmax that produces the sense weights with differential attention, a difference of two softmax maps with a learned per-sense gain, so context can actively suppress a sense. They compare against the softmax Backpack and a Transformer at equal parameter counts on WikiText-103, scale up to 350M parameters on OpenWebText, run ablations to locate the gain, and test alternative combination rules including a nonlinear readout.",
+        "At equal parameters the differential Backpack cuts the perplexity gap to a Transformer by 31% on WikiText-103 and beats the softmax Backpack at every sense count, with a shrinking margin up to 350M parameters. Inhibition is readable (a financial context pushes the river sense of \"bank\" to -0.50), per-sense attribution exactly predicts counterfactual sense removals, and the senses improve zero-shot sentence similarity by up to 33%; a nonlinear readout gains only 0.43 perplexity points but breaks two thirds of the decomposition. Takeaway: for interpretable-by-design models (prototype networks included), allowing signed rather than purely additive contributions can recover accuracy without losing faithful attribution, and the cost of a nonlinear head is worth measuring explicitly. Caveat: results are at small scale (up to 350M) on language modelling only."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.14804",
+      "title": "GenPFN: An In-Context Tabular Foundation Model Approach for Augmenting Small Datasets in Engineering",
+      "authors": [
+        "Noah J. Bagazinski",
+        "Cyril Picard",
+        "Faez Ahmed"
+      ],
+      "affiliations": [
+        "MIT"
+      ],
+      "url": "https://arxiv.org/abs/2611.14804",
+      "pdf_url": "https://arxiv.org/pdf/2611.14804",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-10",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "A frozen TabPFN classifier is used as a training-free guide to generate new engineering designs from a few labelled examples; the augmented data cut AutoGluon validation error by 62.1% versus training on the context alone.",
+      "summary": [
+        "Engineering design datasets are small because each simulation or experiment is costly, which limits surrogate models. Generative augmentation usually needs a trained generator, which itself needs data.",
+        "GenPFN puts evaluated designs labelled desired or undesired into the context of a pretrained TabPFN classifier with fixed weights, interpolates between desired designs, and refines candidates with gated classifier gradients plus Gaussian noise. Each candidate is checked against the problem's constraints and objectives, and accepted designs are added back to the context for regression training. Evaluation covers fourteen problems, from a two-parameter benchmark to a 44-parameter ship hull problem, against adversarial, VAE, diffusion and SMOTE baselines.",
+        "With TabPFN v1, GenPFN achieves higher class satisfaction and lower realism distance than the GAN, VAE and diffusion generators in paired comparisons, while the VAE gives more coverage and diversity; versus SMOTE it has lower coverage distance and more diversity. Augmentation lowers estimated AutoGluon validation MSE by 62.1% relative to context-only training, and a hull-stern case study yields 99.3% propeller-compatible candidates versus 1.4% for random context designs. Takeaway: a tabular foundation model's gradients can serve as a cheap, training-free generator for small-data augmentation, a reusable trick beyond engineering. Caveats: results are with TabPFN v1, each candidate still needs an external evaluator, and coverage and diversity trail the VAE baseline."
+      ],
+      "score": 3
+    },
+    {
+      "id": "pmid:43012190",
+      "title": "Diagnostic value of prostate cancer in the PSA gray zone by the AI-assisted transperineal fusion biopsy combined with multiparametric MRI in prostate cancer within the PSA gray zone",
+      "authors": [
+        "Longxin Wang",
+        "Jingping Ge",
+        "Changyuan Zhao",
+        "Yulin Zhou",
+        "Tao Gu"
+      ],
+      "affiliations": [
+        "Nanjing University (Taikang Xianlin Drum Tower Hospital)"
+      ],
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43012190/",
+      "source": "Zhonghua Nan Ke Xue (National Journal of Andrology), July 2026 issue, in Chinese; indexed in PubMed Nov 11, 2026",
+      "published": "2026-07-01",
+      "topics": [
+        "prostate_us"
+      ],
+      "tldr": "In 286 PSA gray-zone men, AI-marked MRI targets on a transperineal ultrasound fusion system found cancer in 31.2% of biopsies versus 19.0% with cognitive fusion, with the gain concentrated in PI-RADS 3 lesions (23.1% vs 12.9%).",
+      "summary": [
+        "Men with PSA between 4 and 10 ug/L and equivocal MRI findings are hard to triage, and cognitive MRI-ultrasound fusion biopsy can miss small or low-suspicion targets. The study asks whether AI-assisted lesion marking on a fusion ultrasound system improves detection in this gray zone.",
+        "A retrospective two-hospital analysis of 286 patients with PSA 4 to 10 ug/L and PI-RADS 3 or higher (178 PI-RADS 3, 96 PI-RADS 4, 12 PI-RADS 5) treated from April 2022 to December 2025. In 144 patients, MRI was imported into a fusion ultrasound system and AI marked target lesions before transperineal biopsy (4 to 6 targeted plus 8 to 10 systematic cores); 142 patients had conventional cognitive fusion biopsy.",
+        "The overall positive rate was 25.2% (72 cancers); the AI-assisted group reached 31.2% versus 19.0% (P<0.05), and for PI-RADS 3 lesions 23.1% versus 12.9% (P<0.05), with no significant difference for PI-RADS 4 or 5 where the groups were small. Takeaway: the benefit of AI targeting in fusion biopsy appears mostly in equivocal PI-RADS 3 lesions, which is where ultrasound-side AI for cancer detection would also add the most value. Caveats: retrospective, non-randomized groups, the AI system and its outputs are not described in the abstract, there is no clinically significant cancer breakdown, and the AI acts on MRI rather than on the ultrasound signal itself."
+      ],
+      "score": 3
+    }
+  ]
+}
