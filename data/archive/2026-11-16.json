@@ -1,0 +1,235 @@
+{
+  "date": "2026-11-16",
+  "generated_at": "2026-11-16T05:59:10-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.18514",
+      "title": "Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination",
+      "authors": [
+        "Mohamed Aghzal",
+        "Mor Geva",
+        "Gregory J. Stein",
+        "Ziyu Yao"
+      ],
+      "affiliations": [
+        "George Mason University",
+        "Tel Aviv University"
+      ],
+      "url": "https://arxiv.org/abs/2611.18514",
+      "pdf_url": "https://arxiv.org/pdf/2611.18514",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-13",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "A last-token linear probe predicts when a Qwen2.5-7B web agent will hallucinate a non-existent action (0.80 AUC), and steering along it fixes 85% of hallucinations, but the direction is fragile to prompt formatting and circuit discovery breaks down on agentic tasks.",
+      "summary": [
+        "Mechanistic interpretability works well on curated toy tasks, but it has not yet shown it can explain why LLM agents fail in realistic settings. The authors test this on a concrete failure: web agents choosing actions that do not exist on the page.",
+        "They run Qwen2.5-7B-Instruct as a web agent on live websites and apply a sequence of standard tools: a linear probe on the final prompt token to predict hallucination before generation, activation steering along the probe direction, robustness checks under small prompt-format changes, and circuit identification.",
+        "The probe reaches 0.80 AUC, and steering along its direction corrects 85% of hallucinated actions while breaking 7% of valid ones. However, a minor change in how actions are written in the prompt removes much of the steering effect, and the relevant computation is spread over many components and token positions and differs between examples, so clean circuits are hard to find. Takeaway: a probe direction that both predicts and steers a behaviour is not yet a mechanistic explanation; test steering directions for robustness to input formatting before trusting their geometry. Caveat: a single 7B model and a single failure type."
+      ],
+      "score": 5
+    },
+    {
+      "id": "arxiv:2611.18274",
+      "title": "Right Token, Right Time: From Per-Token Gating to Trajectory-Aware Activation Steering",
+      "authors": [
+        "Nima Eshraghi",
+        "Lovedeep Gondara",
+        "Sagarika Suresh",
+        "Xiaotong Xu",
+        "Jithin Pradeep",
+        "Fanny Chevalier"
+      ],
+      "affiliations": [
+        "The Vanguard Group",
+        "University of Toronto"
+      ],
+      "url": "https://arxiv.org/abs/2611.18274",
+      "pdf_url": "https://arxiv.org/pdf/2611.18274",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-13",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Treating SAE-based steering as choosing which tokens to steer under a fixed budget, a closed-loop controller (CLABS) that steers only where the generation lags the target gives the largest behaviour shift at matched budgets while best preserving fluency.",
+      "summary": [
+        "Applying an SAE steering vector at every generated token pushes activations off the training distribution and hurts generation quality. The authors argue that when along the generation the intervention fires is an under-studied control axis.",
+        "They frame steering as allocating a fixed budget of steerable tokens, so methods differ only in which tokens they pick. Two gates are proposed: Contrastive Feature Projection (CFP), which steers tokens least aligned with the target behaviour via a sparse SAE feature projection, and Closed-Loop Adaptive Bernoulli Steering (CLABS), which tracks accumulated alignment over the trajectory like a feedback controller. For a linear steering-response model they derive a gain region that guarantees CLABS is stable and show its integral term reduces steady-state offset.",
+        "Among budgeted gates at equal budgets, CFP and CLABS give the largest behavioural shift, with CLABS best when the budget is tight, and both preserve fluency best. The abstract gives no specific numbers, models or benchmarks. Takeaway: for steering-geometry work, the timing and sparsity of the intervention is a separate knob from the direction itself, and a budgeted comparison is a fair way to evaluate steering methods. Caveat: the stability guarantee holds only under a linear response model."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.17900",
+      "title": "AmbiSteer: Selectively Eliciting Ambiguity-Aware Responses in Vision-Language Models",
+      "authors": [
+        "Monica Riedler",
+        "Samuele Antonelli",
+        "Barbara Plank",
+        "Raffaella Bernardi"
+      ],
+      "affiliations": [
+        "LMU Munich",
+        "University of Trento",
+        "Free University of Bozen-Bolzano"
+      ],
+      "url": "https://arxiv.org/abs/2611.17900",
+      "pdf_url": "https://arxiv.org/pdf/2611.17900",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-13",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Conditioning a steering direction on a linear ambiguity classifier lets VLMs ask for clarification only on truly ambiguous visual questions, raising appropriately handled inputs from 59.0% to 77.0% on average across three models.",
+      "summary": [
+        "Vision-language models answer confidently even when a question could refer to several objects in the image. Handling this needs the model to tell ambiguous from unambiguous inputs and respond differently, and it is unclear whether activation steering can do that at inference time.",
+        "AmbiSteer compares steering, prompting and their combination on three VLMs for referential ambiguity in VQA. Because unconditional steering also triggers clarification on clear questions, they add a linear classifier on activations that predicts ambiguity and chooses the steering direction per input.",
+        "Steering alone has small, model-dependent effects and prompting is usually stronger; combining both raises clarification and enumeration but over-triggers on unambiguous cases. With the ambiguity classifier, the share of inputs handled appropriately rises from 59.0% to 77.0% on average. Takeaway: a steering vector should be gated by a probe that detects when the behaviour is wanted, and steering should always be compared against a prompting baseline. Caveat: evaluated on referential ambiguity with three VLMs only."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.18179",
+      "title": "Explanations that Transfer: Interpreting Medical Retrieval with Sparse AutoEncoders",
+      "authors": [
+        "Diane Bouchacourt",
+        "Gaëtan Brison"
+      ],
+      "affiliations": [
+        "Doctolib AI Research"
+      ],
+      "url": "https://arxiv.org/abs/2611.18179",
+      "pdf_url": "https://arxiv.org/pdf/2611.18179",
+      "source": "arXiv cs.IR, ML4H 2026 (PMLR 346)",
+      "published": "2026-11-13",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Training an SAE on dense retrieval embeddings with an added InfoNCE relevance loss gives sparse, interpretable codes that improve in-domain medical retrieval and lose less performance out of domain than the original embeddings.",
+      "summary": [
+        "Medical question-answering systems depend on dense-embedding retrieval, which is opaque, and fine-tuning on one medical corpus can hurt transfer to other clinical collections. The paper asks whether sparse autoencoders can make retrieval both interpretable and more transferable.",
+        "They train SAEs on text embeddings with a reconstruction loss plus an InfoNCE contrastive loss that keeps query-document relevance. Three embedding models are tested on six medical retrieval datasets, in domain and out of domain, and features are interpreted from their top-activating queries and documents. Code is released (doctolib-lab/medsae).",
+        "The sparse codes beat the original dense embeddings in domain and degrade less out of domain, especially when the target corpus is far from the training corpus; the abstract gives no exact scores. The learned features are readable and explain why a document was retrieved, and these explanations carry over to new data. Takeaway: adding a task loss to SAE training can keep features both faithful and useful downstream, a pattern that could carry over to medical image embeddings. Caveat: text retrieval only, two-author industry study."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.18114",
+      "title": "Interpretable weight-space programming builds transparent transformers and brain encoding models",
+      "authors": [
+        "Yash Mehta",
+        "Chandan Singh",
+        "Weijia Xu",
+        "Richard J. Antonello",
+        "Adeen Flinker",
+        "Nima Mesgarani",
+        "Michael F. Bonner",
+        "Nebojsa Jojic",
+        "Jianfeng Gao"
+      ],
+      "affiliations": [
+        "Microsoft Research",
+        "Johns Hopkins University",
+        "Columbia University"
+      ],
+      "url": "https://arxiv.org/abs/2611.18114",
+      "pdf_url": "https://arxiv.org/pdf/2611.18114",
+      "source": "arXiv cs.CE, preprint",
+      "published": "2026-11-13",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "An LLM agent writes model weights and features directly in code, with no backpropagation, producing compact interpretable transformers and brain encoding models that beat interpretable baselines in visual cortex and reveal a confound in language fMRI data.",
+      "summary": [
+        "Deep encoding models predict brain responses well but do not explain which stimulus features drive them, which limits their scientific value. Post-hoc interpretation of trained networks only partly solves this.",
+        "In interpretable weight-space programming (iWSP), an LLM agent repeatedly hypothesises, hand-codes and refines model weights and features, learning from previous trials instead of gradient descent; LLM audits then check interpretability. They first build transformers for tasks such as arithmetic and sentiment classification, then encoding models for visual cortex, language fMRI and auditory ECoG. Code: github.com/csinva/weight-space-programming-autoresearch.",
+        "The agent builds compact, accurate networks for the toy benchmarks. In visual cortex iWSP beats existing interpretable baselines, finds different computations in early versus higher areas and generalises to held-out data; in language fMRI it exposes a data confound, and in ECoG it finds interpretable acoustic predictors. The abstract gives no numeric scores. Takeaway: agent-written, interpretable-by-construction models are an alternative to explaining a black box after training. Caveat: interpretability is judged by LLM audits rather than human studies."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.18089",
+      "title": "Deep Latents, Long Memory: Latent persistence explains temporal correlations in transformer activations",
+      "authors": [
+        "Francesco Cagnetta",
+        "Santiago Acevedo"
+      ],
+      "affiliations": [
+        "Simplex",
+        "SISSA"
+      ],
+      "url": "https://arxiv.org/abs/2611.18089",
+      "pdf_url": "https://arxiv.org/pdf/2611.18089",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-13",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Activation autocorrelation across context positions grows with depth in LLMs because deeper layers encode latent variables that persist longer; SAE features persist longer in deeper layers, and ablating persistent SAE features shrinks the autocorrelation.",
+      "summary": [
+        "It is often said that deeper LLM layers encode more abstract representations, but there is no operational way to measure abstraction. The authors propose using temporal correlations of activations along the context as a measurable proxy.",
+        "They define a layer autocorrelation function as the mean dot product of activations at two positions separated by a lag. On synthetic data with controlled hierarchical latent structure they test whether persistent latents explain long autocorrelation tails, and on real text they use sparse-autoencoder features as proxies for latents across several datasets and LLMs, then ablate the persistent features.",
+        "Long autocorrelation tails grow with depth in both synthetic and natural data; in synthetic data this comes from abstract latents that span long input stretches and accounts for most of the measured correlations. In real text, SAE feature persistence correlates strongly with autocorrelation size, persistence rises with depth, and ablating persistent features lowers the autocorrelation. Takeaway: SAE feature persistence over tokens is a cheap, quantitative probe of how abstract a layer is, useful when choosing layers for steering or probing. Caveat: the abstract gives no specific models or correlation values."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.17600",
+      "title": "LightTAR: Light and Fast Target-Aware Representations for Multimodal Tabular Learning",
+      "authors": [
+        "Eilam Shapira",
+        "Alan Arazi",
+        "Shoham Grunblat",
+        "Roi Reichart"
+      ],
+      "affiliations": [
+        "Technion"
+      ],
+      "url": "https://arxiv.org/abs/2611.17600",
+      "pdf_url": "https://arxiv.org/pdf/2611.17600",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-12",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Adding a few target-aware partial-least-squares features from an encoder's final and intermediate layers to the usual PCA-reduced text and image embeddings improves average performance for all 21 tabular learners tested, including tabular foundation models, at little extra runtime.",
+      "summary": [
+        "Tables that mix numbers and categories with free text or images are usually handled by embedding the unstructured fields and shrinking them with PCA. PCA keeps the most variance, which is not necessarily what predicts the target.",
+        "LightTAR keeps the PCA features and adds a small number of target-aware features found with regularised partial least squares on both the final and an intermediate encoder layer. It is evaluated on the MulTaBench datasets with 21 tabular models spanning tree ensembles, neural networks and tabular foundation models. Code is released.",
+        "LightTAR raises average predictive performance for every one of the 21 models and, averaged over models, helps on almost every MulTaBench dataset, with only a small runtime increase over PCA. Takeaway: when feeding embeddings into TabPFN-style models, a supervised reduction step is a cheap, drop-in improvement over PCA. Caveat: the abstract gives no effect sizes, and supervised reduction needs care to avoid target leakage in cross-validation."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.17620",
+      "title": "Safety Side Effects of Preventative Persona Steering: An Empirical Audit",
+      "authors": [
+        "Sabrina Tang",
+        "Nikolai Vo",
+        "Carson Murillo",
+        "Chira Sukumarnpiti",
+        "Sarah Wilson"
+      ],
+      "affiliations": [
+        "UC Irvine",
+        "University of Toledo",
+        "Google"
+      ],
+      "url": "https://arxiv.org/abs/2611.17620",
+      "pdf_url": "https://arxiv.org/pdf/2611.17620",
+      "source": "arXiv cs.AI, NeurIPS 2026 BiAlign Workshop",
+      "published": "2026-11-13",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Preventative steering with persona vectors (adding sycophancy or hallucination vectors during fine-tuning) keeps MMLU but still shifts refusal behaviour by a trait-dependent amount, so it should not be assumed safety-neutral.",
+      "summary": [
+        "Persona vectors are activation directions for traits such as sycophancy and hallucination, and earlier work recommended preventative steering (adding the vector during fine-tuning, then removing it) because it preserves MMLU accuracy. That recommendation was checked only on capability, not safety.",
+        "The authors apply preventative steering with sycophancy and hallucination vectors to three models and measure three safety benchmarks along with trait expression, coherence and MMLU.",
+        "Preventative steering changes refusal behaviour, and the size of the change depends on the trait, so it cannot be called safety-neutral. Takeaway: report several safety benchmarks, not just a capability score, whenever a steering method is evaluated. Caveat: a short 5-page workshop paper; the abstract gives no numbers or model names."
+      ],
+      "score": 3
+    }
+  ]
+}
