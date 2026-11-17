@@ -1,0 +1,225 @@
+{
+  "date": "2026-11-17",
+  "generated_at": "2026-11-17T05:59:51-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.18933",
+      "title": "Geometrically Disentangling Concept Learning from the Language Modeling Loss",
+      "authors": [
+        "Yupei Wang",
+        "Neil Mallinar",
+        "Mikhail Belkin",
+        "Alex Warstadt"
+      ],
+      "affiliations": [
+        "UC San Diego"
+      ],
+      "url": "https://arxiv.org/abs/2611.18933",
+      "pdf_url": "https://arxiv.org/pdf/2611.18933",
+      "source": "arXiv cs.LG, accepted at NeurIPS 2026",
+      "published": "2026-11-13",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Concept Energy, the alignment between a concept subspace and the average gradient outer product (AGOP) of the next-token loss, tends to peak at or before the steepest rise in probe accuracy and can recur later in training, revealing loss-driven concept learning that probe accuracy alone misses.",
+      "summary": [
+        "Probing tells us when a concept becomes decodable in a language model, but not how the single next-token loss actually drives the learning of that concept over pretraining. Probe accuracy usually rises monotonically, which hides when and how often the loss is pushing on a given concept.",
+        "The authors define Concept Energy: the concept-specific alignment between the subspace where a concept currently lives (from a probe) and the AGOP of the next-token-prediction loss, i.e. the directions the loss is most sensitive to. They track it over 19 pretraining checkpoints of Pythia-410M and Pythia-1B for 12 lexical, syntactic and semantic concepts.",
+        "The first Concept Energy peak generally comes at or before the steepest gain in probe decodability, so it can act as a leading indicator of concept learning. Unlike probe accuracy, Concept Energy can show sustained or repeated peaks, suggesting some concepts are reinforced at several points in training. Takeaway: combining a concept subspace with loss-gradient geometry (AGOP) gives a training-dynamics view that pure decodability cannot; the same recipe could be applied to concept or prototype directions in other models. Caveats: only two small Pythia models and 12 concepts, and the abstract reports no quantitative effect sizes. Code, probes and artifacts are released."
+      ],
+      "score": 5
+    },
+    {
+      "id": "arxiv:2611.20371",
+      "title": "Pretty Linear Liars: Unregularized Probes Favor Intervention-Unfaithful Features",
+      "authors": [
+        "Karl Vilhelmsson Emneby",
+        "Julian Yocum",
+        "Cameron Allen"
+      ],
+      "affiliations": [
+        "UC Berkeley (CHAI)"
+      ],
+      "url": "https://arxiv.org/abs/2611.20371",
+      "pdf_url": "https://arxiv.org/pdf/2611.20371",
+      "source": "arXiv cs.LG, accepted at the NeurIPS 2026 Workshop on Interpretability as a Science",
+      "published": "2026-11-16",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Unregularized least-squares probes latch onto low-variance, spuriously correlated activation directions; a moderate ridge penalty gives the most intervention-faithful directions, which closely match directions optimized for interventions directly.",
+      "summary": [
+        "A linear probe that decodes a feature does not prove the model uses that feature; what matters is whether intervening along the probe direction changes behaviour as expected. How probe regularization affects this intervention faithfulness has not been studied systematically.",
+        "The authors analyse ordinary least squares probes and ridge probes with increasing regularization, first theoretically and then empirically in a toy transformer and in Llama-2-7B, measuring intervention faithfulness along each probe direction and comparing with directions learned by optimizing intervention outcomes directly.",
+        "Theory shows OLS probes amplify low-variance directions that happen to correlate with the target. Empirically, faithfulness rises with regularization up to a point and then falls, and the best-regularized probes resemble intervention-optimized features in both direction and variance. Takeaway: when deriving steering or concept directions from probes, tune regularization against an intervention metric rather than probe accuracy, and be wary of unregularized OLS directions. Caveats: a workshop paper with one toy model and one 7B LLM; the abstract gives no numeric effect sizes."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.20441",
+      "title": "Abstention Direction in Large Language Models: Mechanistic Interpretability of Abstention Across Query Ambiguity, Knowledge Limits, and Safety Alignment",
+      "authors": [
+        "Koki Itai",
+        "Jun Hirako",
+        "Hiroaki Yamagiwa"
+      ],
+      "affiliations": [
+        "SB Intuitions"
+      ],
+      "url": "https://arxiv.org/abs/2611.20441",
+      "pdf_url": "https://arxiv.org/pdf/2611.20441",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-16",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Extending the refusal direction to ambiguous queries and knowledge limits, difference-of-means abstention directions steer abstention up or down from middle layers in all three cases and transfer across them, pointing to a shared abstention component.",
+      "summary": [
+        "LLMs abstain for different reasons: an ambiguous query, missing knowledge, or a conflict with human values. Prior representation work has studied only the safety case, through the refusal direction built from harmful versus harmless prompts, so it is unclear whether the other kinds of abstention use the same internal mechanism.",
+        "For each of the three causes, the authors build counterfactual prompt pairs that share a template and differ only in the factor that should trigger abstention. They take the normalized difference of mean activations between the two sides as an abstention direction and add or subtract it in different layers.",
+        "Steering in middle layers raises or lowers abstention for all three causes, and a direction from one cause also shifts abstention for the others, which suggests a common directional component. Takeaway: template-matched counterfactual pairs are a clean way to isolate a behavioural direction, and cross-direction transfer is a useful test of whether directions share geometry. Caveats: the abstract gives no numbers, model list or measures of side effects on answer quality."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.21348",
+      "title": "Representational Change Under Self-Consuming Training: A Sparse Autoencoder Analysis",
+      "authors": [
+        "Suchit Gupte",
+        "Zhongteng Cai",
+        "Xueru Zhang",
+        "Mohammad Mahdi Khalili"
+      ],
+      "affiliations": [
+        "Ohio State University"
+      ],
+      "url": "https://arxiv.org/abs/2611.21348",
+      "pdf_url": "https://arxiv.org/pdf/2611.21348",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-16",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Across five generations of training on model-generated text, SAEs trained before the shift lose reconstruction and sparsity progressively; fine-tuning recovers reconstruction, but task information spreads over more latents, so reconstruction alone does not show an adapted SAE is still interpretable.",
+      "summary": [
+        "Future LLMs may be trained on the outputs of earlier models. Work on these self-consuming loops has measured output quality, not what happens to internal representations or whether interpretability tools such as SAEs stay reliable.",
+        "The authors train five generations of models on synthetic data, each with a matched control trained on real data under the same settings. They test how SAEs trained before self-consumption transfer zero-shot to later generations (reconstruction and sparsity across SAE widths, architectures and layers), then fine-tune the original SAE on each generation and use sparse probing to check whether task information stays concentrated in few latents.",
+        "Zero-shot SAE quality degrades steadily over generations, with reconstruction and sparsity gaps that vary a lot by layer. Fine-tuning largely restores reconstruction, but task-relevant information becomes less concentrated in individual features while staying recoverable from the full latent space. Takeaway: after any distribution or model shift, check SAE feature usefulness (for example with sparse probing), not just reconstruction loss. Caveats: the abstract gives no model sizes or numbers."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.20840",
+      "title": "Interpretable deep concepts of organoid morphology",
+      "authors": [
+        "Lion Jasper Gleiter",
+        "Tingying Peng"
+      ],
+      "url": "https://arxiv.org/abs/2611.20840",
+      "pdf_url": "https://arxiv.org/pdf/2611.20840",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-16",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "SAEs trained on DINOv3 and an organoid-specific foundation model give spatially labelled concepts that produce coarse out-of-domain segmentations, improve AUROC on three of five tasks when filtered, and expose a preprocessing confound.",
+      "summary": [
+        "Foundation-model features beat handcrafted features for classifying organoid morphology (a readout of drug response or differentiation), but they hide which visual cues the classifier relies on, which matters for trusting biomedical image models.",
+        "The authors train sparse autoencoders on features from DINOv3 (general purpose) and ViTAMIn-O (organoid-specific). They annotate each concept with a spatial label (organoid, organoid wall, background) and measure its dataset specificity and relevance across five classification tasks.",
+        "Spatial labels of DINOv3-SAE concepts give coarse organoid segmentations on out-of-domain datasets, and keeping only concepts with certain spatial labels raises downstream AUROC on three of five tasks. Inspecting the most relevant concepts revealed a confound introduced by the authors' own preprocessing in one task. Takeaway: SAE concepts on a frozen vision foundation model are a practical way to audit medical image classifiers for shortcuts, and the same workflow could be tried on ultrasound encoders. Caveats: the abstract gives no AUROC values, and the SAEs are only promised on publication."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.20174",
+      "title": "Weights & Caches: LLMs Can Program Tabular Foundation Models",
+      "authors": [
+        "Shi Bin Hoo",
+        "Magnus Buehler",
+        "Omar Swelam",
+        "Frank Hutter",
+        "Lennart Purucker"
+      ],
+      "affiliations": [
+        "University of Freiburg",
+        "Prior Labs",
+        "ELLIS Institute Tübingen"
+      ],
+      "url": "https://arxiv.org/abs/2611.20174",
+      "pdf_url": "https://arxiv.org/pdf/2611.20174",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-15",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "An LLM, without gradients, writes nanoTabPFN weights reaching 0.849 mean ROC AUC on 20 TabArena datasets (pretrained: 0.876), repairs a TabPFN-3.5 failure mode, and edits its KV cache to steer predictions.",
+      "summary": [
+        "Neural networks are normally programmed by gradient descent. Tabular foundation models such as TabPFN apply the same weights across datasets, which makes them a natural test of whether an LLM can directly write or edit the computations inside a network.",
+        "From the TabPFN team, the authors use the LLM GPT-6 Astra without gradient-based optimization in three settings: programming nanoTabPFN weights from zero initialization; diagnosing and repairing a signed-product regression failure in pretrained TabPFN-3.5; and writing KV-cache-editing programs that steer TabPFN-3.5 on unseen synthetic datasets.",
+        "The hand-programmed nanoTabPFN reaches 0.849 mean ROC AUC on 20 TabArena datasets versus 0.876 for a pretrained baseline. The repair restores near-perfect predictions on held-out synthetic data with only a 0.08% average relative error increase on TabArena-Lite, and KV-cache edits can, for example, reverse linear trends or turn sine waves into approximate square waves without changing weights. Takeaway: TabPFN-style models are transparent enough to be edited by targeted weight and cache interventions, which opens a route to mechanistic studies and steering of tabular foundation models. Caveats: relies on one proprietary LLM, and the repair and steering tests use synthetic data."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.20637",
+      "title": "Counterfactual Feature Steering for Adjacency-Preserving Identity Unlearning",
+      "authors": [
+        "FNU Shivam",
+        "Layth Sliman",
+        "Ramana Reddy",
+        "Donald Adjeroh",
+        "Binod Bhattarai",
+        "Prashnna Gyawali"
+      ],
+      "affiliations": [
+        "West Virginia University",
+        "EFREI Paris",
+        "University of Aberdeen"
+      ],
+      "url": "https://arxiv.org/abs/2611.20637",
+      "pdf_url": "https://arxiv.org/pdf/2611.20637",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-16",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Steering in the SAE latent space of a diffusion text encoder, with a per-token projection scaled by each token's alignment to a forget-versus-retain direction, gives the best trade-off between erasing a target identity and preserving similar ones on 4,000 Celeb-100 prompts.",
+      "summary": [
+        "Removing a specific person from a text-to-image model should not also damage the model's ability to generate related, non-target people. Existing steering-based unlearning tends to cause such collateral damage or becomes unstable as intervention strength grows.",
+        "Counterfactual Feature Steering (CFS) trains an SAE once on the text encoder, derives a target direction by contrasting forget and retain distributions in SAE latent space, and at inference projects each token by an amount proportional to its current alignment with that direction. The authors also propose the Adjacency-Weighted Unlearning Score (AWUS), extended with ArcFace face similarity, to measure erasure against collateral damage.",
+        "On 4,000 prompts covering 100 celebrity identities from Celeb-100, CFS gives the strongest evaluated erasure-versus-preservation trade-off and stays stable across intervention strengths where other steering methods degrade; ArcFace checks, a 10,000-caption COCO study, and nudity and art-style tests support transfer on SD 1.4. Takeaway: scaling the edit by each token's alignment with the direction, rather than adding a fixed vector, is a simple way to limit off-target effects of steering. Caveats: tested only on SD 1.4, and the abstract gives no numeric scores."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.20468",
+      "title": "Tabular Foundation Models as Emulators for Forecasting Terrestrial Ecosystem Dynamics",
+      "authors": [
+        "Zhihao Wang",
+        "Ruohan Li",
+        "Lei Ma",
+        "George Hurtt",
+        "Xiaowei Jia",
+        "Yiqun Xie"
+      ],
+      "affiliations": [
+        "University of Maryland",
+        "Rutgers University"
+      ],
+      "url": "https://arxiv.org/abs/2611.20468",
+      "pdf_url": "https://arxiv.org/pdf/2611.20468",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-16",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "With no task training, TabPFN-3.5 matches or beats task-specific deep emulators of an ecosystem model on some outputs (best height error, within 4% on soil carbon) and is the most accurate on most outputs under the high-emissions 2060 scenario, but misses the biomass response to forcing.",
+      "summary": [
+        "Process-based ecosystem models behind global carbon budgets are expensive to run, and the deep emulators that speed them up need task-specific architectures and training. TabPFN offers an untrained alternative through in-context learning on tables.",
+        "The authors compare TabPFN-3.5 with two DeepED emulators (LSTM and Transformer) on CarbonGlobe, training on a 1/16 sample of sites and testing on the other 50,779 for seven 40-year Ecosystem Demography outputs. They then test models trained on present-day data on ED runs forced by SSP1-2.6 and SSP5-8.5 for 2021 to 2060 in six forest regions.",
+        "TabPFN-3.5 has the lowest present-day height error and is within 4% of the LSTM emulator for soil carbon, but is worse for biomass, leaf area index and carbon fluxes. In 2060 all models have errors several times larger and underestimate biomass gains; under SSP5-8.5 TabPFN-3.5 is the most accurate for height, biomass, soil carbon and leaf area, with the lowest biomass error in all six regions, yet unlike the simulator it predicts no larger gain than under SSP1-2.6. Takeaway: off-the-shelf tabular foundation models are strong baselines under distribution shift, but they can miss directional responses that physics demands, so check extrapolation behaviour, not just error. Caveat: a single domain and simulator."
+      ],
+      "score": 3
+    }
+  ]
+}
