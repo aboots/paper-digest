@@ -1,0 +1,288 @@
+{
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T06:08:05-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.24363",
+      "title": "Transferable Named Sparse Features for Morphology-based Gleason Grading",
+      "authors": [
+        "Argyrios Zafeiriou",
+        "Athanasios Kallipolitis",
+        "Ilias Maglogiannis"
+      ],
+      "affiliations": [
+        "University of Piraeus"
+      ],
+      "url": "https://arxiv.org/abs/2611.24363",
+      "pdf_url": "https://arxiv.org/pdf/2611.24363",
+      "source": "arXiv eess.IV, preprint",
+      "published": "2026-11-18",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "An SAE trained on pathology foundation model tokens, with 69 of 2048 features aligned to named Gleason morphologies, drives a Gleason grading network whose morphology maps transfer to external data without retraining (cribriform AUROC 0.849, pattern 5 AUROC 0.846 to 0.919).",
+      "summary": [
+        "AI systems for prostate biopsy grading can match pathologists on the final grade, but they usually give no account of the gland patterns that justify it. Clinicians need evidence they can check, and post-hoc saliency maps do not name the morphology behind a decision.",
+        "The authors pretrain a sparse autoencoder (2048 features) on tokens from a pathology foundation model over prostate biopsies, then align it with multi-reader annotations so that 69 features carry Gleason morphology names such as cribriform glands, cords and comedonecrosis. A grading network reads the full sparse code to predict Gleason patterns and the Grade Group, while morphology maps come straight from the named features. Evaluation uses five public datasets covering needle biopsies, tissue-microarray cores, multi-reader labels and three scanners.",
+        "Without retraining, the named-feature maps detect cribriform glands in external biopsies with AUROC 0.849 and pattern 5 in unseen cores with AUROC 0.846 to 0.919 against up to six pathologists, and the maps are stable across alignment runs. On an independent Leica cohort, Grade Group agreement with three pathologists is close to inter-pathologist agreement. Ablating the named features cuts the matching pattern predictions by 49% to 98%, more than 20 activity-matched random removals. Takeaway for prototype-style prostate work: naming a subset of SAE features with expert annotations and testing them by ablation is a concrete recipe for faithful, concept-level evidence that could be tried on micro-ultrasound encoders. Caveat: this is histopathology, not imaging-based detection, and the abstract gives no direct comparison numbers against non-interpretable graders."
+      ],
+      "score": 5
+    },
+    {
+      "id": "arxiv:2611.24619",
+      "title": "GateWatch: Low-Overhead LLM Monitoring with Boolean Circuits",
+      "authors": [
+        "Firas Spanioli",
+        "Yaniv David"
+      ],
+      "affiliations": [
+        "Technion"
+      ],
+      "url": "https://arxiv.org/abs/2611.24619",
+      "pdf_url": "https://arxiv.org/pdf/2611.24619",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-18",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "GateWatch replaces SAE linear probes with tiny Boolean circuits over binarized SAE features: on 24 tasks with Gemma-2-9B it reaches 80.49% mean accuracy with about 3.8 features and 3.5 gates per probe, only 1.17 points below full 16K-feature probes, while cutting probe memory by 99.98%.",
+      "summary": [
+        "Probes on LLM activations are a cheap way to monitor deployed models and agents for unsafe behavior. Raw-activation probes are not interpretable, while SAE-based probes use interpretable features but typically rely on dense additive classifiers and large SAE encoders, which costs memory and still hides the decision rule.",
+        "GateWatch expresses the entire classifier as explicit Boolean logic over a handful of binarized SAE features, built under a fixed gate budget with three alternative construction approaches. A serving system, GateWatchServe, computes only the selected SAE features, streams their binary values across layers during inference, and evaluates many classifiers in parallel through compact lookup tables inside vLLM. Experiments use 24 classification tasks on Gemma-2-9B.",
+        "Mean test accuracy is 80.49% using on average 3.8 SAE features and 3.5 logic gates per probe, 1.17 percentage points below 16K-feature SAE probes, matching or beating them on 10 tasks, with 99.98% less probe memory. Running 1,000 concurrent multi-layer, multi-token classifiers in vLLM keeps 97-98% of baseline throughput and 99.8% of KV-cache capacity. Takeaway: if a task is reliably signalled by a few SAE features, a small logical rule is almost as accurate as a dense probe and is fully readable, which is a useful baseline for SAE evaluation and monitoring work. Caveat: results are on one model family (Gemma-2-9B with its SAEs), and accuracy still trails full probes on most tasks."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.24598",
+      "title": "Chain-of-Thought Hidden States Reveal Task-Solving Directions for Direct Answers",
+      "authors": [
+        "Houman Mehrafarin",
+        "Ioannis Konstas"
+      ],
+      "affiliations": [
+        "Heriot-Watt University",
+        "University of Edinburgh"
+      ],
+      "url": "https://arxiv.org/abs/2611.24598",
+      "pdf_url": "https://arxiv.org/pdf/2611.24598",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-18",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Rotating the direct-answer prompt's last hidden state once toward a per-question direction built from CoT hidden states raises mean accuracy across 25 tasks from 46% to 85% on LLaMA 3.1 8B (CoT gets 69%), using a tenth of CoT's tokens.",
+      "summary": [
+        "Chain-of-thought prompting usually helps, but it can hurt on some tasks and often spends hundreds of tokens to reach an answer. It is unclear whether the model's representation space already contains a shorter route to the correct answer.",
+        "The authors patch each CoT hidden state into the direct-answer prompt and label it recovering if the patched model answers correctly, failed otherwise; a linear probe shows the two classes are encoded differently. For each question they then build a direction from its own recovering and failed states and rotate the direct prompt's final hidden state toward it once, before generation. They test on 25 tasks with LLaMA 3.1 8B and Qwen 2.5 7B.",
+        "Mean direct-prompt accuracy rises from 46% to 85% on LLaMA 3.1 8B (CoT: 69%) and from 52% to 86% on Qwen 2.5 7B (CoT: 77%), with about a tenth of CoT's tokens. Takeaway for steering-geometry work: a single rotation (rather than additive offset) of one hidden state can carry most of what CoT buys, and recovering-versus-failed patching is a neat way to define target directions. Caveat: the directions are built per question from that question's own CoT states, so this is an existence result rather than a deployable method without CoT; tests are on two 7-8B models only."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.21307",
+      "title": "Programmable Semantic Interventions: Learning Causal Carriers from Behavioral Programs",
+      "authors": [
+        "Paolo Muratore",
+        "Mackenzie Weygandt Mathis"
+      ],
+      "affiliations": [
+        "EPFL"
+      ],
+      "url": "https://arxiv.org/abs/2611.21307",
+      "pdf_url": "https://arxiv.org/pdf/2611.21307",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-16",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Programmable Semantic Interventions learn a low-rank activation subspace from a declared 'semantic program' instead of curated counterfactual pairs; it matches supervised alignment on the MIB benchmark and enables donor-free steering that realizes 94.8% of held-out requested answers.",
+      "summary": [
+        "Causal abstraction explains a frozen network by aligning its activations with variables of a simpler model and checking that interventions agree. Finding that alignment today needs a counterfactual dataset with the correct answer for every prompt pair, usually produced by a hand-written algorithm, which is costly and bakes in assumptions.",
+        "PSI lets the investigator declare a semantic program: which answers a variable can produce and which one an intervention should yield. A low-rank activation subspace is trained so that interchanging it changes the model's answer as declared, with the expected answers read from the frozen model itself, so no ground-truth labels or curated pairs are needed. The declared coordinates also allow steering to a chosen answer without donor prompts when localization and control are trained jointly.",
+        "On the MIB benchmark PSI performs on par with supervised alignment at matched data and training budget. On natural-science questions with gold labels withheld, it tracks the model's own answers better than a subspace trained on gold labels. Joint training for localization and control realizes 94.8% of held-out requests without donor prompts. Takeaway: this bridges causal-abstraction interpretability and steering, giving a labelled, low-rank coordinate system that could be reused to test whether steering directions are causal carriers. Caveat: the abstract does not report which models were used or how results vary with scale."
+      ],
+      "score": 4,
+      "thumbnail": "https://arxiv.org/html/2611.21307v1/encoding-transfer.png"
+    },
+    {
+      "id": "arxiv:2611.24214",
+      "title": "Towards Reliable Scaling Laws for Tabular Foundation Models",
+      "authors": [
+        "Johannes Hog",
+        "Neeratyoy Mallik",
+        "Steven Adriaensen",
+        "Jan Hendrik Metzen",
+        "Tom Viering",
+        "Danny Stoll",
+        "Frank Hutter"
+      ],
+      "affiliations": [
+        "University of Freiburg",
+        "Prior Labs",
+        "ELLIS Institute Tübingen"
+      ],
+      "url": "https://arxiv.org/abs/2611.24214",
+      "pdf_url": "https://arxiv.org/pdf/2611.24214",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-18",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Scaling laws for TabPFNv2-style models fitted on synthetic data do not reliably transfer to real tables, choosing configurations on too few evaluation datasets gives over-optimistic estimates, and compute-optimal scaling needs larger pretraining tables (more rows and features) alongside model size.",
+      "summary": [
+        "Scaling laws guide how to spend compute on foundation models, but tabular foundation models are pretrained on effectively unlimited synthetic data from configurable priors and then judged on real datasets. Whether standard scaling-law practice holds in this setting has not been checked carefully.",
+        "The authors, from Frank Hutter's group with Prior Labs, train TabPFNv2-style models at a range of compute budgets using the open nanoTabPFN pipeline and test whether fitted scaling laws extrapolate to larger budgets and across evaluation settings. They vary model size, training compute and the size of sampled synthetic pretraining tables (maximum rows and features).",
+        "Synthetic and real-world scaling behave differently, and a scaling law that fits well does not necessarily give reliable prescriptions on unseen datasets; selecting configurations with too few evaluation datasets systematically overestimates performance. Compute-optimal scaling requires widening the range of synthetic dataset sizes together with model size and compute, and raising the maximum rows and features during pretraining improves performance and makes trends more predictable. Takeaway: anyone pretraining or comparing tabular FMs should evaluate on many real datasets and scale the prior's table sizes, not only parameters. Caveat: the abstract gives no headline numbers, and the study is limited to TabPFNv2-like architectures."
+      ],
+      "score": 4,
+      "thumbnail": "https://arxiv.org/html/2611.24214v1/pareto_fits_with_nd.png"
+    },
+    {
+      "id": "arxiv:2611.23779",
+      "title": "TabBioMed: A Large-Scale Benchmark for Biomedical Tabular Learning",
+      "authors": [
+        "Pau Mateo-Bernadó",
+        "Saivenkata Nagavyjayanthi Polapragada",
+        "David Bonet",
+        "Pol Arbiol Rakuljic",
+        "Laia Mogas Pladevall",
+        "Marçal Comajoan Cara",
+        "Jesus Gonzalez-Ferrer",
+        "Jordi Abante",
+        "Daniel Mas Montserrat",
+        "David Haussler",
+        "Alexander G. Ioannidis"
+      ],
+      "affiliations": [
+        "Stanford",
+        "UC Santa Cruz",
+        "UPC"
+      ],
+      "url": "https://arxiv.org/abs/2611.23779",
+      "pdf_url": "https://arxiv.org/pdf/2611.23779",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-18",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "TabBioMed benchmarks 23 models on 94 public biomedical tabular datasets; tabular foundation models are the strongest family overall, but tuned trees and MLPs stay competitive and often win under inference or training-cost limits.",
+      "summary": [
+        "Biomedical tabular data is high-dimensional, large, incomplete and imbalanced, yet evaluation of tabular models in this area is scattered across small, inconsistent studies. That makes it hard to know whether newer tabular foundation models actually help biomedical prediction.",
+        "TabBioMed curates 94 public datasets spanning electronic health records, drug discovery, genomics, transcriptomics, proteomics, metabolomics, single-cell omics and systems biology, with standardized dataset-aware preprocessing and splits for classification, regression and multi-target tasks. The authors benchmark 23 models covering classical baselines, gradient-boosted trees, neural tabular architectures and tabular foundation models, and release data, code, baselines and results on GitHub.",
+        "Foundation models give the best family-level predictive performance, but the gains depend on the regime: gradient-boosted trees and tuned MLPs remain highly competitive and often dominate when inference time or training cost is constrained. The overall message is that the best model depends on data regime, task type and compute budget. Takeaway: a ready-made, wide biomedical testbed for tabular FMs or tabular SSL methods, and a reminder to report cost alongside accuracy. Caveat: the abstract does not give per-model numbers, so the size of the foundation-model advantage needs the paper's tables."
+      ],
+      "score": 4,
+      "thumbnail": "https://arxiv.org/html/2611.23779v1/final_21_win_rate.png"
+    },
+    {
+      "id": "arxiv:2611.23516",
+      "title": "Beyond the Sink Token: Sink-Guided Key Editing in Vision-Language Models",
+      "authors": [
+        "Hui Zhu",
+        "Saleh Zare Zade",
+        "Rafi Ibn Sultan",
+        "Xiangyu Zhou",
+        "Dongxiao Zhu"
+      ],
+      "affiliations": [
+        "Wayne State University"
+      ],
+      "url": "https://arxiv.org/abs/2611.23516",
+      "pdf_url": "https://arxiv.org/pdf/2611.23516",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-17",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "In VLMs the attention-sink key direction acts as a control axis: shrinking sink-aligned components of all keys (SHRINK, training-free) raises mean accuracy on nine benchmarks by 5.1 points on LLaVA-OneVision-7B and 2.7 on Qwen2.5-VL-3B.",
+      "summary": [
+        "A few sink tokens absorb a large share of attention in vision-language models. Prior work asked why sinks form, but not how the sink's key direction shapes attention to image and question tokens elsewhere in the sequence.",
+        "Across four VLMs, the authors probe how amplifying positive or negative sink-aligned components of keys changes attention, finding consistent, layer-persistent effects. They then propose SHRINK, a training-free edit that partially removes sink-aligned components from visible keys during generation, and show that rescaling these components can stand in for the attention operations of two existing attention-steering methods, GIFT and ACG.",
+        "Boosting positive sink-aligned components raises attention on average and boosting negative ones lowers it. On nine benchmarks under sampled reasoning, SHRINK improves mean accuracy by 5.1 and 2.7 points on LLaVA-OneVision-7B and Qwen2.5-VL-3B, with smaller gains on Qwen2.5-VL-7B and Gemma-3-4B, and the rescaling matches GIFT and ACG on hallucination benchmarks. Takeaway for steering geometry: the sink key gives a natural reference direction for editing keys rather than residual activations. Caveat: gains shrink on the larger or different models tested, and only small VLMs are covered."
+      ],
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.23516v1/x1.png"
+    },
+    {
+      "id": "arxiv:2611.22120",
+      "title": "What MoE Routing Controls: Causal Interventions on Expert Trajectories",
+      "authors": [
+        "Mukund Athmaram",
+        "Manoj Rao",
+        "Liang Ma"
+      ],
+      "affiliations": [
+        "AMD",
+        "Cornell"
+      ],
+      "url": "https://arxiv.org/abs/2611.22120",
+      "pdf_url": "https://arxiv.org/pdf/2611.22120",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-17",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Biasing router logits to push tokens along chosen expert paths in Qwen3-30B-A3B reliably changes output format, but concept paths only shift next-token probabilities with little effect on generated text; effects concentrate in middle layers.",
+      "summary": [
+        "Mixture-of-experts LLMs route each token through a sequence of experts, but it is not clear what those routing paths control. Knowing this matters for using routing as a steering handle, an alternative to activation addition.",
+        "The authors build target expert paths from the experts most used by tokens of a given format or concept, then add a fixed bias to those experts' router logits during generation. They study format targets (form of output) and concept targets (topic) in Qwen3-30B-A3B, steer only part of the generation to probe dynamics, and relate concept strength to embedding distinctiveness and word frequency.",
+        "Steering a format path changes the written text, and evidence suggests a started format reinforces itself. Concept paths shift next-token probabilities toward the concept, even when built in another language, yet barely change generated text; religion and money steer most strongly and effects sit in middle layers. Takeaway: router-level steering is good for format control but weak for content, a useful contrast with residual-stream steering. Caveat: one model only and the abstract gives no quantitative effect sizes."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.22738",
+      "title": "Can Activation Steering Substitute for Prompt-Based Affective Priming in LLM Digital Twins?",
+      "authors": [
+        "Junyi Fan"
+      ],
+      "affiliations": [
+        "USC"
+      ],
+      "url": "https://arxiv.org/abs/2611.22738",
+      "pdf_url": "https://arxiv.org/pdf/2611.22738",
+      "source": "arXiv cs.AI, preprint, code released",
+      "published": "2026-11-17",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Adding a mean-difference direction from human writing to Llama-3.1-8B's residual stream can mimic affective priming in LLM digital twins at one strength (gratitude, beta about 2.7) but overshoots beyond it and acts asymmetrically, so validity of steering as a manipulation is measure-dependent.",
+      "summary": [
+        "Social scientists induce emotions by having people write about a recalled event, and the same priming shifts LLM digital twins. Writing the full text is costly, so activation steering is a tempting shortcut, but whether it is a valid substitute is untested.",
+        "Using Llama-3.1-8B-Instruct with 100 personas in two domains (gratitude, lack of control), the author compares a real-prompt path replicating the Twin-2K-500 Mega Study with an injection path that skips the writing and adds a mean-difference direction, extracted from human writing, at varying strengths. A structure-matched No-Injection baseline separates the effect of dropping the writing task from the effect of the direction itself.",
+        "Real-prompt effects fall between the original human and digital-twin effects in 5 of 6 comparisons. Injection moves the manipulation check dose-dependently and matches the real-prompt effect at one strength in gratitude (beta about 2.7) but overshoots beyond it and behaves asymmetrically across directions; omitting the writing raises the proximal measure in both domains, while the direction itself moves a distal measure in lack-of-control. Takeaway: steering strength needs calibration against a behavioral reference, and a no-injection control is essential to attribute effects. Caveat: single 8B model, single author, two domains."
+      ],
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.22738v1/injection_pipeline.png"
+    },
+    {
+      "id": "arxiv:2611.24557",
+      "title": "The geometry of neural network decision boundaries",
+      "authors": [
+        "Dylan M Paiton",
+        "David L Schultheiss",
+        "Matthias Kümmerer",
+        "Zac Cranko",
+        "Matthias Bethge"
+      ],
+      "affiliations": [
+        "University of Tübingen"
+      ],
+      "url": "https://arxiv.org/abs/2611.24557",
+      "pdf_url": "https://arxiv.org/pdf/2611.24557",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-18",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Measuring decision-boundary geometry directly in input space shows boundaries lie close to samples within large continuous subspaces, and training method (e.g. adversarial training) shapes boundary distance and curvature far more than architecture or test accuracy.",
+      "summary": [
+        "Decision boundaries of neural networks are central to robustness and interpretability, but they are usually studied through low-dimensional projections that distort their geometry. Many competing theories of boundary behavior have not been checked with direct measurements.",
+        "The Bethge lab introduces a method to visualize and measure boundary distance and curvature directly in the high-dimensional input space. They analyze diverse inputs, architectures and training methods, including adversarial training, and track how distance and curvature change as the probed subspace grows.",
+        "Boundary distances grow smoothly and slowly with consistent curvature as subspace size increases, implying boundaries sit near samples across large continuous subspaces; adversarial training reduces distances and curvatures near data points by quantifiable amounts, and training method matters significantly more than architecture or accuracy. Takeaway: a direct geometric tool for comparing trained models, potentially useful for probing how prototype or steered models carve input space. Caveat: the abstract gives no concrete numbers and focuses on image classifiers rather than LLMs."
+      ],
+      "score": 3
+    }
+  ]
+}
