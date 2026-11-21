@@ -1,0 +1,172 @@
+{
+  "date": "2026-11-21",
+  "generated_at": "2026-11-21T06:05:22-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.25640",
+      "title": "Erasing the Wrong Thing: Conditional Attribute Leakage and Concept Erasure in Shared Foundation-Model Embeddings",
+      "authors": [
+        "Haijun He",
+        "Fei Li",
+        "Donghong Ji",
+        "Junjun He"
+      ],
+      "affiliations": [
+        "Wuhan University",
+        "Shanghai Innovation Institute"
+      ],
+      "url": "https://arxiv.org/abs/2611.25640",
+      "pdf_url": "https://arxiv.org/pdf/2611.25640",
+      "source": "arXiv cs.CR, preprint",
+      "published": "2026-11-19",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "When the task label and a sensitive attribute are correlated, linear concept erasure such as LEACE cannot remove the attribute both globally and within each task class, so chest-tube status stays readable inside diagnosis strata of erased chest X-ray embeddings; a task-conditional variant, TC-LEACE, fixes the within-class leak while recovering most of the lost task utility.",
+      "summary": [
+        "Hospitals and data holders increasingly share foundation-model embeddings instead of raw medical images, assuming that a concept-erasure step strips sensitive attributes. Standard erasure methods only guarantee that a linear probe cannot recover the attribute across the whole population, which says nothing about leakage inside each task class.",
+        "The authors prove that when binary task and sensitive labels are associated, global and task-conditional linear guardedness cannot both hold while any linear task signal survives, and they derive a closed-form estimate of the utility cost of global erasure from pre-erasure statistics. They then propose TC-LEACE, a closed-form LEACE variant that enforces guardedness separately within each task stratum. Evaluation covers four vision foundation models on 85 CelebA attribute pairs and three foundation models (two biomedical) on hospital chest radiographs where chest-tube status is strongly tied to diagnosis.",
+        "After LEACE, conditional leakage remains in all four encoders, the gap between marginal and conditional audits grows with label-attribute association, and the predicted utility costs track the observed losses. On chest X-rays, a marginal attack on erased embeddings looks safe, yet chest-tube status is still detectable within diagnosis strata; TC-LEACE recovers most of LEACE's task-utility loss while keeping conditional leakage within a set margin of LEACE. Takeaway: anyone removing a concept direction from medical-image features (for example a scanner, site or shortcut cue in ultrasound embeddings) should audit leakage per class, not only globally, because a confounded shortcut can survive marginal erasure. Caveat: the guarantees are linear only, and the abstract reports no numeric effect sizes."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.26291",
+      "title": "Who Moved My $Z$ Boson? Revealing Resonance Features Inside a Neural Network",
+      "authors": [
+        "Kevin Alberto Urquía Calderón",
+        "Midori Kato",
+        "Inar Timiryasov",
+        "Oleg Ruchayskiy"
+      ],
+      "affiliations": [
+        "Niels Bohr Institute, University of Copenhagen"
+      ],
+      "url": "https://arxiv.org/abs/2611.26291",
+      "pdf_url": "https://arxiv.org/pdf/2611.26291",
+      "source": "arXiv hep-ph, preprint",
+      "published": "2026-11-19",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Gradient-based features found inside ShellFlow, a generative model trained on real LHC muon data, encode particle resonances such as the Z, J/psi and Upsilon, and editing them moves the Z mass between about 80 and 105 GeV while leaving the rest of the mass spectrum mostly intact.",
+      "summary": [
+        "Mechanistic interpretability has found human-aligned concepts inside language and image models, but it is less clear whether a generative model of scientific data learns physically meaningful concepts that nobody labelled. Collider physics offers a clean test, since resonances are well defined and their effect on the invariant-mass spectrum is measurable.",
+        "The authors study ShellFlow, a generative model trained only to produce final-state muon kinematics from real LHC data, and never told which muons come from a resonance. They build candidate features from the network's gradients and sharpen their selectivity with pattern-recognition methods, then intervene on these features to edit or remove the resonance.",
+        "They find features for the Z, J/psi and Upsilon resonances. Steering the Z feature shifts the Z mass between roughly 80 and 105 GeV, and removing it gives a broader Z peak, with the rest of the invariant-mass spectrum mostly unchanged in both cases. Takeaway: gradient-derived features plus targeted interventions can isolate and edit a single physical concept in a non-language generative model, which is a useful template for checking whether an imaging model has an editable internal feature for a known quantity. Caveat: this is one model in one physics domain, and the abstract gives no quantitative selectivity scores or comparison with SAE-style feature discovery."
+      ],
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.26291v1/fig_app_cos_maps.png"
+    },
+    {
+      "id": "arxiv:2611.26590",
+      "title": "Probing the \"Conscious\" Mind: Selective Access and Global Workspace in Vision-Language Models",
+      "authors": [
+        "Jiahao Huang",
+        "Jun Wang"
+      ],
+      "affiliations": [
+        "Imperial College London",
+        "UCL"
+      ],
+      "url": "https://arxiv.org/abs/2611.26590",
+      "pdf_url": "https://arxiv.org/pdf/2611.26590",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-19",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "MC-Lens, a Jacobian lens covering both the vision encoder and the language decoder, shows that VLM intermediate states carry concept information that is selectively accessed per task and causally used downstream, with similar patterns across VLM families and sizes.",
+      "summary": [
+        "Vision-language model outputs do not show how concepts are represented and routed internally, and existing lenses mostly look at language models alone. The authors use global workspace theory from brain science (selection, integration in a shared space, broadcast to specialised processes) as a frame for asking how VLMs handle multimodal concepts.",
+        "They introduce the Multimodal Concept Lens (MC-Lens), which maps intermediate states of the vision encoder and the language decoder into a shared semantic space defined by the decoder's output vocabulary, so that concept accessibility can be compared across modalities. MC-Lens also supports interventions on internal concepts, and the authors widen \"readout carriers\" from a single name token to a token set for counterfactual experiments. They also define two J-space metrics to track cross-modal concept alignment during controlled VLM training.",
+        "Concept information is readable in intermediate states and accessed selectively depending on the query, and counterfactual interventions show it takes part in downstream reasoning. The J-space metrics track the development of cross-modal alignment more clearly than hidden-state cosine, and reliable selective access emerges later in training than accessibility itself. Takeaway: a decoder-vocabulary Jacobian lens applied to the vision encoder is a cheap way to see which concepts a VLM can read out at each layer and to run concept-level interventions. Caveat: the abstract is qualitative, gives no numbers, and the brain-theory framing is an analogy rather than a tested claim."
+      ],
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.26590v1/kite-cat-suitcase-scene.png"
+    },
+    {
+      "id": "arxiv:2611.25808",
+      "title": "Language models represent more about emphasis than they can tell you",
+      "authors": [
+        "Aarne Talman",
+        "Stergios Chatzikyriakidis"
+      ],
+      "affiliations": [
+        "University of Helsinki",
+        "University of Turku",
+        "Athena Research Centre"
+      ],
+      "url": "https://arxiv.org/abs/2611.25808",
+      "pdf_url": "https://arxiv.org/pdf/2611.25808",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-19",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Linear probes recover more information about word-level prosodic prominence from LLM representations than prompting does: prompted LLMs do no better than a word-majority baseline even with 500 examples, text models top out at 68.8% on the 3-way task, and speech models reach 84.7%.",
+      "summary": [
+        "Prosodic prominence (which words are emphasised) is partly determined by the text and partly by how a speaker reads it. It is unclear how much of it language models encode from text alone, and whether they can report what they encode when asked.",
+        "On read English speech with word-level prominence labels, the authors compare frozen and fine-tuned text models, prompted LLMs, linear probes on LLM representations, and speech models on the same words with a 3-way prominence task.",
+        "All text models finish within about one point of each other, at best 68.8%, and make largely the same errors; prompted LLMs do not beat a word-majority baseline even with 500 examples, while linear probes find more in their hidden states, and speech models reach 84.7%. Takeaway: this is a clean example of the gap between what a model represents and what prompting surfaces, so probing should be the default when testing whether a model has some knowledge, and prompt-based evaluations can understate it. Caveat: one English read-speech corpus, only the prompts the authors tried, and the abstract does not give the probe accuracy itself."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.25848",
+      "title": "Interpretable Prototype-Conditioned Adaptation for Weather Forecasting",
+      "authors": [
+        "Zhixuan Li",
+        "Hao Jiang",
+        "Chen Hui",
+        "Kai Geng",
+        "Weisi Lin"
+      ],
+      "affiliations": [
+        "NTU Singapore",
+        "Nanjing University of Information Science and Technology"
+      ],
+      "url": "https://arxiv.org/abs/2611.25848",
+      "pdf_url": "https://arxiv.org/pdf/2611.25848",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-19",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "ProtoCast adds group-specific prototype banks and sparse mixtures of prototype-specific low-rank correction operators to a weather forecaster, so each local correction decomposes into explicit prototype contributions, improving accuracy on GlobalForecast and TyphoonTracking while prototype deletion links prototypes to error changes.",
+      "summary": [
+        "Neural weather forecasters learn local patterns implicitly, which makes their behaviour hard to interpret and can produce similar forecasts for locations that actually evolve differently. Prototypes give explicit pattern references, but existing sample- or task-level prototype conditioning does not adapt to distinct locations and variable groups.",
+        "ProtoCast keeps a prototype bank per variable group and matches each location using its historical features, temporal change and cross-variable attention context. A sparse mixture of prototype-specific low-rank operators applies the correction for each group and location, and a gated attention block then mixes corrected features across groups; each group's correction is an explicit sum of prototype contributions before this fusion. The forecaster and operators are trained jointly from scratch, prototypes are refit before every epoch, and slot tracking keeps prototype-operator associations stable.",
+        "Experiments on GlobalForecast and TyphoonTracking show better forecasting accuracy, and deleting prototypes changes prediction error in a way that ties contributions to specific prototypes; the abstract gives no numbers. Takeaway for prototype-network work: per-epoch prototype refitting with slot tracking, and prototype-specific low-rank corrections instead of a single similarity head, are design ideas that could carry over to prototype models in medical imaging, and prototype-deletion tests are a simple faithfulness check. Caveat: weather-only evaluation, and the size of the gains must be checked in the paper. Project page: zhixuanli.github.io/projects/li2026protocast."
+      ],
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.25848v1/weather_forecast_comparison.png"
+    },
+    {
+      "id": "arxiv:2611.25644",
+      "title": "MambaLIFT: Reference-Based Mechanism-Aware Attribution for VMamba",
+      "authors": [
+        "Jintu Kakati",
+        "Niladri B. Puhan"
+      ],
+      "affiliations": [
+        "IIT Bhubaneswar"
+      ],
+      "url": "https://arxiv.org/abs/2611.25644",
+      "pdf_url": "https://arxiv.org/pdf/2611.25644",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-19",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "MambaLIFT is a DeepLIFT-style attribution method for VMamba that conserves the reference-relative logit difference to floating-point precision and beats MambaLRP on pixel-flipping faithfulness, though the authors stress that exact conservation does not make the mechanism decomposition causal.",
+      "summary": [
+        "Visual state-space models such as VMamba are increasingly used in vision, but their input-dependent selective scans couple feature selection, recurrent state and shared pathways, so attribution methods built for CNNs or transformers do not transfer cleanly.",
+        "MambaLIFT propagates multipliers through the VMamba graph with interaction-aware rules for selective-scan injection, recurrent memory, LayerNorm and shared pathways, and decomposes the class-logit difference from a reference input by spatial position, block, scan direction and mechanism. It is evaluated on ImageNet-1K with VMamba-T and VMamba-B, with hyperparameters chosen on a calibration set and faithfulness measured on a separate held-out set.",
+        "Conservation holds to floating-point precision at all audited interfaces. Under mean-colour pixel flipping it gets significantly higher faithfulness than MambaLRP and the best scores among methods tested, including Integrated Gradients with matched references; under blurred replacement it is only non-inferior or equivalent to MambaLRP, so the advantage depends on the perturbation protocol. Takeaway: if VMamba-style backbones are used for medical images, this gives a faithful-by-construction attribution baseline, and the paper is a good reminder to report faithfulness under more than one replacement protocol. Caveat: ImageNet only, and the authors note the mechanism split does not estimate intervention effects."
+      ],
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.25644v1/mambalift_figure1.png"
+    }
+  ]
+}

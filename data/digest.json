@@ -1,359 +1,172 @@
 {
-  "date": "2026-11-20",
-  "generated_at": "2026-11-20T06:08:15-07:00",
+  "date": "2026-11-21",
+  "generated_at": "2026-11-21T06:05:22-07:00",
   "papers": [
     {
-      "id": "arxiv:2611.26627",
-      "title": "RL Post-Training in Diffusion Transformers Is Activation Steering",
+      "id": "arxiv:2611.25640",
+      "title": "Erasing the Wrong Thing: Conditional Attribute Leakage and Concept Erasure in Shared Foundation-Model Embeddings",
       "authors": [
-        "Tuna Han Salih Meral",
-        "Kaan Oktay",
-        "Alec Helbling",
-        "Atakan Kara",
-        "Duen Horng Chau",
-        "Pinar Yanardag"
+        "Haijun He",
+        "Fei Li",
+        "Donghong Ji",
+        "Junjun He"
       ],
       "affiliations": [
-        "Virginia Tech",
-        "Georgia Tech",
-        "fal"
+        "Wuhan University",
+        "Shanghai Innovation Institute"
       ],
-      "url": "https://arxiv.org/abs/2611.26627",
-      "pdf_url": "https://arxiv.org/pdf/2611.26627",
-      "source": "arXiv cs.CV, preprint",
+      "url": "https://arxiv.org/abs/2611.25640",
+      "pdf_url": "https://arxiv.org/pdf/2611.25640",
+      "source": "arXiv cs.CR, preprint",
       "published": "2026-11-19",
       "topics": [
-        "steering"
+        "interpretability"
       ],
-      "tldr": "A fixed set of prompt-independent steering vectors added to the block outputs of a frozen diffusion transformer recovers 90.0-96.3% of the reward gains of six RL-tuned image models with 65x fewer parameters than the RL LoRA, so most RL post-training gain behaves like a constant activation shift.",
+      "tldr": "When the task label and a sensitive attribute are correlated, linear concept erasure such as LEACE cannot remove the attribute both globally and within each task class, so chest-tube status stays readable inside diagnosis strata of erased chest X-ray embeddings; a task-conditional variant, TC-LEACE, fixes the within-class leak while recovering most of the lost task utility.",
       "summary": [
-        "RL post-training clearly improves text rendering, composition and visual quality in diffusion transformers, and these skills look prompt-dependent, so one would expect RL to learn complex input-dependent changes. Nobody had checked how much of the gain a single input-independent shift could explain.",
-        "The authors attach one constant steering vector per block output of the frozen base model (0.29M parameters on SD3.5-M versus 18.8M for the RL-tuned LoRA). They fit these vectors to match the velocity predictions of public RL-tuned checkpoints with no reward in the loss, and separately train them from zero with online RL. The same vectors are used for every prompt, token and sampling seed, and they test six RL-tuned image models and two RL-tuned video models.",
-        "The distilled vectors recover 90.0-96.3% of the reward gains on the six image models and 89.8% and 111.9% on the two video models. Trained directly with online RL, the vectors alone beat weight-based RL on OCR text rendering and PickScore on SD3.5-M. Takeaway for steering-geometry work: RL fine-tuning of generative models may be largely a global translation in activation space, which gives a cheap baseline and a diagnostic (fit a constant shift, measure recovered reward) for any fine-tuning method you want to explain. Caveat: results are on diffusion transformers and reward metrics only; whether the same holds for LLM RLHF is not tested here."
+        "Hospitals and data holders increasingly share foundation-model embeddings instead of raw medical images, assuming that a concept-erasure step strips sensitive attributes. Standard erasure methods only guarantee that a linear probe cannot recover the attribute across the whole population, which says nothing about leakage inside each task class.",
+        "The authors prove that when binary task and sensitive labels are associated, global and task-conditional linear guardedness cannot both hold while any linear task signal survives, and they derive a closed-form estimate of the utility cost of global erasure from pre-erasure statistics. They then propose TC-LEACE, a closed-form LEACE variant that enforces guardedness separately within each task stratum. Evaluation covers four vision foundation models on 85 CelebA attribute pairs and three foundation models (two biomedical) on hospital chest radiographs where chest-tube status is strongly tied to diagnosis.",
+        "After LEACE, conditional leakage remains in all four encoders, the gap between marginal and conditional audits grows with label-attribute association, and the predicted utility costs track the observed losses. On chest X-rays, a marginal attack on erased embeddings looks safe, yet chest-tube status is still detectable within diagnosis strata; TC-LEACE recovers most of LEACE's task-utility loss while keeping conditional leakage within a set margin of LEACE. Takeaway: anyone removing a concept direction from medical-image features (for example a scanner, site or shortcut cue in ultrasound embeddings) should audit leakage per class, not only globally, because a confounded shortcut can survive marginal erasure. Caveat: the guarantees are linear only, and the abstract reports no numeric effect sizes."
       ],
-      "score": 5,
-      "thumbnail": "https://arxiv.org/html/2611.26627v1/teaser_new.png"
+      "score": 4
     },
     {
-      "id": "arxiv:2611.25165",
-      "title": "Separating Interpretability and Reconstruction in Sparse Autoencoders",
+      "id": "arxiv:2611.26291",
+      "title": "Who Moved My $Z$ Boson? Revealing Resonance Features Inside a Neural Network",
       "authors": [
-        "Anh Tien Nguyen",
-        "Dimitris Samaras",
-        "Mahdi S. Hosseini"
+        "Kevin Alberto Urquía Calderón",
+        "Midori Kato",
+        "Inar Timiryasov",
+        "Oleg Ruchayskiy"
       ],
       "affiliations": [
-        "Stony Brook University",
-        "Concordia University",
-        "Mila"
+        "Niels Bohr Institute, University of Copenhagen"
       ],
-      "url": "https://arxiv.org/abs/2611.25165",
-      "pdf_url": "https://arxiv.org/pdf/2611.25165",
-      "source": "arXiv cs.LG, preprint",
-      "published": "2026-11-18",
+      "url": "https://arxiv.org/abs/2611.26291",
+      "pdf_url": "https://arxiv.org/pdf/2611.26291",
+      "source": "arXiv hep-ph, preprint",
+      "published": "2026-11-19",
       "topics": [
-        "sae"
+        "interpretability"
       ],
-      "tldr": "DualSAE adds a decorrelated residual branch next to a standard SAE so the sparse code keeps the semantics while the residual handles leftover reconstruction, giving about 29% better reconstruction and 34% better monosemanticity on average.",
+      "tldr": "Gradient-based features found inside ShellFlow, a generative model trained on real LHC muon data, encode particle resonances such as the Z, J/psi and Upsilon, and editing them moves the Z mass between about 80 and 105 GeV while leaving the rest of the mass spectrum mostly intact.",
       "summary": [
-        "In a standard SAE the same sparse code has to both reconstruct activations faithfully and be interpretable, and the two goals can pull against each other. Pushing sparsity for interpretability usually costs reconstruction, and vice versa.",
-        "DualSAE keeps a normal SAE as a Sparse Branch and adds a plug-in Residual Branch that models non-semantic information the sparse code leaves out. A decorrelation loss keeps the two branches from overlapping in what they reconstruct, and a two-stage schedule first stabilizes the sparse code before coupling in the residual branch. They test many encoder-SAE combinations on two vision datasets and two language corpora.",
-        "Across configurations DualSAE gives mean relative gains of about 29% in reconstruction fidelity and 34% in monosemanticity score, and improves downstream topic modeling, hypothesis generation and LLM steering. Qualitative checks suggest the residual branch indeed holds non-semantic content. Takeaway: if you report SAE reconstruction error as a faithfulness measure, a residual branch can hide what the sparse code misses, so evaluate the sparse branch on its own; the design is easy to bolt onto existing SAEs and code is released (github.com/AtlasAnalyticsLab/DualSAE). Caveat: the abstract reports relative averages only, not per-model numbers or comparisons with error-node or crosscoder approaches."
+        "Mechanistic interpretability has found human-aligned concepts inside language and image models, but it is less clear whether a generative model of scientific data learns physically meaningful concepts that nobody labelled. Collider physics offers a clean test, since resonances are well defined and their effect on the invariant-mass spectrum is measurable.",
+        "The authors study ShellFlow, a generative model trained only to produce final-state muon kinematics from real LHC data, and never told which muons come from a resonance. They build candidate features from the network's gradients and sharpen their selectivity with pattern-recognition methods, then intervene on these features to edit or remove the resonance.",
+        "They find features for the Z, J/psi and Upsilon resonances. Steering the Z feature shifts the Z mass between roughly 80 and 105 GeV, and removing it gives a broader Z peak, with the rest of the invariant-mass spectrum mostly unchanged in both cases. Takeaway: gradient-derived features plus targeted interventions can isolate and edit a single physical concept in a non-language generative model, which is a useful template for checking whether an imaging model has an editable internal feature for a known quantity. Caveat: this is one model in one physics domain, and the abstract gives no quantitative selectivity scores or comparison with SAE-style feature discovery."
       ],
-      "score": 4,
-      "thumbnail": "https://arxiv.org/html/2611.25165v1/Figures/DualSAEvsSAE.jpg"
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.26291v1/fig_app_cos_maps.png"
     },
     {
-      "id": "arxiv:2611.25119",
-      "title": "Auditing Learned Dynamics in Weather Models",
+      "id": "arxiv:2611.26590",
+      "title": "Probing the \"Conscious\" Mind: Selective Access and Global Workspace in Vision-Language Models",
       "authors": [
-        "Skylar Gu",
-        "Christina Last"
+        "Jiahao Huang",
+        "Jun Wang"
       ],
       "affiliations": [
-        "Mila",
-        "McGill University",
-        "Haziel"
+        "Imperial College London",
+        "UCL"
       ],
-      "url": "https://arxiv.org/abs/2611.25119",
-      "pdf_url": "https://arxiv.org/pdf/2611.25119",
-      "source": "arXiv cs.LG, preprint",
-      "published": "2026-11-18",
+      "url": "https://arxiv.org/abs/2611.26590",
+      "pdf_url": "https://arxiv.org/pdf/2611.26590",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-19",
       "topics": [
-        "sae"
+        "interpretability"
       ],
-      "tldr": "SAE features from GraphCast show that a causally important feature can lack physical meaning, and scaling up convection-associated features cut tropical-cyclone intensity error by a median 51% over seven storms.",
+      "tldr": "MC-Lens, a Jacobian lens covering both the vision encoder and the language decoder, shows that VLM intermediate states carry concept information that is selectively accessed per task and causally used downstream, with similar patterns across VLM families and sizes.",
       "summary": [
-        "AI weather forecasters are used in high-stakes settings, so it matters whether they rely on sound mechanisms. A common assumption in interpretability is that the features that matter causally are the ones with clean physical semantics, which has not been tested in weather models.",
-        "The authors train sparse autoencoders on GraphCast, the DeepMind autoregressive forecaster, and run ablations and feature-scaling interventions on the activations during rollout. They test a feature tied to the model's computational mesh and features associated with convection and low-level vorticity during tropical-cyclone intensification.",
-        "Ablating the mesh-locked feature raises global geopotential height error even though it has no conventional physical meaning. Suppressing convection and vorticity features weakens predicted cyclone deepening, while amplifying them lowers intensity error, with a median 51% error reduction across seven storms for convection features. Takeaway: causal relevance and human-readable meaning are separate properties, so SAE audits of medical or scientific models should test features by intervention rather than trusting labels. Caveat: the steering result covers only seven storms and one model."
+        "Vision-language model outputs do not show how concepts are represented and routed internally, and existing lenses mostly look at language models alone. The authors use global workspace theory from brain science (selection, integration in a shared space, broadcast to specialised processes) as a frame for asking how VLMs handle multimodal concepts.",
+        "They introduce the Multimodal Concept Lens (MC-Lens), which maps intermediate states of the vision encoder and the language decoder into a shared semantic space defined by the decoder's output vocabulary, so that concept accessibility can be compared across modalities. MC-Lens also supports interventions on internal concepts, and the authors widen \"readout carriers\" from a single name token to a token set for counterfactual experiments. They also define two J-space metrics to track cross-modal concept alignment during controlled VLM training.",
+        "Concept information is readable in intermediate states and accessed selectively depending on the query, and counterfactual interventions show it takes part in downstream reasoning. The J-space metrics track the development of cross-modal alignment more clearly than hidden-state cosine, and reliable selective access emerges later in training than accessibility itself. Takeaway: a decoder-vocabulary Jacobian lens applied to the vision encoder is a cheap way to see which concepts a VLM can read out at each layer and to run concept-level interventions. Caveat: the abstract is qualitative, gives no numbers, and the brain-theory framing is an analogy rather than a tested claim."
       ],
-      "score": 4,
-      "thumbnail": "https://arxiv.org/html/2611.25119v1/fig3_mechmaps.png"
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.26590v1/kite-cat-suitcase-scene.png"
     },
     {
-      "id": "arxiv:2611.26584",
-      "title": "Represented but misread: Post-training changes how language models read out what they represent",
+      "id": "arxiv:2611.25808",
+      "title": "Language models represent more about emphasis than they can tell you",
       "authors": [
-        "Jochen Laubrock"
+        "Aarne Talman",
+        "Stergios Chatzikyriakidis"
       ],
       "affiliations": [
-        "University of Potsdam"
+        "University of Helsinki",
+        "University of Turku",
+        "Athena Research Centre"
       ],
-      "url": "https://arxiv.org/abs/2611.26584",
-      "pdf_url": "https://arxiv.org/pdf/2611.26584",
+      "url": "https://arxiv.org/abs/2611.25808",
+      "pdf_url": "https://arxiv.org/pdf/2611.25808",
       "source": "arXiv cs.CL, preprint",
       "published": "2026-11-19",
       "topics": [
         "interpretability"
       ],
-      "tldr": "Comparing linear probes with model answers across six base/post-trained model pairs shows post-training mainly changes how a judgment is read out, not what is represented: answer sensitivity dropped (mean delta d' = -0.34) on human-vs-AI text judgments while probes still separated the classes.",
+      "tldr": "Linear probes recover more information about word-level prosodic prominence from LLM representations than prompting does: prompted LLMs do no better than a word-majority baseline even with 500 examples, text models top out at 68.8% on the 3-way task, and speech models reach 84.7%.",
       "summary": [
-        "When a model answers badly, it is unclear whether it lacks the information or fails to use it. Post-training (SFT, RLHF) could change either the representation or its readout, and these are usually not separated.",
-        "The study compares linear probes against the models' own answers using signal detection theory, in six open-weight base models and their post-trained versions. The main task is judging whether German texts were human- or AI-written; a reproducible public case uses the truth of negated statements. Stage-wise checkpoints, model stitching and a fine-tuning study with 2,000 added labeled authorship judgments locate where the change happens.",
-        "On authorship, probes separated the classes well while answers did not and often reversed them; post-training lowered answer sensitivity by d' -0.34 across families. On negation, probes decoded truth near ceiling in every model and post-training repaired the base models' failure to use it. The change appeared during SFT and, from mid-depth on, sat at positions after the text. Takeaway: probe accuracy says little about behavior, so pair probes with answer-level analysis; a small training signal can set the readout direction. Caveat: the main corpora cannot be shared, so only the negation case is reproducible."
+        "Prosodic prominence (which words are emphasised) is partly determined by the text and partly by how a speaker reads it. It is unclear how much of it language models encode from text alone, and whether they can report what they encode when asked.",
+        "On read English speech with word-level prominence labels, the authors compare frozen and fine-tuned text models, prompted LLMs, linear probes on LLM representations, and speech models on the same words with a 3-way prominence task.",
+        "All text models finish within about one point of each other, at best 68.8%, and make largely the same errors; prompted LLMs do not beat a word-majority baseline even with 500 examples, while linear probes find more in their hidden states, and speech models reach 84.7%. Takeaway: this is a clean example of the gap between what a model represents and what prompting surfaces, so probing should be the default when testing whether a model has some knowledge, and prompt-based evaluations can understate it. Caveat: one English read-speech corpus, only the prompts the authors tried, and the abstract does not give the probe accuracy itself."
       ],
-      "score": 4,
-      "thumbnail": "https://arxiv.org/html/2611.26584v1/fig_negation.png"
+      "score": 3
     },
     {
-      "id": "arxiv:2611.26101",
-      "title": "Revealing Pathway Interactions in Network Computations with Complete Path Contribution",
+      "id": "arxiv:2611.25848",
+      "title": "Interpretable Prototype-Conditioned Adaptation for Weather Forecasting",
       "authors": [
-        "Shenghua Liu",
-        "Youssef Faragalla",
-        "Surya Ganguli",
-        "Stephen A. Baccus"
+        "Zhixuan Li",
+        "Hao Jiang",
+        "Chen Hui",
+        "Kai Geng",
+        "Weisi Lin"
       ],
       "affiliations": [
-        "Stanford"
+        "NTU Singapore",
+        "Nanjing University of Information Science and Technology"
       ],
-      "url": "https://arxiv.org/abs/2611.26101",
-      "pdf_url": "https://arxiv.org/pdf/2611.26101",
+      "url": "https://arxiv.org/abs/2611.25848",
+      "pdf_url": "https://arxiv.org/pdf/2611.25848",
       "source": "arXiv cs.LG, preprint",
       "published": "2026-11-19",
       "topics": [
         "interpretability"
       ],
-      "tldr": "Complete Path Contribution decomposes a network's output exactly into contributions of individual input-to-output paths, with an algorithm that finds the k strongest paths in time empirically linear in k, exposing excitatory-inhibitory interactions in image classifiers and a retina model.",
+      "tldr": "ProtoCast adds group-specific prototype banks and sparse mixtures of prototype-specific low-rank correction operators to a weather forecaster, so each local correction decomposes into explicit prototype contributions, improving accuracy on GlobalForecast and TyphoonTracking while prototype deletion links prototypes to error changes.",
       "summary": [
-        "Circuit analyses usually measure pairwise interactions between units, heads or layers and then stitch them together. That misses higher-order interactions along whole causal chains, so questions such as whether inhibitory paths veto excitatory ones cannot be answered.",
-        "The method splits the network output into mathematically complete contributions from individual paths, and partial sums give complete contributions for circuits at any granularity. An efficient search returns the top-k paths without enumerating the exponential number of paths. They apply it to benchmark image classification networks and to an interpretable model of the mouse retina responding to natural stimuli.",
-        "In image classifiers the method quantifies how excitatory and inhibitory pathways combine to produce decisions, and in the retina model it shows dynamic receptive fields emerging from excitatory-inhibitory motifs between cell types. Takeaway: completeness at every granularity makes this a candidate for faithful explanations of CNN-based medical models, where gradient attribution is not complete. Caveat: the abstract gives no quantitative comparison with attribution baselines and does not report results on transformers or LLMs."
-      ],
-      "score": 4,
-      "thumbnail": "https://arxiv.org/html/2611.26101v1/fig_toy_demo_v1_fig2.png"
-    },
-    {
-      "id": "arxiv:2611.22189",
-      "title": "SRED: Sparse Regional Evidence Distillation Across Magnifications in Whole-Slide Imaging",
-      "authors": [
-        "Zhiyuan Yang",
-        "Jiahao Cheng",
-        "Vincent Quoc-Huy Trinh",
-        "Mahdi S. Hosseini"
-      ],
-      "affiliations": [
-        "Concordia University",
-        "Mila",
-        "Université de Montréal"
-      ],
-      "url": "https://arxiv.org/abs/2611.22189",
-      "pdf_url": "https://arxiv.org/pdf/2611.22189",
-      "source": "arXiv cs.CV, preprint",
-      "published": "2026-11-17",
-      "topics": [
-        "sae"
-      ],
-      "tldr": "An SAE learns an \"event dictionary\" from 20x pathology features, and a 5x encoder is distilled to predict which events occur in each region, improving macro-F1 by 1.1 points and C-index by 1.7 points over native 5x features at 5x cost.",
-      "summary": [
-        "High-magnification whole-slide analysis keeps detail but needs many patches, while low magnification is cheap but loses detail. Existing cross-magnification distillation tries to match features that the low-magnification input cannot actually see, and some methods need slide-level labels.",
-        "SRED trains a sparse autoencoder on 20x teacher features to get a dictionary of events, then uses logical OR pooling to record whether each event appears in any aligned 20x patch within a 5x region. A pretrained 5x encoder is fine-tuned to predict these regional event targets, without slide-level labels. Evaluation covers seven classification and grading cohorts and five survival cohorts.",
-        "Against native 5x features, SRED raises average macro-F1 by 1.1 points and average C-index by 1.7 points, with runtime equal to 5x and an average 11.58x speedup over 20x. Some dictionary components respond to recognizable histological patterns. Takeaway: SAE codes can serve as compact, label-free distillation targets, an idea that could transfer to compressing heavy ultrasound or pathology encoders. Caveat: gains are modest, and the paper is a CVPR 2027 submission, not yet peer reviewed."
+        "Neural weather forecasters learn local patterns implicitly, which makes their behaviour hard to interpret and can produce similar forecasts for locations that actually evolve differently. Prototypes give explicit pattern references, but existing sample- or task-level prototype conditioning does not adapt to distinct locations and variable groups.",
+        "ProtoCast keeps a prototype bank per variable group and matches each location using its historical features, temporal change and cross-variable attention context. A sparse mixture of prototype-specific low-rank operators applies the correction for each group and location, and a gated attention block then mixes corrected features across groups; each group's correction is an explicit sum of prototype contributions before this fusion. The forecaster and operators are trained jointly from scratch, prototypes are refit before every epoch, and slot tracking keeps prototype-operator associations stable.",
+        "Experiments on GlobalForecast and TyphoonTracking show better forecasting accuracy, and deleting prototypes changes prediction error in a way that ties contributions to specific prototypes; the abstract gives no numbers. Takeaway for prototype-network work: per-epoch prototype refitting with slot tracking, and prototype-specific low-rank corrections instead of a single similarity head, are design ideas that could carry over to prototype models in medical imaging, and prototype-deletion tests are a simple faithfulness check. Caveat: weather-only evaluation, and the size of the gains must be checked in the paper. Project page: zhixuanli.github.io/projects/li2026protocast."
       ],
       "score": 3,
-      "thumbnail": "https://arxiv.org/html/2611.22189v2/figures/architecture.png"
+      "thumbnail": "https://arxiv.org/html/2611.25848v1/weather_forecast_comparison.png"
     },
     {
-      "id": "arxiv:2611.26545",
-      "title": "The Geometry of Lies: Knowledge and Persona Directions for Detecting Deception in Large Language Models",
+      "id": "arxiv:2611.25644",
+      "title": "MambaLIFT: Reference-Based Mechanism-Aware Attribution for VMamba",
       "authors": [
-        "Md. Abdullah Al Zami",
-        "Suraiya Shanaz",
-        "Mahdi Hasan",
-        "Shoaib Ahmed Dipu",
-        "Farig Yousuf Sadeque",
-        "Md. Sabbir Ahmed"
+        "Jintu Kakati",
+        "Niladri B. Puhan"
       ],
       "affiliations": [
-        "BRAC University"
+        "IIT Bhubaneswar"
       ],
-      "url": "https://arxiv.org/abs/2611.26545",
-      "pdf_url": "https://arxiv.org/pdf/2611.26545",
+      "url": "https://arxiv.org/abs/2611.25644",
+      "pdf_url": "https://arxiv.org/pdf/2611.25644",
       "source": "arXiv cs.AI, preprint",
       "published": "2026-11-19",
       "topics": [
         "interpretability"
       ],
-      "tldr": "Label-free persona and knowledge directions for lie detection, tested up to Llama-3.3-70B on Liars' Bench, transfer better than single-dataset probes on three of four models, but many gains stay inside a random-direction control band.",
+      "tldr": "MambaLIFT is a DeepLIFT-style attribution method for VMamba that conserves the reference-relative logit difference to floating-point precision and beats MambaLRP on pixel-flipping faithfulness, though the authors stress that exact conservation does not make the mechanism decomposition causal.",
       "summary": [
-        "Linear probes are cheap lie detectors but often fail across kinds of lies. Label-free directions from honest versus deceptive role-play had not been tested at 70B scale or on lies about knowledge, where a lie and an honest denial can use identical words.",
-        "The authors extend a published persona bank with roles that deny knowledge they have, plus honest counterparts, and take the persona direction at each model's middle layer. They also build a knowledge direction contrasting answerable and unanswerable questions followed by the same scripted denial, and compare everything against supervised probes and a band of random directions on four models.",
-        "The persona direction ranks lies better than single-dataset probes on three of four models but fails on Qwen; on Llama-3.3-70B its gain over the published direction is within the range of random widenings. The knowledge direction separates lies from identical honest denials on two models, narrowly on a third, and not on the fourth. The sum of both beats a same-depth supervised probe on all four models, but trails it on held-out lies. Takeaway: the random-direction control band is a useful sanity check for any concept-direction claim, and many direction results here are fragile. Caveat: mixed results that depend on model and benchmark wording."
+        "Visual state-space models such as VMamba are increasingly used in vision, but their input-dependent selective scans couple feature selection, recurrent state and shared pathways, so attribution methods built for CNNs or transformers do not transfer cleanly.",
+        "MambaLIFT propagates multipliers through the VMamba graph with interaction-aware rules for selective-scan injection, recurrent memory, LayerNorm and shared pathways, and decomposes the class-logit difference from a reference input by spatial position, block, scan direction and mechanism. It is evaluated on ImageNet-1K with VMamba-T and VMamba-B, with hyperparameters chosen on a calibration set and faithfulness measured on a separate held-out set.",
+        "Conservation holds to floating-point precision at all audited interfaces. Under mean-colour pixel flipping it gets significantly higher faithfulness than MambaLRP and the best scores among methods tested, including Integrated Gradients with matched references; under blurred replacement it is only non-inferior or equivalent to MambaLRP, so the advantage depends on the perturbation protocol. Takeaway: if VMamba-style backbones are used for medical images, this gives a faithful-by-construction attribution baseline, and the paper is a good reminder to report faithfulness under more than one replacement protocol. Caveat: ImageNet only, and the authors note the mechanism split does not estimate intervention effects."
       ],
       "score": 3,
-      "thumbnail": "https://arxiv.org/html/2611.26545v1/fig_transfer_selected.png"
-    },
-    {
-      "id": "arxiv:2611.24453",
-      "title": "Harmonic Circuit: Chord Progression Lies in a Sparse Principal Information Flow in Symbolic Music Models",
-      "authors": [
-        "Ruiji Yu",
-        "Gus Xia"
-      ],
-      "affiliations": [
-        "MBZUAI"
-      ],
-      "url": "https://arxiv.org/abs/2611.24453",
-      "pdf_url": "https://arxiv.org/pdf/2611.24453",
-      "source": "arXiv cs.SD, NeurIPS 2026 Workshop on Interpretability for Discovery",
-      "published": "2026-11-18",
-      "topics": [
-        "interpretability"
-      ],
-      "tldr": "Circuit discovery with the Auto-Emergence algorithm finds a sparse sub-network in ChatMusician and MuPT that drives prediction of the closing tonic in I...V->I progressions, confirmed by causal intervention.",
-      "summary": [
-        "Circuit discovery is well developed for language models but almost untested in music models. It is unknown whether musically meaningful functions, such as resolving a harmonic progression, are carried by identifiable sub-networks.",
-        "The authors study two symbolic music generators, ChatMusician and MuPT, on predicting the terminal tonic root in the classical I...V->I pattern. They use the Auto-Emergence algorithm to extract a principal sparse sub-network and validate it with causal interventions.",
-        "Interventions show the found circuit is a primary driver of the harmonic progression behavior, and the authors describe this as the first systematic circuit discovery study in music. Takeaway: a clean example of moving circuit methods to a new domain with a well-defined target behavior, a template for domain models such as medical encoders. Caveat: a workshop paper (accepted at the NeurIPS 2026 Workshop on Interpretability for Discovery per the arXiv comment) on one musical pattern, and the abstract gives no quantitative faithfulness numbers."
-      ],
-      "score": 3,
-      "thumbnail": "https://arxiv.org/html/2611.24453v1/IFRA_new.png"
-    },
-    {
-      "id": "arxiv:2611.22308",
-      "title": "VRLLM: Turning LLMs into Powerful Tabular Classifiers",
-      "authors": [
-        "Yingtong Dou",
-        "Shubham Jain",
-        "Junpeng Wang",
-        "Hadi Abdullah",
-        "Vineeth Rakesh Mohan",
-        "Yuzhong Chen",
-        "Liang Wang",
-        "Yiwei Cai"
-      ],
-      "affiliations": [
-        "Visa Research"
-      ],
-      "url": "https://arxiv.org/abs/2611.22308",
-      "pdf_url": "https://arxiv.org/pdf/2611.22308",
-      "source": "arXiv cs.LG, technical report (preprint)",
-      "published": "2026-11-17",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "Visa Research fine-tuned Llama 3.2 1B on billions of labeled tabular rows and report it beats a range of tabular classifiers and their production deep model, with ablations pointing to the first two FFN layers.",
-      "summary": [
-        "Prior work often finds LLMs trail tree models and tabular-specific networks on large tabular classification. Whether a pretrained LLM can win at industrial scale was unclear.",
-        "They fine-tune a pretrained Llama 3.2 1B on billions of rows of labeled tabular data, describing data preparation, serialization, training recipe, design ablations and deployment validation. They also benchmark frontier LLMs on the same task and run interpretability and component-ablation experiments.",
-        "The fine-tuned model is reported to outperform many tabular classifiers and Visa's production deep learning model; interpretability results suggest feature-specific associations, and ablations implicate the earliest two FFN layers in making task information linearly decodable. Takeaway: at very large data scale a small LLM with a careful serialization recipe can compete with tabular specialists, a useful counterpoint for TabPFN-style small-data comparisons. Caveat: the abstract gives no numbers, the data is proprietary, and the report is marked work in progress."
-      ],
-      "score": 3,
-      "thumbnail": "https://arxiv.org/html/2611.22308v1/serialization.png"
-    },
-    {
-      "id": "arxiv:2611.26235",
-      "title": "Physics-Informed Feature Representations and Pretrained Tabular Foundation Models for Generalizable Melt Pool Geometry Prediction",
-      "authors": [
-        "Rafid Enayet",
-        "Imtiaz Ahmed",
-        "Md Habibor Rahman"
-      ],
-      "affiliations": [
-        "University of South Carolina",
-        "West Virginia University"
-      ],
-      "url": "https://arxiv.org/abs/2611.26235",
-      "pdf_url": "https://arxiv.org/pdf/2611.26235",
-      "source": "arXiv cs.AI, preprint",
-      "published": "2026-11-19",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "On small laser powder bed fusion datasets, TabPFN, TabDPT and TabICLv2 generally beat classical models at melting-mode classification, and physics-based dimensionless features give the biggest gain in cross-material depth prediction (R^2 = 0.96).",
-      "summary": [
-        "Manufacturing datasets are small and process-property relations shift across materials, so models trained on raw process parameters transfer poorly. It is unclear whether tabular foundation models or better features help more in this small-data regime.",
-        "The study compares raw parameters with two dimensionless features (normalized enthalpy and Peclet number) and benchmarks four classical models (Gaussian process, SVM, random forest, XGBoost) against three tabular foundation models (TabPFN, TabDPT, TabICLv2). Tasks are melt pool width and depth regression and melting-mode classification on 316L, IN625, IN718 and combined-material data.",
-        "Dimensionless features match or beat raw parameters in most settings, with the largest gain in cross-material depth prediction (R^2 = 0.96), and the tabular foundation models generally classify better than classical baselines, especially on multi-material data. Takeaway: a fair small-data benchmark of three current tabular FMs that also shows domain-informed feature engineering still matters alongside them. Caveat: a narrow application with small datasets, and the abstract gives no per-model numbers for the FM comparison."
-      ],
-      "score": 3,
-      "thumbnail": "https://arxiv.org/html/2611.26235v1/Workflow.png"
-    },
-    {
-      "id": "arxiv:2611.25073",
-      "title": "PriTabICL: Differentially Private Tabular In-Context Learning with Task-Aligned Cluster-Wise Synthesis",
-      "authors": [
-        "Syed Ahzaz Shah",
-        "Evan Bramblett",
-        "Héber H. Arcolezi",
-        "Chen Gong",
-        "Qianqian Tong",
-        "Xiaochen Li"
-      ],
-      "affiliations": [
-        "UNC Greensboro",
-        "ÉTS Montréal",
-        "University of Virginia"
-      ],
-      "url": "https://arxiv.org/abs/2611.25073",
-      "pdf_url": "https://arxiv.org/pdf/2611.25073",
-      "source": "arXiv cs.CR, preprint",
-      "published": "2026-11-18",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "PriTabICL makes private demonstrations for tabular in-context learning by clustering records under DP and synthesizing each cluster with a prediction-focused workload; its PrivSyn version beats global PrivSyn in 8 of 12 settings.",
-      "summary": [
-        "Tabular in-context learning puts real labeled records in the prompt, which leaks personal data. Adding DP noise directly distorts feature-label relations, and synthesizing one global DP dataset can wash out local structure and minority patterns.",
-        "PriTabICL partitions records into DP clusters, synthesizes each cluster separately with an existing DP synthesis algorithm, and uses a fixed feature-target workload to spend privacy budget on prediction-relevant statistics. At inference each query is routed to a cluster and demonstrations are sampled from its synthetic data, with no extra privacy cost. Experiments use four real-world datasets.",
-        "PriTabICL-PrivSyn improves over global PrivSyn in 8 of 12 settings and beats existing private TabICL approaches in nearly all settings, and code is released. Takeaway: for in-context tabular models (LLM-based here, but the idea applies to TabPFN-style contexts), cluster-wise, task-aligned synthetic context is a practical way to share private clinical tables. Caveat: only four datasets, and the evaluation is with LLM prompting rather than dedicated tabular foundation models."
-      ],
-      "score": 3,
-      "thumbnail": "https://arxiv.org/html/2611.25073v1/frameworkOverview.png"
-    },
-    {
-      "id": "pmid:43042533",
-      "title": "Development and validation of a TRUS-based prostate cancer prediction model with PSAD stratification in a two-center Western Chinese cohort: a retrospective cohort study with cost-effectiveness analysis.",
-      "authors": [
-        "Yu Liang",
-        "Yu-Min Yang",
-        "Jing Zhang",
-        "Yi-Qiong Zhang",
-        "Xue Li",
-        "Mao-Hua Lyu",
-        "Yuan-Qiang Li",
-        "Xin Ai",
-        "Fei Li",
-        "Jun Luo"
-      ],
-      "affiliations": [
-        "Sichuan Provincial People's Hospital",
-        "Chongqing Yunyang County People's Hospital"
-      ],
-      "url": "https://pubmed.ncbi.nlm.nih.gov/43042533/",
-      "source": "Asian Journal of Andrology",
-      "published": "2026-11-17",
-      "topics": [
-        "prostate_us"
-      ],
-      "tldr": "A logistic regression model combining transrectal ultrasound findings with stratified PSA density reached AUC 0.915 (training) and 0.943 (validation) in 767 men, and a high threshold avoided 47.0% of biopsies.",
-      "summary": [
-        "PSA screening has low positive predictive value where prostate cancer incidence is low, which leads to many unnecessary biopsies. MRI pathways are not always available, so cheaper triage based on TRUS is of interest in resource-limited settings.",
-        "This two-center retrospective study included 767 men with PSA of at least 4 ng/ml (558 training, 209 validation). PSA density was split into five categories, and a logistic regression model was built from clinical and TRUS features; four screening strategies were compared for cost-effectiveness.",
-        "Five predictors were selected: age, PSAD category, extraprostatic extension, solid hypoechoic lesions and unclear boundary. Discrimination was 0.915 in training and 0.943 in validation with good calibration (Hosmer-Lemeshow P = 0.57), and the high-threshold strategy (at least 0.5) avoided 47.0% of biopsies at the lowest total cost. Takeaway: reader-scored TRUS signs plus PSAD form a strong non-AI baseline that any deep model on conventional TRUS should beat. Caveat: retrospective, hand-crafted features with no deep learning, and the authors say it is not suitable for population screening or as a replacement for MRI pathways."
-      ],
-      "score": 3
+      "thumbnail": "https://arxiv.org/html/2611.25644v1/mambalift_figure1.png"
     }
   ]
 }
