@@ -1,0 +1,266 @@
+{
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T06:29:04-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.26711",
+      "title": "Parasite Features: Causal Abstraction Through Spurious Pathways",
+      "authors": [
+        "Denis Sutter",
+        "Qing Yao",
+        "Sasha Boguraev",
+        "Julian Minder",
+        "Antonio Di Maio",
+        "Thomas Hofmann",
+        "Kyle Mahowald",
+        "Tiago Pimentel"
+      ],
+      "affiliations": [
+        "ETH Zurich",
+        "UT Austin",
+        "EPFL"
+      ],
+      "url": "https://arxiv.org/abs/2611.26711",
+      "pdf_url": "https://arxiv.org/pdf/2611.26711",
+      "source": "arXiv cs.LG, accepted at NeurIPS 2026 (per arXiv comment)",
+      "published": "2026-11-19",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Causal-abstraction tests such as Distributed Alignment Search can be passed by \"parasite features\": a learned alignment map chains a direction that reads an input feature with a separate direction that steers the output, so the method appears to find a variable the model may not actually compute. The authors show this happens with linear maps on syntactic agreement and two-digit addition.",
+      "summary": [
+        "Causal Abstraction is one of the most principled ways to claim that a network implements an algorithm: an intervention on an aligned subspace should change outputs exactly as changing the corresponding high-level variable would. Methods built on it, especially Distributed Alignment Search (DAS), are widely used to localize variables in LLMs, but it has been unclear what kinds of false positives these equivalence tests admit.",
+        "The paper formalizes a class of spurious solutions: if one direction in representation space discriminates inputs by some feature and another direction pushes the model toward a given output, an alignment map can route interventions through both and reproduce the expected counterfactual behavior without a genuine intermediate variable. They call such a recovered variable a parasite feature. They then test whether DAS with linear alignment maps actually lands on such solutions in two standard settings, syntactic agreement and two-digit addition.",
+        "DAS does find parasite features with linear alignment maps in both tasks, so high interchange-intervention accuracy alone is not proof that the model represents the hypothesized variable. Takeaway: when a steering direction or DAS subspace \"works\", also check whether it is just combining a feature detector with an output-steering direction, for example by testing reading and writing roles separately or with controls that break the shortcut pathway. This is directly relevant to steering-geometry work, since a direction that steers well can be what makes the parasite possible. The abstract gives no numeric accuracies and covers only two toy-ish tasks; code is linked from the paper (dounick/parasite-features)."
+      ],
+      "score": 5
+    },
+    {
+      "id": "arxiv:2611.27504",
+      "title": "The Assistant Persona Differs Across Languages in Activation Space",
+      "authors": [
+        "Daniel Yoo",
+        "Naama Rozen",
+        "Evan Harris"
+      ],
+      "affiliations": [
+        "Carnegie Mellon University",
+        "Tel Aviv University"
+      ],
+      "url": "https://arxiv.org/abs/2611.27504",
+      "pdf_url": "https://arxiv.org/pdf/2611.27504",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-20",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "The \"assistant persona\" direction extracted per language in Qwen3-32B is far from universal: its cosine similarity to the English axis ranges from 0.378 to 0.911 and tracks how high-resource the language is, and steering against a language's own axis amplifies persona jailbreaks more than using the English axis.",
+      "summary": [
+        "Steering and monitoring directions, including the direction separating the helpful assistant persona from other characters, are almost always extracted from English prompts and then assumed to transfer to other languages. LLMs are known to be less safe in lower-resource languages, but there was no mechanistic account of how persona representations differ across languages.",
+        "The authors extract an assistant persona direction separately in 31 languages in Qwen3-32B and compare each to the English axis by cosine similarity, relate direction and magnitude to language resource level, measure where the default assistant state sits along each axis, and run steering experiments against each language's own axis versus the English axis in a persona-based jailbreak setting.",
+        "Cosine similarity to the English axis spans 0.378 to 0.911, and both direction and magnitude correlate with resource level; the default assistant state also sits farther from the helpful pole in lower-resource languages. Steering against the native axis increases persona jailbreak success more than steering against the English one, so a single English-derived vector underestimates per-language vulnerability. Takeaway for steering geometry: extract and evaluate directions per language (or per domain) rather than assuming a shared axis, and treat cross-language cosine as a diagnostic of how well a vector transfers. Caveats: one model (Qwen3-32B), and the abstract does not give jailbreak effect sizes."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.27032",
+      "title": "Disentangling Verbalized Evaluation Awareness and Refusal through Neuron-Level Intervention",
+      "authors": [
+        "Jingyuan Feng",
+        "Gouki Minegishi",
+        "Andrew Gambardella",
+        "Takeshi Kojima",
+        "Yusuke Iwasawa"
+      ],
+      "affiliations": [
+        "University of Tokyo"
+      ],
+      "url": "https://arxiv.org/abs/2611.27032",
+      "pdf_url": "https://arxiv.org/pdf/2611.27032",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-20",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Intervening on 5,000 \"evaluation-awareness\" neurons in reasoning models cuts verbalized evaluation awareness from 12.6-51.8% to at most 1.4%, and in QwQ-32B also lowers refusal; refusal components inside those neurons' down-projections explain about half of that drop, while the awareness text itself explains only 4-10%.",
+      "summary": [
+        "Large reasoning models sometimes say they suspect they are being evaluated, which raises the worry that safety behavior seen in evaluations will not carry over to deployment. Earlier work steered verbalized evaluation awareness (VEA) with activation vectors and saw refusal rise with it, but the mechanism connecting the two was not understood.",
+        "The authors find VEA neurons by contrasting MLP activations in reasoning segments with and without verbalized awareness, then intervene on 5,000 of them and measure VEA rate, an unverbalized-awareness probe score, and refusal. They decompose the neurons' down-projection vectors to find refusal components and test an intervention that preserves those components. They also track VEA and VEA-neuron counts across OLMo 3 SFT, DPO and RLVR checkpoints on SorryBench and StrongREJECT.",
+        "The intervention drops VEA from 12.6-51.8% to at most 1.4% across model-benchmark pairs and also lowers the unverbalized-awareness probe. In QwQ-32B refusal falls even in rollouts with no VEA, and the VEA text accounts for only 4-10% of the decrease; preserving the refusal components restores refusal while keeping VEA suppressed, explaining about half of the drop. VEA is similar after SFT and DPO but much higher after RLVR, with more VEA neurons. Takeaway: a steering or ablation target can be entangled with a safety direction at the level of individual write vectors, so check the projection of the intervention onto known behavior directions (e.g. refusal) before attributing effects to the targeted concept. Caveat: neuron selection is contrastive on model-generated text, and results come from a few open reasoning models."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.27353",
+      "title": "WaXup: Weight Averaging of Experts as Data Augmentation for Robust Introspection",
+      "authors": [
+        "Marc Boëlle",
+        "Lucas Dixon",
+        "Alexandre Ramé"
+      ],
+      "affiliations": [
+        "Google DeepMind",
+        "Sorbonne Université (ISIR)"
+      ],
+      "url": "https://arxiv.org/abs/2611.27353",
+      "pdf_url": "https://arxiv.org/pdf/2611.27353",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-20",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "WaXup augments training data for \"introspection\" models, which are trained to describe in words what a finetuned model learned, by linearly interpolating the weights of finetuned experts, and this improves description accuracy and robustness to distribution shift, including on the AuditBench alignment-auditing suite.",
+      "summary": [
+        "Trainable introspection repurposes a model to verbalize what it learned during finetuning, offering a scalable alternative to circuit-level interpretability as models grow. Current introspection training on collections of finetuned experts works but generalizes poorly and is brittle to shifts in the kinds of behaviors being described.",
+        "Inspired by MiXup, WaXup creates new training examples by interpolating in weight space between finetuned experts, relying on linear mode connectivity so that averaged weights show interpolated behaviors with interpolated descriptions. The method is evaluated on three benchmarks: models with hidden behaviors, a meta-dataset of real-world NLP tasks, and AuditBench, where models are adversarially trained to hide their behaviors.",
+        "WaXup improves the accuracy of generated behavior descriptions and robustness under several distribution shifts across the three benchmarks; the abstract does not give numbers. Takeaway: weight interpolation is a cheap way to densify a dataset of (model, behavior) pairs, which could also serve anyone training probes, SAEs or steering detectors that must generalize across finetuned variants. Caveat: it depends on experts sharing a base model and staying linearly mode-connected, and the size of the gains must be checked in the paper."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.26920",
+      "title": "Partially canonical axes in large language model representations",
+      "authors": [
+        "Andrea Gregor de Varda",
+        "Ferdinando D'Elia",
+        "Greta Tuckute",
+        "Evelina Fedorenko",
+        "Meenakshi Khosla"
+      ],
+      "affiliations": [
+        "MIT",
+        "UC San Diego",
+        "Harvard Kempner Institute"
+      ],
+      "url": "https://arxiv.org/abs/2611.26920",
+      "pdf_url": "https://arxiv.org/pdf/2611.26920",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-20",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Across 12 LLMs from six families, the native neuron axes align better than geometry-preserving random rotations with other models, with human brain responses to language and with interpretable linguistic features, yet stay well below the best achievable alignment, so LLM coordinates are \"partially canonical\".",
+      "summary": [
+        "Much interpretability work assumes the standard basis of an LLM is arbitrary and that only directions matter, which motivates rotation-invariant tools such as SAEs and learned probes. Whether individual coordinates actually carry meaning had not been tested systematically across models.",
+        "The authors compare native axes against randomly rotated bases that keep the same representational geometry, measuring alignment of individual units with other models' representations, with human brain responses to language, and with interpretable linguistic features, across 12 LLMs from six model families.",
+        "Native axes are consistently more aligned than rotated ones on all three criteria, but fall well short of the best possible alignment, so the basis is neither arbitrary nor canonical. Takeaway: privileged-basis effects are real enough that neuron-level analyses and basis-dependent tools (e.g., per-neuron steering or SAE initialization) should be compared against a random-rotation baseline rather than assumed meaningless or meaningful. Caveat: the abstract gives no effect sizes and does not say which layers or model sizes show the strongest effect."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.27339",
+      "title": "Unimodal Shortcuts and Joint Scene-Intent Dependence in Vision-Language Safety Representations",
+      "authors": [
+        "Guijia Zhang",
+        "Hongbo Qiu",
+        "Guohao Cai",
+        "Hao Zheng",
+        "Jiajun Zha",
+        "Hanqing Wang",
+        "Zhenhao Zhang",
+        "Huihao Jing",
+        "Shing-Chi Cheung",
+        "Haoxuan Che",
+        "Harry Yang"
+      ],
+      "affiliations": [
+        "HKUST",
+        "XGEN Labs"
+      ],
+      "url": "https://arxiv.org/abs/2611.27339",
+      "pdf_url": "https://arxiv.org/pdf/2611.27339",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-20",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "All five audited situational-safety benchmarks for vision-language models can be solved from one modality (a text-only probe reaches 0.9645 AUROC on same-image prompt pairs); on a controlled set where no unimodal rule beats 0.500, linear probes still decode the scene-intent conjunction (0.958 in Qwen3-VL-8B), but simple concatenation of separate image and text states recovers most of it, so decodability is not evidence of fusion.",
+      "summary": [
+        "Whether a request to a vision-language model is safe often depends on the image, and benchmarks claim to test this joint understanding. High benchmark or probe accuracy, however, does not show that a model's internal safety representation actually combines scene and intent, since a dataset may be solvable from one modality.",
+        "The authors probe frozen VLM safety representations and audit five public situational-safety benchmarks for unimodal shortcuts. They build a controlled evaluation that crosses safe and hazardous scenes with observation and action requests so that no single-modality rule exceeds 0.500 group-ranking accuracy, then fit linear probes on intermediate states of Qwen3-VL-8B and SmolVLM2-2.2B and compare against concatenating separately encoded image and text states.",
+        "Every benchmark admits a shortcut, with a probe that never sees the photo reaching 0.9645 AUROC on same-image prompt pairs. On the control set, probes reach 0.958 and 0.930, yet concatenated unimodal states recover most of that signal, and probes generalize poorly to unseen images and other benchmarks. Takeaway: probing claims about multimodal (or multi-cue) representations need controls that rule out single-input shortcuts and a \"no-fusion\" concatenation baseline, which applies equally to probing image-plus-clinical-data medical models. Caveat: two VLMs only."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.27079",
+      "title": "Weight-space programming and mechanistic interpretability for model editing in particle physics",
+      "authors": [
+        "Raphaël Bonnet-Guerrini",
+        "Johann Ioannou-Nikolaides",
+        "Troels Petersen"
+      ],
+      "affiliations": [
+        "University of Milan",
+        "Niels Bohr Institute"
+      ],
+      "url": "https://arxiv.org/abs/2611.27079",
+      "pdf_url": "https://arxiv.org/pdf/2611.27079",
+      "source": "arXiv hep-ph, preprint",
+      "published": "2026-11-20",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "In a jet foundation model whose classifications break infrared safety, removing three SAE-identified latent directions (or letting LLM agents edit weights with 50 queries) removes almost all of the flaw while leaving other behavior nearly unchanged and transferring to other heads and signal classes.",
+      "summary": [
+        "Scientific foundation models can inherit artifacts from their pretraining data that violate known physical constraints, and fine-tuning to fix them changes many parameters and may not generalize. Here a jet foundation model (OmniLearned) changes its classification substantially when a single soft neutral particle is added, breaking infrared safety.",
+        "The authors locate the responsible attention heads with mechanistic analysis and trace the flaw to pretraining on datasets with different reconstruction thresholds. They then repair it in two gradient-free ways: ablating three latent directions found with sparse autoencoders, and having language-model agents edit the weights directly using only 50 queries to the model, comparing both against fine-tuning.",
+        "Each edit alone removes almost the entire infrared sensitivity, leaves the rest of the model's responses nearly unchanged, and touches far fewer parameters than fine-tuning. Although developed on W and QCD jets only, the edits carry over to all signal classes, the pretrained generator and a newly trained regression head. Takeaway: SAE-guided direction removal is a practical tool for fixing a known dataset artifact in a non-language foundation model, a template that could apply to acquisition or site artifacts in imaging encoders. Caveat: one model and one flaw; the abstract gives no quantitative metrics."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.27652",
+      "title": "Auditing Post-Training Unlearning in Diffusion Language Models using Sparse Autoencoders",
+      "authors": [
+        "Yunha Seo",
+        "Changhoon Kim"
+      ],
+      "affiliations": [
+        "Soongsil University"
+      ],
+      "url": "https://arxiv.org/abs/2611.27652",
+      "pdf_url": "https://arxiv.org/pdf/2611.27652",
+      "source": "arXiv cs.CL, accepted at NeurIPS 2026 Workshop on Inference-Time AI Privacy (InfPriv 2026) (per arXiv comment)",
+      "published": "2026-11-20",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Using top-k SAEs on LLaDA-8B-Instruct with WMDP as the forget set, forget-related features shift substantially across denoising stages, but adapting feature suppression to the stage does not reliably improve the forget-retain trade-off over static suppression.",
+      "summary": [
+        "Machine unlearning has been studied mostly in autoregressive LLMs, while diffusion language models generate through iterative denoising and expose partially masked states whose internal features change over the generation. It is open whether unlearning can exploit this by tracking forget-related features across stages.",
+        "The authors run a controlled study on LLaDA-8B-Instruct with WMDP as the forget-domain benchmark. They train top-k sparse autoencoders, use denoising-state replay to see how forget-associated features evolve, and compare static versus stage-adaptive suppression of those features.",
+        "Forget-associated features shift a lot across denoising stages, yet tracking them does not reliably improve the forget-retain trade-off at the evaluated operating points; the abstract reports no numbers. Takeaway: a useful negative result for SAE-based feature ablation, since knowing that features drift over a process does not automatically give a better intervention, and static suppression is a strong baseline. Caveats: a short workshop paper, one model, one benchmark."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.27317",
+      "title": "Do Language Models Know Which Words Steer Their Reasoning?",
+      "authors": [
+        "Yanbei Jiang",
+        "Chao Lei",
+        "Jey Han Lau",
+        "Krista A. Ehinger",
+        "Rena Gao Wei"
+      ],
+      "affiliations": [
+        "University of Melbourne"
+      ],
+      "url": "https://arxiv.org/abs/2611.27317",
+      "pdf_url": "https://arxiv.org/pdf/2611.27317",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-20",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Leave-one-word-out attribution shows chain-of-thought is often swayed by semantically irrelevant words that the model itself judges irrelevant; zeroing the KV-cache entries of the most influential self-judged-inert word and re-decoding improves CoT accuracy by up to 8.9 points on math reasoning.",
+      "summary": [
+        "Chain-of-thought exposes intermediate steps, but it is unclear which words in the prompt actually drive the reasoning, and whether the model can report those dependencies. Mismatches between what influences a model and what it says influences it matter for faithfulness and for debugging reasoning failures.",
+        "The authors define Phantom Context Influence and measure it with Leave-One-Out Word JSD, removing one context word at a time and measuring the change in next-token distribution; words whose removal flips the prediction are given back to the same model to judge whether it depends on them. They then propose Online KV Suppression, which scores each prompt word's influence over the whole CoT in one pass and zeroes the KV-cache entries of the highest-influence word the model deems inert before re-decoding.",
+        "Across four models and three benchmarks, models mostly fail to recognize which words steer their reasoning (a Generation-Judgment Contradiction). The single-word KV suppression improves CoT accuracy across four models and five reasoning benchmarks, by up to 8.9 percentage points on math. Takeaway: input-level ablation attribution is a cheap way to expose distractor sensitivity, and model self-reports about relevance should not be trusted as explanations. Caveat: \"up to\" gains suggest variable improvements, and leave-one-out costs grow with prompt length."
+      ],
+      "score": 3
+    }
+  ]
+}
