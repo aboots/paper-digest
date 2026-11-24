@@ -1,0 +1,313 @@
+{
+  "date": "2026-11-24",
+  "generated_at": "2026-11-24T06:17:34-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.29265",
+      "title": "On the Interplay between Backtracking and Latent Confidence Directions in Reasoning Models",
+      "authors": [
+        "Stephen Cheng",
+        "Zahra Sodagar",
+        "Sandeep Soni",
+        "Dinesh Manocha",
+        "Sarah Wiegreffe"
+      ],
+      "affiliations": [
+        "University of Maryland",
+        "Emory University"
+      ],
+      "url": "https://arxiv.org/abs/2611.29265",
+      "pdf_url": "https://arxiv.org/pdf/2611.29265",
+      "source": "arXiv cs.LG, under review at ICLR 2027 (per arXiv comment)",
+      "published": "2026-11-22",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "A linear \"latent confidence\" direction, extracted from a reasoning model's verbalized confidence after answer proposals, also steers whether the model backtracks, about as well as a direction learned directly from backtracking examples. Steering with it changes response length by roughly -1.3k to +2.5k tokens with minimal accuracy cost.",
+      "summary": [
+        "Reasoning models often keep proposing answers and backtracking after they already have the right one; across three 32B models about 87% of rollouts contain a single unique answer yet make about 8 answer proposals on average. The open question is whether model internals reveal, before it happens, whether the model will backtrack or commit, and whether that is tied to an internal sense of uncertainty.",
+        "The authors query the model's verbalized confidence after each answer proposal in a trace and fit a linear direction separating high from low verbalized confidence. They test it as a steering vector on verbalized confidence and on the next-token probability of backtracking, compare it with a direction extracted directly from backtracking examples, and then apply it under progressively more realistic interventions: from a mid-trace answer proposal, and from the very start of generation when proposal positions are unknown.",
+        "The confidence direction steers verbalized confidence as expected and, surprisingly, steers backtracking probability on par with the backtracking-derived direction. Continuous steering from a mid-trace proposal shifts response length by about -1.3k to +2.5k tokens and the number of answer proposals by -4.18 to +4.75, with minimal accuracy cost; steering from the start still shortens traces at comparable accuracy. Takeaway: two behaviorally distinct directions (confidence and backtracking) appear to share geometry, which is a useful case study for steering-geometry work and a practical lever for trace-length control. Caveat: the abstract reports results on 32B reasoning models only, the paper is under review at ICLR 2027 (per arXiv comment), and no code link is given on the abstract page."
+      ],
+      "score": 5
+    },
+    {
+      "id": "arxiv:2611.30117",
+      "title": "What Remains After Concept Erasure? Sparse Autoencoder Probes for Auditing Diffusion Models",
+      "authors": [
+        "Zhuan Shi",
+        "Lu Wei",
+        "Yuta Nakashima",
+        "Noa Garcia",
+        "Golnoosh Farnadi"
+      ],
+      "affiliations": [
+        "Mila",
+        "McGill",
+        "Osaka University"
+      ],
+      "url": "https://arxiv.org/abs/2611.30117",
+      "pdf_url": "https://arxiv.org/pdf/2611.30117",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-23",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "SAE-Audit uses SAE features learned on the original diffusion model to inject a few dozen fixed sparse directions into a concept-erased model, and this restores the erased concept more often than random-feature interventions. Erased objects and nudity are often recoverable after cross-attention edits, while most styles and copyrighted concepts are not.",
+      "summary": [
+        "Concept erasure methods for text-to-image diffusion models are usually judged by whether the target concept disappears from generated images while other concepts survive. But absence from outputs does not prove the concept is gone from the model's internals, so a white-box test of residual concept knowledge is missing.",
+        "SAE-Audit trains a sparse autoencoder on activations of the original model and uses this shared dictionary to compare original and edited models, picking features whose target-related responses weaken after erasure. Sparse directions derived from the original model's responses are then injected into the edited model, fixed across test prompts and without changing weights or prompts, and recovery is measured on held-out scene families. The study covers six erasure methods and four domains: objects, artistic styles, copyrighted content and nudity.",
+        "Interventions with a few dozen selected SAE features give higher average recovery than matched random-feature interventions, with recovery concentrated in objects and nudity after cross-attention edits; most styles and copyrighted concepts show limited recovery under the tested settings. Takeaway: output-level suppression can coexist with an internal representation that still responds to the original concept directions, so SAE-based steering is a useful red-team tool for any unlearning or concept-removal claim. Caveat: the abstract gives no numeric recovery rates, and recovery depends strongly on the domain and erasure method."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.29936",
+      "title": "SAEPO: Sparse-Autoencoder-Guided Credit Assignment for Policy Optimization",
+      "authors": [
+        "Yusong Zhao",
+        "Zihao Zhao",
+        "Zirui Zhang",
+        "Tunyu Zhang",
+        "Ziyan Wang",
+        "Yi Wang",
+        "Chengzhi Mao",
+        "Hao Wang"
+      ],
+      "affiliations": [
+        "UIUC",
+        "Rutgers",
+        "Georgia Tech"
+      ],
+      "url": "https://arxiv.org/abs/2611.29936",
+      "pdf_url": "https://arxiv.org/pdf/2611.29936",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-23",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "SAEPO turns pretrained SAE concepts into token-level advantages for RL with verifiable rewards, plugging into GRPO and GSPO. It improves math and code benchmark averages over matched baselines by up to 6.63% and 5.57%.",
+      "summary": [
+        "RL with verifiable rewards improves LLM reasoning, but the outcome verifier only says whether a whole response is right, not which tokens helped or hurt. This coarse credit assignment makes policy optimization inefficient, particularly when training base models from sparse outcome feedback.",
+        "SAEPO uses a pretrained sparse autoencoder to represent each token in a reasoning trajectory by its SAE concepts and scores tokens from those concepts (for example penalizing wrong \"final-answer\" tokens while rewarding correct \"reasoning-process\" tokens), learned without supervision. It acts as a plug-in advantage-shaping module and is instantiated with both GRPO and GSPO. Evaluation spans three LLM backbones, six math benchmarks and two code benchmarks.",
+        "SAEPO raises math and code benchmark averages over matched baselines, with gains of up to 6.63% and 5.57% respectively, and on Qwen3-1.7B-Base it shows faster early accuracy growth. Feature- and token-level analyses suggest the SAE signal favors question-relevant concepts and reasoning tokens. Takeaway: SAE features are being used not only for analysis but as a training signal, which is a concrete downstream use case for SAE quality. Caveat: gains are reported as \"up to\" numbers, so per-model improvements may be smaller, and the abstract does not name the SAE or its training data."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.29715",
+      "title": "From States to Dynamics: Detecting Rule Violations in OthelloGPT",
+      "authors": [
+        "David L. Cao",
+        "Sai Sumedh R. Hindupur",
+        "Demba Ba"
+      ],
+      "affiliations": [
+        "Harvard (Kempner Institute)"
+      ],
+      "url": "https://arxiv.org/abs/2611.29715",
+      "pdf_url": "https://arxiv.org/pdf/2611.29715",
+      "source": "arXiv cs.LG, accepted to NeurIPS workshop Interpretability as a Science (per arXiv comment)",
+      "published": "2026-11-22",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "OthelloGPT's activations encode not just board state but the game's rules: linear probes separate legal from illegal moves and tell three kinds of rule violation apart. An unsupervised detector based on the step length of activations between moves flags illegal moves above chance, and works better in the latent space of selected SAEs.",
+      "summary": [
+        "Work on OthelloGPT showed that a transformer trained only on move sequences encodes the board state, a classic world-model result. World models are dynamic, though, and it was unclear whether the model also represents the rules that govern how states evolve.",
+        "The authors split Othello's rules, and their violations, into three classes: placing a disc on an empty square, flanking an opponent's disc, and moving in turn. They train linear probes to separate legal from illegal moves and to distinguish the violation types. They also propose an unsupervised rule-violation detector based on the step length of activations between consecutive moves, computed both in raw activation space and in the latent space of selected sparse autoencoders.",
+        "Linear probes accurately separate legal from illegal moves and distinguish the three violation types, and the step-length detector finds illegal moves above chance, with better detection in SAE latent space. Takeaway: for world-model interpretability, looking at activation dynamics (how representations move between steps), not just static probes of state, is a cheap, label-free signal worth reusing. Caveat: the abstract gives no numeric accuracies and the setting is a toy game; it is a NeurIPS workshop paper (Interpretability as a Science, per arXiv comment), with code at dcowdcao/states-to-dynamics."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.30939",
+      "title": "Beyond Patching: Consistent Circuit Discovery via Gradient Spectral Analysis",
+      "authors": [
+        "Yujie Zhang",
+        "Tianyi Zhao",
+        "Guanghui Min",
+        "Chen Chen"
+      ],
+      "affiliations": [
+        "University of Virginia"
+      ],
+      "url": "https://arxiv.org/abs/2611.30939",
+      "pdf_url": "https://arxiv.org/pdf/2611.30939",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-23",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Spectral Circuit Analysis finds circuits without counterfactual prompt pairs by running a block-wise SVD on forward gradients across paraphrases. It matches or beats EAP-family methods on twelve tasks in GPT-2 Small and Pythia-160M and recovers the IOI heads with Precision@K = 1.0 in top-10 slices.",
+      "summary": [
+        "Circuit discovery usually scores units by patching clean activations with corrupted ones, which needs carefully engineered clean/corrupt prompt pairs for every task. That design is costly and quietly ties the discovered circuit to prompt choices, so circuits can be unstable across phrasings and hard to compare across tasks.",
+        "The authors argue that causally relevant directions can be recovered from the spectral structure of forward gradients collected over paraphrases: leading singular directions carry the task signal and trailing ones absorb paraphrase noise. Spectral Circuit Analysis (SCA) runs a block-wise SVD to extract a task subspace per architectural block, then spreads spectral energy onto individual units with a consistency-weighted share to rank them. It is evaluated on twelve circuit-discovery tasks in GPT-2 Small and Pythia-160M with the standard recovery-score protocol, and extended to a cross-task analysis.",
+        "SCA performs comparably to or better than EAP-family methods with strictly less supervision and recovers the canonical IOI heads with Precision@K = 1.0 in top-10 slices on GPT-2 Small. The cross-task analysis classifies units as universal, family-shared or task-specific and reveals compositional structure that per-task analyses miss. Takeaway: paraphrase-based gradient spectra are a counterfactual-free alternative to patching that also gives a natural way to compare circuits across tasks. Caveat: results are limited to small models (GPT-2 Small, Pythia-160M); code is linked from the paper (YujieZhangzz/Spectral-Circuit-Analysis)."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.28808",
+      "title": "When do stored facts become available in looped transformers?",
+      "authors": [
+        "Fabio Valerio Massoli",
+        "Arnau Padrés Masdemont",
+        "Jordi Ros Giralt",
+        "Arash Behboodi"
+      ],
+      "affiliations": [
+        "Qualcomm AI Research"
+      ],
+      "url": "https://arxiv.org/abs/2611.28808",
+      "pdf_url": "https://arxiv.org/pdf/2611.28808",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-21",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "With final-loop supervision, facts in looped transformers become readable progressively across loops, while per-loop supervision makes them readable after the first loop. In multi-hop recall, intermediate entities are decodable in chain order, and swapping a probe-defined entity component redirects the final answer.",
+      "summary": [
+        "Looped transformers reuse the same block several times and store about as many bits in their weights as non-looped models, but it is unclear how recurrence makes stored knowledge available during inference. Understanding this matters for interpreting and designing recurrent-depth models.",
+        "The authors use synthetic factual-recall and multi-hop reasoning tasks and measure depth-resolved readable information in bits with native readouts and tuned lenses. They compare looped models with untied baselines of equal unrolled depth, vary memorization load and supervision (final-loop vs every-loop), and study multi-hop chains whose facts are stored in the weights. They then run causal interventions in a released six-recurrence model, replacing a probe-defined entity component at a single prompt position.",
+        "Under final-loop supervision, single-hop facts become readable gradually and heavier memorization delays retrieval; untied baselines retrieve near the end of the stack, while looped models expose facts earlier. Training with supervision at every loop makes near-final information readable after the first loop. In multi-hop chains, intermediate entities become decodable in order, swapping the entity component redirects downstream entities and the answer, and replacements that reach the same entity via different relations keep the original answer in over 99.5% of tested cases. Takeaway: probes plus counterfactual patching cleanly separate when a fact is retrieved from whether it is causally used, a recipe that carries over to latent-reasoning or world-model analyses. Caveat: most experiments are on synthetic tasks."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.30290",
+      "title": "Uncovering Separable and Composable Skill Mechanisms in Vision-Language Models",
+      "authors": [
+        "Miaoyu Li",
+        "Boyang Li"
+      ],
+      "affiliations": [
+        "NTU Singapore"
+      ],
+      "url": "https://arxiv.org/abs/2611.30290",
+      "pdf_url": "https://arxiv.org/pdf/2611.30290",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-23",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "DISCO localizes attention heads for visual reasoning skills in VLMs so that they are separable (mostly affect one skill) and composable (combine for complex tasks). It beats the strongest baseline on separability by 24.80, 18.38 and 13.75 points on three VLMs.",
+      "summary": [
+        "Recent work localizes internal mechanisms behind visual reasoning skills in vision-language models, but it mostly ignores whether the identified components are specific to one skill or can be combined. Without these properties, localized mechanisms are less useful for precise diagnosis and targeted intervention.",
+        "The authors propose separability and composability as desiderata for skill localization and build the DISCO framework around them. For identification, Separable Head Selection picks skill-specific attention heads from their contributions across multiple skills; for evaluation they design what they describe as the first metrics for head separability and composability. Experiments cover three VLMs and four basic visual reasoning skills.",
+        "DISCO achieves the highest separability, beating the strongest baseline by 24.80, 18.38 and 13.75 points on the three models, and the highest composability on all three. Takeaway: when localizing components (heads, features or directions) for an intervention, scoring them against off-target skills is a cheap way to avoid side effects, and the same idea applies to choosing steering targets. Caveat: the abstract does not name the VLMs or give downstream intervention results, and no code link appears on the abstract page."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.28621",
+      "title": "Interpreting Diffusion Model Activations in Natural Language",
+      "authors": [
+        "Yukinori Yamamoto",
+        "Kotaro Yoshida",
+        "Ryotaro Shimizu"
+      ],
+      "affiliations": [
+        "ZOZO Research",
+        "Waseda University",
+        "Institute of Science Tokyo"
+      ],
+      "url": "https://arxiv.org/abs/2611.28621",
+      "pdf_url": "https://arxiv.org/pdf/2611.28621",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-21",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "The Diffusion-specific Activation Oracle (DAO) extends LatentQA to diffusion models, answering open-ended natural-language questions about intermediate activations. It describes the final image from early denoising steps, supports steering toward target attributes, and enables attribution patching to find components behind attributes named in language.",
+      "summary": [
+        "Understanding diffusion-model activations is key to knowing how images get generated, but existing interpretability tools for diffusion models support little open-ended questioning. That makes it hard to pull out human-interpretable insights beyond predefined concepts.",
+        "The authors adapt LatentQA, the task of answering natural-language questions about LLM activations, to diffusion model activations. They train DAO to translate activations into answers about the ongoing generation, use it to steer generation toward target attributes, and run attribution patching through DAO to identify model components tied to visual attributes described in natural language.",
+        "DAO can describe the content of the final image from activations at early denoising steps, captures the activation-space structure well enough to steer generation, and lets attribution patching locate components responsible for language-specified attributes. Takeaway: activation oracles give one natural-language interface for reading, steering and attributing, a flexible alternative to fixed SAE dictionaries for vision generative models. Caveat: the abstract gives no quantitative results; code is at yamanoko/dao."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.29789",
+      "title": "Tabular Foundation Models for Weighted Regression and Classification",
+      "authors": [
+        "Junwen Xia",
+        "Yan He",
+        "Dehan Kong",
+        "Zhenhua Lin"
+      ],
+      "affiliations": [
+        "Renmin University of China",
+        "University of Toronto",
+        "NUS"
+      ],
+      "url": "https://arxiv.org/abs/2611.29789",
+      "pdf_url": "https://arxiv.org/pdf/2611.29789",
+      "source": "arXiv stat.ML, preprint",
+      "published": "2026-11-22",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "WeightedPFN adapts TabPFN-3.5 to sample-weighted prediction with weighted attention, a normalized weighted loss, and pretraining on synthetic weighted tasks from missing-data problems. It performs strongly on real missing-data and out-of-distribution causal tasks at about the speed of linear baselines, with a minimax-rate guarantee.",
+      "summary": [
+        "Weighted regression and classification appear in missing-data analysis, causal inference, insurance pricing and particle physics, but current weighted methods must be fitted and tuned per dataset. Tabular foundation models such as TabPFN-3.5 avoid per-dataset fitting yet cannot use sample weights.",
+        "The authors build a general pipeline to make in-context tabular models weight-aware: weighted attention, a normalized weighted loss, and pretraining on synthetic weighted prediction tasks drawn from missing-data problems. Applied to TabPFN-3.5 it gives WeightedPFN. They also give a statistical theory for pretrained weighted Transformers.",
+        "WeightedPFN performs strongly on real datasets in both missing-data problems and out-of-distribution causal tasks while running about as fast as linear baselines, and the theory shows a suitably pretrained weighted Transformer reaches the nonparametric minimax rate for weighted regression on new datasets without further fitting. Takeaway: sample weights (inverse-propensity or importance weights) can be built into a TFM's attention and prior, which makes TFMs usable for causal and covariate-shift work. Caveat: the abstract gives no numeric comparisons; code is linked from the paper (xiajunwen1007/WeightedPFN)."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.31049",
+      "title": "RoFE: Rotated Frozen Embeddings for Low-Data Multimodal Tabular Learning",
+      "authors": [
+        "Yihao Qiao",
+        "Jiajian Ma",
+        "Wushuang Rui",
+        "Abhishek Jha",
+        "Aarti Darji",
+        "Yiqiu Shen"
+      ],
+      "affiliations": [
+        "NYU"
+      ],
+      "url": "https://arxiv.org/abs/2611.31049",
+      "pdf_url": "https://arxiv.org/pdf/2611.31049",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-23",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Feeding PCA-compressed image or text embeddings into PFNs can lose to linear classifiers in low-data settings, because per-column standardization erases the PCA variances. RoFE, a training-free rotation of PCA scores before PFN inference, fixes this and beats both the PCA interface and baselines that need task-specific training.",
+      "summary": [
+        "Multimodal tabular learning mixes tables with images and text, often with few labels, which suits PFN-style tabular foundation models that learn in context. But image and text encoders produce embeddings with far more dimensions than PFNs saw in pretraining, and the common fix of compressing them with PCA is not well understood.",
+        "The authors find that the PCA interface can underperform simple linear classifiers with scarce labels and trace the failure to the PFN's per-column standardization, which removes the variance of the PCA scores; when PCA keeps every direction, the labeled examples collapse into a regular simplex with equal pairwise distances. RoFE rotates the PCA scores before PFN inference, and they prove the rotation makes column variances nearly equal so standardization roughly preserves embedding geometry. Experiments span image and text classification, several encoders and several tabular foundation models.",
+        "RoFE improves low-data performance over the PCA interface, outperforms baselines that require task-specific training, and the gains extend to regression. Takeaway: when passing frozen embeddings into TabPFN-style models, preprocessing interacts with the model's internal normalization, and a random or learned rotation is a free fix worth trying. Caveat: the abstract gives no numbers; code and a project page are linked (yihao-qiao/RoFE)."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.28396",
+      "title": "Targeted In-Context Poisoning of Tabular Foundation Models: An Empirical Study",
+      "authors": [
+        "Adem Alparslan"
+      ],
+      "affiliations": [
+        "FOM University of Applied Sciences"
+      ],
+      "url": "https://arxiv.org/abs/2611.28396",
+      "pdf_url": "https://arxiv.org/pdf/2611.28396",
+      "source": "arXiv cs.CR, preprint",
+      "published": "2026-11-20",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Placing one mislabeled exact copy of a target row in the context flips on average 53% (TabICL) and 65% (TabPFN) of otherwise correct predictions on 30 OpenML datasets, and three copies flip almost all. The mechanisms differ: TabICL rotates the target embedding toward the wrong class, while TabPFN gets pulled along by genuine wrong-class rows.",
+      "summary": [
+        "Tabular foundation models predict a query row from a context of labeled rows without training, and that context usually comes from operational data. This makes the context itself an attack surface whose effect is immediate at prediction time.",
+        "The study tests the simplest targeted attack: an attacker with write access to the context source inserts exact copies of a target row with the wrong label. It measures prediction flips for TabICL and TabPFN on 30 OpenML binary classification datasets, compares with true-label copies and with trained models (random forest, CatBoost, logistic regression), analyzes why predictions flip, and demonstrates a detection mechanism.",
+        "One poison row flips on average 53% (TabICL) and 65% (TabPFN) of correct predictions, three flip almost all, true-label copies flip almost none, and accuracy on other rows hardly changes. Random forests flip almost always, CatBoost about as often as the TFMs, logistic regression rarely. Takeaway: TFM contexts need access control, per-prediction traceability and validation at prediction time, since a poison row can act and then be deleted. Caveat: single-author study of one simple attack on binary tasks; code is at adem-alparslan/ticp."
+      ],
+      "score": 3
+    }
+  ]
+}
