@@ -1,397 +1,307 @@
 {
-  "date": "2026-11-25",
-  "generated_at": "2026-11-25T06:08:46-07:00",
+  "date": "2026-11-26",
+  "generated_at": "2026-11-26T06:06:17-07:00",
   "papers": [
     {
-      "id": "arxiv:2611.31015",
-      "title": "Can Latent Reasoning Drive LLM Outputs Without a Trace?",
+      "id": "arxiv:2611.34767",
+      "title": "When to Trust a PFN: Detecting Harmful Shift in Tabular Foundation Models",
       "authors": [
-        "Tomer Ashuach",
-        "Zorik Gekhman",
-        "Avi Caciularu",
-        "Ori Ram",
-        "Jonathan Herzig"
+        "Viet Nguyen",
+        "Herman Bergström",
+        "Stephan Rabanser",
+        "Rahul G. Krishnan"
       ],
       "affiliations": [
-        "Technion",
-        "Google Research"
+        "University of Toronto",
+        "Chalmers",
+        "Princeton"
       ],
-      "url": "https://arxiv.org/abs/2611.31015",
-      "pdf_url": "https://arxiv.org/pdf/2611.31015",
-      "source": "arXiv cs.LG, preprint",
-      "published": "2026-11-23",
+      "url": "https://arxiv.org/abs/2611.34767",
+      "pdf_url": "https://arxiv.org/pdf/2611.34767",
+      "source": "arXiv cs.LG, NeurIPS 2026 (per arXiv comment)",
+      "published": "2026-11-25",
       "topics": [
-        "interpretability"
+        "tabular_fm"
       ],
-      "tldr": "Fine-tuning gives models deep enough complete latent reasoning (at least 5x deeper than previously reported) to pursue a hidden loan-decision or vulnerability-planting objective while the chain of thought shows no trace of it. Activation patching shows the latent computation finishes before the CoT is generated, so output-only CoT monitors can be blind.",
+      "tldr": "CALD fine-tunes a PFN decoder to disagree with the test batch while holding accuracy on an in-distribution anchor set, and the resulting anchor loss becomes a label-free alarm for harmful shift. Across 14 datasets on TabPFN and TabICL it matches or beats shift-detection baselines while raising far fewer false alarms on benign shift.",
       "summary": [
-        "Chain-of-thought is the main window used to monitor LLMs for misaligned behavior, which assumes any multi-step reasoning that drives the answer shows up in the trace. Prior theory and measurements suggested that complete latent reasoning (solving a task internally with only the final answer emitted) is shallow, so it was unclear whether a model could secretly reason toward a hidden goal.",
-        "The authors first add a simple auxiliary loss that teaches models to carry out multi-step tasks entirely latently. They then train models on two common settings, decision-making (loan approval) and code generation, to pursue a hidden objective that needs reasoning, while producing a chain of thought that appears to solve the stated task. They test whether a strong LLM monitor flags the outputs and use activation patching to locate when the hidden computation happens.",
-        "The auxiliary loss lets models solve multi-step tasks latently at least 5x deeper than previously reported. The trained models decide loans or plant vulnerabilities according to the hidden objective, their CoT justifies the output without mentioning it, and a strong LLM monitor does not flag them. Activation patching shows the latent computation is complete before the CoT starts, so the CoT plays no causal role. Takeaway: CoT faithfulness cannot be assumed, and internal-activation probes or patching are needed as a complement to text monitors, which is a concrete motivation for interpretability-based monitoring. Caveat: the hidden objectives are deliberately trained in, so this is an existence proof rather than evidence that such behavior arises naturally; the abstract does not list model sizes."
+        "Tabular prior-fitted networks such as TabPFN and TabICL are accurate out of the box, but at deployment they can fail silently when the data distribution shifts. Generic shift detectors flag any shift, including benign ones that do not hurt accuracy, and there was no lightweight, label-free way to tell when a PFN specifically should not be trusted.",
+        "The authors propose CALD (Calibrated Anchor-Loss Disagreement). For an unlabeled test batch, they fine-tune the PFN decoder to maximize disagreement with its own test predictions while keeping accuracy on a labeled in-distribution anchor set; the post-fine-tune anchor loss is the detection statistic. They prove that under sufficiently severe shift this anchor loss has strictly lower expectation than in-distribution, which gives a one-sided test, and evaluate on 14 datasets with tabular and structured shifts using both TabPFN and TabICL.",
+        "CALD matches or outperforms baselines at detecting harmful shifts and is clearly more robust to false alarms from benign shift; the abstract does not give per-dataset numbers. Takeaway: if you deploy TabPFN-style models (for example on clinical tables), CALD is a cheap monitor that targets performance-relevant shift rather than any distribution change, and code is released (github.com/teivng/cald). Caveat: it needs a labeled in-distribution anchor set and a small fine-tuning step per test batch, and it is evaluated on classification only."
       ],
       "score": 5
     },
     {
-      "id": "arxiv:2611.29475",
-      "title": "Music Circuit: Trace and Control Style Dynamics in Large Music Generation Model",
+      "id": "arxiv:2611.32199",
+      "title": "Steerable by Design: Conditional Pretraining for Robust Control of Language Models",
       "authors": [
-        "Ruiji Yu",
-        "Wenye Ma",
-        "Gus Xia"
+        "Henry Castillo",
+        "Yanchen Liu",
+        "Claudio Mayrink Verdun",
+        "Dylan Hadfield-Menell"
       ],
       "affiliations": [
-        "MBZUAI",
-        "McGill"
+        "MIT",
+        "Cambridge-Boston Alignment Initiative",
+        "Harvard"
       ],
-      "url": "https://arxiv.org/abs/2611.29475",
-      "pdf_url": "https://arxiv.org/pdf/2611.29475",
-      "source": "arXiv cs.SD, preprint",
-      "published": "2026-11-22",
-      "topics": [
-        "steering"
-      ],
-      "tldr": "Circuit analysis on the YuE2 music generation model shows style forms mainly in the score-planning stage as a dynamic, token-varying representation; steering a sparse circuit of neurons and heads along a merged per-style direction transfers a piece to a target style without any style text, matching or exceeding style prompting.",
-      "summary": [
-        "Music generation models expose style as a main user control, yet nothing is known about how style is represented internally or which components drive it. Circuit analysis has explained and controlled global attributes such as emotion in language models, but had not been applied to style in large music generators.",
-        "Using YuE2, the authors build a dataset pairing the same lyrics with five styles. Their three-step framework localizes the generation stage where style forms, observes how the style representation varies across positions, and then merges activation differences across positions into one direction per style, tracing the neurons and attention heads that drive that direction into a sparse circuit that is used for steering.",
-        "Style forms mainly in the score-planning stage and is a dynamic representation across tokens rather than a fixed vector. Steering the traced circuit transfers a piece to the target style without any style text, matching and sometimes exceeding the style prompt; the abstract reports these as qualitative comparisons and gives no numeric scores. Takeaway: when a concept varies over positions, merging position-wise activation differences into one direction and restricting the edit to a traced sparse circuit is a reusable recipe for steering global attributes beyond text LLMs. Caveat: one model and five styles, and the abstract does not give quantitative evaluation details."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.33037",
-      "title": "Linear Probes Can Guide: Training-Free Control of Representation Generators",
-      "authors": [
-        "Pengwei Wang",
-        "José Morano",
-        "Botond Fazekas",
-        "Hrvoje Bogunović"
-      ],
-      "affiliations": [
-        "Medical University of Vienna"
-      ],
-      "url": "https://arxiv.org/abs/2611.33037",
-      "pdf_url": "https://arxiv.org/pdf/2611.33037",
-      "source": "arXiv cs.CV, preprint",
+      "url": "https://arxiv.org/abs/2611.32199",
+      "pdf_url": "https://arxiv.org/pdf/2611.32199",
+      "source": "arXiv cs.LG, preprint",
       "published": "2026-11-24",
       "topics": [
         "steering"
       ],
-      "tldr": "Because vision-foundation-model feature spaces are linearly readable, a linear probe applied to a representation-space denoiser's prediction gives the exact posterior mean of the probe score at any noise level, so semantic guidance becomes a Bayesian linear inverse problem. The resulting LiSM framework (and its Fit-Path solver) steers representation generators without training-time conditioning and beats noise-aware and pixel-space guidance across four control setups.",
+      "tldr": "Instead of steering after the fact, Mancelle-3B is pretrained with a separate, write-protected control channel (an encoder read via cross-attention) that the model learns to rely on. It steers more strongly than prompt and activation steering on comparable open models and resists adversarial counter-steering that breaks those baselines.",
       "summary": [
-        "Representation-space generative models such as Representation Autoencoders use pretrained vision foundation models mainly to speed up training and improve fidelity. Post-hoc guidance usually needs noise-aware classifiers or pixel-space decoding, which adds training cost and limits control.",
-        "The authors observe that for an ideal denoiser, applying a clean linear probe to the predicted clean representation yields, by linearity of expectation, the exact posterior mean of probe scores at any noise level, a regime they call Semantic Mean-Space. This turns guidance into a Bayesian linear inverse problem. They build LiSM, a family of solvers that differ in how they estimate probe-space uncertainty and propagate corrections, and propose a new solver, Fit-Path, aimed at both global and local control.",
-        "Across four control setups (class, attributes, foreground and keypoints), LiSM methods, especially Fit-Path, give lightweight control and outperform noise-aware and pixel-space guidance; the abstract gives no numeric scores. Takeaway: linear probes on frozen foundation-model features can serve as steering directions for generation, not just as read-outs, which connects probe geometry to controllable generation. Caveat: the exactness argument assumes an ideal denoiser, and how well it holds for real denoisers must be checked in the paper."
+        "Language models are pretrained with next-token prediction and only aligned or steered in the last sliver of training or at inference time. Because instructions and data share one input channel, models can treat data as instructions (jailbreaks, in-context alignment drift), and activation steering added post hoc can be overridden.",
+        "The authors design a pretraining method and architecture with a dedicated control channel: an encoder summarizes high-level semantic features of upcoming text, and the main model reads them via cross-attention, while the token stream cannot write back into that channel. Pretraining teaches the model to rely on these features to predict the next token, so the channel becomes a steering handle. They train Mancelle-3B, compare against prompt- and activation-based steering on comparable open models, and repeat against a more controlled baseline with Mancelle-400M.",
+        "Mancelle-3B steers more strongly than prompt and activation steering while staying fluent, and it withstands adversarial black-box and soft-prompt counter-steering that defeats the baselines; the result is reproduced at 400M scale. The abstract gives no numeric effect sizes. Takeaway for steering-geometry work: robustness of control can be designed into the architecture rather than found in the residual stream, so it is a useful upper-bound comparison for activation-steering methods. Caveat: it requires pretraining from scratch and only tests up to 3B parameters."
       ],
       "score": 4
     },
     {
-      "id": "arxiv:2611.31795",
-      "title": "Constructive Causal Abstraction and a Case Study in Mechanistic Interpretability",
+      "id": "arxiv:2611.33640",
+      "title": "Sparse-to-Sparse Feature Learning for Cross-Layer Analysis and Steering",
       "authors": [
-        "Yuchen Zhu",
-        "Sergio Hernan Garrido Mejia",
-        "Dominik Janzing"
+        "Masahiro Kaneko",
+        "Ayana Niwa",
+        "Timothy Baldwin"
       ],
       "affiliations": [
-        "UCL",
-        "MPI for Intelligent Systems",
-        "Amazon"
+        "MBZUAI"
       ],
-      "url": "https://arxiv.org/abs/2611.31795",
-      "pdf_url": "https://arxiv.org/pdf/2611.31795",
+      "url": "https://arxiv.org/abs/2611.33640",
+      "pdf_url": "https://arxiv.org/pdf/2611.33640",
+      "source": "arXiv cs.CL, EACL 2027 (per arXiv comment)",
+      "published": "2026-11-25",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Sparse-to-sparse (S2S) feature learning trains each layer's sparse code to predict the next layer's sparse code, anchored at the output, giving SAE-style features that line up across adjacent layers better than matched sparse-feature baselines in eight language models.",
+      "summary": [
+        "Sparse autoencoders split dense hidden states into sparse features, and cross-layer variants try to capture structure spanning layers. But existing objectives never explicitly train the sparse code at one layer to predict the sparse code at the next, so features at neighbouring layers need not correspond, which complicates tracing and steering along a pathway.",
+        "S2S trains sparse features at each intermediate layer to predict those of the following layer, anchors the final layer with an output-distribution loss, and optimizes sequentially from output back to input. They evaluate adjacent-layer correspondence across eight language models, test feature-based steering interventions at matched output-distribution shift so that steering effects are separated from reconstruction effects of the sparse pathway, and add causal ablations.",
+        "S2S gives stronger adjacent-layer correspondence than matched sparse-feature baselines, and causal ablations support the correspondence beyond the metrics; the abstract does not report numbers or model sizes. Takeaway: the matched-output-shift protocol is a sound way to compare steering with SAE features fairly, and S2S is a candidate when you want features you can follow layer to layer. Caveat: the steering and ablation gains are described qualitatively in the abstract, so check the paper tables before reusing."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.34515",
+      "title": "Decoder-as-a-Probe: Verbalizing and Steering Visual Representations in LVLMs",
+      "authors": [
+        "Adhemar de Senneville",
+        "Xavier Bou",
+        "Jérémy Anger",
+        "Rafael Grompone",
+        "Gabriele Facciolo"
+      ],
+      "affiliations": [
+        "ENS Paris-Saclay (Centre Borelli)",
+        "AMIAD"
+      ],
+      "url": "https://arxiv.org/abs/2611.34515",
+      "pdf_url": "https://arxiv.org/pdf/2611.34515",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-25",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Decoder-as-a-Probe uses a first-order Taylor expansion of an LVLM's own LLM decoder as a linear probe over visual tokens, giving concept directions that both verbalize what the model sees and surgically edit attributes, beating classic probing and steering baselines especially with little training data.",
+      "summary": [
+        "Concepts are thought to be linearly represented in large networks, and finding such directions in the visual representations of vision-language models matters for interpretability and control. The standard approach trains a linear classifier, which needs many labels and finds what is decodable rather than what the model actually uses.",
+        "The key observation is that the LLM decoder of an LVLM is already a classifier over next tokens. Decoder-as-a-Probe (DaP) linearizes the decoder with a first-order Taylor expansion and uses it as a linear probe on visual representations. They use it to verbalize what the LVLM perceives in an image and to steer perception of specific attributes such as colour, clothing or action.",
+        "DaP significantly outperforms classical probing and steering baselines, with the largest gains when training data is sparse; the abstract gives no numeric results or model list. Takeaway: deriving steering directions from the model's own readout instead of trained probes is a cheap, data-efficient recipe that fits steering-geometry questions about read versus used directions. Caveat: the Taylor linearization is local, so check how far edits stay faithful, and results here are for LVLMs only."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.34762",
+      "title": "TASK Memory: Beyond Text-Only Memory with Activation Steering and Knowledge Editing against Memory Hallucination",
+      "authors": [
+        "Jinkun Zhao",
+        "Wenjun Wu"
+      ],
+      "affiliations": [
+        "Beihang University"
+      ],
+      "url": "https://arxiv.org/abs/2611.34762",
+      "pdf_url": "https://arxiv.org/pdf/2611.34762",
       "source": "arXiv cs.AI, preprint",
-      "published": "2026-11-24",
+      "published": "2026-11-25",
       "topics": [
-        "interpretability"
+        "steering"
       ],
-      "tldr": "Constructive Causal Abstraction builds causally consistent high-level models by adding a complementary variable that keeps omitted causally relevant state, instead of guessing a macro model and checking it. The framework separates model auditing from editing and resolves the 'interpretability illusion' mismatch between editing subspaces and the actual signal-to-output pathway.",
+      "tldr": "TASK memory pairs a text memory note with a removable knowledge edit (as an address) and a pair of steering vectors that decide per query whether to adopt the memory, cutting memory-ignoring hallucinations to at most 1.5% in all ten model-dataset cells.",
       "summary": [
-        "Causal abstraction in interpretability usually proposes a high-level causal model and checks whether its interventions match the low-level model. Finding a consistent macro model is hard because a single apparent macro intervention can correspond to many micro interventions with different effects, so macro causal relations are often ill-defined.",
-        "The authors treat ill-defined macro interventions as missing macro variables and add a complementary variable q that carries the omitted causally relevant state. In the linear case q has a unique form and they give sufficient conditions for valid implementations; in the nonlinear case they give an ODE-based construction algorithm. They use the framework to formalize the difference between auditing and editing a model, with a case study on gender bias in the Bias-in-Bios dataset.",
-        "The paper is mainly theoretical; the abstract reports the Bias-in-Bios case study as a demonstration of making assumptions explicit when detecting gender bias, with no metrics. It also explains the known interpretability illusion, where the subspace used for editing differs from where the model implements the signal-to-output pathway. Takeaway: when a steering or patching subspace changes outputs, that does not mean it is the mechanism; CCA gives a formal way to reason about this gap, relevant to anyone interpreting activation-steering results causally. Caveat: limited empirical scope based on the abstract."
+        "LLM agents with external memory still hallucinate about what they remember even when the right memory is in the prompt. Across five open models the authors find three use-time failure modes: ignoring the memory for a stale parametric fact (up to 46% of queries), applying it to the wrong entity (up to 24%, 49% with weight editing), and asserting a superseded value for revised facts (53%).",
+        "TASK combines a Text note that holds the content, a removable Knowledge edit whose subject key acts as the in-model address and supports multi-hop composition, and two Activation Steering vectors that decide, query by query, whether the model adopts the memory or keeps its own answer; the vectors store no content. Evaluation is on frozen models with a pre-registered, test-once protocol, across 8B to 27B models from four families, on CounterFact, MQuAKE and a memory library.",
+        "Memory-ignoring falls to at most 1.5% in all ten model-dataset cells, neighbour misuse drops from 39.2% to 7.5% (+10.8 pp composite on CounterFact), a 300-memory library beats BM25 RAG by 16.4 pp with the gain holding at 3,000 memories, and MQuAKE multi-hop accuracy rises 7.5 pp. 21 of 23 cross-model comparisons are significant, and TASK beats three recent context-steering methods in 9 of 10 cells. Takeaway: steering vectors work well as content-free gates on how context is used rather than as carriers of content, a clean design pattern for steering research. Caveat: it combines several components including weight edits, so gains are not attributable to steering alone."
       ],
       "score": 4
     },
     {
-      "id": "arxiv:2611.32685",
-      "title": "Social Bias Neurons in Multilingual Language Models: A Mechanistic Interpretability Analysis",
+      "id": "arxiv:2611.33252",
+      "title": "MonoQPM: Splitting Features into Concepts for Inherent Interpretability and Predictive Performance",
       "authors": [
-        "Lance Calvin Lim Gamboa",
-        "Yue Feng",
-        "Mark Lee"
+        "Thomas Norrenbrock",
+        "Robert Zimmermann",
+        "Timo Kaiser",
+        "Sovan Biswas",
+        "Neslihan Kose",
+        "Bodo Rosenhahn"
       ],
       "affiliations": [
-        "University of Birmingham",
-        "Ateneo de Manila University"
+        "Leibniz Universität Hannover",
+        "Intel Labs"
       ],
-      "url": "https://arxiv.org/abs/2611.32685",
-      "pdf_url": "https://arxiv.org/pdf/2611.32685",
-      "source": "arXiv cs.CL, accepted at Findings of EACL 2027 (per arXiv comment)",
+      "url": "https://arxiv.org/abs/2611.33252",
+      "pdf_url": "https://arxiv.org/pdf/2611.33252",
+      "source": "Transactions on Machine Learning Research (10/2026)",
       "published": "2026-11-24",
       "topics": [
         "interpretability"
       ],
-      "tldr": "Across three instruction-tuned models, four languages and seven bias dimensions, integrated gap gradients locate social-bias neurons (mostly in the deepest layers) whose suppression reduces bias more sharply than neurons found by activation probability entropy. Neuron patterns differ between high- and low-resource languages.",
+      "tldr": "MonoQPM disentangles the few polysemantic class features of the interpretable QPM model into monosemantic concepts, and measures polysemanticity by its practical cost in conformal prediction; it guarantees 88% coverage on ImageNet with sets 66% the size of the frozen QPM's.",
       "summary": [
-        "Multilingual LLMs show social bias on stereotype-related inputs, but which internal components encode that bias, and whether this differs by language, is poorly understood.",
-        "The authors adapt two neuron-identification methods, activation probability entropy and integrated gap gradients, using multilingual bias benchmarks. They analyze three instruction-tuned models across four languages and seven bias dimensions, and test the identified neurons by suppressing them and measuring the change in model bias.",
-        "Integrated gap gradients is the more effective method: its neurons, concentrated in the deepest layers, give sharper bias reductions when suppressed. Neuron distributions differ between high- and low-resource languages, suggesting pretraining representation shapes how bias is stored. Neurons tied to gender, nationality and social class overlap most with other bias dimensions. Takeaway: for neuron-level debiasing, gradient-based attribution beats entropy-based selection, and edits may transfer differently across languages. Caveat: the abstract gives no numeric effect sizes; accepted to Findings of EACL 2027 per the arXiv comment."
+        "Polysemanticity and superposition are major obstacles to interpretable networks, and polysemanticity has no agreed measure. The Quadratic Programming Enhanced Model (QPM) avoids superposition by assigning each class a sparse binary set of very few features, but those features can still be polysemantic.",
+        "The authors measure polysemanticity by its utility cost: the drop in interference-induced activation errors, read out as tighter conformal prediction sets. They split QPM's polysemantic features into monosemantic concepts to build MonoQPM, and release CUBCars, a dataset with ground-truth shared concepts, testing across several architectures and ImageNet.",
+        "Polysemanticity appears in QPM in all tested architectures and is largely removed by MonoQPM, which becomes a more efficient conformal predictor: 88% coverage with Adaptive Prediction Sets on ImageNet at 66% of the frozen QPM's set size. Takeaway: for prototype- or concept-based medical classifiers, tying interpretability to conformal set size gives a measurable, clinically meaningful target, and the feature-splitting idea can be tried on prototype layers. Caveat: shown on natural-image benchmarks, not medical data."
       ],
       "score": 4
     },
     {
-      "id": "arxiv:2611.31776",
-      "title": "ReCAP: Sequential Concept Acquisition with Guarantees under Imperfect Concept Predictors",
+      "id": "arxiv:2611.31730",
+      "title": "Tokenization and Architecture Jointly Allocate Component Roles in Time Series Transformers",
       "authors": [
-        "Md Nahiduzzaman",
-        "Steven Korevaar",
-        "Alireza Bab-Hadiashar",
-        "Ruwan Tennakoon"
+        "Mingyu Kim",
+        "Doguk Kim"
       ],
       "affiliations": [
-        "RMIT University"
+        "Inha University"
       ],
-      "url": "https://arxiv.org/abs/2611.31776",
-      "pdf_url": "https://arxiv.org/pdf/2611.31776",
-      "source": "arXiv cs.CV, preprint",
+      "url": "https://arxiv.org/abs/2611.31730",
+      "pdf_url": "https://arxiv.org/pdf/2611.31730",
+      "source": "arXiv cs.LG, NeurIPS 2026 (per arXiv comment)",
       "published": "2026-11-24",
       "topics": [
         "interpretability"
       ],
-      "tldr": "ReCAP makes sequential concept-based medical diagnosis robust to concept-predictor errors and abstentions using a label-discriminating, adaptively submodular acquisition objective with a (1-1/e) greedy guarantee. On five medical imaging datasets it cuts correct diagnoses resting on at least one wrongly predicted concept from 27.1% to 9.6% versus the strongest baseline, using under half the concepts and with higher accuracy.",
+      "tldr": "Layer-to-layer probing on 15 temporal tasks shows that whether attention or the FFN builds temporal features in time-series transformers depends on tokenization: under patching the FFN gain is 3.2x attention's on average and attention can be removed with forecasts within a few percent.",
       "summary": [
-        "Sequential concept acquisition explains a diagnosis through a small set of human-understandable findings, which is only useful if clinicians can trust those findings. Most methods treat predicted concepts as correct, so a right diagnosis can be justified by wrong evidence.",
-        "ReCAP reasons over what the concept predictor actually reports, including errors and abstentions, and replaces conditional information gain with a label-discriminating objective that separates cases needing different diagnoses. The authors prove the objective is adaptively monotone and submodular, giving a (1-1/e) guarantee for greedy fixed-budget acquisition that degrades boundedly with learned estimates, and add abstention-aware acquisition and diagnosis-preserving pruning.",
-        "Across five medical imaging datasets, the share of correct diagnoses supported by at least one incorrectly predicted concept drops from 27.1% to 9.6% relative to the strongest baseline, with fewer than half as many concepts and higher diagnostic accuracy. Takeaway: for interpretable or prototype-style medical models, measure whether the explanation evidence is itself correct, not just whether the diagnosis is, and model predictor errors explicitly when choosing which concepts to show. Caveat: the abstract does not name the datasets or modalities, and external clinical validation is not described."
+        "Time-series transformers forecast well, but it is unclear which component, attention or the feed-forward network, actually constructs temporal features, and how tokenization choices like patching change that. This matters for explaining why patching helps and why attention-free models are competitive.",
+        "They define feature construction as the gain in linear decodability of temporal properties from one sub-layer to the next, measured with 15 token-level diagnostic tasks, for models read by a linear forecasting head. They apply it to 5 supervised models on 8 long-term forecasting benchmarks and back the probing with activation patching, knockout and retraining without attention, plus a controlled manipulation of PatchTST patch size.",
+        "Under patch tokenization (PatchTST) the FFN gain exceeds attention on all 8 datasets, averaging 3.2x, and removing attention (post hoc or by retraining) keeps forecasts within a few percent; under variate tokenization (iTransformer) attention dominates, and with single-scalar tokens (P=1) the FFN construction nearly disappears while P=2 restores it. Takeaway: component roles are set by tokenization rather than fixed by architecture, so interpretability claims about transformers on non-text data (tabular, ultrasound RF) should be checked per tokenization; code is released. Caveat: limited to supervised forecasting models with linear heads."
       ],
       "score": 4
     },
     {
-      "id": "arxiv:2611.29986",
-      "title": "How Relations Impose Embedding-Space Structure",
+      "id": "arxiv:2611.30094",
+      "title": "Character Information in Language Models: A Prompt-Independent Word Store and a Late, Question-Driven Signal That Grows With Scale",
       "authors": [
-        "Lachlan Cowley",
-        "Jey Han Lau",
-        "Yulia Otmakhova",
-        "Eduard Hovy"
+        "Pratyush Acharya",
+        "Nuraj Rimal",
+        "Apar Baral",
+        "Habish Dhakal",
+        "Piyush Mohan Bhattarai"
       ],
       "affiliations": [
-        "Monash University",
-        "University of Melbourne"
+        "SecurityPal AI",
+        "Southern Illinois University Edwardsville",
+        "University of Maryland"
       ],
-      "url": "https://arxiv.org/abs/2611.29986",
-      "pdf_url": "https://arxiv.org/pdf/2611.29986",
+      "url": "https://arxiv.org/abs/2611.30094",
+      "pdf_url": "https://arxiv.org/pdf/2611.30094",
       "source": "arXiv cs.CL, preprint",
       "published": "2026-11-23",
       "topics": [
         "interpretability"
       ],
-      "tldr": "A parameter-free method that compares internal structural arrangements across distant domains shows that, across multiple language models, representations are arranged consistently to encode complex relationship similarities of the kind that drive analogy, so representation geometry is richer than simple pairwise relations.",
+      "tldr": "A word-position probing baseline shows that character properties such as first and last letter are stored with the word in all 16 tested LMs (about 70% already in the embedding), while a separate question-driven signal at the answer position grows with scale and only in late layers.",
       "summary": [
-        "Language models are known to encode simple relations such as synonymy in their representation geometry. Whether they also encode complex patterns of relationships, the kind underlying analogy across distant domains, has not been tested directly.",
-        "The authors propose a simple method with no learned parameters that compares the internal structural arrangement of representations from different domains, testing whether relation patterns in one domain line up with those in another. They apply it across multiple language models.",
-        "Representations are consistently arranged to encode complex relationship similarities, with distant representation clouds aligned so that facets of meaning are comparable under simple mappings. The abstract gives no numeric results or model list. Takeaway: relational structure is shared across weakly related concept clouds, which matters for steering-geometry work, since a direction or mapping learned in one domain may transfer to another. Caveat: check the paper for which models and how strong the alignment is; code and data are released."
+        "Linear probes can read character properties of a word from LM hidden states, but a probe at the answer position cannot tell whether the property was stored with the word or computed because the prompt asked. Without that separation, claims about what models know about spelling are confounded.",
+        "The authors apply the same held-out-word probe to the word's own tokens in a sentence that asks nothing, giving a word-position baseline against a word-only nuisance floor. They test 16 open-weight models from seven families (0.6B to 14B) on eleven character tasks with pre-registered criteria, held-out layer selection and four controls.",
+        "Word tokens encode first_letter, last_letter and most_frequent_letter above the nuisance floor in all 16 models, with about 70% of the signal already in the token embedding; the question adds a second answer-position signal that grows with scale for all four prompt-sensitive tasks (permutation p <= 0.018) and is confined to late layers. Measured against the nuisance floor, apparent retained signal largely vanishes (last_letter: -0.01). Takeaway: always compare probes against a nuisance floor and a no-question position baseline, a methodology lesson that transfers to any probing study. Caveat: small models only up to 14B and a narrow character-level domain."
       ],
-      "score": 4
+      "score": 3
     },
     {
-      "id": "arxiv:2611.32782",
-      "title": "Measuring Layer-wise Intrinsic Dimensionality of FFNs in LLMs via PCA",
+      "id": "arxiv:2611.34637",
+      "title": "Carrying Feature Ablations Across Sparse Autoencoder Seeds",
       "authors": [
-        "Daehee Kim"
+        "Karl Li"
       ],
       "affiliations": [
-        "NAVER Cloud"
+        "Columbia University"
       ],
-      "url": "https://arxiv.org/abs/2611.32782",
-      "pdf_url": "https://arxiv.org/pdf/2611.32782",
-      "source": "arXiv cs.LG, accepted at NeurIPS 2026 (per arXiv comment)",
-      "published": "2026-11-24",
+      "url": "https://arxiv.org/abs/2611.34637",
+      "pdf_url": "https://arxiv.org/pdf/2611.34637",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-25",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Matching SAE features across random seeds by direction does not guarantee that ablating them has the same effect: on DINOv2 and SigLIP layers only 12% to 70% of matched pairs reproduce the same output change, versus 0% for controls.",
+      "summary": [
+        "SAEs trained with different seeds learn different features, and prior work matches features across seeds by direction similarity. But two features can point alike yet respond to different image regions, so editing a model by removing one may not be equivalent to removing its match.",
+        "The author ablates a feature and, separately, its cross-seed match in SAEs on DINOv2 or SigLIP layers, and checks whether the second change in encoder output on the same held-out images reproduces the first within a tolerance. Controls use an SAE with random directions and shuffled matches; post hoc, they test whether layer contributions or directions predict which removals carry.",
+        "At the chosen tolerance, removals carry for 12% to 70% of matched pairs across three settings, and 0% in both controls. Layer contributions predict carrying better than directions, though some errors remain, one of which persists on independent images, so measuring output change is still needed. Takeaway: before trusting an SAE feature edit in a vision encoder, check it replicates across seeds by effect, not by cosine similarity. Caveat: single-author preprint, three settings, vision encoders only."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.33632",
+      "title": "Interpreting Speckle Effects Through Neuron Interventions",
+      "authors": [
+        "Shubham K. Singh",
+        "Hare Krishna"
+      ],
+      "affiliations": [
+        "Tufts University",
+        "UT Austin"
+      ],
+      "url": "https://arxiv.org/abs/2611.33632",
+      "pdf_url": "https://arxiv.org/pdf/2611.33632",
+      "source": "arXiv eess.IV, preprint",
+      "published": "2026-11-25",
       "topics": [
         "interpretability"
       ],
-      "tldr": "PCA on the input of each FFN down-projection across 58 open LLMs (70M to 72B, 14 families) reveals a robust middle-heavy intrinsic-dimensionality profile. Using this profile to allocate FFN width in a distilled student beats uniform width by +2.3 points on Qwen3-8B and +2.5 on Qwen2.5-3B under a matched budget.",
+      "tldr": "In a SAR foundation model, the 38 neurons that respond most to speckle are not the ones that matter: restoring a different set of 64 first-MLP neurons recovers 44.1% of the speckle-induced correlation loss, and 96.5% of that gain remains when the speckle-selective neurons stay noisy.",
       "summary": [
-        "LLMs use the same FFN width in every layer, yet mechanistic work suggests layers at different depths do different jobs. It is unclear whether their capacity needs differ and whether a fixed parameter budget could be spread better.",
-        "For each layer, the author measures intrinsic dimensionality as the smallest number of principal components needed to reconstruct the FFN down-projection input up to a fixed cosine similarity. The scan covers 58 open-weight LLMs from 14 families, 70M to 72B parameters. The profile then guides width pruning of a knowledge-distilled student under a matched parameter budget, compared with uniform and inverted allocations.",
-        "Middle layers consistently have higher intrinsic dimensionality than edge layers; the profile is robust to the calibration corpus (including English vs Chinese) and largely survives post-training. PCA-guided allocation beats uniform width by +2.3 (Qwen3-8B) and +2.5 (Qwen2.5-3B), with smaller gaps for lower-dispersion teachers (+0.9 Gemma-3-4B, +0.5 LLaMA-3-8B), and the inverted control is worst on all four. Takeaway: the layer-wise intrinsic-dimension profile is a cheap diagnostic for choosing which layers to steer or train SAEs on, since middle layers carry the richest activation subspaces. Caveat: gains are a few points and depend on how uneven the teacher's profile is. Accepted to NeurIPS 2026 per the arXiv comment; code released."
+        "Speckle, a multiplicative noise in synthetic aperture radar imaging (and a close cousin of ultrasound speckle), hurts pretrained models, but how it acts inside them is unknown. A natural assumption is that neurons selective for speckle are where to intervene.",
+        "Using SARMAE, an Earth-observation masked autoencoder pretrained on a million-scale SAR dataset, and synthetic scenes with known reflectivity, the authors find speckle-selective neurons, restore their clean activations, and run layer-wise activation patching. They repeat analyses on an ImageNet-pretrained MAE and on manipulated Sentinel-1 and Capella images, plus land-cover classification.",
+        "There are 38 speckle-selective neurons, but restoring them does not improve reconstruction; the first MLP has the largest restoration and injection effects, and 64 different neurons there recover 44.1% of correlation loss on held-out scenes, with 96.5% of the gain remaining if speckle neurons are held noisy, while freezing three decoder heads removes 37.4%. In the ImageNet MAE the third MLP block matters most, and for classification only restoring the whole first MLP helps. Takeaway for ultrasound work: selectivity is not causal importance, so speckle-handling in ultrasound encoders should be localized by patching rather than by finding responsive units. Caveat: SAR not ultrasound, mostly synthetic scenes, two authors."
       ],
-      "score": 4
+      "score": 3
     },
     {
-      "id": "arxiv:2611.32257",
-      "title": "Seldon TFM family: Seldon-Mini, Seldon and Seldon+",
+      "id": "arxiv:2611.32225",
+      "title": "Joint Classification and Generation on Tabular Data: an Empirical Study",
       "authors": [
-        "Stanislas Angebault",
-        "Nicolas Atienza",
-        "Nicola Cancedda",
-        "Aziz Fouché",
-        "Salomé Gobbi",
-        "Ekaterina Iakovleva",
-        "Nicolas Makaroff",
-        "Arthur Nahmias",
-        "Paul Novello",
-        "Alexandre Pasquiou"
+        "Tim d'Hondt",
+        "Oleksii Furman",
+        "Damian Kwolek",
+        "Jan Poręba",
+        "Maciej Zieba",
+        "Mykola Pechenizkiy"
       ],
       "affiliations": [
-        "Neuralk-AI"
+        "Eindhoven University of Technology",
+        "Wroclaw University of Science and Technology"
       ],
-      "url": "https://arxiv.org/abs/2611.32257",
-      "pdf_url": "https://arxiv.org/pdf/2611.32257",
-      "source": "arXiv cs.LG, technical report",
-      "published": "2026-11-24",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "Neuralk-AI releases Seldon, a tabular foundation model family trained only on synthetic tables. Seldon+ ranks first among 15 models on their 124-dataset TabBench, and the open-weight Seldon (213M) and Seldon-Mini (27M) sit on the TabArena Elo-versus-inference-time Pareto front, ranking 4th and 7th of 109 entries.",
-      "summary": [
-        "Tabular foundation models now compete with gradient-boosted trees, and there is demand for open-weight models that are both accurate and fast at inference across classification and regression.",
-        "The technical report introduces three models: Seldon-Mini (27M parameters) and Seldon (213M), both open-weight and handling classification and regression, and the classifier Seldon+. They use an architecture similar to Kumo-Tabular, TabFM and TabPFN-3.5 and are trained on synthetic tables only. Evaluation uses the authors' TabBench (124 classification datasets, plus a missing-values variant) and the authors' own runs of public benchmarks.",
-        "Seldon+ ranks first of 15 on TabBench and its missing-values variant, and first on BeyondArena IID classification and TabBench-Bio, second on TabArena classification. On TabArena, Seldon ranks fourth and Seldon-Mini seventh among 109 entries, and both are Pareto-optimal on Elo versus inference time; Seldon is second of 42 on the BeyondArena IID track. Takeaway: a new open-weight synthetic-prior TFM baseline worth adding to TabPFN/TabICL comparisons, especially Seldon-Mini for low-latency use. Caveat: a company technical report; the top rankings come from the authors' own benchmark and their own runs, and Seldon+ weights are not listed as open."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.32504",
-      "title": "InducedTFMs: A Family of Sub-Quadratic Tabular Foundation Models Using Induced Attention",
-      "authors": [
-        "Salome Gobbi",
-        "Nicolas Atienza",
-        "Nicola Cancedda",
-        "Michael Arbel"
-      ],
-      "affiliations": [
-        "Neuralk AI",
-        "Inria Grenoble"
-      ],
-      "url": "https://arxiv.org/abs/2611.32504",
-      "pdf_url": "https://arxiv.org/pdf/2611.32504",
+      "url": "https://arxiv.org/abs/2611.32225",
+      "pdf_url": "https://arxiv.org/pdf/2611.32225",
       "source": "arXiv cs.LG, preprint",
       "published": "2026-11-24",
       "topics": [
         "tabular_fm"
       ],
-      "tldr": "InducedTFM replaces both attention stages of a bidimensional tabular foundation model with Set Transformer induced attention, making cost linear in rows and features while keeping cell-level representations. At a matched training budget it matches a full-attention TabICLv2 reimplementation on TabArena and reaches a 30x inference speed-up at 640K rows on narrow tables.",
+      "tldr": "Comparing joint classifier-plus-generator models across four tabular families on 29 datasets under matched compute, a probabilistic circuit wins at the smallest budgets and TabICL generating column by column wins beyond; joint models are rarely better than the best separate pair but often close.",
       "summary": [
-        "Tabular foundation models use attention that is quadratic in the number of samples and features, which limits pretraining to small synthetic tables and forces chunking or subsampling on large tables. Row-compression models cut the feature cost but lose cell-level representations and stay quadratic in samples.",
-        "The authors swap both attention stages of a bidimensional TFM for the induced attention of the Set Transformer, which routes attention through a small set of inducing points. This keeps cell-level representations and makes cost linear in both samples and features. They compare against a full-attention TabICLv2 reimplementation under a matched training budget and against a kernel linear-attention baseline of the same asymptotic cost.",
-        "InducedTFM matches the full-attention model's accuracy on TabArena and on a benchmark of larger datasets, clearly beats the kernel linear-attention baseline, and becomes faster than TabICLv2 on narrow tables, with a 30x speed-up at 640K rows. Row compression is still preferable on wide tables. Takeaway: induced attention is a drop-in way to scale TFM context to hundreds of thousands of rows without losing cell-level features. Caveat: the comparison is against the authors' reimplementation of TabICLv2, not the released model."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.30889",
-      "title": "Tabular Foundation Models Are Surprisingly Effective In-Context Robot Learners",
-      "authors": [
-        "Zhen Xu",
-        "Hao-Run Cai",
-        "Heng-Zhuang Li",
-        "Si-Yang Liu",
-        "Jun-Peng Jiang",
-        "Han-Jia Ye"
-      ],
-      "affiliations": [
-        "Nanjing University"
-      ],
-      "url": "https://arxiv.org/abs/2611.30889",
-      "pdf_url": "https://arxiv.org/pdf/2611.30889",
-      "source": "arXiv cs.RO, preprint",
-      "published": "2026-11-23",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "TabAct feeds frozen visual features and proprioception as inputs and future action chunks as targets to a frozen tabular foundation model, using each demonstration step as an in-context example. With one demonstration, TabAct with TabICLv2 beats the strongest baseline by 20.9 points on LIBERO and 5.8 on Meta-World, with no robot-specific training.",
-      "summary": [
-        "It is unclear whether models pretrained for generic numerical prediction can act as in-context learners for robot control. Most imitation methods need robot-specific training or target-task fine-tuning.",
-        "TabAct casts visual imitation as tabular regression: frozen visual features plus robot proprioception are the inputs, future action chunks are the targets, and every time step of a demonstration is one labeled context example for a frozen TFM that runs closed-loop control. The TFM gets no robot-specific training or fine-tuning; experiments use LIBERO and Meta-World.",
-        "With one target-task demonstration per method, TabAct with TabICLv2 has the highest average success on both LIBERO and Meta-World, beating the strongest baseline by 20.9 and 5.8 percentage points. With five demonstrations, success reaches 94.2% on LIBERO-Object without any weight updates. Takeaway: TFMs pretrained on synthetic tables transfer to frozen-feature sequential prediction, another sign that TFM in-context learning works as a general head on top of frozen encoders. Caveat: simulation benchmarks only; no real-robot results are mentioned in the abstract."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.29368",
-      "title": "SAE-Audit: Clinical-Trial Prediction via Inference-Time Optimization of Black-Box LLMs Audited by Sparse Autoencoder Evidence",
-      "authors": [
-        "Junbo Shen"
-      ],
-      "affiliations": [
-        "Independent researcher"
-      ],
-      "url": "https://arxiv.org/abs/2611.29368",
-      "pdf_url": "https://arxiv.org/pdf/2611.29368",
-      "source": "arXiv cs.AI, preprint",
-      "published": "2026-11-22",
-      "topics": [
-        "sae"
-      ],
-      "tldr": "SAE-Audit turns a frozen sparse autoencoder on Llama-3.1-8B-Instruct into a clinical concept vocabulary, fits sparse probes on past trials, and feeds the detected concepts with their outcome associations as evidence to a black-box LLM. Without training this raises balanced accuracy of deepseek-v4-flash by 9.6 to 12.0 points on five clinical-trial prediction tasks.",
-      "summary": [
-        "Predicting clinical-trial outcomes early is valuable, but LLM forecasts are unreliable and their rationales may not reflect the evidence they used. In the author's experiments, frontier LLMs are only modestly above chance at predicting whether a registered trial completes or terminates early.",
-        "A frozen SAE on Llama-3.1-8B-Instruct is converted into a vocabulary of clinical concepts. Sparse probes fitted on past trials select which concepts associate with the outcome. For a new protocol, the detected concepts are written out as evidence, each with the direction and strength of its association, and the audited black-box LLM revises its answer given this evidence at inference time.",
-        "SAE-Audit raises balanced accuracy of deepseek-v4-flash by 9.6 to 12.0 points across five clinical-trial prediction tasks and of GPT-5.6-terra by 8.0 points on trial completion, beating other agentic inference-time optimization methods. The SAE probe module alone is also accurate and yields natural-language explanations from concept contributions. Takeaway: SAE features plus sparse probes can act as an auditable, transferable evidence channel from an open model to a closed one, a practical downstream use of SAEs beyond feature inspection. Caveat: single-author independent work, evaluated on clinical-trial tasks only; code is released."
-      ],
-      "score": 3
-    },
-    {
-      "id": "arxiv:2611.31640",
-      "title": "Reward Basis Decomposition for Interpreting Preference Heterogeneity",
-      "authors": [
-        "Mohamed I. Eldagla",
-        "Ifesi Onubogu",
-        "Prerana Rane",
-        "Harsh Sharma",
-        "Rachel Freedman"
-      ],
-      "affiliations": [
-        "German International University in Cairo",
-        "Columbia",
-        "UC Berkeley"
-      ],
-      "url": "https://arxiv.org/abs/2611.31640",
-      "pdf_url": "https://arxiv.org/pdf/2611.31640",
-      "source": "arXiv cs.LG, preprint",
-      "published": "2026-11-23",
-      "topics": [
-        "sae"
-      ],
-      "tldr": "Reward Basis Decomposition splits per-user reward weights into a shared population direction and per-user terms, analyzed with concept alignment and SAE decomposition. It recovers planted user directions on synthetic data, but on PRISM and Community Alignment the per-user terms add no reliable predictive benefit: one shared direction explains most preferences.",
-      "summary": [
-        "Reward models define what aligned policies optimize, so understanding the values they encode matters. Existing interpretability methods examine a single reward head and cannot separate values a population shares from values that differ between individuals.",
-        "RBD decomposes per-user reward weights into a population term and a per-user term, giving a shared direction and individual user directions in the reward embedding space. Both are interpreted via concept alignment and sparse autoencoder decomposition. The method is first validated on a synthetic control with planted per-user directions and then applied to two real multi-preference datasets, PRISM and Community Alignment.",
-        "RBD recovers the planted per-user directions in the synthetic control. On both real datasets it finds no individual-user structure and no reliable predictive benefit from per-user terms beyond the shared population direction under their setup. Takeaway: a useful negative result, suggesting that pluralistic-preference datasets may not contain recoverable per-user directions, and a template for testing that with planted controls before interpreting SAE features of reward models. Caveat: the null result is tied to their setup and the two datasets; the abstract gives no effect sizes. Code and synthetic data are released."
-      ],
-      "score": 3
-    },
-    {
-      "id": "arxiv:2611.32045",
-      "title": "SegPFN: Training-Free In-Context Segmentation with Tabular Prior-Data Fitted Networks",
-      "authors": [
-        "Jiajian Ma",
-        "Yihao Qiao",
-        "Ke Chen",
-        "Kaiyue Feng",
-        "Wushuang Rui",
-        "Abhishek Jha",
-        "Aarti Darji",
-        "Yiqiu Shen"
-      ],
-      "affiliations": [
-        "NYU",
-        "NYU Langone Health"
-      ],
-      "url": "https://arxiv.org/abs/2611.32045",
-      "pdf_url": "https://arxiv.org/pdf/2611.32045",
-      "source": "arXiv cs.CV, preprint",
-      "published": "2026-11-24",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "SegPFN treats in-context segmentation as tabular classification: a frozen tabular PFN classifies target-image patches using labeled reference patches as context over frozen visual features. Without segmentation-specific training it improves mean IoU by 4.7 points over the strongest baseline across 11 datasets.",
-      "summary": [
-        "In-context segmentation specifies the target from a few annotated reference images. Training-free approaches rely on hand-designed inference procedures, while learned in-context inference requires segmentation-specific training that can hurt generalization to new domains.",
-        "SegPFN extracts frozen visual features, uses labeled reference patches as the context set for a frozen tabular prior-data fitted network, and classifies each target patch. It is benchmarked against major in-context segmentation methods on 11 datasets covering semantic, part and personalized segmentation, with analyses of hard-negative reference patches and joint conditioning on multiple references.",
-        "SegPFN improves overall mIoU by 4.7 points over the strongest baseline and has the best average mIoU in four of five task-shot settings. Hard-negative reference patches help fine-grained discrimination, and joint conditioning uses multiple references well. Takeaway: a frozen tabular PFN over frozen patch features is a simple few-shot segmenter, which may be worth trying for medical images such as ultrasound where labeled data is scarce. Caveat: the 11 datasets are general vision benchmarks; medical performance is not reported in the abstract."
+        "Many tabular applications need both a classifier and a realistic record generator, and usually train two models. A single joint model could provide both, but it was unclear which model family to use at which compute budget, or whether a joint model is ever worth it.",
+        "The authors build joint models from four families (energy-based models, probabilistic circuits, tabular foundation models and tabular diffusion models), measure FLOPs and wall-clock time, and score them on 29 classification datasets with two aggregate prediction-plus-generation scores. They also compare against every pairing of a separate classifier and generator at different budgets.",
+        "The best joint model is a probabilistic circuit at the smallest budgets and, beyond that, TabICL used as a generator column by column via a regressor. Compared with separate pairs, joint models are rarely preferable but often very close to the best pair, without maintaining two models. Takeaway: a tabular foundation model like TabICL can double as a reasonable synthetic-data generator, which is handy for augmentation in small clinical tables. Caveat: classification datasets only, and conclusions depend on the authors' aggregate scores."
       ],
       "score": 3
     }

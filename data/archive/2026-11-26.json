@@ -1,0 +1,309 @@
+{
+  "date": "2026-11-26",
+  "generated_at": "2026-11-26T06:06:17-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.34767",
+      "title": "When to Trust a PFN: Detecting Harmful Shift in Tabular Foundation Models",
+      "authors": [
+        "Viet Nguyen",
+        "Herman Bergström",
+        "Stephan Rabanser",
+        "Rahul G. Krishnan"
+      ],
+      "affiliations": [
+        "University of Toronto",
+        "Chalmers",
+        "Princeton"
+      ],
+      "url": "https://arxiv.org/abs/2611.34767",
+      "pdf_url": "https://arxiv.org/pdf/2611.34767",
+      "source": "arXiv cs.LG, NeurIPS 2026 (per arXiv comment)",
+      "published": "2026-11-25",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "CALD fine-tunes a PFN decoder to disagree with the test batch while holding accuracy on an in-distribution anchor set, and the resulting anchor loss becomes a label-free alarm for harmful shift. Across 14 datasets on TabPFN and TabICL it matches or beats shift-detection baselines while raising far fewer false alarms on benign shift.",
+      "summary": [
+        "Tabular prior-fitted networks such as TabPFN and TabICL are accurate out of the box, but at deployment they can fail silently when the data distribution shifts. Generic shift detectors flag any shift, including benign ones that do not hurt accuracy, and there was no lightweight, label-free way to tell when a PFN specifically should not be trusted.",
+        "The authors propose CALD (Calibrated Anchor-Loss Disagreement). For an unlabeled test batch, they fine-tune the PFN decoder to maximize disagreement with its own test predictions while keeping accuracy on a labeled in-distribution anchor set; the post-fine-tune anchor loss is the detection statistic. They prove that under sufficiently severe shift this anchor loss has strictly lower expectation than in-distribution, which gives a one-sided test, and evaluate on 14 datasets with tabular and structured shifts using both TabPFN and TabICL.",
+        "CALD matches or outperforms baselines at detecting harmful shifts and is clearly more robust to false alarms from benign shift; the abstract does not give per-dataset numbers. Takeaway: if you deploy TabPFN-style models (for example on clinical tables), CALD is a cheap monitor that targets performance-relevant shift rather than any distribution change, and code is released (github.com/teivng/cald). Caveat: it needs a labeled in-distribution anchor set and a small fine-tuning step per test batch, and it is evaluated on classification only."
+      ],
+      "score": 5
+    },
+    {
+      "id": "arxiv:2611.32199",
+      "title": "Steerable by Design: Conditional Pretraining for Robust Control of Language Models",
+      "authors": [
+        "Henry Castillo",
+        "Yanchen Liu",
+        "Claudio Mayrink Verdun",
+        "Dylan Hadfield-Menell"
+      ],
+      "affiliations": [
+        "MIT",
+        "Cambridge-Boston Alignment Initiative",
+        "Harvard"
+      ],
+      "url": "https://arxiv.org/abs/2611.32199",
+      "pdf_url": "https://arxiv.org/pdf/2611.32199",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-24",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Instead of steering after the fact, Mancelle-3B is pretrained with a separate, write-protected control channel (an encoder read via cross-attention) that the model learns to rely on. It steers more strongly than prompt and activation steering on comparable open models and resists adversarial counter-steering that breaks those baselines.",
+      "summary": [
+        "Language models are pretrained with next-token prediction and only aligned or steered in the last sliver of training or at inference time. Because instructions and data share one input channel, models can treat data as instructions (jailbreaks, in-context alignment drift), and activation steering added post hoc can be overridden.",
+        "The authors design a pretraining method and architecture with a dedicated control channel: an encoder summarizes high-level semantic features of upcoming text, and the main model reads them via cross-attention, while the token stream cannot write back into that channel. Pretraining teaches the model to rely on these features to predict the next token, so the channel becomes a steering handle. They train Mancelle-3B, compare against prompt- and activation-based steering on comparable open models, and repeat against a more controlled baseline with Mancelle-400M.",
+        "Mancelle-3B steers more strongly than prompt and activation steering while staying fluent, and it withstands adversarial black-box and soft-prompt counter-steering that defeats the baselines; the result is reproduced at 400M scale. The abstract gives no numeric effect sizes. Takeaway for steering-geometry work: robustness of control can be designed into the architecture rather than found in the residual stream, so it is a useful upper-bound comparison for activation-steering methods. Caveat: it requires pretraining from scratch and only tests up to 3B parameters."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.33640",
+      "title": "Sparse-to-Sparse Feature Learning for Cross-Layer Analysis and Steering",
+      "authors": [
+        "Masahiro Kaneko",
+        "Ayana Niwa",
+        "Timothy Baldwin"
+      ],
+      "affiliations": [
+        "MBZUAI"
+      ],
+      "url": "https://arxiv.org/abs/2611.33640",
+      "pdf_url": "https://arxiv.org/pdf/2611.33640",
+      "source": "arXiv cs.CL, EACL 2027 (per arXiv comment)",
+      "published": "2026-11-25",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Sparse-to-sparse (S2S) feature learning trains each layer's sparse code to predict the next layer's sparse code, anchored at the output, giving SAE-style features that line up across adjacent layers better than matched sparse-feature baselines in eight language models.",
+      "summary": [
+        "Sparse autoencoders split dense hidden states into sparse features, and cross-layer variants try to capture structure spanning layers. But existing objectives never explicitly train the sparse code at one layer to predict the sparse code at the next, so features at neighbouring layers need not correspond, which complicates tracing and steering along a pathway.",
+        "S2S trains sparse features at each intermediate layer to predict those of the following layer, anchors the final layer with an output-distribution loss, and optimizes sequentially from output back to input. They evaluate adjacent-layer correspondence across eight language models, test feature-based steering interventions at matched output-distribution shift so that steering effects are separated from reconstruction effects of the sparse pathway, and add causal ablations.",
+        "S2S gives stronger adjacent-layer correspondence than matched sparse-feature baselines, and causal ablations support the correspondence beyond the metrics; the abstract does not report numbers or model sizes. Takeaway: the matched-output-shift protocol is a sound way to compare steering with SAE features fairly, and S2S is a candidate when you want features you can follow layer to layer. Caveat: the steering and ablation gains are described qualitatively in the abstract, so check the paper tables before reusing."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.34515",
+      "title": "Decoder-as-a-Probe: Verbalizing and Steering Visual Representations in LVLMs",
+      "authors": [
+        "Adhemar de Senneville",
+        "Xavier Bou",
+        "Jérémy Anger",
+        "Rafael Grompone",
+        "Gabriele Facciolo"
+      ],
+      "affiliations": [
+        "ENS Paris-Saclay (Centre Borelli)",
+        "AMIAD"
+      ],
+      "url": "https://arxiv.org/abs/2611.34515",
+      "pdf_url": "https://arxiv.org/pdf/2611.34515",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-25",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Decoder-as-a-Probe uses a first-order Taylor expansion of an LVLM's own LLM decoder as a linear probe over visual tokens, giving concept directions that both verbalize what the model sees and surgically edit attributes, beating classic probing and steering baselines especially with little training data.",
+      "summary": [
+        "Concepts are thought to be linearly represented in large networks, and finding such directions in the visual representations of vision-language models matters for interpretability and control. The standard approach trains a linear classifier, which needs many labels and finds what is decodable rather than what the model actually uses.",
+        "The key observation is that the LLM decoder of an LVLM is already a classifier over next tokens. Decoder-as-a-Probe (DaP) linearizes the decoder with a first-order Taylor expansion and uses it as a linear probe on visual representations. They use it to verbalize what the LVLM perceives in an image and to steer perception of specific attributes such as colour, clothing or action.",
+        "DaP significantly outperforms classical probing and steering baselines, with the largest gains when training data is sparse; the abstract gives no numeric results or model list. Takeaway: deriving steering directions from the model's own readout instead of trained probes is a cheap, data-efficient recipe that fits steering-geometry questions about read versus used directions. Caveat: the Taylor linearization is local, so check how far edits stay faithful, and results here are for LVLMs only."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.34762",
+      "title": "TASK Memory: Beyond Text-Only Memory with Activation Steering and Knowledge Editing against Memory Hallucination",
+      "authors": [
+        "Jinkun Zhao",
+        "Wenjun Wu"
+      ],
+      "affiliations": [
+        "Beihang University"
+      ],
+      "url": "https://arxiv.org/abs/2611.34762",
+      "pdf_url": "https://arxiv.org/pdf/2611.34762",
+      "source": "arXiv cs.AI, preprint",
+      "published": "2026-11-25",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "TASK memory pairs a text memory note with a removable knowledge edit (as an address) and a pair of steering vectors that decide per query whether to adopt the memory, cutting memory-ignoring hallucinations to at most 1.5% in all ten model-dataset cells.",
+      "summary": [
+        "LLM agents with external memory still hallucinate about what they remember even when the right memory is in the prompt. Across five open models the authors find three use-time failure modes: ignoring the memory for a stale parametric fact (up to 46% of queries), applying it to the wrong entity (up to 24%, 49% with weight editing), and asserting a superseded value for revised facts (53%).",
+        "TASK combines a Text note that holds the content, a removable Knowledge edit whose subject key acts as the in-model address and supports multi-hop composition, and two Activation Steering vectors that decide, query by query, whether the model adopts the memory or keeps its own answer; the vectors store no content. Evaluation is on frozen models with a pre-registered, test-once protocol, across 8B to 27B models from four families, on CounterFact, MQuAKE and a memory library.",
+        "Memory-ignoring falls to at most 1.5% in all ten model-dataset cells, neighbour misuse drops from 39.2% to 7.5% (+10.8 pp composite on CounterFact), a 300-memory library beats BM25 RAG by 16.4 pp with the gain holding at 3,000 memories, and MQuAKE multi-hop accuracy rises 7.5 pp. 21 of 23 cross-model comparisons are significant, and TASK beats three recent context-steering methods in 9 of 10 cells. Takeaway: steering vectors work well as content-free gates on how context is used rather than as carriers of content, a clean design pattern for steering research. Caveat: it combines several components including weight edits, so gains are not attributable to steering alone."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.33252",
+      "title": "MonoQPM: Splitting Features into Concepts for Inherent Interpretability and Predictive Performance",
+      "authors": [
+        "Thomas Norrenbrock",
+        "Robert Zimmermann",
+        "Timo Kaiser",
+        "Sovan Biswas",
+        "Neslihan Kose",
+        "Bodo Rosenhahn"
+      ],
+      "affiliations": [
+        "Leibniz Universität Hannover",
+        "Intel Labs"
+      ],
+      "url": "https://arxiv.org/abs/2611.33252",
+      "pdf_url": "https://arxiv.org/pdf/2611.33252",
+      "source": "Transactions on Machine Learning Research (10/2026)",
+      "published": "2026-11-24",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "MonoQPM disentangles the few polysemantic class features of the interpretable QPM model into monosemantic concepts, and measures polysemanticity by its practical cost in conformal prediction; it guarantees 88% coverage on ImageNet with sets 66% the size of the frozen QPM's.",
+      "summary": [
+        "Polysemanticity and superposition are major obstacles to interpretable networks, and polysemanticity has no agreed measure. The Quadratic Programming Enhanced Model (QPM) avoids superposition by assigning each class a sparse binary set of very few features, but those features can still be polysemantic.",
+        "The authors measure polysemanticity by its utility cost: the drop in interference-induced activation errors, read out as tighter conformal prediction sets. They split QPM's polysemantic features into monosemantic concepts to build MonoQPM, and release CUBCars, a dataset with ground-truth shared concepts, testing across several architectures and ImageNet.",
+        "Polysemanticity appears in QPM in all tested architectures and is largely removed by MonoQPM, which becomes a more efficient conformal predictor: 88% coverage with Adaptive Prediction Sets on ImageNet at 66% of the frozen QPM's set size. Takeaway: for prototype- or concept-based medical classifiers, tying interpretability to conformal set size gives a measurable, clinically meaningful target, and the feature-splitting idea can be tried on prototype layers. Caveat: shown on natural-image benchmarks, not medical data."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.31730",
+      "title": "Tokenization and Architecture Jointly Allocate Component Roles in Time Series Transformers",
+      "authors": [
+        "Mingyu Kim",
+        "Doguk Kim"
+      ],
+      "affiliations": [
+        "Inha University"
+      ],
+      "url": "https://arxiv.org/abs/2611.31730",
+      "pdf_url": "https://arxiv.org/pdf/2611.31730",
+      "source": "arXiv cs.LG, NeurIPS 2026 (per arXiv comment)",
+      "published": "2026-11-24",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Layer-to-layer probing on 15 temporal tasks shows that whether attention or the FFN builds temporal features in time-series transformers depends on tokenization: under patching the FFN gain is 3.2x attention's on average and attention can be removed with forecasts within a few percent.",
+      "summary": [
+        "Time-series transformers forecast well, but it is unclear which component, attention or the feed-forward network, actually constructs temporal features, and how tokenization choices like patching change that. This matters for explaining why patching helps and why attention-free models are competitive.",
+        "They define feature construction as the gain in linear decodability of temporal properties from one sub-layer to the next, measured with 15 token-level diagnostic tasks, for models read by a linear forecasting head. They apply it to 5 supervised models on 8 long-term forecasting benchmarks and back the probing with activation patching, knockout and retraining without attention, plus a controlled manipulation of PatchTST patch size.",
+        "Under patch tokenization (PatchTST) the FFN gain exceeds attention on all 8 datasets, averaging 3.2x, and removing attention (post hoc or by retraining) keeps forecasts within a few percent; under variate tokenization (iTransformer) attention dominates, and with single-scalar tokens (P=1) the FFN construction nearly disappears while P=2 restores it. Takeaway: component roles are set by tokenization rather than fixed by architecture, so interpretability claims about transformers on non-text data (tabular, ultrasound RF) should be checked per tokenization; code is released. Caveat: limited to supervised forecasting models with linear heads."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.30094",
+      "title": "Character Information in Language Models: A Prompt-Independent Word Store and a Late, Question-Driven Signal That Grows With Scale",
+      "authors": [
+        "Pratyush Acharya",
+        "Nuraj Rimal",
+        "Apar Baral",
+        "Habish Dhakal",
+        "Piyush Mohan Bhattarai"
+      ],
+      "affiliations": [
+        "SecurityPal AI",
+        "Southern Illinois University Edwardsville",
+        "University of Maryland"
+      ],
+      "url": "https://arxiv.org/abs/2611.30094",
+      "pdf_url": "https://arxiv.org/pdf/2611.30094",
+      "source": "arXiv cs.CL, preprint",
+      "published": "2026-11-23",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "A word-position probing baseline shows that character properties such as first and last letter are stored with the word in all 16 tested LMs (about 70% already in the embedding), while a separate question-driven signal at the answer position grows with scale and only in late layers.",
+      "summary": [
+        "Linear probes can read character properties of a word from LM hidden states, but a probe at the answer position cannot tell whether the property was stored with the word or computed because the prompt asked. Without that separation, claims about what models know about spelling are confounded.",
+        "The authors apply the same held-out-word probe to the word's own tokens in a sentence that asks nothing, giving a word-position baseline against a word-only nuisance floor. They test 16 open-weight models from seven families (0.6B to 14B) on eleven character tasks with pre-registered criteria, held-out layer selection and four controls.",
+        "Word tokens encode first_letter, last_letter and most_frequent_letter above the nuisance floor in all 16 models, with about 70% of the signal already in the token embedding; the question adds a second answer-position signal that grows with scale for all four prompt-sensitive tasks (permutation p <= 0.018) and is confined to late layers. Measured against the nuisance floor, apparent retained signal largely vanishes (last_letter: -0.01). Takeaway: always compare probes against a nuisance floor and a no-question position baseline, a methodology lesson that transfers to any probing study. Caveat: small models only up to 14B and a narrow character-level domain."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.34637",
+      "title": "Carrying Feature Ablations Across Sparse Autoencoder Seeds",
+      "authors": [
+        "Karl Li"
+      ],
+      "affiliations": [
+        "Columbia University"
+      ],
+      "url": "https://arxiv.org/abs/2611.34637",
+      "pdf_url": "https://arxiv.org/pdf/2611.34637",
+      "source": "arXiv cs.CV, preprint",
+      "published": "2026-11-25",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Matching SAE features across random seeds by direction does not guarantee that ablating them has the same effect: on DINOv2 and SigLIP layers only 12% to 70% of matched pairs reproduce the same output change, versus 0% for controls.",
+      "summary": [
+        "SAEs trained with different seeds learn different features, and prior work matches features across seeds by direction similarity. But two features can point alike yet respond to different image regions, so editing a model by removing one may not be equivalent to removing its match.",
+        "The author ablates a feature and, separately, its cross-seed match in SAEs on DINOv2 or SigLIP layers, and checks whether the second change in encoder output on the same held-out images reproduces the first within a tolerance. Controls use an SAE with random directions and shuffled matches; post hoc, they test whether layer contributions or directions predict which removals carry.",
+        "At the chosen tolerance, removals carry for 12% to 70% of matched pairs across three settings, and 0% in both controls. Layer contributions predict carrying better than directions, though some errors remain, one of which persists on independent images, so measuring output change is still needed. Takeaway: before trusting an SAE feature edit in a vision encoder, check it replicates across seeds by effect, not by cosine similarity. Caveat: single-author preprint, three settings, vision encoders only."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.33632",
+      "title": "Interpreting Speckle Effects Through Neuron Interventions",
+      "authors": [
+        "Shubham K. Singh",
+        "Hare Krishna"
+      ],
+      "affiliations": [
+        "Tufts University",
+        "UT Austin"
+      ],
+      "url": "https://arxiv.org/abs/2611.33632",
+      "pdf_url": "https://arxiv.org/pdf/2611.33632",
+      "source": "arXiv eess.IV, preprint",
+      "published": "2026-11-25",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "In a SAR foundation model, the 38 neurons that respond most to speckle are not the ones that matter: restoring a different set of 64 first-MLP neurons recovers 44.1% of the speckle-induced correlation loss, and 96.5% of that gain remains when the speckle-selective neurons stay noisy.",
+      "summary": [
+        "Speckle, a multiplicative noise in synthetic aperture radar imaging (and a close cousin of ultrasound speckle), hurts pretrained models, but how it acts inside them is unknown. A natural assumption is that neurons selective for speckle are where to intervene.",
+        "Using SARMAE, an Earth-observation masked autoencoder pretrained on a million-scale SAR dataset, and synthetic scenes with known reflectivity, the authors find speckle-selective neurons, restore their clean activations, and run layer-wise activation patching. They repeat analyses on an ImageNet-pretrained MAE and on manipulated Sentinel-1 and Capella images, plus land-cover classification.",
+        "There are 38 speckle-selective neurons, but restoring them does not improve reconstruction; the first MLP has the largest restoration and injection effects, and 64 different neurons there recover 44.1% of correlation loss on held-out scenes, with 96.5% of the gain remaining if speckle neurons are held noisy, while freezing three decoder heads removes 37.4%. In the ImageNet MAE the third MLP block matters most, and for classification only restoring the whole first MLP helps. Takeaway for ultrasound work: selectivity is not causal importance, so speckle-handling in ultrasound encoders should be localized by patching rather than by finding responsive units. Caveat: SAR not ultrasound, mostly synthetic scenes, two authors."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.32225",
+      "title": "Joint Classification and Generation on Tabular Data: an Empirical Study",
+      "authors": [
+        "Tim d'Hondt",
+        "Oleksii Furman",
+        "Damian Kwolek",
+        "Jan Poręba",
+        "Maciej Zieba",
+        "Mykola Pechenizkiy"
+      ],
+      "affiliations": [
+        "Eindhoven University of Technology",
+        "Wroclaw University of Science and Technology"
+      ],
+      "url": "https://arxiv.org/abs/2611.32225",
+      "pdf_url": "https://arxiv.org/pdf/2611.32225",
+      "source": "arXiv cs.LG, preprint",
+      "published": "2026-11-24",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "Comparing joint classifier-plus-generator models across four tabular families on 29 datasets under matched compute, a probabilistic circuit wins at the smallest budgets and TabICL generating column by column wins beyond; joint models are rarely better than the best separate pair but often close.",
+      "summary": [
+        "Many tabular applications need both a classifier and a realistic record generator, and usually train two models. A single joint model could provide both, but it was unclear which model family to use at which compute budget, or whether a joint model is ever worth it.",
+        "The authors build joint models from four families (energy-based models, probabilistic circuits, tabular foundation models and tabular diffusion models), measure FLOPs and wall-clock time, and score them on 29 classification datasets with two aggregate prediction-plus-generation scores. They also compare against every pairing of a separate classifier and generator at different budgets.",
+        "The best joint model is a probabilistic circuit at the smallest budgets and, beyond that, TabICL used as a generator column by column via a regressor. Compared with separate pairs, joint models are rarely preferable but often very close to the best pair, without maintaining two models. Takeaway: a tabular foundation model like TabICL can double as a reasonable synthetic-data generator, which is handy for augmentation in small clinical tables. Caveat: classification datasets only, and conclusions depend on the authors' aggregate scores."
+      ],
+      "score": 3
+    }
+  ]
+}
