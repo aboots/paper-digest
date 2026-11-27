@@ -1,0 +1,285 @@
+{
+  "date": "2026-11-27",
+  "generated_at": "2026-11-27T06:07:51-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.33358",
+      "title": "DDxBasis: Explaining Frozen Foundation Encoder-based Medical Classification by Exact Differential Diagnosis",
+      "authors": [
+        "Luojie Huang",
+        "Gregory N. McKay",
+        "Nicholas J. Durr"
+      ],
+      "affiliations": [
+        "Johns Hopkins"
+      ],
+      "url": "https://arxiv.org/abs/2611.33358",
+      "pdf_url": "https://arxiv.org/pdf/2611.33358",
+      "source": "arXiv cs.CV",
+      "published": "2026-11-24",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "DDxBasis puts a gated slot-attention concept bottleneck on every layer of a frozen DINOv3 encoder and regroups the concepts into two-pole \"differential diagnosis\" axes that split each decision exactly. On five medical datasets it is the most accurate frozen-encoder model while its axes recover cell lineages, match dermatologist structure masks and expose shortcuts.",
+      "summary": [
+        "Medical image classifiers are hard to explain the way a clinician explains a diagnosis, by the few findings that separate it from the alternatives. Current explanation methods are either faithful but spread over hundreds of concepts, or compact but leave part of each decision unaccounted for.",
+        "A frozen DINOv3 ViT-B/16 is read at all 12 layers by a concept bottleneck that uses gated, second-order slot attention over patch tokens (12 concepts per layer, 144 total, about 4.3M extra parameters). A learned concept basis regroups these concepts into two-pole axes, each contrasting groups of diagnoses, and each axis is explained by typical examples of its poles, the case's pertinent findings and counterfactual edits of borderline cases. Evaluation covers ISIC 2018 skin lesions, PBC and BMC blood/bone-marrow smears, NIH ChestX-ray14 and a private stain-free white-blood-cell set, with three seeds per dataset and balanced accuracy (macro AUROC for chest).",
+        "Across the five datasets, DDxBasis is reported as the most accurate frozen-encoder model and close to the best published domain-specific results, and its basis decomposes each decision exactly with no accuracy cost. Without stage or concept labels, the axes recover cell lineages and rare subtypes, agree with ISIC dermoscopic-structure annotations, and expose both a planted shortcut and real ones such as view position. Takeaway: for prototype or concept-based models on frozen ultrasound foundation encoders, the \"exact decomposition plus two-pole contrast\" design is a concrete template for explanations that clinicians can read as differentials. Caveats stated by the authors: concept names are mined post hoc with a fixed dictionary and VLMs, names and counterfactuals have not been checked by blinded clinicians, and hyperparameters are tuned per task."
+      ],
+      "score": 4,
+      "thumbnail": "https://arxiv.org/html/2611.33358v1/fig_pipeline.png"
+    },
+    {
+      "id": "arxiv:2611.32585",
+      "title": "Understanding the Importance of Massive Activations through Adversarial Robustness",
+      "authors": [
+        "Tigran Fahradyan",
+        "Riccardo Ali",
+        "Sergio Calvo-Ordoñez",
+        "José Miguel Hernández-Lobato",
+        "Pietro Liò",
+        "Álvaro Arroyo"
+      ],
+      "affiliations": [
+        "University of Cambridge",
+        "University of Oxford"
+      ],
+      "url": "https://arxiv.org/abs/2611.32585",
+      "pdf_url": "https://arxiv.org/pdf/2611.32585",
+      "source": "arXiv cs.LG",
+      "published": "2026-11-24",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Using the spline view of deep networks, the authors argue that massive activations push representations away from nonlinearity boundaries, linking them to region migration and delayed adversarial robustness. The effect appears in residual MLPs, ResNet18, ViTs and GPT models, not only LLMs.",
+      "summary": [
+        "Massive activations, a few hidden units with exceptionally large values, are a known feature of LLMs and have been tied to attention sinks and signal propagation, but why they emerge and what they buy the model is still unclear. This matters for anyone who analyzes or edits residual-stream activations, since a handful of outlier dimensions can dominate geometry.",
+        "The paper uses the spline-theoretic interpretation of deep networks to connect massive activations to region migration, the phenomenon behind delayed (grokking-like) robustness. They show theoretically that large activations move representations away from the network's nonlinearity boundaries, simplifying the local input-output map near data. Experiments span residual MLPs, ResNet18, Vision Transformers and GPT on MNIST, CIFAR10, Imagenette and Shakespeare text, plus tracking during larger-scale LLM pretraining.",
+        "Massive activations and region migration consistently co-occur with adversarial robustness across all tested architectures, showing the phenomenon is not specific to transformers; in LLM pretraining the rise of massive activations tracks adversarial accuracy under token-embedding perturbations. The abstract gives no single headline number. Takeaway: when computing steering directions, SAE features or probe geometry, treat massive-activation dimensions as functionally important (they relate to robustness and local linearity), so removing or normalizing them away may change model behavior. Limitations named by the authors: the theory covers residual fully connected nets only, not attention or normalization layers, and what drives the emergence of massive activations is still open. Code is released (github.com/tigranfah/ma-robustness)."
+      ],
+      "score": 4,
+      "thumbnail": "https://arxiv.org/html/2611.32585v1/figs/ij84ay_2_regions_grid_recolor.png"
+    },
+    {
+      "id": "arxiv:2611.32143",
+      "title": "Calibrated Reading of Latent Reasoning and Communication",
+      "authors": [
+        "Zixi Wang",
+        "Gaohao Zhou",
+        "Yubo Huang",
+        "Xin Lai",
+        "Yushe Cao",
+        "Jingzehua Xu",
+        "Shuai Zhang"
+      ],
+      "affiliations": [
+        "Southwest Jiaotong University",
+        "UESTC",
+        "Tsinghua University"
+      ],
+      "url": "https://arxiv.org/abs/2611.32143",
+      "pdf_url": "https://arxiv.org/pdf/2611.32143",
+      "source": "arXiv cs.LG",
+      "published": "2026-11-24",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "CLR is a small transformer reader that scores candidate answers against latent states, with source adapters for cross-model transfer and conformal calibration for coverage guarantees. It beats MLP and attention probes by 4-18 points on CODI latent-reasoning models and matches a 1.7B verbalizer on GPT-2 at 437-648x fewer FLOPs.",
+      "summary": [
+        "Latent (continuous) chain-of-thought and key-value communication between models hide intermediate information in vectors that humans cannot read directly. Existing activation readers force a choice between cheap task-specific probes and flexible but costly language-model decoders (verbalizers such as LatentQA).",
+        "The Calibrated Latent Reader (CLR) is a compact transformer that predicts reasoning outcomes and message content by letting latent states interact with candidate answers in a task-conditioned way. Source adapters allow reuse across different source models, and conformal calibration gives coverage and false-alarm guarantees under exchangeability. It is tested on two CODI latent-reasoning models (including CODI-GPT-2) and on synthetic Qwen3-4B communications.",
+        "CLR improves final-answer prediction and reference-value membership accuracy over MLP and attention probes by 4-18 percentage points on the two CODI models. On CODI-GPT-2 it is comparable to a 1.7B LatentQA-based verbalizer while using 437-648 times fewer inference FLOPs, and on synthetic Qwen3-4B messages, comparing decoded facts with public commitments catches 93.1% of message substitutions at a nominal 5% false-positive rate. Takeaway: state-candidate interaction plus conformal calibration is a reusable upgrade over linear probes when you need calibrated, selective readouts of hidden states. Caveats: evaluation is on small CODI models and synthetic communication, and guarantees assume exchangeability."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.33248",
+      "title": "Typical Angina, Reversed: A Long-Standing Documentation Error in the UCI Heart Disease Data",
+      "authors": [
+        "Tejas Tovinkere Pattabhi"
+      ],
+      "affiliations": [
+        "University of the Cumberlands"
+      ],
+      "url": "https://arxiv.org/abs/2611.33248",
+      "pdf_url": "https://arxiv.org/pdf/2611.33248",
+      "source": "arXiv cs.LG",
+      "published": "2026-11-24",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "The chest-pain variable in the widely used UCI Heart Disease benchmark is stored in reverse of its documentation, so code 4 (\"asymptomatic\") actually marks typical angina. In an audit, 78% of SHAP papers that state a direction for a named category state one inconsistent with the corrected labels, and LLM zero-shot classifiers lose 0.12-0.33 AUC with the documented labels.",
+      "summary": [
+        "UCI Heart Disease is one of the most reused tabular ML benchmarks, and many papers interpret its features with SHAP or feed category names to language models. If a category is mislabeled in the documentation, accuracy hides the problem but every named interpretation is wrong.",
+        "The author tests the chest-pain coding with two checks: reproducing the chest-pain table and regression coefficients of the original 1986 Cleveland study (which only works under the corrected reading), and checking the classical angina features in the Budapest, Switzerland and Long Beach files. They also trace the labels through Statlog, OpenML, PMLB and Kaggle copies, audit a seeded sample of 150 SHAP papers from a pre-specified Scholar query, and test three open-weight LLMs as zero-shot classifiers.",
+        "In the three non-Cleveland files, 93-96% of patients coded 4 have all three classical angina features; of 32 audited papers that state a direction for a named category, 25 (78%, 95% CI 61-89%) are inconsistent with the corrected identities, and none of the 124 readable papers noticed the reversal. Conventional models are essentially unaffected, but zero-shot LLM classifiers given the documented labels lose 0.12-0.33 AUROC. Takeaway: before reporting feature attributions or using text-serialized tables with TabPFN-style or LLM models, verify category semantics against the original study, and use the corrected mapping and code (github.com/tpattabhi/anginaflip) if you use this dataset. Caveat: single-author preprint and the paper audit covers a sample, not all literature."
+      ],
+      "score": 4
+    },
+    {
+      "id": "arxiv:2611.31354",
+      "title": "Detecting Harmful Short Videos in Toxic Diet Culture: A Governance-Ready Evidence Framework with Sparse Autoencoders",
+      "authors": [
+        "Wenli Zhang",
+        "Shuang Geng",
+        "Jiaheng Xie",
+        "Zhonghan Xiang",
+        "Sudha Ram"
+      ],
+      "affiliations": [
+        "Iowa State University",
+        "Shenzhen University",
+        "University of Arizona"
+      ],
+      "url": "https://arxiv.org/abs/2611.31354",
+      "pdf_url": "https://arxiv.org/pdf/2611.31354",
+      "source": "arXiv cs.LG",
+      "published": "2026-11-23",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "SPACE builds a harmful-video classifier on top of pretrained SAE features from a large multimodal model, using a relevance gate, a linear evidence head and policy alignment to produce inspectable evidence. On 3,711 TikTok videos it reaches 0.8507 harmful-category macro F1, and its top evidence overlaps a true harmful span in 88.0% of harmful test videos.",
+      "summary": [
+        "Content-moderation models mostly output predictions or loose explanations, but platforms need evidence tied to each decision that a reviewer can trace, localize and map to written policy. The paper frames this as \"governance-ready evidence\" and uses toxic diet-culture videos as the case study.",
+        "The SPACE framework works in a pretrained sparse-autoencoder feature space derived from a large multimodal model. A global relevance gate and a decomposable linear evidence head pick decision-linked SAE features, segment supervision and within-video ranking localize the evidence in time, a policy-alignment step maps features to platform guidelines, and Pareto-efficient selection yields a compact task-specific evidence vocabulary. It is trained and evaluated on 3,711 labeled TikTok videos and compared with four families of baselines, plus a stakeholder evaluation.",
+        "SPACE gets the best harmful-category macro F1 among the benchmarks at 0.8507; its highest-scoring observation overlaps a ground-truth harmful span for 88.0% of harmful test videos, and its evidence retrieves the right policy category for 87.0%. Stakeholders found the evidence reports useful for reviewing and documenting decisions. Takeaway: SAE features can serve as a sparse, auditable input layer for a downstream linear classifier with competitive accuracy, a pattern that transfers to medical settings where decisions must be justified. Caveats: one platform and one harm domain, and the abstract does not name the multimodal model or SAE used."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.32859",
+      "title": "Tabra Blends: Improving the Accuracy--Latency Trade-off with Complementary Tabular Models",
+      "authors": [
+        "Jing Jia",
+        "Guanyang Wang"
+      ],
+      "affiliations": [
+        "Rutgers University"
+      ],
+      "url": "https://arxiv.org/abs/2611.32859",
+      "pdf_url": "https://arxiv.org/pdf/2611.32859",
+      "source": "arXiv cs.LG",
+      "published": "2026-11-24",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "A 50/50 blend of a four-estimator Kumo Tabular Large ensemble with a single LimiX-2 pipeline reaches 2063.8 Elo on 816 TabArena splits, 45.4 points above the top published entry, while running 15% faster than Kumo-16 and 98% faster than full LimiX. Prediction diversity between the two models helps explain the gain.",
+      "summary": [
+        "Tabular foundation models gain accuracy from large internal ensembles, but those ensembles cost latency and their returns diminish. The question is whether a small mix of two complementary top models can beat either one on both accuracy and time.",
+        "The authors average predictions from Kumo Tabular Large using 1, 2, 4, 8 or 16 of its estimators with the first no-retrieval LimiX-2-1016 pipeline, both with frozen weights and the same training split (probabilities for classification, point predictions for regression). The two models were the top Elo entries on the November 20, 2026 TabArena leaderboard, and the blends are scored on 816 TabArena splits.",
+        "The Kumo-4 plus one LimiX blend reaches 2063.8 Elo, 45.4 points above the best published entry in the same Elo fit, with normalized fit-plus-predict time 15% below Kumo-16 and 98% below full LimiX. Higher prediction diversity between the two models tracks the error reduction. Takeaway: blending two different TFMs with small ensembles is a cheap baseline to beat before investing in larger single-model ensembles, and it is worth checking in any TabArena comparison. Caveat: this is a 4-page technical report with a single blend weight and no new model."
+      ],
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.32859v1/pareto.png"
+    },
+    {
+      "id": "arxiv:2611.33325",
+      "title": "Sparse Adaptation for In-Context Learning on Data Streams",
+      "authors": [
+        "João Neves",
+        "Afonso Lourenço",
+        "Lizy K. John",
+        "Eric P. Xing",
+        "João Gama"
+      ],
+      "affiliations": [
+        "University of Porto (INESC-TEC)",
+        "Polytechnic of Porto",
+        "CMU"
+      ],
+      "url": "https://arxiv.org/abs/2611.33325",
+      "pdf_url": "https://arxiv.org/pdf/2611.33325",
+      "source": "arXiv cs.LG",
+      "published": "2026-11-24",
+      "topics": [
+        "tabular_fm"
+      ],
+      "tldr": "SAIL keeps a tabular foundation model's key-value cache between adaptation events and rebuilds the in-context support set only when online micro-clusters signal structural drift. Micro-cluster compression cuts context size and inference cost with limited accuracy loss, and drift-triggered refits give a better accuracy-cost trade-off than fixed schedules.",
+      "summary": [
+        "Tabular foundation models adapt through in-context examples, which suits streaming settings such as IoT, but when streams drift the context goes stale and rebuilding it every batch is expensive. There is little guidance on when to refresh the context and how to keep it small.",
+        "SAIL reuses the model's KV cache during routine prediction and reconstructs the support set only when changes in an online, class-specific micro-clustering representation (cluster mass, class separability, feature-space coverage) suggest the context is inadequate; prequential error monitoring updates the clustering itself. On refit, the context budget is split across classes by mass and filled from the most recently updated micro-clusters. Experiments study sliding-window sizes, refit intervals, compression budgets and alternative adaptive or periodic policies.",
+        "Larger contexts do not always help under drift (gains shrink and can reverse) while more frequent refitting has a stronger effect on error; micro-cluster compression substantially reduces context size and cost with limited accuracy loss, and mass-discrepancy-triggered adaptation improves the accuracy-cost trade-off. In one setting, using all instances gives 84.5% accuracy at a median 2650 context rows and 120 ms per instance. Takeaway: for deploying TabPFN-style models on drifting clinical or sensor data, context selection and refit timing matter more than context size, and KV-cache reuse is an easy efficiency win. Caveat: the abstract gives no headline numbers, and costs depend on hardware and implementation, as the authors note."
+      ],
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.33325v1/final.png"
+    },
+    {
+      "id": "arxiv:2611.29909",
+      "title": "Training-Free Interventions for Hallucination in Large Language Models",
+      "authors": [
+        "Can Huang"
+      ],
+      "affiliations": [
+        "BUPT"
+      ],
+      "url": "https://arxiv.org/abs/2611.29909",
+      "pdf_url": "https://arxiv.org/pdf/2611.29909",
+      "source": "arXiv cs.CL",
+      "published": "2026-11-23",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "A review of 116 works on inference-time hallucination fixes, organized by where the method acts (input evidence, token scores, internal representations, finished claims, or abstention). For activation steering it separates estimating a subspace from applying a state-dependent edit, and prompt-side from generated-prefix interventions.",
+      "summary": [
+        "Hallucination fixes that need no training are popular because they work on frozen models, but they act at very different points and are compared on mismatched metrics. Without a clear map, it is hard to know which family suits a given failure (missing fact, ignored passage, unsupported claim).",
+        "The author surveys 116 papers, tracing the line from retrieval and controllable generation to methods that act on input evidence, token scores, internal representations, completed claims, or the decision to answer. Each family is compared by evidence source, model access, preparation cost and the task where a correction can be shown. The activation-steering section distinguishes subspace estimation from state-dependent editing and prompt interventions from interventions on the generated prefix.",
+        "The review finds that published comparisons only make sense when faithfulness to a source, factual correctness, informativeness and answer coverage are measured separately, and uses time-sensitive QA, document synthesis and visual grounding to show when source authority, evidence availability or capability preservation limits reported gains. It has no new experiments or numbers. Takeaway: its split between \"where the steering direction comes from\" and \"how the edit is applied\" is a useful framing for positioning steering-geometry work and for choosing evaluation metrics that do not conflate truthfulness with informativeness. Caveat: single-author survey."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.32600",
+      "title": "Gated Concept Adapters: Layer-Wise Concept Bottlenecks for Auditable Text Understanding",
+      "authors": [
+        "Niloofar Ranjbar",
+        "Saeedeh Momtazi",
+        "Mohammad Mehdi Homayounpoor"
+      ],
+      "affiliations": [
+        "Amirkabir University of Technology"
+      ],
+      "url": "https://arxiv.org/abs/2611.32600",
+      "pdf_url": "https://arxiv.org/pdf/2611.32600",
+      "source": "arXiv cs.LG",
+      "published": "2026-11-24",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "GCA attaches gated, low-dimensional concept readout adapters to chosen Transformer layers and routes the prediction through these concepts, allowing inspection and targeted interventions. On toxicity detection it stays close to an unconstrained ModernBERT baseline, while on GoEmotions it pays a macro-F1 cost that a frozen task-initialized variant largely closes.",
+      "summary": [
+        "Text classifiers used for moderation and other sensitive decisions predict from high-dimensional hidden states that offer no compact interface for audit or intervention. Concept bottlenecks give such an interface, but usually at a single layer and with an accuracy cost.",
+        "Gated Concept Adapters map token representations at selected layers of a pretrained Transformer into concept activations, filter them with learned gates, pool them into layer-level summaries, and give only these to the prediction head. Concepts are inspected via usage statistics, signature n-grams, post-hoc names and targeted interventions. Evaluation covers fine-grained emotion (GoEmotions), toxicity, AG News topics and a Qwen verb-cloze stress test.",
+        "GCA learns less redundant, intervention-sensitive concepts and on toxicity stays close to the unconstrained ModernBERT baseline; on GoEmotions the end-to-end model loses macro-F1 relative to RoBERTa (especially on rare labels) while the task-initialized frozen variant greatly reduces the gap, and on AG News it is competitive with concept baselines. The verb-cloze test shows concept routing is a real constraint for full-vocabulary prediction. Takeaway: wrapping a frozen, task-tuned encoder with a gated multi-layer concept readout is a practical way to add auditability with small accuracy loss, which mirrors prototype heads on frozen backbones. Caveat: the abstract reports results qualitatively, and the authors stress it is not a replacement for unconstrained fine-tuning."
+      ],
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.32600v1/images/PaperDiagram_corrected-Page-2.png"
+    },
+    {
+      "id": "arxiv:2611.33668",
+      "title": "Verifiable but Not Predictable: What Sentence Embeddings Know About Propositional Decomposition",
+      "authors": [
+        "Qingan Li",
+        "Tianxiao Wu",
+        "Xiling Cui"
+      ],
+      "affiliations": [
+        "THEi Hong Kong"
+      ],
+      "url": "https://arxiv.org/abs/2611.33668",
+      "pdf_url": "https://arxiv.org/pdf/2611.33668",
+      "source": "arXiv cs.CL",
+      "published": "2026-11-25",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "On PropSegmEnt, an NLI judge verifies whether a proposition belongs to a sentence (92.8% accuracy, 0.977 AUC), but embedding geometry cannot; conversely, only a linear ridge probe on sentence embeddings predicts how many propositions a sentence contains beyond a length proxy. The paper ends with a checklist for probing length-confounded quantities.",
+      "summary": [
+        "When LLMs split sentences into atomic propositions, two quality checks are needed: verifying that a proposition belongs to its sentence, and predicting in advance how many propositions a sentence should yield. It was unclear which representations support each question, and many apparent signals may just be sentence length.",
+        "Using PropSegmEnt (English Wikipedia sentences each segmented by three annotators), the authors compare an NLI judge, cosine and linear-combination tests on sentence embeddings, symbolic counts (token count, the CPIDR idea-density counter, a Neo-Davidsonian predicate count) and a linear ridge probe. They control for token count with partial correlations and length-matched pairs, use bootstrap CIs, and test robustness to INT8/INT4 quantization, Matryoshka truncation, and 2021 versus 2025 encoders.",
+        "The NLI judge verifies membership at 92.8% accuracy (AUC 0.977), with most residual errors being propositions true only in document context, whereas cosine similarity saturates and embeddings are not linear combinations of their propositions. All symbolic predictors collapse to a length proxy, while the ridge probe keeps a length-partialled correlation of 0.40-0.49 with human counts and orders length-matched pairs correctly 67-71% of the time, matching inter-annotator agreement, though it under-splits long sentences. Takeaway: when probing any quantity correlated with input length (or image size, lesion size), partial out the confound and use matched pairs before claiming a probe reads real structure; the paper includes a retracted pilot as a cautionary example. Caveat: one English dataset and one task."
+      ],
+      "score": 3,
+      "thumbnail": "https://arxiv.org/html/2611.33668v1/figs/fig0_pipeline.png"
+    }
+  ]
+}
