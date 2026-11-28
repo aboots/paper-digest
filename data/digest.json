@@ -1,285 +1,183 @@
 {
-  "date": "2026-11-27",
-  "generated_at": "2026-11-27T06:07:51-07:00",
+  "date": "2026-11-28",
+  "generated_at": "2026-11-28T06:00:50-07:00",
   "papers": [
     {
-      "id": "arxiv:2611.33358",
-      "title": "DDxBasis: Explaining Frozen Foundation Encoder-based Medical Classification by Exact Differential Diagnosis",
+      "id": "arxiv:2611.33304",
+      "title": "The Platonic Representation Hypothesis in Jacobian-Space: Language and Vision Models Agree Approximately Up to a Rotation",
       "authors": [
-        "Luojie Huang",
-        "Gregory N. McKay",
-        "Nicholas J. Durr"
+        "Ross Murphy",
+        "Gabriel Brostow"
       ],
       "affiliations": [
-        "Johns Hopkins"
+        "UCL"
       ],
-      "url": "https://arxiv.org/abs/2611.33358",
-      "pdf_url": "https://arxiv.org/pdf/2611.33358",
-      "source": "arXiv cs.CV",
+      "url": "https://arxiv.org/abs/2611.33304",
+      "pdf_url": "https://arxiv.org/pdf/2611.33304",
+      "source": "arXiv cs.AI",
       "published": "2026-11-24",
-      "topics": [
-        "interpretability"
-      ],
-      "tldr": "DDxBasis puts a gated slot-attention concept bottleneck on every layer of a frozen DINOv3 encoder and regroups the concepts into two-pole \"differential diagnosis\" axes that split each decision exactly. On five medical datasets it is the most accurate frozen-encoder model while its axes recover cell lineages, match dermatologist structure masks and expose shortcuts.",
-      "summary": [
-        "Medical image classifiers are hard to explain the way a clinician explains a diagnosis, by the few findings that separate it from the alternatives. Current explanation methods are either faithful but spread over hundreds of concepts, or compact but leave part of each decision unaccounted for.",
-        "A frozen DINOv3 ViT-B/16 is read at all 12 layers by a concept bottleneck that uses gated, second-order slot attention over patch tokens (12 concepts per layer, 144 total, about 4.3M extra parameters). A learned concept basis regroups these concepts into two-pole axes, each contrasting groups of diagnoses, and each axis is explained by typical examples of its poles, the case's pertinent findings and counterfactual edits of borderline cases. Evaluation covers ISIC 2018 skin lesions, PBC and BMC blood/bone-marrow smears, NIH ChestX-ray14 and a private stain-free white-blood-cell set, with three seeds per dataset and balanced accuracy (macro AUROC for chest).",
-        "Across the five datasets, DDxBasis is reported as the most accurate frozen-encoder model and close to the best published domain-specific results, and its basis decomposes each decision exactly with no accuracy cost. Without stage or concept labels, the axes recover cell lineages and rare subtypes, agree with ISIC dermoscopic-structure annotations, and expose both a planted shortcut and real ones such as view position. Takeaway: for prototype or concept-based models on frozen ultrasound foundation encoders, the \"exact decomposition plus two-pole contrast\" design is a concrete template for explanations that clinicians can read as differentials. Caveats stated by the authors: concept names are mined post hoc with a fixed dictionary and VLMs, names and counterfactuals have not been checked by blinded clinicians, and hyperparameters are tuned per task."
-      ],
-      "score": 4,
-      "thumbnail": "https://arxiv.org/html/2611.33358v1/fig_pipeline.png"
-    },
-    {
-      "id": "arxiv:2611.32585",
-      "title": "Understanding the Importance of Massive Activations through Adversarial Robustness",
-      "authors": [
-        "Tigran Fahradyan",
-        "Riccardo Ali",
-        "Sergio Calvo-Ordoñez",
-        "José Miguel Hernández-Lobato",
-        "Pietro Liò",
-        "Álvaro Arroyo"
-      ],
-      "affiliations": [
-        "University of Cambridge",
-        "University of Oxford"
-      ],
-      "url": "https://arxiv.org/abs/2611.32585",
-      "pdf_url": "https://arxiv.org/pdf/2611.32585",
-      "source": "arXiv cs.LG",
-      "published": "2026-11-24",
-      "topics": [
-        "interpretability"
-      ],
-      "tldr": "Using the spline view of deep networks, the authors argue that massive activations push representations away from nonlinearity boundaries, linking them to region migration and delayed adversarial robustness. The effect appears in residual MLPs, ResNet18, ViTs and GPT models, not only LLMs.",
-      "summary": [
-        "Massive activations, a few hidden units with exceptionally large values, are a known feature of LLMs and have been tied to attention sinks and signal propagation, but why they emerge and what they buy the model is still unclear. This matters for anyone who analyzes or edits residual-stream activations, since a handful of outlier dimensions can dominate geometry.",
-        "The paper uses the spline-theoretic interpretation of deep networks to connect massive activations to region migration, the phenomenon behind delayed (grokking-like) robustness. They show theoretically that large activations move representations away from the network's nonlinearity boundaries, simplifying the local input-output map near data. Experiments span residual MLPs, ResNet18, Vision Transformers and GPT on MNIST, CIFAR10, Imagenette and Shakespeare text, plus tracking during larger-scale LLM pretraining.",
-        "Massive activations and region migration consistently co-occur with adversarial robustness across all tested architectures, showing the phenomenon is not specific to transformers; in LLM pretraining the rise of massive activations tracks adversarial accuracy under token-embedding perturbations. The abstract gives no single headline number. Takeaway: when computing steering directions, SAE features or probe geometry, treat massive-activation dimensions as functionally important (they relate to robustness and local linearity), so removing or normalizing them away may change model behavior. Limitations named by the authors: the theory covers residual fully connected nets only, not attention or normalization layers, and what drives the emergence of massive activations is still open. Code is released (github.com/tigranfah/ma-robustness)."
-      ],
-      "score": 4,
-      "thumbnail": "https://arxiv.org/html/2611.32585v1/figs/ij84ay_2_regions_grid_recolor.png"
-    },
-    {
-      "id": "arxiv:2611.32143",
-      "title": "Calibrated Reading of Latent Reasoning and Communication",
-      "authors": [
-        "Zixi Wang",
-        "Gaohao Zhou",
-        "Yubo Huang",
-        "Xin Lai",
-        "Yushe Cao",
-        "Jingzehua Xu",
-        "Shuai Zhang"
-      ],
-      "affiliations": [
-        "Southwest Jiaotong University",
-        "UESTC",
-        "Tsinghua University"
-      ],
-      "url": "https://arxiv.org/abs/2611.32143",
-      "pdf_url": "https://arxiv.org/pdf/2611.32143",
-      "source": "arXiv cs.LG",
-      "published": "2026-11-24",
-      "topics": [
-        "interpretability"
-      ],
-      "tldr": "CLR is a small transformer reader that scores candidate answers against latent states, with source adapters for cross-model transfer and conformal calibration for coverage guarantees. It beats MLP and attention probes by 4-18 points on CODI latent-reasoning models and matches a 1.7B verbalizer on GPT-2 at 437-648x fewer FLOPs.",
-      "summary": [
-        "Latent (continuous) chain-of-thought and key-value communication between models hide intermediate information in vectors that humans cannot read directly. Existing activation readers force a choice between cheap task-specific probes and flexible but costly language-model decoders (verbalizers such as LatentQA).",
-        "The Calibrated Latent Reader (CLR) is a compact transformer that predicts reasoning outcomes and message content by letting latent states interact with candidate answers in a task-conditioned way. Source adapters allow reuse across different source models, and conformal calibration gives coverage and false-alarm guarantees under exchangeability. It is tested on two CODI latent-reasoning models (including CODI-GPT-2) and on synthetic Qwen3-4B communications.",
-        "CLR improves final-answer prediction and reference-value membership accuracy over MLP and attention probes by 4-18 percentage points on the two CODI models. On CODI-GPT-2 it is comparable to a 1.7B LatentQA-based verbalizer while using 437-648 times fewer inference FLOPs, and on synthetic Qwen3-4B messages, comparing decoded facts with public commitments catches 93.1% of message substitutions at a nominal 5% false-positive rate. Takeaway: state-candidate interaction plus conformal calibration is a reusable upgrade over linear probes when you need calibrated, selective readouts of hidden states. Caveats: evaluation is on small CODI models and synthetic communication, and guarantees assume exchangeability."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.33248",
-      "title": "Typical Angina, Reversed: A Long-Standing Documentation Error in the UCI Heart Disease Data",
-      "authors": [
-        "Tejas Tovinkere Pattabhi"
-      ],
-      "affiliations": [
-        "University of the Cumberlands"
-      ],
-      "url": "https://arxiv.org/abs/2611.33248",
-      "pdf_url": "https://arxiv.org/pdf/2611.33248",
-      "source": "arXiv cs.LG",
-      "published": "2026-11-24",
-      "topics": [
-        "interpretability"
-      ],
-      "tldr": "The chest-pain variable in the widely used UCI Heart Disease benchmark is stored in reverse of its documentation, so code 4 (\"asymptomatic\") actually marks typical angina. In an audit, 78% of SHAP papers that state a direction for a named category state one inconsistent with the corrected labels, and LLM zero-shot classifiers lose 0.12-0.33 AUC with the documented labels.",
-      "summary": [
-        "UCI Heart Disease is one of the most reused tabular ML benchmarks, and many papers interpret its features with SHAP or feed category names to language models. If a category is mislabeled in the documentation, accuracy hides the problem but every named interpretation is wrong.",
-        "The author tests the chest-pain coding with two checks: reproducing the chest-pain table and regression coefficients of the original 1986 Cleveland study (which only works under the corrected reading), and checking the classical angina features in the Budapest, Switzerland and Long Beach files. They also trace the labels through Statlog, OpenML, PMLB and Kaggle copies, audit a seeded sample of 150 SHAP papers from a pre-specified Scholar query, and test three open-weight LLMs as zero-shot classifiers.",
-        "In the three non-Cleveland files, 93-96% of patients coded 4 have all three classical angina features; of 32 audited papers that state a direction for a named category, 25 (78%, 95% CI 61-89%) are inconsistent with the corrected identities, and none of the 124 readable papers noticed the reversal. Conventional models are essentially unaffected, but zero-shot LLM classifiers given the documented labels lose 0.12-0.33 AUROC. Takeaway: before reporting feature attributions or using text-serialized tables with TabPFN-style or LLM models, verify category semantics against the original study, and use the corrected mapping and code (github.com/tpattabhi/anginaflip) if you use this dataset. Caveat: single-author preprint and the paper audit covers a sample, not all literature."
-      ],
-      "score": 4
-    },
-    {
-      "id": "arxiv:2611.31354",
-      "title": "Detecting Harmful Short Videos in Toxic Diet Culture: A Governance-Ready Evidence Framework with Sparse Autoencoders",
-      "authors": [
-        "Wenli Zhang",
-        "Shuang Geng",
-        "Jiaheng Xie",
-        "Zhonghan Xiang",
-        "Sudha Ram"
-      ],
-      "affiliations": [
-        "Iowa State University",
-        "Shenzhen University",
-        "University of Arizona"
-      ],
-      "url": "https://arxiv.org/abs/2611.31354",
-      "pdf_url": "https://arxiv.org/pdf/2611.31354",
-      "source": "arXiv cs.LG",
-      "published": "2026-11-23",
-      "topics": [
-        "sae"
-      ],
-      "tldr": "SPACE builds a harmful-video classifier on top of pretrained SAE features from a large multimodal model, using a relevance gate, a linear evidence head and policy alignment to produce inspectable evidence. On 3,711 TikTok videos it reaches 0.8507 harmful-category macro F1, and its top evidence overlaps a true harmful span in 88.0% of harmful test videos.",
-      "summary": [
-        "Content-moderation models mostly output predictions or loose explanations, but platforms need evidence tied to each decision that a reviewer can trace, localize and map to written policy. The paper frames this as \"governance-ready evidence\" and uses toxic diet-culture videos as the case study.",
-        "The SPACE framework works in a pretrained sparse-autoencoder feature space derived from a large multimodal model. A global relevance gate and a decomposable linear evidence head pick decision-linked SAE features, segment supervision and within-video ranking localize the evidence in time, a policy-alignment step maps features to platform guidelines, and Pareto-efficient selection yields a compact task-specific evidence vocabulary. It is trained and evaluated on 3,711 labeled TikTok videos and compared with four families of baselines, plus a stakeholder evaluation.",
-        "SPACE gets the best harmful-category macro F1 among the benchmarks at 0.8507; its highest-scoring observation overlaps a ground-truth harmful span for 88.0% of harmful test videos, and its evidence retrieves the right policy category for 87.0%. Stakeholders found the evidence reports useful for reviewing and documenting decisions. Takeaway: SAE features can serve as a sparse, auditable input layer for a downstream linear classifier with competitive accuracy, a pattern that transfers to medical settings where decisions must be justified. Caveats: one platform and one harm domain, and the abstract does not name the multimodal model or SAE used."
-      ],
-      "score": 3
-    },
-    {
-      "id": "arxiv:2611.32859",
-      "title": "Tabra Blends: Improving the Accuracy--Latency Trade-off with Complementary Tabular Models",
-      "authors": [
-        "Jing Jia",
-        "Guanyang Wang"
-      ],
-      "affiliations": [
-        "Rutgers University"
-      ],
-      "url": "https://arxiv.org/abs/2611.32859",
-      "pdf_url": "https://arxiv.org/pdf/2611.32859",
-      "source": "arXiv cs.LG",
-      "published": "2026-11-24",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "A 50/50 blend of a four-estimator Kumo Tabular Large ensemble with a single LimiX-2 pipeline reaches 2063.8 Elo on 816 TabArena splits, 45.4 points above the top published entry, while running 15% faster than Kumo-16 and 98% faster than full LimiX. Prediction diversity between the two models helps explain the gain.",
-      "summary": [
-        "Tabular foundation models gain accuracy from large internal ensembles, but those ensembles cost latency and their returns diminish. The question is whether a small mix of two complementary top models can beat either one on both accuracy and time.",
-        "The authors average predictions from Kumo Tabular Large using 1, 2, 4, 8 or 16 of its estimators with the first no-retrieval LimiX-2-1016 pipeline, both with frozen weights and the same training split (probabilities for classification, point predictions for regression). The two models were the top Elo entries on the November 20, 2026 TabArena leaderboard, and the blends are scored on 816 TabArena splits.",
-        "The Kumo-4 plus one LimiX blend reaches 2063.8 Elo, 45.4 points above the best published entry in the same Elo fit, with normalized fit-plus-predict time 15% below Kumo-16 and 98% below full LimiX. Higher prediction diversity between the two models tracks the error reduction. Takeaway: blending two different TFMs with small ensembles is a cheap baseline to beat before investing in larger single-model ensembles, and it is worth checking in any TabArena comparison. Caveat: this is a 4-page technical report with a single blend weight and no new model."
-      ],
-      "score": 3,
-      "thumbnail": "https://arxiv.org/html/2611.32859v1/pareto.png"
-    },
-    {
-      "id": "arxiv:2611.33325",
-      "title": "Sparse Adaptation for In-Context Learning on Data Streams",
-      "authors": [
-        "João Neves",
-        "Afonso Lourenço",
-        "Lizy K. John",
-        "Eric P. Xing",
-        "João Gama"
-      ],
-      "affiliations": [
-        "University of Porto (INESC-TEC)",
-        "Polytechnic of Porto",
-        "CMU"
-      ],
-      "url": "https://arxiv.org/abs/2611.33325",
-      "pdf_url": "https://arxiv.org/pdf/2611.33325",
-      "source": "arXiv cs.LG",
-      "published": "2026-11-24",
-      "topics": [
-        "tabular_fm"
-      ],
-      "tldr": "SAIL keeps a tabular foundation model's key-value cache between adaptation events and rebuilds the in-context support set only when online micro-clusters signal structural drift. Micro-cluster compression cuts context size and inference cost with limited accuracy loss, and drift-triggered refits give a better accuracy-cost trade-off than fixed schedules.",
-      "summary": [
-        "Tabular foundation models adapt through in-context examples, which suits streaming settings such as IoT, but when streams drift the context goes stale and rebuilding it every batch is expensive. There is little guidance on when to refresh the context and how to keep it small.",
-        "SAIL reuses the model's KV cache during routine prediction and reconstructs the support set only when changes in an online, class-specific micro-clustering representation (cluster mass, class separability, feature-space coverage) suggest the context is inadequate; prequential error monitoring updates the clustering itself. On refit, the context budget is split across classes by mass and filled from the most recently updated micro-clusters. Experiments study sliding-window sizes, refit intervals, compression budgets and alternative adaptive or periodic policies.",
-        "Larger contexts do not always help under drift (gains shrink and can reverse) while more frequent refitting has a stronger effect on error; micro-cluster compression substantially reduces context size and cost with limited accuracy loss, and mass-discrepancy-triggered adaptation improves the accuracy-cost trade-off. In one setting, using all instances gives 84.5% accuracy at a median 2650 context rows and 120 ms per instance. Takeaway: for deploying TabPFN-style models on drifting clinical or sensor data, context selection and refit timing matter more than context size, and KV-cache reuse is an easy efficiency win. Caveat: the abstract gives no headline numbers, and costs depend on hardware and implementation, as the authors note."
-      ],
-      "score": 3,
-      "thumbnail": "https://arxiv.org/html/2611.33325v1/final.png"
-    },
-    {
-      "id": "arxiv:2611.29909",
-      "title": "Training-Free Interventions for Hallucination in Large Language Models",
-      "authors": [
-        "Can Huang"
-      ],
-      "affiliations": [
-        "BUPT"
-      ],
-      "url": "https://arxiv.org/abs/2611.29909",
-      "pdf_url": "https://arxiv.org/pdf/2611.29909",
-      "source": "arXiv cs.CL",
-      "published": "2026-11-23",
       "topics": [
         "steering"
       ],
-      "tldr": "A review of 116 works on inference-time hallucination fixes, organized by where the method acts (input evidence, token scores, internal representations, finished claims, or abstention). For activation steering it separates estimating a subspace from applying a state-dependent edit, and prompt-side from generated-prefix interventions.",
+      "tldr": "Using the Jacobian lens, each word or class gets an output-steering vector in a model's hidden space, and these \"J-spaces\" of language and vision models line up up to a single rotation. Word vectors rotated from a text-only LLM successfully steer a VLM's visual patches, SDXL conditioning and even a text-free ImageNet classifier.",
       "summary": [
-        "Hallucination fixes that need no training are popular because they work on frozen models, but they act at very different points and are compared on mismatched metrics. Without a clear map, it is hard to know which family suits a given failure (missing fact, ignored passage, unsupported claim).",
-        "The author surveys 116 papers, tracing the line from retrieval and controllable generation to methods that act on input evidence, token scores, internal representations, completed claims, or the decision to answer. Each family is compared by evidence source, model access, preparation cost and the task where a correction can be shown. The activation-steering section distinguishes subspace estimation from state-dependent editing and prompt interventions from interventions on the generated prefix.",
-        "The review finds that published comparisons only make sense when faithfulness to a source, factual correctness, informativeness and answer coverage are measured separately, and uses time-sensitive QA, document synthesis and visual grounding to show when source authority, evidence availability or capability preservation limits reported gains. It has no new experiments or numbers. Takeaway: its split between \"where the steering direction comes from\" and \"how the edit is applied\" is a useful framing for positioning steering-geometry work and for choosing evaluation metrics that do not conflate truthfulness with informativeness. Caveat: single-author survey."
+        "The Platonic Representation Hypothesis has mostly been tested on activations, i.e. on how models represent inputs. Whether models also agree on how hidden states drive their outputs, which is what steering actually exploits, has not been checked across families and modalities.",
+        "At a chosen transformer layer, the Jacobian lens assigns every vocabulary word (or classifier class) the hidden-state direction that most increases its output; the set of these vectors is the model's J-space. The authors compare J-spaces across language-model families, then fit one orthogonal Procrustes rotation on a subset of words and use it to transfer steering vectors to held-out words in other models: Qwen3-VL visual patch tokens, SDXL text conditioning, and ImageNet ViTs trained without text (in both directions). Controls address skip-connection leakage and corpus statistics, and appendices extend the analysis to video models and self-supervised encoders.",
+        "J-spaces of different models are reported to align beyond what static unembeddings explain, and a single rotation fitted on some words generalizes to unseen words and classes. A rotated word vector changes the object a VLM reports, but only in the image region where it is added; it changes the object SDXL generates; and it lifts the matching ImageNet class above almost all others. The abstract gives no aggregate numbers, so effect sizes must be read from the paper. Takeaway for steering-geometry work: output-sensitivity (Jacobian) directions, not just activation-difference vectors, appear to be a shared, near-rotational coordinate system, so steering vectors may be transferable across models with a cheap Procrustes fit. Caveat: preprint from a single lab; it shows steering effects, not that the rotation preserves fine-grained side effects in every model."
       ],
-      "score": 3
+      "score": 5,
+      "thumbnail": "https://arxiv.org/html/2611.33304v1/fig_crossmodal_demo_v12.png"
     },
     {
-      "id": "arxiv:2611.32600",
-      "title": "Gated Concept Adapters: Layer-Wise Concept Bottlenecks for Auditable Text Understanding",
+      "id": "arxiv:2611.33671",
+      "title": "Look at What Matters: Learning Lesion Prototypes from Severity Labels for Domain-Generalized Diabetic Retinopathy Grading",
       "authors": [
-        "Niloofar Ranjbar",
-        "Saeedeh Momtazi",
-        "Mohammad Mehdi Homayounpoor"
+        "Ziyang Zhang",
+        "Juming Xiong",
+        "Yanfan Zhu",
+        "Yuechen Yang",
+        "Junchao Zhu",
+        "Zhengyi Lu",
+        "Chongyu Qu",
+        "Yiming Zhong",
+        "Yalin Zheng",
+        "Yuankai Huo",
+        "He Zhao"
       ],
       "affiliations": [
-        "Amirkabir University of Technology"
+        "Vanderbilt",
+        "University of Liverpool"
       ],
-      "url": "https://arxiv.org/abs/2611.32600",
-      "pdf_url": "https://arxiv.org/pdf/2611.32600",
-      "source": "arXiv cs.LG",
-      "published": "2026-11-24",
-      "topics": [
-        "interpretability"
-      ],
-      "tldr": "GCA attaches gated, low-dimensional concept readout adapters to chosen Transformer layers and routes the prediction through these concepts, allowing inspection and targeted interventions. On toxicity detection it stays close to an unconstrained ModernBERT baseline, while on GoEmotions it pays a macro-F1 cost that a frozen task-initialized variant largely closes.",
-      "summary": [
-        "Text classifiers used for moderation and other sensitive decisions predict from high-dimensional hidden states that offer no compact interface for audit or intervention. Concept bottlenecks give such an interface, but usually at a single layer and with an accuracy cost.",
-        "Gated Concept Adapters map token representations at selected layers of a pretrained Transformer into concept activations, filter them with learned gates, pool them into layer-level summaries, and give only these to the prediction head. Concepts are inspected via usage statistics, signature n-grams, post-hoc names and targeted interventions. Evaluation covers fine-grained emotion (GoEmotions), toxicity, AG News topics and a Qwen verb-cloze stress test.",
-        "GCA learns less redundant, intervention-sensitive concepts and on toxicity stays close to the unconstrained ModernBERT baseline; on GoEmotions the end-to-end model loses macro-F1 relative to RoBERTa (especially on rare labels) while the task-initialized frozen variant greatly reduces the gap, and on AG News it is competitive with concept baselines. The verb-cloze test shows concept routing is a real constraint for full-vocabulary prediction. Takeaway: wrapping a frozen, task-tuned encoder with a gated multi-layer concept readout is a practical way to add auditability with small accuracy loss, which mirrors prototype heads on frozen backbones. Caveat: the abstract reports results qualitatively, and the authors stress it is not a replacement for unconstrained fine-tuning."
-      ],
-      "score": 3,
-      "thumbnail": "https://arxiv.org/html/2611.32600v1/images/PaperDiagram_corrected-Page-2.png"
-    },
-    {
-      "id": "arxiv:2611.33668",
-      "title": "Verifiable but Not Predictable: What Sentence Embeddings Know About Propositional Decomposition",
-      "authors": [
-        "Qingan Li",
-        "Tianxiao Wu",
-        "Xiling Cui"
-      ],
-      "affiliations": [
-        "THEi Hong Kong"
-      ],
-      "url": "https://arxiv.org/abs/2611.33668",
-      "pdf_url": "https://arxiv.org/pdf/2611.33668",
-      "source": "arXiv cs.CL",
+      "url": "https://arxiv.org/abs/2611.33671",
+      "pdf_url": "https://arxiv.org/pdf/2611.33671",
+      "source": "arXiv cs.CV",
       "published": "2026-11-25",
       "topics": [
         "interpretability"
       ],
-      "tldr": "On PropSegmEnt, an NLI judge verifies whether a proposition belongs to a sentence (92.8% accuracy, 0.977 AUC), but embedding geometry cannot; conversely, only a linear ridge probe on sentence embeddings predicts how many propositions a sentence contains beyond a length proxy. The paper ends with a checklist for probing length-confounded quantities.",
+      "tldr": "Lesion and background prototypes are learned from image-level severity labels alone, and an additive ordinal model grades diabetic retinopathy only from prototype responses. Under leave-one-domain-out across six datasets it reaches a mean quadratic weighted kappa of 0.761, 0.036 above the strongest competitor.",
       "summary": [
-        "When LLMs split sentences into atomic propositions, two quality checks are needed: verifying that a proposition belongs to its sentence, and predicting in advance how many propositions a sentence should yield. It was unclear which representations support each question, and many apparent signals may just be sentence length.",
-        "Using PropSegmEnt (English Wikipedia sentences each segmented by three annotators), the authors compare an NLI judge, cosine and linear-combination tests on sentence embeddings, symbolic counts (token count, the CPIDR idea-density counter, a Neo-Davidsonian predicate count) and a linear ridge probe. They control for token count with partial correlations and length-matched pairs, use bootstrap CIs, and test robustness to INT8/INT4 quantization, Matryoshka truncation, and 2021 versus 2025 encoders.",
-        "The NLI judge verifies membership at 92.8% accuracy (AUC 0.977), with most residual errors being propositions true only in document context, whereas cosine similarity saturates and embeddings are not linear combinations of their propositions. All symbolic predictors collapse to a length proxy, while the ridge probe keeps a length-partialled correlation of 0.40-0.49 with human counts and orders length-matched pairs correctly 67-71% of the time, matching inter-annotator agreement, though it under-splits long sentences. Takeaway: when probing any quantity correlated with input length (or image size, lesion size), partial out the confound and use matched pairs before claiming a probe reads real structure; the paper includes a retracted pilot as a cautionary example. Caveat: one English dataset and one task."
+        "Diabetic retinopathy graders often fail on unseen imaging domains because they latch onto dataset-specific correlations rather than pathology. Prototype models promise lesion-level evidence, but usually need lesion annotations or keep a global classification path that bypasses the prototypes.",
+        "Clinical meaning of each DR grade is turned into multiple-instance constraints that drive competitive learning of lesion and background prototypes at several scales. An additive ordinal scoring head predicts severity exclusively from individual lesion-prototype responses, with no global feature classifier. Two regularizers make the evidence more reliable: teacher-guided preservation of prototype responses under image degradations, and a spatial penalty against prototypes that fire at fixed image coordinates. Evaluation is leave-one-domain-out over six public DR datasets, plus transplanting the idea into five other prototype architectures.",
+        "The method attains a mean quadratic weighted kappa of 0.761 and beats the strongest competing method by 0.036. Localization and prototype-removal analyses indicate that prototype responses sit on retinal lesions and actually drive the grade, and the gains carry over to five other prototype architectures and to degraded images. Takeaway for prototype networks on prostate ultrasound: weak-label (grade-only) multiple-instance constraints, an additive ordinal head that forces all decisions through prototypes, and an explicit penalty on position-locked prototypes are directly reusable for Gleason-grade or csPCa supervision with only core-level labels. Caveats: fundus imaging only, public datasets only, and the abstract does not mention released code."
       ],
-      "score": 3,
-      "thumbnail": "https://arxiv.org/html/2611.33668v1/figs/fig0_pipeline.png"
+      "score": 4,
+      "thumbnail": "https://arxiv.org/html/2611.33671v1/fig/framework.png"
+    },
+    {
+      "id": "arxiv:2611.33182",
+      "title": "Neighbor Crowding Predicts Feature Stability in Sparse Autoencoders",
+      "authors": [
+        "Denis Federico Lim",
+        "Naveen Dasari",
+        "George Flint",
+        "Kevin Zhu"
+      ],
+      "url": "https://arxiv.org/abs/2611.33182",
+      "pdf_url": "https://arxiv.org/pdf/2611.33182",
+      "source": "arXiv cs.LG; accepted at the NeurReps Workshop (Symmetry and Geometry in Neural Representations), NeurIPS 2026, Proceedings track",
+      "published": "2026-10-25",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Whether a TopK SAE feature will reappear across random seeds can be predicted from six cheap statistics of a single training run, so multi-seed training is not needed to flag stable features. Neighbor crowding, how densely a decoder direction's neighborhood is populated on the unit sphere, is the strongest single predictor.",
+      "summary": [
+        "Many SAE features are artifacts of initialization: prior work cited in the paper found only 30% shared features between two seeds of an SAE on Llama 3 8B. The usual check, training several seeds and matching features by cosine similarity, is expensive, which motivates predicting stability from one run.",
+        "The authors train three TopK SAE seeds on Pythia-70m at k in {64, 128, 256} and at several training-token budgets, labeling a feature stable when it is matched across seeds. They then compute six single-run statistics per feature (activation frequency, mean activation, neighbor crowding, reconstruction contribution, encoder column norm, encoder bias) and train a logistic-regression classifier to predict the stability label, testing transfer across model scale and family and controlling for confounds.",
+        "Stability turns out to be highly predictable from these statistics, and features in dense regions of the dictionary are more likely to be stable than isolated ones; the paper also reports transfer of the predictor across model scale and family. The abstract itself gives no headline accuracy numbers. Takeaway for SAE users: before building analyses or steering on SAE latents, compute neighbor crowding and the other cheap statistics to down-weight likely seed-specific features, which is far cheaper than retraining. Caveats: the main experiments use a very small model (Pythia-70m) and TopK SAEs only, and it is a workshop paper; code is linked in the paper."
+      ],
+      "score": 4,
+      "thumbnail": "https://arxiv.org/html/2611.33182v1/stability_by_token_count.png"
+    },
+    {
+      "id": "arxiv:2611.34930",
+      "title": "A gene informed benchmark for BioScoring of pathology foundation models",
+      "authors": [
+        "Paul Vilars",
+        "Vincent Quoc-Huy Trinh",
+        "Maria Vakalopoulou",
+        "Dimitris Samaras",
+        "Stergios Christodoulidis",
+        "Mahdi S. Hosseini"
+      ],
+      "affiliations": [
+        "Concordia",
+        "Mila",
+        "CentraleSupélec"
+      ],
+      "url": "https://arxiv.org/abs/2611.34930",
+      "pdf_url": "https://arxiv.org/pdf/2611.34930",
+      "source": "arXiv cs.LG",
+      "published": "2026-11-25",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "BioScore runs an unsupervised sparse autoencoder on a pathology encoder's patch embeddings and checks, against spatial transcriptomics of the same tissue, whether some feature group tracks each of 52 marker-gene cell identities. Every one of 8 pathology foundation models scores above every one of 3 natural-image models (0.299-0.371 vs 0.214-0.232).",
+      "summary": [
+        "Pathology foundation models are compared on downstream accuracy, which says how useful they are but not what biology they actually encode. Supervised probes answer that only where labels exist.",
+        "A sparse autoencoder decomposes each encoder's patch embeddings into sparse features, which are clustered into a fixed number of groups. With spatial transcriptomics from the same tissue as reference, BioScore measures for each of 52 marker-gene-defined cell identities how specifically one group follows that identity's expression across the tissue. Because the SAE never sees labels, a match indicates the encoder represents the identity from the image alone. They score 8 pathology foundation models and 3 natural-image models and use paired tests to compare them.",
+        "All pathology models score 0.299-0.371 versus 0.214-0.232 for natural-image models, and paired tests split the pathology models into three tiers. BioScore needs no labels, works from few sections, and ranks encoders the same way a supervised probe does, while its per-identity breakdown shows which cell types each encoder captures or misses. Takeaway: SAE features plus an aligned non-image modality give a label-free way to audit what a medical foundation encoder represents, a template that could transfer to ultrasound encoders if paired with histopathology maps. Caveat: depends on spatial transcriptomics availability, and the score depends on the chosen number of clusters and SAE setup."
+      ],
+      "score": 4,
+      "thumbnail": "https://arxiv.org/html/2611.34930v1/figures/overview.png"
+    },
+    {
+      "id": "arxiv:2611.34426",
+      "title": "A Head-Level Investigative Study of Self-Supervised Backbones for Synthetic Speech Detection",
+      "authors": [
+        "Mohamed Mallat",
+        "Michele Panariello",
+        "Massimiliano Todisco",
+        "Anthony Larcher",
+        "Nicholas Evans"
+      ],
+      "affiliations": [
+        "EURECOM",
+        "Le Mans Université"
+      ],
+      "url": "https://arxiv.org/abs/2611.34426",
+      "pdf_url": "https://arxiv.org/pdf/2611.34426",
+      "source": "arXiv cs.SD",
+      "published": "2026-11-25",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Per-head ablation of frozen WavLM-base and Wav2Vec2-base on ASVspoof 5 shows a few attention heads carry the spoof decision while others work against it; removing the opposing heads cuts equal error rate by 13% (WavLM) and 22% (Wav2Vec2) relative, with no retraining.",
+      "summary": [
+        "Self-supervised speech backbones are the standard front end for synthetic-speech detection, and layer-wise probing has shown which layers matter. Which attention heads inside those layers actually compute the spoof decision had not been examined.",
+        "The authors run a head-level study of two frozen backbones, WavLM-base and Wav2Vec2-base, on the ASVspoof 5 benchmark. They ablate heads one at a time to measure each head's contribution to the detection decision, compare attention focus (entropy) between genuine and spoofed speech, and test whether attack identity can be decoded from each head.",
+        "Only a few heads carry the decision and some actively oppose it; dropping those lowers EER by 13% relative for WavLM and 22% for Wav2Vec2 without retraining. Spoofed speech draws more focused attention than genuine speech, and this attention gap alone separates the classes almost as well as the full representation, peaking at each backbone's most discriminative layer. Attack identity is decodable from every head, so heads differ in function rather than in information content. Takeaway: head ablation is a cheap, training-free way to find and remove harmful components in frozen SSL encoders, and 'decodable' is not the same as 'used', a useful caution when reading probing results. Caveat: base-size models and a single benchmark."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.33966",
+      "title": "PatternMiner: Automated Mathematical Discovery Through LLM-Guided Training and Interpretation of Small Models",
+      "authors": [
+        "Michael Ruofan Zeng",
+        "Junaid Hasan",
+        "Xuanyu Yang",
+        "Emily Xia Meng",
+        "Henry Kvinge"
+      ],
+      "affiliations": [
+        "University of Washington",
+        "PNNL"
+      ],
+      "url": "https://arxiv.org/abs/2611.33966",
+      "pdf_url": "https://arxiv.org/pdf/2611.33966",
+      "source": "arXiv cs.AI",
+      "published": "2026-11-25",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "An LLM agent generates math datasets, trains small models, applies interpretability tools to extract patterns, turns them into conjectures and refines them with counterexample search. Applied to five positivity problems in algebraic combinatorics, it proves several new theorems.",
+      "summary": [
+        "AI-driven mathematical discovery either uses LLMs to reason about well-specified conjectures in text, or uses narrow models plus human-led interpretability on mathematical data. The first is poor at open-ended data exploration and the second rarely goes beyond spotting empirical patterns.",
+        "PatternMiner combines the two: from a broad question, an LLM agent builds datasets, trains narrow ML models, uses interpretability techniques on them to extract patterns, and formulates conjectures. It then searches for counterexamples with mathematical software, feeding failures back into conjecture refinement or another training-and-interpretation round, and may attempt proofs at any point. Code and experiment records are released.",
+        "On five well-known positivity problems in algebraic combinatorics, the system proves new results on Schubert positivity and projection, a character-row evaluation formula, a restricted version of the Kazhdan-Lusztig combinatorial invariance conjecture, and Schur positivity for a family of immanant coefficients. The paper also catalogs common routes to conjectures and failure modes. Takeaway: interpretability of small trained models can serve as a hypothesis generator inside an agent loop, with external verification (counterexample search) catching spurious patterns, a pattern worth borrowing for automated interpretability pipelines. Caveat: the domain is pure mathematics, where verification is exact; the abstract gives no quantitative measure of how much the interpretability step contributes."
+      ],
+      "score": 3
     }
   ]
 }

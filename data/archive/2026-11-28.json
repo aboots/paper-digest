@@ -1,0 +1,183 @@
+{
+  "date": "2026-11-28",
+  "generated_at": "2026-11-28T06:00:50-07:00",
+  "papers": [
+    {
+      "id": "arxiv:2611.33304",
+      "title": "The Platonic Representation Hypothesis in Jacobian-Space: Language and Vision Models Agree Approximately Up to a Rotation",
+      "authors": [
+        "Ross Murphy",
+        "Gabriel Brostow"
+      ],
+      "affiliations": [
+        "UCL"
+      ],
+      "url": "https://arxiv.org/abs/2611.33304",
+      "pdf_url": "https://arxiv.org/pdf/2611.33304",
+      "source": "arXiv cs.AI",
+      "published": "2026-11-24",
+      "topics": [
+        "steering"
+      ],
+      "tldr": "Using the Jacobian lens, each word or class gets an output-steering vector in a model's hidden space, and these \"J-spaces\" of language and vision models line up up to a single rotation. Word vectors rotated from a text-only LLM successfully steer a VLM's visual patches, SDXL conditioning and even a text-free ImageNet classifier.",
+      "summary": [
+        "The Platonic Representation Hypothesis has mostly been tested on activations, i.e. on how models represent inputs. Whether models also agree on how hidden states drive their outputs, which is what steering actually exploits, has not been checked across families and modalities.",
+        "At a chosen transformer layer, the Jacobian lens assigns every vocabulary word (or classifier class) the hidden-state direction that most increases its output; the set of these vectors is the model's J-space. The authors compare J-spaces across language-model families, then fit one orthogonal Procrustes rotation on a subset of words and use it to transfer steering vectors to held-out words in other models: Qwen3-VL visual patch tokens, SDXL text conditioning, and ImageNet ViTs trained without text (in both directions). Controls address skip-connection leakage and corpus statistics, and appendices extend the analysis to video models and self-supervised encoders.",
+        "J-spaces of different models are reported to align beyond what static unembeddings explain, and a single rotation fitted on some words generalizes to unseen words and classes. A rotated word vector changes the object a VLM reports, but only in the image region where it is added; it changes the object SDXL generates; and it lifts the matching ImageNet class above almost all others. The abstract gives no aggregate numbers, so effect sizes must be read from the paper. Takeaway for steering-geometry work: output-sensitivity (Jacobian) directions, not just activation-difference vectors, appear to be a shared, near-rotational coordinate system, so steering vectors may be transferable across models with a cheap Procrustes fit. Caveat: preprint from a single lab; it shows steering effects, not that the rotation preserves fine-grained side effects in every model."
+      ],
+      "score": 5,
+      "thumbnail": "https://arxiv.org/html/2611.33304v1/fig_crossmodal_demo_v12.png"
+    },
+    {
+      "id": "arxiv:2611.33671",
+      "title": "Look at What Matters: Learning Lesion Prototypes from Severity Labels for Domain-Generalized Diabetic Retinopathy Grading",
+      "authors": [
+        "Ziyang Zhang",
+        "Juming Xiong",
+        "Yanfan Zhu",
+        "Yuechen Yang",
+        "Junchao Zhu",
+        "Zhengyi Lu",
+        "Chongyu Qu",
+        "Yiming Zhong",
+        "Yalin Zheng",
+        "Yuankai Huo",
+        "He Zhao"
+      ],
+      "affiliations": [
+        "Vanderbilt",
+        "University of Liverpool"
+      ],
+      "url": "https://arxiv.org/abs/2611.33671",
+      "pdf_url": "https://arxiv.org/pdf/2611.33671",
+      "source": "arXiv cs.CV",
+      "published": "2026-11-25",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Lesion and background prototypes are learned from image-level severity labels alone, and an additive ordinal model grades diabetic retinopathy only from prototype responses. Under leave-one-domain-out across six datasets it reaches a mean quadratic weighted kappa of 0.761, 0.036 above the strongest competitor.",
+      "summary": [
+        "Diabetic retinopathy graders often fail on unseen imaging domains because they latch onto dataset-specific correlations rather than pathology. Prototype models promise lesion-level evidence, but usually need lesion annotations or keep a global classification path that bypasses the prototypes.",
+        "Clinical meaning of each DR grade is turned into multiple-instance constraints that drive competitive learning of lesion and background prototypes at several scales. An additive ordinal scoring head predicts severity exclusively from individual lesion-prototype responses, with no global feature classifier. Two regularizers make the evidence more reliable: teacher-guided preservation of prototype responses under image degradations, and a spatial penalty against prototypes that fire at fixed image coordinates. Evaluation is leave-one-domain-out over six public DR datasets, plus transplanting the idea into five other prototype architectures.",
+        "The method attains a mean quadratic weighted kappa of 0.761 and beats the strongest competing method by 0.036. Localization and prototype-removal analyses indicate that prototype responses sit on retinal lesions and actually drive the grade, and the gains carry over to five other prototype architectures and to degraded images. Takeaway for prototype networks on prostate ultrasound: weak-label (grade-only) multiple-instance constraints, an additive ordinal head that forces all decisions through prototypes, and an explicit penalty on position-locked prototypes are directly reusable for Gleason-grade or csPCa supervision with only core-level labels. Caveats: fundus imaging only, public datasets only, and the abstract does not mention released code."
+      ],
+      "score": 4,
+      "thumbnail": "https://arxiv.org/html/2611.33671v1/fig/framework.png"
+    },
+    {
+      "id": "arxiv:2611.33182",
+      "title": "Neighbor Crowding Predicts Feature Stability in Sparse Autoencoders",
+      "authors": [
+        "Denis Federico Lim",
+        "Naveen Dasari",
+        "George Flint",
+        "Kevin Zhu"
+      ],
+      "url": "https://arxiv.org/abs/2611.33182",
+      "pdf_url": "https://arxiv.org/pdf/2611.33182",
+      "source": "arXiv cs.LG; accepted at the NeurReps Workshop (Symmetry and Geometry in Neural Representations), NeurIPS 2026, Proceedings track",
+      "published": "2026-10-25",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "Whether a TopK SAE feature will reappear across random seeds can be predicted from six cheap statistics of a single training run, so multi-seed training is not needed to flag stable features. Neighbor crowding, how densely a decoder direction's neighborhood is populated on the unit sphere, is the strongest single predictor.",
+      "summary": [
+        "Many SAE features are artifacts of initialization: prior work cited in the paper found only 30% shared features between two seeds of an SAE on Llama 3 8B. The usual check, training several seeds and matching features by cosine similarity, is expensive, which motivates predicting stability from one run.",
+        "The authors train three TopK SAE seeds on Pythia-70m at k in {64, 128, 256} and at several training-token budgets, labeling a feature stable when it is matched across seeds. They then compute six single-run statistics per feature (activation frequency, mean activation, neighbor crowding, reconstruction contribution, encoder column norm, encoder bias) and train a logistic-regression classifier to predict the stability label, testing transfer across model scale and family and controlling for confounds.",
+        "Stability turns out to be highly predictable from these statistics, and features in dense regions of the dictionary are more likely to be stable than isolated ones; the paper also reports transfer of the predictor across model scale and family. The abstract itself gives no headline accuracy numbers. Takeaway for SAE users: before building analyses or steering on SAE latents, compute neighbor crowding and the other cheap statistics to down-weight likely seed-specific features, which is far cheaper than retraining. Caveats: the main experiments use a very small model (Pythia-70m) and TopK SAEs only, and it is a workshop paper; code is linked in the paper."
+      ],
+      "score": 4,
+      "thumbnail": "https://arxiv.org/html/2611.33182v1/stability_by_token_count.png"
+    },
+    {
+      "id": "arxiv:2611.34930",
+      "title": "A gene informed benchmark for BioScoring of pathology foundation models",
+      "authors": [
+        "Paul Vilars",
+        "Vincent Quoc-Huy Trinh",
+        "Maria Vakalopoulou",
+        "Dimitris Samaras",
+        "Stergios Christodoulidis",
+        "Mahdi S. Hosseini"
+      ],
+      "affiliations": [
+        "Concordia",
+        "Mila",
+        "CentraleSupélec"
+      ],
+      "url": "https://arxiv.org/abs/2611.34930",
+      "pdf_url": "https://arxiv.org/pdf/2611.34930",
+      "source": "arXiv cs.LG",
+      "published": "2026-11-25",
+      "topics": [
+        "sae"
+      ],
+      "tldr": "BioScore runs an unsupervised sparse autoencoder on a pathology encoder's patch embeddings and checks, against spatial transcriptomics of the same tissue, whether some feature group tracks each of 52 marker-gene cell identities. Every one of 8 pathology foundation models scores above every one of 3 natural-image models (0.299-0.371 vs 0.214-0.232).",
+      "summary": [
+        "Pathology foundation models are compared on downstream accuracy, which says how useful they are but not what biology they actually encode. Supervised probes answer that only where labels exist.",
+        "A sparse autoencoder decomposes each encoder's patch embeddings into sparse features, which are clustered into a fixed number of groups. With spatial transcriptomics from the same tissue as reference, BioScore measures for each of 52 marker-gene-defined cell identities how specifically one group follows that identity's expression across the tissue. Because the SAE never sees labels, a match indicates the encoder represents the identity from the image alone. They score 8 pathology foundation models and 3 natural-image models and use paired tests to compare them.",
+        "All pathology models score 0.299-0.371 versus 0.214-0.232 for natural-image models, and paired tests split the pathology models into three tiers. BioScore needs no labels, works from few sections, and ranks encoders the same way a supervised probe does, while its per-identity breakdown shows which cell types each encoder captures or misses. Takeaway: SAE features plus an aligned non-image modality give a label-free way to audit what a medical foundation encoder represents, a template that could transfer to ultrasound encoders if paired with histopathology maps. Caveat: depends on spatial transcriptomics availability, and the score depends on the chosen number of clusters and SAE setup."
+      ],
+      "score": 4,
+      "thumbnail": "https://arxiv.org/html/2611.34930v1/figures/overview.png"
+    },
+    {
+      "id": "arxiv:2611.34426",
+      "title": "A Head-Level Investigative Study of Self-Supervised Backbones for Synthetic Speech Detection",
+      "authors": [
+        "Mohamed Mallat",
+        "Michele Panariello",
+        "Massimiliano Todisco",
+        "Anthony Larcher",
+        "Nicholas Evans"
+      ],
+      "affiliations": [
+        "EURECOM",
+        "Le Mans Université"
+      ],
+      "url": "https://arxiv.org/abs/2611.34426",
+      "pdf_url": "https://arxiv.org/pdf/2611.34426",
+      "source": "arXiv cs.SD",
+      "published": "2026-11-25",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "Per-head ablation of frozen WavLM-base and Wav2Vec2-base on ASVspoof 5 shows a few attention heads carry the spoof decision while others work against it; removing the opposing heads cuts equal error rate by 13% (WavLM) and 22% (Wav2Vec2) relative, with no retraining.",
+      "summary": [
+        "Self-supervised speech backbones are the standard front end for synthetic-speech detection, and layer-wise probing has shown which layers matter. Which attention heads inside those layers actually compute the spoof decision had not been examined.",
+        "The authors run a head-level study of two frozen backbones, WavLM-base and Wav2Vec2-base, on the ASVspoof 5 benchmark. They ablate heads one at a time to measure each head's contribution to the detection decision, compare attention focus (entropy) between genuine and spoofed speech, and test whether attack identity can be decoded from each head.",
+        "Only a few heads carry the decision and some actively oppose it; dropping those lowers EER by 13% relative for WavLM and 22% for Wav2Vec2 without retraining. Spoofed speech draws more focused attention than genuine speech, and this attention gap alone separates the classes almost as well as the full representation, peaking at each backbone's most discriminative layer. Attack identity is decodable from every head, so heads differ in function rather than in information content. Takeaway: head ablation is a cheap, training-free way to find and remove harmful components in frozen SSL encoders, and 'decodable' is not the same as 'used', a useful caution when reading probing results. Caveat: base-size models and a single benchmark."
+      ],
+      "score": 3
+    },
+    {
+      "id": "arxiv:2611.33966",
+      "title": "PatternMiner: Automated Mathematical Discovery Through LLM-Guided Training and Interpretation of Small Models",
+      "authors": [
+        "Michael Ruofan Zeng",
+        "Junaid Hasan",
+        "Xuanyu Yang",
+        "Emily Xia Meng",
+        "Henry Kvinge"
+      ],
+      "affiliations": [
+        "University of Washington",
+        "PNNL"
+      ],
+      "url": "https://arxiv.org/abs/2611.33966",
+      "pdf_url": "https://arxiv.org/pdf/2611.33966",
+      "source": "arXiv cs.AI",
+      "published": "2026-11-25",
+      "topics": [
+        "interpretability"
+      ],
+      "tldr": "An LLM agent generates math datasets, trains small models, applies interpretability tools to extract patterns, turns them into conjectures and refines them with counterexample search. Applied to five positivity problems in algebraic combinatorics, it proves several new theorems.",
+      "summary": [
+        "AI-driven mathematical discovery either uses LLMs to reason about well-specified conjectures in text, or uses narrow models plus human-led interpretability on mathematical data. The first is poor at open-ended data exploration and the second rarely goes beyond spotting empirical patterns.",
+        "PatternMiner combines the two: from a broad question, an LLM agent builds datasets, trains narrow ML models, uses interpretability techniques on them to extract patterns, and formulates conjectures. It then searches for counterexamples with mathematical software, feeding failures back into conjecture refinement or another training-and-interpretation round, and may attempt proofs at any point. Code and experiment records are released.",
+        "On five well-known positivity problems in algebraic combinatorics, the system proves new results on Schubert positivity and projection, a character-row evaluation formula, a restricted version of the Kazhdan-Lusztig combinatorial invariance conjecture, and Schur positivity for a family of immanant coefficients. The paper also catalogs common routes to conjectures and failure modes. Takeaway: interpretability of small trained models can serve as a hypothesis generator inside an agent loop, with external verification (counterexample search) catching spurious patterns, a pattern worth borrowing for automated interpretability pipelines. Caveat: the domain is pure mathematics, where verification is exact; the abstract gives no quantitative measure of how much the interpretability step contributes."
+      ],
+      "score": 3
+    }
+  ]
+}
